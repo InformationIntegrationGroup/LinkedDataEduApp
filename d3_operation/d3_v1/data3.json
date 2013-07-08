@@ -1,0 +1,115 @@
+{
+	"nodes": [
+		{
+			"name": "Chelsea Clinton",
+			"uri": "http://dbpedia.org/resource/Chelsea_Clinton"
+		}, {
+			"name": "Concordia Language Villages",
+			"group": 1,
+			"uri": "http://dbpedia.org/resource/Concordia_Language_Villages"
+		}, {
+			"name": "Presidency of Bill Clinton",
+			"group": 1,
+			"uri": "http://dbpedia.org/resource/Presidency_of_Bill_Clinton"
+		}, {
+			"name": "Hillary Rodham Clinton",
+			"group": 1,
+			"uri": "http://dbpedia.org/resource/Hillary_Rodham_Clinton"
+		}, {
+			"name": "Edward Mezvinsky",
+			"group": 1,
+			"uri": "http://dbpedia.org/resource/Edward_Mezvinsky"
+		}, {
+			"name": "NYU Robert F. Wagner Graduate School of Public Service",
+			"group": 1,
+			"uri": "http://dbpedia.org/resource/Robert_F._Wagner_Graduate_School_of_Public_Service"
+		}, {
+			"name": "Bill Clinton",
+			"group": 1,
+			"uri": "http://dbpedia.org/resource/Bill_Clinton"
+		}, {
+			"name": "Marjorie Margolies-Mezvinsky",
+			"group": 1,
+			"uri": "http://dbpedia.org/resource/Marjorie_Margolies-Mezvinsky"
+		}, {
+			"name": "University College",
+			"group": 1,
+			"uri": "http://dbpedia.org/resource/University_College,_Oxford"
+		}, {
+			"name": "City of Little Rock, Arkansas",
+			"group": 1,
+			"uri": "http://dbpedia.org/resource/Little_Rock,_Arkansas"
+		}, {
+			"name": "Stanford University",
+			"group": 1,
+			"uri": "http://dbpedia.org/resource/Stanford_University"
+		}, {
+			"name": "Democratic Party",
+			"group": 1,
+			"uri": "http://dbpedia.org/resource/Democratic_Party_(United_States)"
+		}
+	],
+	"links": [
+		{
+			"source": 1,
+			"value": "http://dbpedia.org/property/alumni",
+			"target": 0
+		}, {
+			"source": 1,
+			"value": "http://dbpedia.org/ontology/alumni",
+			"target": 0
+		}, {
+			"source": 2,
+			"value": "http://dbpedia.org/property/children",
+			"target": 0
+		}, {
+			"source": 3,
+			"value": "http://dbpedia.org/property/children",
+			"target": 0
+		}, {
+			"source": 4,
+			"value": "http://dbpedia.org/property/children",
+			"target": 0
+		}, {
+			"source": 0,
+			"value": "http://dbpedia.org/property/almaMater",
+			"target": 5
+		}, {
+			"source": 2,
+			"value": "http://dbpedia.org/ontology/child",
+			"target": 0
+		}, {
+			"source": 6,
+			"value": "http://dbpedia.org/ontology/child",
+			"target": 0
+		}, {
+			"source": 3,
+			"value": "http://dbpedia.org/ontology/child",
+			"target": 0
+		}, {
+			"source": 4,
+			"value": "http://dbpedia.org/ontology/child",
+			"target": 0
+		}, {
+			"source": 7,
+			"value": "http://dbpedia.org/ontology/child",
+			"target": 0
+		}, {
+			"source": 0,
+			"value": "http://dbpedia.org/property/almaMater",
+			"target": 8
+		}, {
+			"source": 0,
+			"value": "http://dbpedia.org/property/placeOfBirth",
+			"target": 9
+		}, {
+			"source": 0,
+			"value": "http://dbpedia.org/property/almaMater",
+			"target": 10
+		}, {
+			"source": 0,
+			"value": "http://dbpedia.org/property/party",
+			"target": 11
+		}
+	]
+}

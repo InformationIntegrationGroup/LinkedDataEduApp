@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<style>
+			.node {
+				stroke: #000;
+				stroke-width: 1px;
+			}
+
+			.link {
+				stroke: #000;
+				stroke-width: 1px;
+				stroke-opacity: .6;
+			}
+
+			.node > text {
+				font-family: "Time New Romans";
+				font-size: 10px;
+				font-weight: lighter;
+			}
+
+		</style>
+	</head>
+	<body>
+		<div>
+			<input type="text" id="input"/>
+			<input type="button" id="button" value="Start"/>
+
+		</div>
+		<p>
+			Here is the SVG
+		</p>
+		<script src="d3_v3_full/d3.js"></script>
+		
+		
+		
+		
+		
+		<script>
+			var width = 1150, height = 600, status = 1;
+
+			var svg = d3.select("body")
+						.append("svg")
+						.attr("width", width)
+						.attr("height", height);
+
+			var force = d3.layout.force()
+						.gravity(0)
+						.distance(250)
+						.charge(-1)
+						.theta(500)
+						.size([100, 100])
+
+			var input = document.getElementById("input");
+			var button = document.getElementById("button");
+			var firstNodeIndex;		
+			var request, nodes, nodeNames = [], links, linkValues = [];
+			if (window.XMLHttpRequest) {
+				request = new XMLHttpRequest();
+			} else {
+				request = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+button.onclick = function() {
+/******************PARSE JASON************************/
+			request.open('GET', 'data1.json');
+			request.onreadystatechange = function() {
+				if ((request.status === 200) && (request.readyState === 3)) {
+				console.log("request.status: ", request.status);
+				console.log("request.readyState: ", request.readyState);
+				
+					info = JSON.parse(request.responseText);
+					information = info;
+					nodes = info.nodes;
+					for (var i = 0; i < nodes.length; i++) {
+						nodeNames.push(nodes[i].name);
+					}
+
+					links = info.links;
+					for (var i = 0; i < links.length; i++) {
+						linkValues.push(links[i].value);
+					}
+				}//ready
+				var value = input.value;
+
+				
+				
+
+				
+				if (status == 1){
+////////////////////////////////////////////////////////////////D3/////////////////////////////////////////////////////
+				d3.json("data1.json", function(error, json) {
+				
+					for (var i = 0; i < nodeNames.length; i++) {
+						if (value == nodeNames[i]) {
+							firstNodeIndex = i;
+						}
+					}
+					console.log("nodes: ", nodes);
+					console.log("links: ", links);
+					console.log("nodeNames: ", nodeNames);
+					console.log("linkValues: ", linkValues);
+					console.log("value: ", value);
+					console.log("firstNodeIndex: ", firstNodeIndex);
+					
+					
+					
+					force.nodes(json.nodes)
+						 .links(json.links)
+						 .start();
+
+					 var link = svg.selectAll(".link")
+						 .data(json.links)
+						 .text(json.links.name)
+						 .enter()
+						 .append("line")
+						 .attr("class", "link")
+						 .attr("marker-end","url(#triangle)");
+			 //console.log(link.text);
+
+					 var node = svg.selectAll(".node")
+						 .data(json.nodes)
+						 .enter()
+						 .append("g")
+						 .attr("class", "node")
+						 .call(force.drag);
+					console.log("svgNode: ", node);
+					console.log("svgLink: ", link);
+//console.log("firstNode", node);
+
+						
+/*********************NODE OPERATION*************************************/
+						
+/*********************NODE OPERATION*************************************/
+						link.append("svg:text")
+							.attr("dx", 100)
+							.attr("dy", "15em")
+							.attr("text-anchor", "middle")
+							.attr("strok-width", "3px")
+							.text(function(d) {return d.value;});
+
+						var root = node[0];
+						root.fixed = true;
+						root.x = width / 2;
+						root.y = height / 2;
+						
+/*********************TURN ON FORCE*************************************/
+						force.on("tick", function() {
+							node.attr("transform", function(d) {
+								if (d.name == value){ 
+									return "translate(" + d.x + "," + d.y + ")"; 
+								}
+							})
+								.append("image")
+								.attr("xlink:href", function(d) {
+									if (d.name == value){
+										return d.src;
+									}
+								})
+								.attr("x", -20)
+								.attr("y", -20)
+								.attr("width", 50)
+								.attr("height", 50)
+							
+							node.append("text")
+								.attr("dx", 33)
+								.attr("dy", "0.1em")
+								.attr("color", "#000")
+								.attr("class", "text")
+								.text(function(d) {
+									if (d.name == value){
+										return d.name}
+									}
+								);
+										
+							link.attr("x1", function(d) { return d.source.x; })
+			 .attr("y1", function(d) { return d.source.y; })
+			 .attr("x2", function(d) { return d.target.x; })
+			 .attr("y2", function(d) { return d.target.y; });
+			 //force.on
+
+						});
+						//force.on
+				});//d3
+				status = 0;
+				}//status == 1
+			}//ON READY STATE CHANGE
+			request.send();
+}//button.onclick
+			/*
+
+			 d3.json("data1.json", function(error, json) {
+			 force
+			 .nodes(json.nodes)
+			 .links(json.links)
+			 .start();
+
+			 var link = svg.selectAll(".link")
+			 .data(json.links)
+			 .text(json.links.name)
+			 .enter()
+			 .append("line")
+			 .attr("class", "link")
+			 .attr("marker-end","url(#triangle)");
+			 //console.log(link.text);
+
+			 var node = svg.selectAll(".node")
+			 .data(json.nodes)
+			 .enter()
+			 .append("g")
+			 .attr("class", "node")
+			 .call(force.drag);
+
+			 /*
+			 node.append("circle")
+			 .attr("r", "10")
+			 .attr("fill", "salmon")
+			 */
+
+			/*
+			 node.append("image")
+			 .attr("xlink:href", "label.png")
+			 .attr("x", -5)
+			 .attr("y", -5)
+			 .attr("class", "img");
+			 */
+			/*
+			 node.append("image")
+			 .attr("xlink:href", function(d){ return d.src;})
+			 .attr("x", -20)
+			 .attr("y", -20)
+			 .attr("width", 50)
+			 .attr("height", 50);
+
+			 node.append("text")
+			 .attr("dx", 33)
+			 .attr("dy", "0.1em")
+			 .attr("color", "#000")
+			 .attr("class", "text")
+			 .text(function(d) { return d.name });
+
+			 link.append("svg:text")
+			 .attr("dx", 100)
+			 .attr("dy", "15em")
+			 .attr("text-anchor", "middle")
+			 .attr("strok-width", "3px")
+			 .text(function(d) { console.log(d.value); return d.value;});
+
+			 var root = node[0];
+			 root.fixed = true;
+			 root.x = width/2;
+			 root.y = height/2;
+
+			 var input = document.getElementById("input");
+			 var button = document.getElementById("button");
+			 button.onclick = function(){
+			 var value = input.value;
+			 console.log(value);
+
+			 node.append("image")
+			 .attr("xlink:href", function(d){ return d.src;})
+			 .attr("x", -20)
+			 .attr("y", -20)
+			 .attr("width", 50)
+			 .attr("height", 50);
+
+			 node.append("text")
+			 .attr("dx", 33)
+			 .attr("dy", "0.1em")
+			 .attr("color", "#000")
+			 .attr("class", "text")
+			 .text(function(d) { return d.name });
+
+			 link.append("svg:text")
+			 .attr("dx", 100)
+			 .attr("dy", "15em")
+			 .attr("text-anchor", "middle")
+			 .attr("strok-width", "3px")
+			 .text(function(d) { console.log(d.value); return d.value;});
+
+			 var root = node[0];
+			 root.fixed = true;
+			 root.x = width/2;
+			 root.y = height/2;
+
+			 force.on("tick", function() {
+			 node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+			 link.attr("x1", function(d) { return d.source.x; })
+			 .attr("y1", function(d) { return d.source.y; })
+			 .attr("x2", function(d) { return d.target.x; })
+			 .attr("y2", function(d) { return d.target.y; });
+			 });//force.on
+			 }//button.onclick
+			 });
+
+			 */
+		</script>
+
+	</body>
+</html>

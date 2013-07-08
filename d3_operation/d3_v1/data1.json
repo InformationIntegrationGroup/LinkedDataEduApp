@@ -1,0 +1,19 @@
+{
+  "nodes":[
+    {"name":"Myriel","group":1,"src":"http://images3.wikia.nocookie.net/__cb20130404062320/lesmiserables/images/5/51/Bishop-Myriel.jpg","status":0},
+    {"name":"Brujon","group":1,"src":"http://images2.wikia.nocookie.net/__cb20130414122302/lesmiserables/images/e/e9/Brujon.jpg","status":0},
+    {"name":"Valjean","group":2,"src":"http://www.bbcamerica.com/anglophenia/files/2012/12/Hugh-Jackman-Les-Miserables.jpg","status":0},
+    {"name":"Cosette","group":2,"src":"http://www.aceshowbiz.com/images/still/les-miserables-image06.jpg","status":0},
+    {"name":"Javert","group":3,"src":"http://blogs-images.forbes.com/cherylsnappconner/files/2012/12/russell-crowe-as-inspector-javert-in-les.jpg","status":0},
+    {"name":"Marius","group":3,"status":0,"src":"http://cdn.thedailybeast.com/content/dailybeast/articles/2012/12/25/eddie-redmayne-s-star-making-turn-in-les-miserables-and-the-new-brit-pack/_jcr_content/body/inlineimage.img.503.jpg/1356444759289.cached.jpg"}
+  ],
+  "links":[
+    {"source":1,"target":0,"value":1,"status":0},
+    {"source":2,"target":0,"value":2,"status":0},
+    {"source":3,"target":0,"value":3,"status":0},
+    {"source":4,"target":2,"value":4,"status":0},
+    {"source":2,"target":1,"value":4,"status":0},
+    {"source":5,"target":1,"value":4,"status":0},
+    {"source":5,"target":2,"value":5,"status":0}
+  ]
+}

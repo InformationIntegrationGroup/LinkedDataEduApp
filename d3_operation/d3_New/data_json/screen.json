@@ -1,0 +1,10 @@
+{
+	"name":"screen",
+	"children":[
+				{"name":"keyboard","catalog":"device"},
+				{"name":"trackpad","catalog":"device"},
+				{"name":"apple","catalog":"fruit"},
+				{"name":"television","catalog":"electronics"},
+				{"name":"touchscreen","catalog":"device"}
+	]
+}
