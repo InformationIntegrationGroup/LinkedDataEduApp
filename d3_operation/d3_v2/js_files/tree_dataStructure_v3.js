@@ -4,10 +4,13 @@ var w = 1240,
 	link,
 	history,
 	historyMessage = [],
+	popTemp = [],
 	stopPoint = -1,
 	appendList = [],//store every node and its children, if any
 	detect = 1,
 	root;
+var x = w / 2;
+var y = 300;
 var draw = document.getElementById("draw");
 var showNode = document.getElementById("showRoot");
 var addData = document.getElementById("add");
@@ -15,26 +18,24 @@ var input = document.getElementById("input");
 var ref = document.getElementById("ref");
 
 var force = d3.layout.force()
-	.linkDistance(120)
+	.linkDistance(100)
 	.charge(-60)
 	.gravity(0)
-    .on("tick", tick)
-    .friction(0.75)
-    .alpha(-1)
+	.linkStrength(1)
+	.friction(0.75)
+  //  .on("tick", tick)
     .size([500, 250]);
 
-var vis = d3.select("#chart").append("svg:svg")
-    .attr("width", w)
-    .attr("height", h);
+var vis = d3.select("#chart")
+			.append("svg:svg")
+    		.attr("width", w)
+    		.attr("height", h);
 
 
 //=============================================================================      
 function append() {
 d3.json("data_json/dataTree.json", function(json) {
-//	console.log("ref:json", json);
 	root = json;
-//	console.log("ref:root:before: ", root);
-//	console.log("ref:root:after: ", root);
 	update();
 });
 }
@@ -44,12 +45,9 @@ function add(name) {
 	var keyWord = "data_json/";
 	keyWord += name;
 	keyWord += ".json";
-//	historyMessage.push(name);
-//	appendList = [];
-//	history.push(keyWord);
-//	console.log(keyWord);
+	historyMessage.push(name);
 
-	d3.json(keyWord, function(json){
+	d3.json(keyWord, function(error, json){
 //console.log("Json", json);
 	if (json != null){
 		if (appendList[0] == undefined){
@@ -57,6 +55,8 @@ function add(name) {
 //console.log("json", json, "history", history);
 			appendList.push(json);
 			for (var i = 0; i < json.children.length; i++){
+				json.children[i].draw = 0;
+				//json.children[i].position = i;
 				appendList.push(json.children[i]);
 			}
 		}
@@ -89,120 +89,117 @@ function add(name) {
 			}
 		}
 console.log("history1:", history);
-		var result = drawSVGGraph(history);
+		var result = drawSVGGraph(history, name);
 	}
 	else {
 		alert("no available data for ' " + name + " '");
 	}
 
 	});
-//console.log("history2:", history);
-//	root = jQuery.extend(true, {}, history);
 
 console.log("===========================================================");
 }
 
-function drawSVGGraph(data){
+function drawSVGGraph(data, name){
+
 		root = jQuery.extend(true, {}, data);
-		//root = data;
-		update();
+
+		update(name);
+
 }
 
-function update() {
-if ($("g").length != 0){
-	$("g").remove();
-}
-console.log("history2:", history);
-console.log("root", root);
-console.log("appendList", appendList);
-//console.log("svg: ", $("svg"));
-//console.log("historyMessage", historyMessage);
-/*
-var historyOutput = '<h2>History: </h2><p>';
+function update(name) {
 
-	for (var i = 0; i < historyMessage.length; i++){
-		historyOutput += historyMessage[i];
-		historyOutput += ' -> <br>'
-	}
 
-historyOutput += '</p>';
-$("#history").html(historyOutput);
-*/
 
 
   var nodes = flatten(root),
       links = d3.layout.tree().links(nodes);
-//console.log("root", root);
-//console.log("json", json);
+
 	root.fixed = true;
 	root.x = w / 2;
-	root.y = 350;
+	root.y = 300;
+
   // Restart the force layout.
   force
       .nodes(nodes)
       .links(links)
       .start();
-  // Update the nodes…
-   node = vis.selectAll("circle.node")
-      .data(nodes, function(d) { 
-      	console.log("node.d", d.name, d);
-      	return d.id; 
-      	})
-      .style("fill", color);
+      
+      
+      
+    // Update the links…
+  link = vis.selectAll(".link")
+      .data(links, function(d) { return d.target.id; });
 
+  // Enter any new links.
+  link.enter()//.insert("svg:line", ".node")
+  	  .append("line")
+      .attr("class", "link");
+ //     .attr("x1", function(d) { return d.source.x; })
+  //    .attr("y1", function(d) { return d.source.y; })
+   //   .attr("x2", function(d) { return d.target.x; })
+    //  .attr("y2", function(d) { return d.target.y; });
+
+  // Exit any old links.
+  link.exit().remove();    
+      
+      
+   
+  
+  
+  
+  
+  // Update the nodes…
+  node = vis.selectAll(".node")
+      .data(nodes, function(d) { return d.id; });
+    //  .style("fill", "#3182bd");
+
+var xCompensation = -50;
+var yCompensationBase = - 14 / 8 * Math.PI;
+var yCompensation;
   // Enter any new nodes.
   node.enter()
-  	  .append("g")
-      .attr("class", "node")
-      .attr("transform", function(d){
-      	return "translate(" + d.x + "," + d.y + ")"; 
-      })
-      .call(force.drag);
-
+ 	  .append("g")
+ 	  .attr("class", "node")
+ 	  .call(force.drag)
+	  .on("click", click);
+ 	   
+  
+  
   node.append("svg:circle")
-  	  .attr("x", -10)
-  	  .attr("y", -10)
-  	  .attr("r", function(d) {return Math.log(d.size) * 3.5; })
-  	  .style("fill", color)
-  	  .on("click", click);
- //     .append("text")
- //     .text(function(d){
- //     	return d.name;
- //     })
-
-  
-  
-  node.attr("name", function(d){
-//console.log("node.d", d);
-      	return d.name;
-    });
- //    .style("fill", color);
-  node.append("text")
-		.attr("dx", 16)
+      .attr("class", "node")
+      .attr("x", -10)
+      .attr("y", -10)
+      .attr("r", function(d) {return Math.log(d.size) * 3.5; })
+      .style("fill", "#3182bd");
+   // Exit any old nodes.
+  node.exit().remove();   
+    //  .call(force.drag);
+	node.append("text")
+		.attr("dx", 12)
 		.attr("dy", 0)
 		.text(function(d){
-//console.log("data: ", d);
-//console.log(d.name);
+console.log("data: ", d);
+console.log(d.name);
 			return d.name;
 		});
   
   
+  node.attr("name", function(d){
+      	return d.name;
+    });
 
 
-  // Update the links…
-   link = vis.selectAll("line.link")
-      .data(links, function(d) { return d.target.id; });
 
-  // Enter any new links.
-  link.enter().insert("svg:line", ".node")
-      .attr("class", "link")
-      .attr("x1", function(d) { return d.source.x; })
-      .attr("y1", function(d) { return d.source.y; })
-      .attr("x2", function(d) { return d.target.x; })
-      .attr("y2", function(d) { return d.target.y; });
 
-  // Exit any old links.
-  link.exit().remove();
+
+
+
+
+
+  
+ 
 
   
   
@@ -216,9 +213,21 @@ $("#history").html(historyOutput);
   	var messageOutput = '<h2>Message: </h2>';
   	$("#message").html(messageOutput);
   })
+  
+  
+
+  
+  
+  
+  
 }
 
-function tick() {
+	
+
+
+
+
+force.on("tick", function(){
   
 
   node.attr("transform", function(d) {
@@ -237,7 +246,7 @@ function tick() {
       	}
 
   		return "translate(" + d.x + "," + d.y + ")"; 
-	  });
+	  	})
   
   link.attr("x1", function(d) { return d.source.x; })
       .attr("y1", function(d) { return d.source.y; })
@@ -246,7 +255,7 @@ function tick() {
 
 
 
-}
+});
 
 // Color leaf nodes orange, and packages white or blue.
 function color(d) {
@@ -260,8 +269,7 @@ function color(d) {
 
 // Toggle children on click.
 function click(d) {
-//alert(d.name);
-//console.log("click.d", d);
+
 if (d.search == 1){
   	if (d.children) {
     	d._children = d.children;
@@ -270,9 +278,10 @@ if (d.search == 1){
 	    d.children = d._children;
 	    d._children = null;
   	}
-  	update();
+  	update(d.name);
 }
 else if (d.search == 0){
+	y += 50;
 	add(d.name);
 }
 }
@@ -306,7 +315,7 @@ showNode.onclick = function(){
 }  
 addData.onclick = function(){
 	var name = input.value;
-	var result = add(name);
+	var result = add(name, w/2, 300);
 }
 ref.onclick = function(){
 	var result = append();

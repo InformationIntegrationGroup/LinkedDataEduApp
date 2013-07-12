@@ -1,0 +1,10 @@
+{
+	"name":"javascript",
+	"children":[
+				{"name":"java","catalog":"language"},
+				{"name":"website","catalog":"product"},
+				{"name":"browser","catalog":"product"},
+				{"name":"chrome","catalog":"product"},
+				{"name":"ie","catalog":"product"}
+	]
+}

@@ -1,0 +1,10 @@
+{
+	"name":"ipad",
+	"children":[
+				{"name":"game","catalog":"activity"},
+				{"name":"lightening","catalog":"phenomenon"},
+				{"name":"tablet","catalog":"electronics"},
+				{"name":"smartcover","catalog":"device"},
+				{"name":"nexus7","catalog":"electronics"}
+	]
+}

@@ -19,7 +19,7 @@ var force = d3.layout.force()
 	.charge(-60)
 	.gravity(0)
     .on("tick", tick)
-    .friction(0.75)
+    //.friction(0.75)
     .alpha(-1)
     .size([500, 250]);
 
@@ -44,7 +44,7 @@ function add(name) {
 	var keyWord = "data_json/";
 	keyWord += name;
 	keyWord += ".json";
-//	historyMessage.push(name);
+	historyMessage.push(name);
 //	appendList = [];
 //	history.push(keyWord);
 //	console.log(keyWord);
@@ -112,12 +112,9 @@ function update() {
 if ($("g").length != 0){
 	$("g").remove();
 }
-console.log("history2:", history);
 console.log("root", root);
-console.log("appendList", appendList);
 //console.log("svg: ", $("svg"));
 //console.log("historyMessage", historyMessage);
-/*
 var historyOutput = '<h2>History: </h2><p>';
 
 	for (var i = 0; i < historyMessage.length; i++){
@@ -127,7 +124,7 @@ var historyOutput = '<h2>History: </h2><p>';
 
 historyOutput += '</p>';
 $("#history").html(historyOutput);
-*/
+
 
 
   var nodes = flatten(root),
@@ -144,10 +141,7 @@ $("#history").html(historyOutput);
       .start();
   // Update the nodes…
    node = vis.selectAll("circle.node")
-      .data(nodes, function(d) { 
-      	console.log("node.d", d.name, d);
-      	return d.id; 
-      	})
+      .data(nodes, function(d) { return d.id; })
       .style("fill", color);
 
   // Enter any new nodes.
@@ -157,14 +151,14 @@ $("#history").html(historyOutput);
       .attr("transform", function(d){
       	return "translate(" + d.x + "," + d.y + ")"; 
       })
+      .on("click", click)
       .call(force.drag);
 
   node.append("svg:circle")
   	  .attr("x", -10)
   	  .attr("y", -10)
   	  .attr("r", function(d) {return Math.log(d.size) * 3.5; })
-  	  .style("fill", color)
-  	  .on("click", click);
+  	  .style("fill", color);
  //     .append("text")
  //     .text(function(d){
  //     	return d.name;

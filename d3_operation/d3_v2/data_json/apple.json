@@ -1,0 +1,10 @@
+{
+	"name":"apple",
+	"children":[
+				{"name":"computer","catalog":"electronics"},
+				{"name":"ipod","catalog":"electronics"},
+				{"name":"banana","catalog":"fruit"},
+				{"name":"macbook","catalog":"electronics"},
+				{"name":"ipad","catalog":"electronics"}
+	]
+}

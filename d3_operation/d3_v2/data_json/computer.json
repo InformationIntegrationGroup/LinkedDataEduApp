@@ -1,0 +1,11 @@
+{
+	"name":"computer",
+	"catalog":"electronics",
+	"children":[
+				{"name":"c++","catalog":"language"},
+				{"name":"mouse","catalog":"electronics"},
+				{"name":"screen","catalog":"device"},
+				{"name":"javascript","catalog":"language"},
+				{"name":"python","catalog":"language"}
+	]
+}

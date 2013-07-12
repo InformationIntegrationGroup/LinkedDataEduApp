@@ -15,12 +15,10 @@ var input = document.getElementById("input");
 var ref = document.getElementById("ref");
 
 var force = d3.layout.force()
-	.linkDistance(120)
-	.charge(-60)
+	.linkDistance(70)
+	.charge(-45)
 	.gravity(0)
     .on("tick", tick)
-    .friction(0.75)
-    .alpha(-1)
     .size([500, 250]);
 
 var vis = d3.select("#chart").append("svg:svg")
@@ -44,7 +42,7 @@ function add(name) {
 	var keyWord = "data_json/";
 	keyWord += name;
 	keyWord += ".json";
-//	historyMessage.push(name);
+	historyMessage.push(name);
 //	appendList = [];
 //	history.push(keyWord);
 //	console.log(keyWord);
@@ -103,21 +101,15 @@ console.log("===========================================================");
 }
 
 function drawSVGGraph(data){
+
 		root = jQuery.extend(true, {}, data);
-		//root = data;
+
 		update();
+
 }
 
 function update() {
-if ($("g").length != 0){
-	$("g").remove();
-}
-console.log("history2:", history);
-console.log("root", root);
-console.log("appendList", appendList);
-//console.log("svg: ", $("svg"));
-//console.log("historyMessage", historyMessage);
-/*
+console.log("historyMessage", historyMessage);
 var historyOutput = '<h2>History: </h2><p>';
 
 	for (var i = 0; i < historyMessage.length; i++){
@@ -127,7 +119,7 @@ var historyOutput = '<h2>History: </h2><p>';
 
 historyOutput += '</p>';
 $("#history").html(historyOutput);
-*/
+
 
 
   var nodes = flatten(root),
@@ -136,61 +128,43 @@ $("#history").html(historyOutput);
 //console.log("json", json);
 	root.fixed = true;
 	root.x = w / 2;
-	root.y = 350;
+	root.y = 300;
   // Restart the force layout.
   force
       .nodes(nodes)
       .links(links)
       .start();
   // Update the nodes…
-   node = vis.selectAll("circle.node")
-      .data(nodes, function(d) { 
-      	console.log("node.d", d.name, d);
-      	return d.id; 
-      	})
+  node = vis.selectAll("circle.node")
+      .data(nodes, function(d) { return d.id; })
       .style("fill", color);
 
   // Enter any new nodes.
   node.enter()
-  	  .append("g")
+  //	  .append("g")
+  	  .append("svg:circle")
       .attr("class", "node")
-      .attr("transform", function(d){
-      	return "translate(" + d.x + "," + d.y + ")"; 
-      })
-      .call(force.drag);
-
-  node.append("svg:circle")
-  	  .attr("x", -10)
-  	  .attr("y", -10)
-  	  .attr("r", function(d) {return Math.log(d.size) * 3.5; })
-  	  .style("fill", color)
-  	  .on("click", click);
+      .attr("cx", function(d) { return d.x; })
+      .attr("cy", function(d) { return d.y; })
  //     .append("text")
  //     .text(function(d){
  //     	return d.name;
  //     })
-
-  
+      .on("click", click)
+      .call(force.drag);
+console.log("node: ", node);
+  // Exit any old nodes.
+  node.exit().remove();
   
   node.attr("name", function(d){
 //console.log("node.d", d);
       	return d.name;
-    });
- //    .style("fill", color);
-  node.append("text")
-		.attr("dx", 16)
-		.attr("dy", 0)
-		.text(function(d){
-//console.log("data: ", d);
-//console.log(d.name);
-			return d.name;
-		});
+     })
+     .attr("r", function(d) {return Math.log(d.size) * 3.5; })
+     .style("fill", color);
   
-  
-
-
   // Update the links…
-   link = vis.selectAll("line.link")
+  link = vis.selectAll("line.link")
       .data(links, function(d) { return d.target.id; });
 
   // Enter any new links.
@@ -206,13 +180,13 @@ $("#history").html(historyOutput);
 
   
   
-  $("g").mouseover(function(){
+  $("circle").mouseover(function(){
 		var messageOutput = '<p>Name: ';
 			messageOutput += $(this).attr("name");
 			messageOutput += '</p>';
 		$("#message").append(messageOutput);
 	});
-  $("g").mouseleave(function(){
+  $("circle").mouseleave(function(){
   	var messageOutput = '<h2>Message: </h2>';
   	$("#message").html(messageOutput);
   })
@@ -221,23 +195,24 @@ $("#history").html(historyOutput);
 function tick() {
   
 
-  node.attr("transform", function(d) {
-  //	console.log(d.name, d.x, d.y); 
+  node.attr("cx", function(d) { 
   		if (d.x < 15){
   			d.x = 15;
   		}
   		else if (d.x > 1220){
   			d.x = 1220;
   		}
-  		if (d.y < 15){
+  		return d.x; 
+	  	})
+      .attr("cy", function(d) { 
+      	if (d.y < 15){
       		d.y = 15;
       	}
       	else if (d.y > 985){
       		d.y = 985;
       	}
-
-  		return "translate(" + d.x + "," + d.y + ")"; 
-	  });
+      	return d.y; 
+      });
   
   link.attr("x1", function(d) { return d.source.x; })
       .attr("y1", function(d) { return d.source.y; })
@@ -264,9 +239,12 @@ function click(d) {
 //console.log("click.d", d);
 if (d.search == 1){
   	if (d.children) {
+//  		stopPoint = historyMessage.indexOf(d.name);
+		historyMessage.pop();
     	d._children = d.children;
 	    d.children = null;
   	} else {
+  		historyMessage.push(d.name);
 	    d.children = d._children;
 	    d._children = null;
   	}

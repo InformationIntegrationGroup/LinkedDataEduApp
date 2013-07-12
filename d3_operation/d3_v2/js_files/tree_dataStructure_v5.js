@@ -16,11 +16,10 @@ var ref = document.getElementById("ref");
 
 var force = d3.layout.force()
 	.linkDistance(120)
-	.charge(-60)
+	.charge(-100)
 	.gravity(0)
     .on("tick", tick)
     .friction(0.75)
-    .alpha(-1)
     .size([500, 250]);
 
 var vis = d3.select("#chart").append("svg:svg")
@@ -31,10 +30,7 @@ var vis = d3.select("#chart").append("svg:svg")
 //=============================================================================      
 function append() {
 d3.json("data_json/dataTree.json", function(json) {
-//	console.log("ref:json", json);
 	root = json;
-//	console.log("ref:root:before: ", root);
-//	console.log("ref:root:after: ", root);
 	update();
 });
 }
@@ -44,7 +40,7 @@ function add(name) {
 	var keyWord = "data_json/";
 	keyWord += name;
 	keyWord += ".json";
-//	historyMessage.push(name);
+	historyMessage.push(name);
 //	appendList = [];
 //	history.push(keyWord);
 //	console.log(keyWord);
@@ -104,7 +100,6 @@ console.log("===========================================================");
 
 function drawSVGGraph(data){
 		root = jQuery.extend(true, {}, data);
-		//root = data;
 		update();
 }
 
@@ -112,12 +107,9 @@ function update() {
 if ($("g").length != 0){
 	$("g").remove();
 }
-console.log("history2:", history);
 console.log("root", root);
-console.log("appendList", appendList);
 //console.log("svg: ", $("svg"));
 //console.log("historyMessage", historyMessage);
-/*
 var historyOutput = '<h2>History: </h2><p>';
 
 	for (var i = 0; i < historyMessage.length; i++){
@@ -127,7 +119,7 @@ var historyOutput = '<h2>History: </h2><p>';
 
 historyOutput += '</p>';
 $("#history").html(historyOutput);
-*/
+
 
 
   var nodes = flatten(root),
@@ -136,7 +128,7 @@ $("#history").html(historyOutput);
 //console.log("json", json);
 	root.fixed = true;
 	root.x = w / 2;
-	root.y = 350;
+	root.y = 300;
   // Restart the force layout.
   force
       .nodes(nodes)
@@ -144,10 +136,7 @@ $("#history").html(historyOutput);
       .start();
   // Update the nodes…
    node = vis.selectAll("circle.node")
-      .data(nodes, function(d) { 
-      	console.log("node.d", d.name, d);
-      	return d.id; 
-      	})
+      .data(nodes, function(d) { return d.id; })
       .style("fill", color);
 
   // Enter any new nodes.
@@ -157,14 +146,14 @@ $("#history").html(historyOutput);
       .attr("transform", function(d){
       	return "translate(" + d.x + "," + d.y + ")"; 
       })
+      .on("click", click)
       .call(force.drag);
 
   node.append("svg:circle")
   	  .attr("x", -10)
   	  .attr("y", -10)
   	  .attr("r", function(d) {return Math.log(d.size) * 3.5; })
-  	  .style("fill", color)
-  	  .on("click", click);
+  	  .style("fill", color);
  //     .append("text")
  //     .text(function(d){
  //     	return d.name;
@@ -178,7 +167,7 @@ $("#history").html(historyOutput);
     });
  //    .style("fill", color);
   node.append("text")
-		.attr("dx", 16)
+		.attr("dx", 14)
 		.attr("dy", 0)
 		.text(function(d){
 //console.log("data: ", d);
@@ -194,25 +183,27 @@ $("#history").html(historyOutput);
       .data(links, function(d) { return d.target.id; });
 
   // Enter any new links.
-  link.enter().insert("svg:line", ".node")
+  link.enter()//.insert("svg:g", ".node")
+  	  .append("g")
       .attr("class", "link")
-      .attr("x1", function(d) { return d.source.x; })
-      .attr("y1", function(d) { return d.source.y; })
-      .attr("x2", function(d) { return d.target.x; })
-      .attr("y2", function(d) { return d.target.y; });
+      .attr("transform", function(d){
+      	return "translate(" + d.source.x + "," + d.source.y + "," + d.target.x + "," + d.target.y + ")";
+      })
 
   // Exit any old links.
   link.exit().remove();
+  
+ link.append("line");
 
   
   
-  $("g").mouseover(function(){
+  $("circle").mouseover(function(){
 		var messageOutput = '<p>Name: ';
 			messageOutput += $(this).attr("name");
 			messageOutput += '</p>';
 		$("#message").append(messageOutput);
 	});
-  $("g").mouseleave(function(){
+  $("circle").mouseleave(function(){
   	var messageOutput = '<h2>Message: </h2>';
   	$("#message").html(messageOutput);
   })
@@ -264,9 +255,12 @@ function click(d) {
 //console.log("click.d", d);
 if (d.search == 1){
   	if (d.children) {
+//  		stopPoint = historyMessage.indexOf(d.name);
+		historyMessage.pop();
     	d._children = d.children;
 	    d.children = null;
   	} else {
+  		historyMessage.push(d.name);
 	    d.children = d._children;
 	    d._children = null;
   	}
