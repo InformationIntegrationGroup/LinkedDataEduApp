@@ -59,6 +59,9 @@ public class LinkRankServlet extends HttpServlet {
 					long startTime = System.currentTimeMillis();
 					ConnectionRankRequest rankRequest = new ConnectionRankRequest(currentNode);
 					long endTime = System.currentTimeMillis();
+					long featureRatingStartTime = System.currentTimeMillis();
+					rankRequest.rateInterestingness();
+					long featureRatingEndTime = System.currentTimeMillis();
 					long sortingStartTime = System.currentTimeMillis();
 					rankRequest.sortConnections();
 					long sortingEndTime = System.currentTimeMillis();
@@ -70,8 +73,8 @@ public class LinkRankServlet extends HttpServlet {
 					System.out.println("Sorting Data Elapsed milliseconds: "+(sortingEndTime - sortingStartTime));
 					System.out.println("Start Caching");
 					
-					LinkedDataCachingRequest cachingRequest = new LinkedDataCachingRequest(extractRankRequest.getSQLConnection(), rankRequest.getSubjectConnections(), rankRequest.getObjectConnections());
-					cachingRequest.startCaching();
+					//LinkedDataCachingRequest cachingRequest = new LinkedDataCachingRequest(extractRankRequest.getSQLConnection(), rankRequest.getSubjectConnections(), rankRequest.getObjectConnections());
+					//cachingRequest.startCaching();
 				}
 				else{
 					long startTime = System.currentTimeMillis();

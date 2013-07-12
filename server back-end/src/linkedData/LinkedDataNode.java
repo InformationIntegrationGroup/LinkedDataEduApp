@@ -4,7 +4,7 @@ package linkedData;
 import java.util.*;
 
 import linkedData.LinkedDataConnection.CurrentNode;
-
+import feature.util.*;
 import org.openrdf.model.Literal;
 import org.openrdf.query.*;
 import org.openrdf.repository.*;
@@ -19,7 +19,7 @@ public class LinkedDataNode {
 	public LinkedDataNode(String uri, RepositoryConnection connection) throws RepositoryException, MalformedQueryException, QueryEvaluationException{
 		this.uri = uri;
 		this.repoConnection = connection;
-		retrieveName();
+		//retrieveName();
 	}
 	
 	public LinkedDataNode(String uri, String name, RepositoryConnection connection){
@@ -44,13 +44,12 @@ public class LinkedDataNode {
 		this.name = literal.stringValue();
 	}
 	
-	public List<LinkedDataConnection> retrieveSubjectConnections() throws RepositoryException, MalformedQueryException, QueryEvaluationException{
-		List<LinkedDataConnection> subjectConnections = new ArrayList<LinkedDataConnection>();
-		String queryString = "SELECT ?predicate ?object ?label (COUNT(DISTINCT ?s ) AS ?count ) WHERE{ "
+	public void retrieveSubjectConnections(List<Sample> samples) throws RepositoryException, MalformedQueryException, QueryEvaluationException{
+		String queryString = "SELECT ?predicate ?object ?label WHERE{ "
                    + "<"+ uri + "> ?predicate ?object ."
                    + "?object a owl:Thing ."
                    + "?object rdfs:label ?label ."
-                   + "?s ?predicate ?object . "
+                  // + "?s ?predicate ?object . "
                   // + "FILTER(langMatches(lang(?label), \"EN\")) "
                    + "}";
 		System.out.println(queryString);
@@ -65,22 +64,20 @@ public class LinkedDataNode {
 				if(objectLiteral.getLanguage().equals("en")){
 					LinkedDataNode objectNode = new LinkedDataNode(bindingSet.getValue("object").stringValue(), objectLiteral.stringValue(), repoConnection);
 					LinkedDataConnection newConnection = new LinkedDataConnection(this, objectNode, bindingSet.getValue("predicate").stringValue(), CurrentNode.subject, repoConnection);
-					newConnection.setConnectionParam(Integer.parseInt(bindingSet.getValue("count").stringValue()));
-					subjectConnections.add(newConnection);
+					//newConnection.setConnectionParam(Integer.parseInt(bindingSet.getValue("count").stringValue()));
+					samples.add(new Sample(newConnection));
 				}
 			}
 		}
 		
-		return subjectConnections;
 	}
 	
-	public List<LinkedDataConnection> retrieveObjectConnections() throws RepositoryException, MalformedQueryException, QueryEvaluationException{
-		List<LinkedDataConnection> objectConnections = new ArrayList<LinkedDataConnection>();
-		String queryString = "SELECT ?predicate ?subject ?label (COUNT(DISTINCT ?o ) AS ?count ) WHERE{ "
+	public void retrieveObjectConnections(List<Sample> samples) throws RepositoryException, MalformedQueryException, QueryEvaluationException{
+		String queryString = "SELECT ?predicate ?subject ?label WHERE{ "
                              + "?subject ?predicate <"+ uri + "> ."
                              + "?subject a owl:Thing ."
                              + "?subject rdfs:label ?label ."
-                             + "?subject ?predicate ?o . "
+                            // + "?subject ?predicate ?o . "
                            //  + "FILTER(langMatches(lang(?label), \"EN\")) "
                              + "}";
 		System.out.println(queryString);
@@ -95,12 +92,11 @@ public class LinkedDataNode {
 				if(subjectLiteral.getLanguage().equals("en")){
 					LinkedDataNode subjectNode = new LinkedDataNode(bindingSet.getValue("subject").stringValue(), subjectLiteral.stringValue(), repoConnection);
 					LinkedDataConnection newConnection = new LinkedDataConnection(subjectNode, this, bindingSet.getValue("predicate").stringValue(), CurrentNode.object, repoConnection);
-					newConnection.setConnectionParam(Integer.parseInt(bindingSet.getValue("count").stringValue()));
-					objectConnections.add(newConnection);
+					//newConnection.setConnectionParam(Integer.parseInt(bindingSet.getValue("count").stringValue()));
+					samples.add(new Sample(newConnection));
 				}
 			}
 		}
-		return objectConnections;
 	}
 	
 	public String getName(){
