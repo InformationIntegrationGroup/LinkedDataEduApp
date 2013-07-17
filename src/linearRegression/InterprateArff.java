@@ -1,20 +1,23 @@
 package linearRegression;
 
+
 import weka.core.Instances;
-import weka.classifiers.Evaluation;
+import weka.core.Utils;
 import weka.classifiers.functions.LinearRegression;
-import weka.classifiers.bayes.NaiveBayes;
+
+
+import weka.classifiers.meta.CVParameterSelection;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Random;
 
 public class InterprateArff {
 
+	BufferedReader reader;
+	Instances data,test,labeled;
 	/*public InterprateArff(String fileName) throws Exception{
 		BufferedReader reader = new BufferedReader(
                              new FileReader(fileName));
@@ -22,23 +25,27 @@ public class InterprateArff {
 	}*/
 	
 	public InterprateArff(String file1, String file2) throws Exception{
-		BufferedReader reader = new BufferedReader(
+		reader = new BufferedReader(
                 new FileReader(file1));
-		Instances data = new Instances(reader);
+		data = new Instances(reader);
 		data.setClassIndex(data.numAttributes()-1);
 		
 		reader = new BufferedReader(
                 new FileReader(file2));
-		Instances test = new Instances(reader);
+		test = new Instances(reader);
 		// setting class attribute
 		test.setClassIndex(data.numAttributes()-1);
 		reader.close();
 		
+		String[] options = new String[3];
+		options[0] = "-D";
+		options[1] ="-S";
+		options[2]="1";
 		LinearRegression lr = new LinearRegression();
+		lr.setOptions(options);
 		lr.buildClassifier(data);
-		Instances labeled = new Instances(test);
 		
-		
+		labeled = new Instances(test);
 		
 		//NaiveBayes nB = new NaiveBayes();
 		//nB.buildClassifier(data);
@@ -69,13 +76,10 @@ public class InterprateArff {
 	*/
 	} 
 	
-	/**
-		   * sets the classifier to use
-		   * @param name        the classname of the classifier
-		   * @param options     the options for the classifier
-		   */
-	/*public void setClassifier(String name, String[] options) throws Exception {
-		    m_Classifier = Classifier.forName(LinearRegression, options);
-		  }
-		  */
+	public Instances getPredict(){
+		//Instances labeled;
+		return labeled;
+	}
+
 }
+

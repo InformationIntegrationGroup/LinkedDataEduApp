@@ -14,9 +14,17 @@ import java.util.Vector;
 public class WekaDemo {
   
 	
-  public static void main(String[] args) throws Exception {
-    WekaDemo  demo= new WekaDemo();;
-    InterprateArff ia = new InterprateArff("d:/etc/train.arff","d:/etc/test.arff");
+  //public static void main(String[] args) throws Exception {
+    public WekaDemo() throws Exception{
+    	
+    	ConvertCSV c = new ConvertCSV();
+    	c.convert("test1");
+        InterprateArff ia = new InterprateArff("d:/etc/train.arff","d:/etc/test.arff");
+        
+        
+    }
+    
+    
    
-  }
+   
 }
