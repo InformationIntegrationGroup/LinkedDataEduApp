@@ -64,8 +64,7 @@ public class DemoServlet extends HttpServlet {
 		if(in==null)throw new IOException("Input is null");
 		
 		try {
-			//process request
-			
+			//process request			
 			String features = request.getParameter("features");	
 			generateCSV("d:/etc/test1.csv",features);
 			System.out.println("Already generate the CSV: HIHIHIHI");
@@ -74,14 +73,16 @@ public class DemoServlet extends HttpServlet {
 			ConvertCSV c = new ConvertCSV();
 			c.convert("test1");
 			InterprateArff ia = new InterprateArff("d:/etc/train1.arff","d:/etc/test1.arff");
+			ia.TrainModel();
 			System.out.println("Complete Model Analysis!");
 			
-			Instances pred = ia.getPredict();
+			//Instances pred = ia.getPredict();
+			response.setContentType("text");
 			PrintWriter out = response.getWriter();
-			for(int i = 0; i < pred.numInstances();i++){
-				out.println(pred.attribute(3));//classAttribute().value((int)classIndex().value[i]);
-			}
+			String respondRankingScore = ia.getPredict();
 			
+			//Response with the ranking array
+			out.print(respondRankingScore );		
 			
 			
 			//response.setContentType("text/plain");	

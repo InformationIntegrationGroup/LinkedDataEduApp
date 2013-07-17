@@ -56,7 +56,7 @@ public class ConnectionRankRequest {
 			samples.get(i).evalutateFeature();
 		}
 		try {
-			URL url = new URL("http://localhost:8080/LinkedDataExploreProject/LinkRankServlet");
+			URL url = new URL("http://localhost:8080/LinkedDataExploreProject/LinkRankServlet");//
 			URLConnection modelConn = url.openConnection();
 			modelConn.setDoInput(true);
 			modelConn.setDoOutput(true);

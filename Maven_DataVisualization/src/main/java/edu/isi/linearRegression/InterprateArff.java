@@ -16,7 +16,7 @@ import java.io.FileWriter;
 import java.util.Random;
 
 public class InterprateArff {
-
+	String rankingResponse;
 	BufferedReader reader;
 	Instances data,test,labeled;
 	/*public InterprateArff(String fileName) throws Exception{
@@ -26,18 +26,21 @@ public class InterprateArff {
 	}*/
 	
 	public InterprateArff(String file1, String file2) throws Exception{
-		reader = new BufferedReader(
-                new FileReader(file1));
-		data = new Instances(reader);
-		data.setClassIndex(data.numAttributes()-1);
 		
-		reader = new BufferedReader(
-                new FileReader(file2));
-		test = new Instances(reader);
-		// setting class attribute
-		test.setClassIndex(data.numAttributes()-1);
-		reader.close();
+		ReadIn(file1, file2);
+		//TrainModel();
+		rankingResponse = "";
+			
 		
+		/* Evaluation eval = new Evaluation(data);
+		 Random rand = new Random(1);  // using seed = 1
+		 int folds = 10;
+		 eval.crossValidateModel(lr, data, folds, rand);
+		 System.out.println(eval.toSummaryString());
+	*/
+	} 
+	
+	public void TrainModel() throws Exception{
 		String[] options = new String[3];
 		options[0] = "-D";
 		options[1] ="-S";
@@ -46,13 +49,12 @@ public class InterprateArff {
 		lr.setOptions(options);
 		lr.buildClassifier(data);
 		
+		//Involving Testing
 		labeled = new Instances(test);
-		
-		//NaiveBayes nB = new NaiveBayes();
-		//nB.buildClassifier(data);
-		
 		for(int i = 0; i < test.numInstances(); i++){
 			double clsLabel = lr.classifyInstance(test.instance(i));
+			rankingResponse = ""+clsLabel+",";
+			//System.out.println(clsLabel);
 			labeled.instance(i).setClassValue(clsLabel);
 		}
 		
@@ -63,24 +65,33 @@ public class InterprateArff {
 		//Evaluation evl = new Evaluation(data);
 		//evl.crossValidateModel(nB,data,10,new Random(1));
 		//System.out.println(evl.toSummaryString("\nResults	\n=========\n",true));
-		//System.out.println(evl.fMeasure(classIndex)
-		System.out.println(lr);
-		System.out.println("\nTesting datasets\n");
-		System.out.println(labeled);
+		//System.out.println(evl.fMeasure(classIndex);
 		
+		//System.out.println(lr);
+		//System.out.println("\nTesting datasets\n");
+		//System.out.println(labeled.classAttribute());//toSummaryString());
 		
-		/* Evaluation eval = new Evaluation(data);
-		 Random rand = new Random(1);  // using seed = 1
-		 int folds = 10;
-		 eval.crossValidateModel(lr, data, folds, rand);
-		 System.out.println(eval.toSummaryString());
-	*/
-	} 
+	}
 	
-	public Instances getPredict(){
+	public void ReadIn(String file1, String file2) throws Exception{ 
+		reader = new BufferedReader(
+            new FileReader(file1));
+	data = new Instances(reader);
+	data.setClassIndex(data.numAttributes()-1);
+	
+	reader = new BufferedReader(
+            new FileReader(file2));
+	test = new Instances(reader);
+	// setting class attribute
+	test.setClassIndex(test.numAttributes()-1);
+	reader.close();
+	}
+	public String getPredict(){
 		//Instances labeled;
-		return labeled;
+		return rankingResponse;
 	}
 
 }
+
+
 
