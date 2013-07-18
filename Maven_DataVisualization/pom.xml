@@ -450,12 +450,12 @@
     	<artifactId>sesame-runtime</artifactId>
     	<version>2.7.0</version>
     </dependency>
-    <dependency>
-    	<groupId>org.openrdf.sesame</groupId>
-    	<artifactId>sesame-runtime-osgi</artifactId>
-    	<version>2.7.0</version>
-    	<type>bundle</type>
-    </dependency>
+<!--     <dependency> -->
+<!--     	<groupId>org.openrdf.sesame</groupId> -->
+<!--     	<artifactId>sesame-runtime-osgi</artifactId> -->
+<!--     	<version>2.7.0</version> -->
+<!--     	<type>bundle</type> -->
+<!--     </dependency> -->
     <dependency>
     	<groupId>org.openrdf.sesame</groupId>
     	<artifactId>sesame-sail</artifactId>
@@ -523,6 +523,23 @@
     	<groupId>org.openrdf.sesame</groupId>
     	<artifactId>sesame-store-testsuite</artifactId>
     	<version>2.7.0</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.eclipse.birt.runtime</groupId>
+    	<artifactId>
+    		org.eclipse.datatools.modelbase.sql.query
+    	</artifactId>
+    	<version>1.1.4.v201212120619</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.openrdf</groupId>
+    	<artifactId>rio</artifactId>
+    	<version>1.0.10</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.openrdf</groupId>
+    	<artifactId>openrdf-util</artifactId>
+    	<version>1.2.7</version>
     </dependency>
   </dependencies>
   

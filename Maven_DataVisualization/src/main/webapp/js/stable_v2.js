@@ -164,7 +164,14 @@ function update(source, level, situation) {
 	 
 	  // Enter any new links at the parent's previous position.
 	  link.enter().insert("svg:path", "g")
-	      .attr("class", "link")
+	      .attr("class", function(d){
+	      	if(d.source.children && d.target.children){
+	      		return "link linkHighlight";
+	      	}
+	      	else {
+	      		return "link";
+	      	}
+	      })
 	      .attr("d", function(d) {
 	        var o = {x: source.x0, y: source.y0};
 	        return diagonal({source: o, target: o});

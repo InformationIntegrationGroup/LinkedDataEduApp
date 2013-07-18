@@ -26,12 +26,12 @@
 
 <!-- a single servlet declearation	 -->
 	<servlet>
-		<servlet-name>CategoryHierarchiesLookup</servlet-name>
-		<servlet-class>edu.isi.webserver.CategoryHierarchiesLookup</servlet-class>
+		<servlet-name>Get-Nodes</servlet-name>
+		<servlet-class>edu.isi.serverbackend.Servlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>CategoryHierarchiesLookup</servlet-name>
-		<url-pattern>/lookupHierarchies</url-pattern>
+		<servlet-name>Get-Nodes</servlet-name>
+		<url-pattern>/Servlet</url-pattern>
 	</servlet-mapping>
 	
 </web-app>
