@@ -1,0 +1,150 @@
+html, body {
+	margin: 0px;
+	padding: 0px;
+	border: 0px;
+	font-family: Arial, Helvetica, sans-serif;
+	background-image: url('img/background2.jpg');
+}
+.node circle {
+	cursor: pointer;
+	stroke: steelblue;
+	stroke-width: 1.5px;
+}
+
+.node .textNormal {
+	cursor: pointer;
+	font-weight: bold;
+	font-size: 11px;
+	color: white;
+}
+.node .textHighlight {
+	cursor: pointer;
+	font-weight: bold;
+	font-size: 11px;
+	color: yellow;
+}
+.visible{
+	display: block;
+}
+.invisible{
+	display: none;
+}
+
+path.link {
+	fill: none;
+	stroke: #ccc;
+	stroke-width: 1.5px;
+}
+path.linkHighlight{
+	fill: none;
+	stroke: #ff6600;
+	stroke-width: 2.5px;
+}
+
+#chart {
+	width: 1250px;
+	height: 580px;
+	position: absolute;
+	top: 50px;
+	margin: 10px;
+	z-index: 0;
+	background: yellow;
+}
+#message {
+	width: 200px;
+	height: 100px;
+	border: solid black 2px;
+	background: #ffe6e6;
+	position: fixed;
+	left: 20px;
+	top: 70px;
+	overflow: scroll;
+}
+#history {
+	width: 200px;
+	height: 500px;
+	border: solid black 2px;
+	background: #d6f5ff;
+	position: fixed;
+	right: 30px;
+	top: 70px;
+	overflow: scroll;
+}
+#topBar {
+	width: 100%;
+	height: 50px;
+	margin: 0px;
+	border: 0px;
+	padding: 0px;
+	position: fixed;
+	z-index: 999;
+}
+h2 {
+	position: absolute;
+	top: -15px;
+	left: 5px;
+}
+p {
+	position: absolute;
+	top: 20px;
+	left: 20px;
+	font-size: 20px;
+}
+#input {
+	height: 25px;
+	width: 150px;
+	margin: 5px;
+	border-radius: 10px;
+	border: none;
+	box-shadow: 2px 2px 1px #333;
+	position: relative;
+	top: 10px;
+	left: 160px;
+	font-size: 15px;
+}
+#draw {
+	position: relative;
+	top: 10px;
+	left: 160px;
+	width: 50px;
+	height: 20px;
+}
+svg {
+	position: relative;
+	left: 30px;
+}
+#nodeInfo {
+	width: 250px;
+	position: absolute;
+	right: 20px;
+	bottom: 20px;
+	font-family: monaco;
+	display: none;
+	-webkit-transform: rotate(10deg);
+	-o-transform: rotate(10deg);
+	-moz-transform: rotate(10deg);
+}
+#stickyNote{
+	width: 250px;
+}
+#nodeInfo > h3 {
+	position: absolute;
+	left: 50px;
+	top: 10px;
+	font-size: 18px;
+	font-weight: bold;
+}
+.infoContent {
+	font-size: 15px;
+	font-weight: bold;
+}
+#name {
+	position: absolute;
+	top: 70px;
+	left: 20px;
+}
+#catalog {
+	position: absolute;
+	top: 120px;
+	left: 20px;
+}

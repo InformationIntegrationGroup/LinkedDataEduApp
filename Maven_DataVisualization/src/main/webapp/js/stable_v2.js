@@ -3,7 +3,7 @@ var m = [20, 120, 20, 120],
     w = 100,
     h = 580,
     i = 0,
-    duration = 500,
+    duration = 1,
     root,
     appendList = [];
 var draw = document.getElementById("draw");
