@@ -22,7 +22,7 @@
 			request = new ActiveXObject("Microsoft.XMLHTTP");
 		}
 		//request.open('GET', '../java/edu/isi/serverbackend/Servlet');
-		request.open('GET','data_json/apple.json');
+		request.open('GET','/Servlet');
 		request.onreadystatechange = function() {
 			console.log(request);
 			if ((request.readyState===4) && (request.status===200)) {

@@ -3,6 +3,8 @@ html, body {
 	padding: 0px;
 	border: 0px;
 	font-family: Arial, Helvetica, sans-serif;
+}
+body{
 	background-image: url('img/background2.jpg');
 }
 .node circle {
@@ -10,37 +12,27 @@ html, body {
 	stroke: steelblue;
 	stroke-width: 1.5px;
 }
-
-.node .textNormal {
+.node text {
 	cursor: pointer;
 	font-weight: bold;
 	font-size: 11px;
 	color: white;
 }
-.node .textHighlight {
-	cursor: pointer;
-	font-weight: bold;
-	font-size: 11px;
-	color: yellow;
+#contentWrap{
+	width: 100%;
+	height: 100%;
+	position: absolute;
 }
-.visible{
-	display: block;
-}
-.invisible{
-	display: none;
-}
-
 path.link {
 	fill: none;
 	stroke: #ccc;
-	stroke-width: 1.5px;
+	stroke-width: 3px;
 }
 path.linkHighlight{
 	fill: none;
 	stroke: #ff6600;
-	stroke-width: 2.5px;
+	stroke-width: 4.5px;
 }
-
 #chart {
 	width: 1250px;
 	height: 580px;
@@ -48,7 +40,6 @@ path.linkHighlight{
 	top: 50px;
 	margin: 10px;
 	z-index: 0;
-	background: yellow;
 }
 #message {
 	width: 200px;
@@ -70,44 +61,66 @@ path.linkHighlight{
 	top: 70px;
 	overflow: scroll;
 }
-#topBar {
-	width: 100%;
-	height: 50px;
-	margin: 0px;
-	border: 0px;
-	padding: 0px;
-	position: fixed;
-	z-index: 999;
-}
+
 h2 {
 	position: absolute;
 	top: -15px;
 	left: 5px;
 }
-p {
-	position: absolute;
-	top: 20px;
-	left: 20px;
-	font-size: 20px;
+
+#searchBox {
+	width: 1000px;
+	height: 200px;
+	position: relative;
+	top: 200px;
+	margin: 0px auto;
+	
 }
-#input {
-	height: 25px;
-	width: 150px;
+#searchBox > h1 {
+	font-size: 60px;
+	margin: 0px;
+	text-align: center;
+	color: #3d0f00;
+	width: 100%
+}
+input {
+	height: 30px;
+	width: 500px;
 	margin: 5px;
-	border-radius: 10px;
+	border-radius: 2px;
 	border: none;
 	box-shadow: 2px 2px 1px #333;
 	position: relative;
 	top: 10px;
-	left: 160px;
-	font-size: 15px;
+	left: 190px;
+	font-size: 17px;
+	background: #ffb84d;
 }
 #draw {
 	position: relative;
 	top: 10px;
-	left: 160px;
-	width: 50px;
-	height: 20px;
+	left: 200px;
+	width: 100px;
+	height: 30px;
+	border: none;
+	border-radius: 3px;
+	background: #6b0000;
+	cursor: pointer;
+	font-size: 20px;
+	color: #ff9900;
+}
+#redraw {
+	position: absolute;
+	top: 20px;
+	left: 150px;
+	width: 100px;
+	height: 30px;
+	border: none;
+	border-radius: 3px;
+	background: #6b0000;
+	cursor: pointer;
+	font-size: 20px;
+	color: #ff9900;
 }
 svg {
 	position: relative;
@@ -119,7 +132,6 @@ svg {
 	right: 20px;
 	bottom: 20px;
 	font-family: monaco;
-	display: none;
 	-webkit-transform: rotate(10deg);
 	-o-transform: rotate(10deg);
 	-moz-transform: rotate(10deg);
@@ -147,4 +159,41 @@ svg {
 	position: absolute;
 	top: 120px;
 	left: 20px;
+}
+#relation {
+	width: 260px;
+	font-size: 12px;
+	position: absolute;
+	border-radius: 3px;
+	background: #ffb84d;
+}
+#relationWrap{
+	width: 100%;
+	height: 100%;
+}
+#relationContent {
+	width: 95%;
+	position: relative;
+	left: 5px;
+	margin: 2px;
+	border: 0px;
+}
+#relation > h5{
+	font-size: 10px;
+	position: relative;
+	left: 220px;
+	bottom: 0px;
+	margin: 0px;
+	padding: 0px;
+	border: 0px;
+}
+#relation > h5:hover{
+	font-size: 11px;
+	position: relative;
+	left: 220px;
+	color: red;
+	cursor: pointer;
+	margin: 0px;
+	padding: 0px;
+	border: 0px;
 }
