@@ -37,7 +37,7 @@ public class LinkedDataConnection {
 			System.out.println(objectTestQuery);
 			TupleQuery query = connection.prepareTupleQuery(QueryLanguage.SPARQL, objectTestQuery);
 			TupleQueryResult result = query.evaluate();
-			this.connectionParam = Integer.parseInt(( result.next().getValue("count").stringValue());
+			this.connectionParam = Integer.parseInt(result.next().getValue("count").stringValue());
 			
 		}
 		else if(currentNode == CurrentNode.object){
