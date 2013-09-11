@@ -53,9 +53,9 @@ public class LinkRankServlet extends HttpServlet {
 			String numString = request.getParameter("num");
 			
 			if(currentURI != null && numString != null){
-				ExtractRankRequest extractRankRequest = new ExtractRankRequest(currentURI);
+				//ExtractRankRequest extractRankRequest = new ExtractRankRequest(currentURI);
 				num = Integer.parseInt(numString);
-				if(!extractRankRequest.checkAlreadyCached()){
+				//if(!extractRankRequest.checkAlreadyCached()){
 					currentNode = new LinkedDataNode(currentURI, repoConnection);
 					long startTime = System.currentTimeMillis();
 					ConnectionRankRequest rankRequest = new ConnectionRankRequest(currentNode);
@@ -80,13 +80,13 @@ public class LinkRankServlet extends HttpServlet {
 					
 					//LinkedDataCachingRequest cachingRequest = new LinkedDataCachingRequest(extractRankRequest.getSQLConnection(), rankRequest.getSubjectConnections(), rankRequest.getObjectConnections());
 					//cachingRequest.startCaching();
-				}
-				else{
+			//	}
+				/*else{
 					long startTime = System.currentTimeMillis();
 					out.println(extractRankRequest.extractD3JSON(num).toString());
 					long endTime = System.currentTimeMillis();
 					System.out.println("Retrieving Data From MySQL Elapsed milliseconds: "+(endTime - startTime));
-				}
+				}*/
 			}
 		} catch (RepositoryException e) {
 			// TODO Auto-generated catch block
