@@ -22,7 +22,7 @@
 			request = new ActiveXObject("Microsoft.XMLHTTP");
 		}
 		//request.open('GET', '../java/edu/isi/serverbackend/Servlet');
-		request.open('GET','/Servlet');
+		request.open('GET','/Maven_DataVisualization-0.0.1-SNAPSHOT/rankServlet?uri=http%3A%2F%2Fdbpedia.org%2Fresource%2FBill_Clinton&num=5');
 		request.onreadystatechange = function() {
 			console.log(request);
 			if ((request.readyState===4) && (request.status===200)) {

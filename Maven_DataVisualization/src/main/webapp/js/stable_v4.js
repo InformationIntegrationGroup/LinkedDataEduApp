@@ -45,9 +45,13 @@ var stickyNote ='<div id="nodeInfo">';
 	stickyNote +='<img id="stickyNote" src="img/stickyNotes.png" />';
 	stickyNote +='</div>';
 
-var redraw = '<button id="redraw">Redraw</button>';		    		
+var redraw = '<button id="redraw">Redraw</button>';	
+var finish = '<button id="finish">Finish</button>';	    		
 var relationBox = '<div id="relation" style="display: none;"></div>';
 
+$("#chart").click(function(){
+	$("#relation").empty();
+});
 function add(name) {
 	console.log("called add(); ==================================================");
 	var keyWord = "data_json/";
@@ -337,21 +341,16 @@ function beginSearch(){
 	$("#searchBox").remove();
 	$("#chart").append(stickyNote);
 	$("#contentWrap").append(redraw);
+	$("#contentWrap").append(finish);
 	$("#chart").append(relationBox);
 	console.log(redraw);
 	var endSearch = document.getElementById("redraw");
 	endSearch.onclick = function(){
-		// var allNodes = vis.selectAll("g.node");
-		// var allLinks = vis.selectAll("path.link");
-		// allNodes.remove();
-		// allLinks.remove();
-		// $("#nodeInfo").remove();
-		// $("#redraw").remove();
-		// $("#relation").remove();
-		// $("svg").empty();
-		// $("#contentWrap").prepend(searchBoxHTML);
 		location.reload();
 	}
+	$("#finish").click(function(){
+		console.log("FINISH", appendMap);
+	});
 //	$("#infoContent").append(chartHTML);
 }
 function removeRelation(){
