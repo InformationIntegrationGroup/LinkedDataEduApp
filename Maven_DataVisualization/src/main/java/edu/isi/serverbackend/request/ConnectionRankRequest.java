@@ -116,7 +116,7 @@ public class ConnectionRankRequest {
 		JSONArray childrenArray = new JSONArray();
 		
 		for(int i = 0; i < num; i++){
-			if(i > samples.size())
+			if(i >= samples.size())
 				break;
 			JSONObject newNode = new JSONObject();
 			if(samples.get(i).getLink().isSubjectConnection()){
