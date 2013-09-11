@@ -61,10 +61,10 @@ public class LinkRankServlet extends HttpServlet {
 					ConnectionRankRequest rankRequest = new ConnectionRankRequest(currentNode);
 					long endTime = System.currentTimeMillis();
 					long featureRatingStartTime = System.currentTimeMillis();
-					rankRequest.rateInterestingness();
+					//rankRequest.rateInterestingness();
 					long featureRatingEndTime = System.currentTimeMillis();
 					long sortingStartTime = System.currentTimeMillis();
-					rankRequest.sortConnections();
+					//rankRequest.sortConnections();
 					long sortingEndTime = System.currentTimeMillis();
 					response.setContentType("application/json");
 					

@@ -19,7 +19,7 @@ public class LinkedDataNode {
 	public LinkedDataNode(String uri, RepositoryConnection connection) throws RepositoryException, MalformedQueryException, QueryEvaluationException{
 		this.uri = uri;
 		this.repoConnection = connection;
-		//retrieveName();
+		retrieveName();
 	}
 	
 	public LinkedDataNode(String uri, String name, RepositoryConnection connection){

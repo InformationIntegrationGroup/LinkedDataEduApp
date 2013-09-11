@@ -19,6 +19,7 @@ public class Sample {
 		this.eitherNotPlace = -1;
 		this.differentOccupation = -1;
 		this.smallPlace = -1;
+		this.interestingness = 0;
 		
 	}
 	
