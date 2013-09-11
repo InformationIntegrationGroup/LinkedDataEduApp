@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.isi.serverbackend.linkedData.LinkedDataNode;
 
+import org.json.JSONException;
 import org.openrdf.query.MalformedQueryException;
 import org.openrdf.query.QueryEvaluationException;
 import org.openrdf.repository.RepositoryConnection;
@@ -67,7 +68,11 @@ public class LinkRankServlet extends HttpServlet {
 					long sortingEndTime = System.currentTimeMillis();
 					response.setContentType("application/json");
 					
-					out.println(rankRequest.exportD3JSON(num).toString());
+					try {
+						out.println(rankRequest.exportD3JSON(num).toString());
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
 					System.out.println("Total number of Connections: " + rankRequest.getNumbetConnections());
 					System.out.println("Retrieving Data Elapsed milliseconds: "+(endTime - startTime));
 					System.out.println("Sorting Data Elapsed milliseconds: "+(sortingEndTime - sortingStartTime));

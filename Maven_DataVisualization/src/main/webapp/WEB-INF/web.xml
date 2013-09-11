@@ -27,11 +27,11 @@
 <!-- a single servlet declearation	 -->
 	<servlet>
 		<servlet-name>Get-Nodes</servlet-name>
-		<servlet-class>edu.isi.serverbackend.Servlet</servlet-class>
+		<servlet-class>edu.isi.serverbackend.Servlet.LinkRankServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Get-Nodes</servlet-name>
-		<url-pattern>/Servlet</url-pattern>
+		<url-pattern>/rankServlet</url-pattern>
 	</servlet-mapping>
 	
 </web-app>
