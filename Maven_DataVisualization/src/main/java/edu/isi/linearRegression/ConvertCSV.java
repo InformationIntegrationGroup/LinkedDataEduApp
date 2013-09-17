@@ -19,13 +19,13 @@ public class ConvertCSV {
 	public void convert(String fileName) throws Exception{
 		// load CSV
     CSVLoader loader = new CSVLoader();
-    loader.setSource(new File("d:/etc/"+fileName+".csv"));
+    loader.setSource(new File(fileName+".csv"));
     Instances data = loader.getDataSet();
  
     // save ARFF
     ArffSaver saver = new ArffSaver();
     saver.setInstances(data);
-    saver.setFile(new File("d:/etc/"+fileName+".arff"));
+    saver.setFile(new File(fileName+".arff"));
    // saver.setDestination(new File(args[1]));
     saver.writeBatch();
     

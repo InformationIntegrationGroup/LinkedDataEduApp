@@ -33,5 +33,13 @@
 		<servlet-name>Get-Nodes</servlet-name>
 		<url-pattern>/rankServlet</url-pattern>
 	</servlet-mapping>
-	
+
+	<servlet>
+		<servlet-name>Demo</servlet-name>
+		<servlet-class>edu.isi.serveletdemo.DemoServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Demo</servlet-name>
+		<url-pattern>/demoServlet</url-pattern>
+	</servlet-mapping>
 </web-app>

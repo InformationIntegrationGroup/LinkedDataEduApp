@@ -26,7 +26,9 @@ import edu.isi.linearRegression.WekaDemo;
 @WebServlet("/DemoServlet")
 public class DemoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    private static final String generateCsvLocation= "/Users/Alison/Documents/workspace/";
+    private static final String trainFileLocation = "/Users/Alison/Documents/workspace/";
+    private static final String testFileLocation = "/Users/Alison/Documents/workspace/";
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -34,15 +36,16 @@ public class DemoServlet extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
+   
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		/*PrintWriter out = response.getWriter();
+		PrintWriter out = response.getWriter();
 		out.println("hello world");
-		*/
+		
 		Object requestObject = request.getParameter("filename");
 		if(requestObject != null){
 			String filename = (String)requestObject;
@@ -66,23 +69,26 @@ public class DemoServlet extends HttpServlet {
 		try {
 			//process request			
 			String features = request.getParameter("features");	
-			generateCSV("d:/etc/test1.csv",features);
+			generateCSV(generateCsvLocation,features);//"d:/etc/test1.csv"
+			
 			System.out.println("Already generate the CSV: HIHIHIHI");
 			
-			//WekaDemo demo= new WekaDemo();
-			ConvertCSV c = new ConvertCSV();
+			WekaDemo demo= new WekaDemo(generateCsvLocation,trainFileLocation,testFileLocation);
+			/*
+			 * ConvertCSV c = new ConvertCSV();
 			c.convert("test1");
 			InterprateArff ia = new InterprateArff("d:/etc/train1.arff","d:/etc/test1.arff");
 			ia.TrainModel();
+			*/
+			
 			System.out.println("Complete Model Analysis!");
+			String ranking = demo.getRanking();
 			
 			//Instances pred = ia.getPredict();
 			response.setContentType("text");
 			PrintWriter out = response.getWriter();
-			String respondRankingScore = ia.getPredict();
-			
 			//Response with the ranking array
-			out.print(respondRankingScore );		
+			out.print(ranking);		
 			
 			
 			//response.setContentType("text/plain");	

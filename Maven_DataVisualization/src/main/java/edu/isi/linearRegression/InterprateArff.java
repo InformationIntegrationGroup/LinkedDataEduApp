@@ -28,10 +28,9 @@ public class InterprateArff {
 	public InterprateArff(String file1, String file2) throws Exception{
 		
 		ReadIn(file1, file2);
-		//TrainModel();
-		rankingResponse = "";
+		TrainModel();
+		//rankingResponse = "";
 			
-		
 		/* Evaluation eval = new Evaluation(data);
 		 Random rand = new Random(1);  // using seed = 1
 		 int folds = 10;
@@ -54,13 +53,13 @@ public class InterprateArff {
 		for(int i = 0; i < test.numInstances(); i++){
 			double clsLabel = lr.classifyInstance(test.instance(i));
 			rankingResponse = ""+clsLabel+",";
-			//System.out.println(clsLabel);
+			
 			labeled.instance(i).setClassValue(clsLabel);
 		}
+		System.out.println(rankingResponse);
 		
-		BufferedWriter writer = new BufferedWriter(
-							new FileWriter("d:/etc/label.arff"));
-		writer.write(labeled.toString());
+		//BufferedWriter writer = new BufferedWriter(new FileWriter("d:/etc/label.arff"));
+		//writer.write(labeled.toString());
 		
 		//Evaluation evl = new Evaluation(data);
 		//evl.crossValidateModel(nB,data,10,new Random(1));
@@ -86,6 +85,8 @@ public class InterprateArff {
 	test.setClassIndex(test.numAttributes()-1);
 	reader.close();
 	}
+	
+	
 	public String getPredict(){
 		//Instances labeled;
 		return rankingResponse;
