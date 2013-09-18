@@ -1,6 +1,9 @@
 package edu.isi.serveletdemo;
 
+import weka.core.converters.*;//ArffSaver;
+
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -8,12 +11,19 @@ import java.io.PrintWriter;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.supercsv.cellprocessor.ParseDouble;
+import org.supercsv.cellprocessor.ift.CellProcessor;
+import org.supercsv.io.CsvListWriter;
+import org.supercsv.prefs.CsvPreference;
 
 import weka.core.Instances;
 import au.com.bytecode.opencsv.CSVWriter;
@@ -62,11 +72,6 @@ public class DemoServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
-		//URL url;
-		//url = new URL("http://localhost:8080/");
-		//urlConn = url.openConnection();
 		
 		InputStream in = request.getInputStream();
 		BufferedReader br = new BufferedReader(new InputStreamReader(in));
@@ -76,22 +81,21 @@ public class DemoServlet extends HttpServlet {
 			//process request			
 			String features = request.getParameter("features");	
 			generateCSV(generateCsvLocation,features);//"d:/etc/test1.csv"
+			//System.out.println(features);
 			
-			System.out.println("Already generate the CSV: HIHIHIHI");
+			//WekaDemo demo= new WekaDemo(generateCsvLocation,trainFileLocation,testFileLocation);
 			
-			WekaDemo demo= new WekaDemo(generateCsvLocation,trainFileLocation,testFileLocation);
-			
-			System.out.println("Complete Model Analysis!");
-			//String ranking = demo.getRanking(); /////////
+			//System.out.println("Complete Model Analysis!");
+			//String ranking = demo.getRanking(); 
 			
 			//Instances pred = ia.getPredict();
 			response.setContentType("text");
 			PrintWriter out = response.getWriter();
 			//Response with the ranking array
 			String ranking = ""+1.1+"\n"+""+1.2+"\n"+""+1.3+"\n"+""+2.1+"\n"+""+2.2+"\n"+""+2.3+"\n";
-			System.out.println(ranking);
-			out.print(ranking);		
 			
+			out.print(ranking);		
+			System.out.println(ranking);
 			
 			//response.setContentType("text/plain");	
 		} catch (Exception e) {
@@ -107,20 +111,62 @@ public class DemoServlet extends HttpServlet {
 
 	public void generateCSV(String fileName,String features) throws Exception{
 			
-			
-			String[] arrayFeatures = features.split("\n");
-			CSVWriter writer = new CSVWriter(new FileWriter(fileName),'\t');
-		
-			for(int i = 0; i <arrayFeatures.length; i++){
-				
-				String[] entries = arrayFeatures[i].split(",");
-				//csv writer before it writes all the strings, transform it into integers
-				writer.writeNext(entries);
-			}
-			
-			writer.close();
-			
-			
+		ArraySplitting();
+    	CSVLoader loader = new CSVLoader();
+        loader.setSource(new File("/Users/Alison/Documents/test.csv"));
+        Instances data = loader.getDataSet();
+     
+        // save ARFF
+        ArffSaver saver = new ArffSaver();
+        saver.setInstances(data);
+        saver.setFile(new File("/Users/Alison/Documents/test.arff"));
+       // saver.setDestination(new File(args[1]));
+        saver.writeBatch();
 	}
+	private static CellProcessor[] getProcessors() {
+        
+        final CellProcessor[] processors = new CellProcessor[] { 
+                new ParseDouble(), 
+                new ParseDouble(),
+                new ParseDouble()// customerNo (must be unique)
+               // new NotNull(), // firstName
+               // new NotNull() // lastName
+        };
+        return processors;
+}
+	
+	public void  ArraySplitting() throws Exception{
+    	listWriter = new CsvListWriter(new FileWriter("/Users/Alison/Documents/test.csv"),
+		CsvPreference.STANDARD_PREFERENCE);
+    	String[] arrayFeatures = testing.split("\n");
+    	List<Double> cell = new ArrayList<Double>();
+
+    	try{
+    		final String[] header = new String[] { "rarity", "eitherPlace", "feature3"};
+    			listWriter.writeHeader(header);
+    			final CellProcessor[] processors = getProcessors();
+    		for(int i = 0; i <arrayFeatures.length; i++){
+    			cell = new ArrayList<Double>();
+    			String[] entries = arrayFeatures[i].split(",");
+	
+    			for(int j=0;j<entries.length;j++){
+    				cell.add(Double.parseDouble(entries[j]));			
+    				System.out.println(cell.get(j));		
+			
+    			}//end of j for
+    								
+    			listWriter.write(cell, processors);
+    		}//end of i for
+	
+    	}//end of try
+    	finally {
+			if( listWriter != null ) {
+				listWriter.close();
+			}
+    	}
+	}
+			
 		
 }
+		
+
