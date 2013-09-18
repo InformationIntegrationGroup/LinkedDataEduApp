@@ -11,7 +11,7 @@ public class Sample {
 	protected float eitherNotPlace;
 	protected float differentOccupation;
 	protected float smallPlace;
-	float interestingness;
+	double interestingness;
 	
 	public Sample(LinkedDataConnection link){
 		this.link = link;
@@ -24,7 +24,7 @@ public class Sample {
 	}
 	
 	public void evalutateFeature(){
-		rarity = RarityFeature.calculateRarity(link);
+		//rarity = RarityFeature.calculateRarity(link);
 		eitherNotPlace = EitherNotPlaceFeature.isEitherNotPlace(link);
 		differentOccupation = DifferentOccupationFeature.isDifferentOccupation(link);
 		//smallPlace = SmallPlaceFeature.calculateSmallPlace(link);
@@ -70,11 +70,11 @@ public class Sample {
 		this.smallPlace = smallPlace;
 	}
 	
-	public float getInterestingness() {
+	public double getInterestingness() {
 		return interestingness;
 	}
 
-	public void setInterestingness(float interestingness) {
+	public void setInterestingness(double interestingness) {
 		this.interestingness = interestingness;
 	}
 

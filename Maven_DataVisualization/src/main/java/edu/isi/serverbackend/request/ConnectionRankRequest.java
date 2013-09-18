@@ -14,7 +14,7 @@ import org.json.*;
 public class ConnectionRankRequest {
 	private LinkedDataNode currentNode;
 	private List<Sample> samples;
-	
+	String ratingResponse = "";
 	//private RepositoryConnection repoConnection;
 	
 	public ConnectionRankRequest(LinkedDataNode currentNode){
@@ -56,7 +56,7 @@ public class ConnectionRankRequest {
 			samples.get(i).evalutateFeature();
 		}
 		try {
-			URL url = new URL("http://127.0.0.1:8080/Maven_DataVisualization-0.0.1-SNAPSHOT/demoServlet");//
+			URL url = new URL("http://127.0.0.1:8080/Maven_DataVisualization-0.0.1-SNAPSHOT/DemoServlet");//
 			URLConnection modelConn = url.openConnection();
 			modelConn.setDoInput(true);
 			modelConn.setDoOutput(true);
@@ -65,24 +65,26 @@ public class ConnectionRankRequest {
 						   "application/x-www-form-urlencoded");
 			DataOutputStream modelInput = new DataOutputStream(modelConn.getOutputStream());
 			//String content = "rarity,eitherNotPlace,differentOccupation\n";
-			String content = "";
+			String content = "features=";
 			for(int i = 0 ; i < samples.size(); i++){
-				content += samples.get(i).getRarity()+","
-						+ samples.get(i).getEitherNotPlace()+","
-						+ samples.get(i).getDifferentOccupation()+"\n";
+				content += URLEncoder.encode(samples.get(i).getRarity()+",", "UTF-8")
+						+ URLEncoder.encode(samples.get(i).getEitherNotPlace()+",", "UTF-8" )
+						+ URLEncoder.encode(samples.get(i).getDifferentOccupation()+"\n", "UTF-8");
 			}
 			modelInput.writeBytes(content);
 			modelInput.flush();
 			modelInput.close();
 			
 			BufferedReader modelOutput = new BufferedReader(new InputStreamReader(modelConn.getInputStream()));
-			String line = null;
-				while (null != (line = modelOutput.readLine())){
-					int index = 0;
+			String line = modelOutput.readLine();
+			int index = 0;
+				while (line != null){
+					this.ratingResponse += line+",";
 					if(index < samples.size()){
-						samples.get(index).setInterestingness(Float.parseFloat(line));
+						samples.get(index).setInterestingness(Double.parseDouble(line));
 						index++;
 					}
+					line = modelOutput.readLine();
 				}
 				
 		} catch (MalformedURLException e) {
@@ -124,11 +126,13 @@ public class ConnectionRankRequest {
 				newNode.put("name", samples.get(i).getLink().getObject().getName());
 				newNode.put("uri", samples.get(i).getLink().getObject().getURI());
 				newNode.put("relation", samples.get(i).getLink().getPredicate());
+				newNode.put("rank", samples.get(i).getInterestingness());
 			}
 			else{
 				newNode.put("name", samples.get(i).getLink().getSubject().getName());
 				newNode.put("uri", samples.get(i).getLink().getSubject().getURI());
 				newNode.put("relation", samples.get(i).getLink().getPredicate());
+				newNode.put("rank", samples.get(i).getInterestingness());
 			}
 			childrenArray.put(newNode);
 		}
@@ -137,7 +141,7 @@ public class ConnectionRankRequest {
 		result.put("uri", currentNode.getURI());
 		result.put("relation", "none");
 		result.put("children", childrenArray);
-		
+		result.put("resultLine", ratingResponse);
 		return result;
 	}
 	
