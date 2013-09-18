@@ -56,7 +56,7 @@ public class ConnectionRankRequest {
 			samples.get(i).evalutateFeature();
 		}
 		try {
-			URL url = new URL("http://localhost:8080/LinkedDataExploreProject/LinkRankServlet");//
+			URL url = new URL("http://127.0.0.1:8080/Maven_DataVisualization-0.0.1-SNAPSHOT/demoServlet");//
 			URLConnection modelConn = url.openConnection();
 			modelConn.setDoInput(true);
 			modelConn.setDoOutput(true);
@@ -64,7 +64,8 @@ public class ConnectionRankRequest {
 			modelConn.setRequestProperty("Content-Type", 
 						   "application/x-www-form-urlencoded");
 			DataOutputStream modelInput = new DataOutputStream(modelConn.getOutputStream());
-			String content = "rarity,eitherNotPlace,differentOccupation\n";
+			//String content = "rarity,eitherNotPlace,differentOccupation\n";
+			String content = "";
 			for(int i = 0 ; i < samples.size(); i++){
 				content += samples.get(i).getRarity()+","
 						+ samples.get(i).getEitherNotPlace()+","
