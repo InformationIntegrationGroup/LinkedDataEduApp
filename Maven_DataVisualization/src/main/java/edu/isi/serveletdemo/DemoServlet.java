@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URL;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -62,6 +63,11 @@ public class DemoServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		//URL url;
+		//url = new URL("http://localhost:8080/");
+		//urlConn = url.openConnection();
+		
 		InputStream in = request.getInputStream();
 		BufferedReader br = new BufferedReader(new InputStreamReader(in));
 		if(in==null)throw new IOException("Input is null");
@@ -74,20 +80,16 @@ public class DemoServlet extends HttpServlet {
 			System.out.println("Already generate the CSV: HIHIHIHI");
 			
 			WekaDemo demo= new WekaDemo(generateCsvLocation,trainFileLocation,testFileLocation);
-			/*
-			 * ConvertCSV c = new ConvertCSV();
-			c.convert("test1");
-			InterprateArff ia = new InterprateArff("d:/etc/train1.arff","d:/etc/test1.arff");
-			ia.TrainModel();
-			*/
 			
 			System.out.println("Complete Model Analysis!");
-			String ranking = demo.getRanking();
+			//String ranking = demo.getRanking(); /////////
 			
 			//Instances pred = ia.getPredict();
 			response.setContentType("text");
 			PrintWriter out = response.getWriter();
 			//Response with the ranking array
+			String ranking = ""+1.1+"\n"+""+1.2+"\n"+""+1.3+"\n"+""+2.1+"\n"+""+2.2+"\n"+""+2.3+"\n";
+			System.out.println(ranking);
 			out.print(ranking);		
 			
 			
@@ -112,6 +114,7 @@ public class DemoServlet extends HttpServlet {
 			for(int i = 0; i <arrayFeatures.length; i++){
 				
 				String[] entries = arrayFeatures[i].split(",");
+				//csv writer before it writes all the strings, transform it into integers
 				writer.writeNext(entries);
 			}
 			

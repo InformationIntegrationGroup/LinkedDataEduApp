@@ -52,7 +52,7 @@ public class InterprateArff {
 		labeled = new Instances(test);
 		for(int i = 0; i < test.numInstances(); i++){
 			double clsLabel = lr.classifyInstance(test.instance(i));
-			rankingResponse = ""+clsLabel+",";
+			rankingResponse = ""+clsLabel+"\n";
 			
 			labeled.instance(i).setClassValue(clsLabel);
 		}
