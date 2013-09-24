@@ -36,10 +36,11 @@ import edu.isi.linearRegression.WekaDemo;
  */
 @WebServlet("/DemoServlet")
 public class DemoServlet extends HttpServlet {
+	CsvListWriter listWriter = null;
 	private static final long serialVersionUID = 1L;
-    private static final String generateCsvLocation= "/Users/Alison/Documents/workspace/";
-    private static final String trainFileLocation = "/Users/Alison/Documents/workspace/";
-    private static final String testFileLocation = "/Users/Alison/Documents/workspace/";
+    private static final String generateCsvLocation= "/Users/Alison/Documents/";
+    private static final String trainFileLocation = "/Users/Alison/Documents/";
+    private static final String testFileLocation = "/Users/Alison/Documents/";
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -55,12 +56,12 @@ public class DemoServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		PrintWriter out = response.getWriter();
-		out.println("hello world");
+		//out.println("hello world");
 		
 		Object requestObject = request.getParameter("filename");
 		if(requestObject != null){
 			String filename = (String)requestObject;
-			String contentType=			response.getContentType();
+			String contentType=	response.getContentType();
 		}
 	}
 		private String getContentType(String fileType){
@@ -78,28 +79,21 @@ public class DemoServlet extends HttpServlet {
 		if(in==null)throw new IOException("Input is null");
 		
 		try {
-			//process request			
-			String features = request.getParameter("features");	
-			generateCSV(generateCsvLocation,features);//"d:/etc/test1.csv"
-			//System.out.println(features);
+					
+			String features = request.getParameter("features");	//process request	
+			generateCSV(generateCsvLocation,features);
 			
-			//WekaDemo demo= new WekaDemo(generateCsvLocation,trainFileLocation,testFileLocation);
+			WekaDemo demo= new WekaDemo(generateCsvLocation,trainFileLocation,testFileLocation);
+			String ranking = demo.getRanking(); 
 			
-			//System.out.println("Complete Model Analysis!");
-			//String ranking = demo.getRanking(); 
-			
-			//Instances pred = ia.getPredict();
 			response.setContentType("text");
 			PrintWriter out = response.getWriter();
-			//Response with the ranking array
-			String ranking = ""+1.1+"\n"+""+1.2+"\n"+""+1.3+"\n"+""+2.1+"\n"+""+2.2+"\n"+""+2.3+"\n";
+
+			//String ranking = ""+1.1+"\n"+""+1.2+"\n"+""+1.3+"\n"+""+2.1+"\n"+""+2.2+"\n"+""+2.3+"\n";
 			
-			out.print(ranking);		
-			System.out.println(ranking);
-			
-			//response.setContentType("text/plain");	
+			out.print(ranking);		//Response with the ranking array
+				
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		finally {
@@ -111,8 +105,8 @@ public class DemoServlet extends HttpServlet {
 
 	public void generateCSV(String fileName,String features) throws Exception{
 			
-		ArraySplitting();
-    	CSVLoader loader = new CSVLoader();
+		ArraySplitting(features);
+    	/*CSVLoader loader = new CSVLoader();
         loader.setSource(new File("/Users/Alison/Documents/test.csv"));
         Instances data = loader.getDataSet();
      
@@ -121,8 +115,9 @@ public class DemoServlet extends HttpServlet {
         saver.setInstances(data);
         saver.setFile(new File("/Users/Alison/Documents/test.arff"));
        // saver.setDestination(new File(args[1]));
-        saver.writeBatch();
+        saver.writeBatch();*/
 	}
+	
 	private static CellProcessor[] getProcessors() {
         
         final CellProcessor[] processors = new CellProcessor[] { 
@@ -135,16 +130,18 @@ public class DemoServlet extends HttpServlet {
         return processors;
 }
 	
-	public void  ArraySplitting() throws Exception{
+	public void  ArraySplitting(String features) throws Exception{
     	listWriter = new CsvListWriter(new FileWriter("/Users/Alison/Documents/test.csv"),
 		CsvPreference.STANDARD_PREFERENCE);
-    	String[] arrayFeatures = testing.split("\n");
+    	String[] arrayFeatures = features.split("\n");
     	List<Double> cell = new ArrayList<Double>();
 
     	try{
-    		final String[] header = new String[] { "rarity", "eitherPlace", "feature3"};
+    		final String[] header = new String[] { "rarity", "EitherNotPlace", "differentOccupation"};
     			listWriter.writeHeader(header);
-    			final CellProcessor[] processors = getProcessors();
+    			
+    		final CellProcessor[] processors = getProcessors();
+    		
     		for(int i = 0; i <arrayFeatures.length; i++){
     			cell = new ArrayList<Double>();
     			String[] entries = arrayFeatures[i].split(",");
