@@ -77,6 +77,14 @@ public class DemoServlet extends HttpServlet {
 		InputStream in = request.getInputStream();
 		BufferedReader br = new BufferedReader(new InputStreamReader(in));
 		if(in==null)throw new IOException("Input is null");
+		response.setContentType("text");
+		PrintWriter out = response.getWriter();
+		//String features = request.getParameter("features");
+		//out.println(features);
+
+		String ranking1 = ""+1.1+"\n"+""+1.2+"\n"+""+1.3+"\n"+""+2.1+"\n"+""+2.2+"\n"+""+2.3+"\n";
+		
+		out.print(ranking1);
 		
 		try {
 					
@@ -86,12 +94,12 @@ public class DemoServlet extends HttpServlet {
 			WekaDemo demo= new WekaDemo(generateCsvLocation,trainFileLocation,testFileLocation);
 			String ranking = demo.getRanking(); 
 			
-			response.setContentType("text");
-			PrintWriter out = response.getWriter();
+			//response.setContentType("text");
+			//PrintWriter out = response.getWriter();
 
 			//String ranking = ""+1.1+"\n"+""+1.2+"\n"+""+1.3+"\n"+""+2.1+"\n"+""+2.2+"\n"+""+2.3+"\n";
 			
-			out.print(ranking);		//Response with the ranking array
+			//out.print(ranking);		//Response with the ranking array
 				
 		} catch (Exception e) {
 			e.printStackTrace();
