@@ -76,11 +76,11 @@ public class DemoServlet extends HttpServlet {
 		for(int i = 0; i <array.length; i++){
 			String[] entrie = array[i].split(",");
 			for(int j=0;j<entrie.length;j++){
-				rankingTest += entrie[j]+"\n";
+				out.println(entrie[j]);
 			}
 				//String ranking1 = ""+1.1+"\n"+""+1.2+"\n"+""+1.3+"\n"+""+2.1+"\n"+""+2.2+"\n"+""+2.3+"\n"+features;		
 		}
-		out.print(rankingTest);
+		//out.print(rankingTest);
 		
 		/*try {	
 			//String features = request.getParameter("features");	//process request	

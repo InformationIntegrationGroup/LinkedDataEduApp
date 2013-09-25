@@ -15,7 +15,7 @@ public class Sample {
 	
 	public Sample(LinkedDataConnection link){
 		this.link = link;
-		this.rarity = -1;
+		this.rarity = 0;
 		this.eitherNotPlace = -1;
 		this.differentOccupation = -1;
 		this.smallPlace = -1;
