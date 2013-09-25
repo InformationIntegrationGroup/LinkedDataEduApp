@@ -65,11 +65,12 @@ public class ConnectionRankRequest {
 						   "application/x-www-form-urlencoded");
 			DataOutputStream modelInput = new DataOutputStream(modelConn.getOutputStream());
 			//String content = "rarity,eitherNotPlace,differentOccupation\n";
-			String content = "features=";
+			String header = "1,"+"2,"+"3\\n";//changed here
+			String content = "features="+header;
 			for(int i = 0 ; i < samples.size(); i++){
 				content += URLEncoder.encode(samples.get(i).getRarity()+",", "UTF-8")
 						+ URLEncoder.encode(samples.get(i).getEitherNotPlace()+",", "UTF-8" )
-						+ URLEncoder.encode(samples.get(i).getDifferentOccupation()+"\n", "UTF-8");
+						+ URLEncoder.encode(samples.get(i).getDifferentOccupation()+"\\n", "UTF-8");
 			}
 			modelInput.writeBytes(content);
 			modelInput.flush();

@@ -53,20 +53,8 @@ public class DemoServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		PrintWriter out = response.getWriter();
-		//out.println("hello world");
-		
-		Object requestObject = request.getParameter("filename");
-		if(requestObject != null){
-			String filename = (String)requestObject;
-			String contentType=	response.getContentType();
-		}
-	}
-		private String getContentType(String fileType){
-			return null;
-		
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
+		doPost(request, response);
 	}
 
 	/**
@@ -74,21 +62,29 @@ public class DemoServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		InputStream in = request.getInputStream();
-		BufferedReader br = new BufferedReader(new InputStreamReader(in));
-		if(in==null)throw new IOException("Input is null");
+		//InputStream in = request.getInputStream();
+		//if(in==null)throw new IOException("Input is null");
 		response.setContentType("text");
 		PrintWriter out = response.getWriter();
-		//String features = request.getParameter("features");
-		//out.println(features);
-
-		String ranking1 = ""+1.1+"\n"+""+1.2+"\n"+""+1.3+"\n"+""+2.1+"\n"+""+2.2+"\n"+""+2.3+"\n";
+		String rankingTest ="";
+		//String ranking1 = ""+1.1+"\n"+""+1.2+"\n"+""+1.3+"\n"+""+2.1+"\n"+""+2.2+"\n"+""+2.3+"\n";
+		//out.print(ranking1);
 		
-		out.print(ranking1);
+		String features = request.getParameter("features");	//process request	
 		
-		try {
-					
-			String features = request.getParameter("features");	//process request	
+		String[] array = features.split("\n");
+		for(int i = 0; i <array.length; i++){
+			String[] entrie = array[i].split(",");
+			for(int j=0;j<entrie.length;j++){
+				rankingTest += entrie[j]+"\n";
+			}
+				//String ranking1 = ""+1.1+"\n"+""+1.2+"\n"+""+1.3+"\n"+""+2.1+"\n"+""+2.2+"\n"+""+2.3+"\n"+features;		
+		}
+		out.print(rankingTest);
+		
+		/*try {	
+			//String features = request.getParameter("features");	//process request	
+			
 			generateCSV(generateCsvLocation,features);
 			
 			WekaDemo demo= new WekaDemo(generateCsvLocation,trainFileLocation,testFileLocation);
@@ -97,16 +93,14 @@ public class DemoServlet extends HttpServlet {
 			//response.setContentType("text");
 			//PrintWriter out = response.getWriter();
 
-			//String ranking = ""+1.1+"\n"+""+1.2+"\n"+""+1.3+"\n"+""+2.1+"\n"+""+2.2+"\n"+""+2.3+"\n";
-			
-			//out.print(ranking);		//Response with the ranking array
+			out.print(ranking);		//Response with the ranking array
 				
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		finally {
 			in.close();
-		}
+		}*/
 		
 	}
 	
