@@ -18,6 +18,10 @@ console.log(draw);
 var diagonal = d3.svg.diagonal()
     .projection(function(d) { return [d.y, d.x]; });
  
+var userPath = [];
+var userHash = new Object(); 
+ 
+ 
 var vis = d3.select("#chart").append("svg:svg")
     .attr("width", w + 200)
     .attr("height", h )
@@ -337,6 +341,34 @@ function highlightPath(){
 		}
 	}
 }
+function trackPath(data) {
+	userPath.unshift(data);
+	if (data.parent != null){
+		trackPath(data.parent);
+	}
+}
+function generateHashObject(){
+	userHash.hash = "h-3690378823082678040";
+	userHash.execution_time = 1220;
+	userHash.novelty = 0.11111111;
+	userHash.source = userPath[0].uri;
+	userHash.target = userPath[userPath.length - 1].uri;
+	userHash.path = [];
+	for (var i = 0; i < userPath.length; i++){
+		if (userPath[i].relation != null){
+			var linktype = new Object;
+			linktype.type = "link";
+			linktype.inverse = true;
+			linktype.uri = userPath[i].relation;
+			userHash.path.push(linktype);
+		}
+		var nodetype = new Object;
+		nodetype.type = "node";
+		nodetype.uri = userPath[i].uri;
+		userHash.path.push(nodetype);
+	}
+	console.log(userHash);
+}
 function beginSearch(){
 	$("#searchBox").remove();
 	$("#chart").append(stickyNote);
@@ -349,7 +381,7 @@ function beginSearch(){
 		location.reload();
 	}
 	$("#finish").click(function(){
-		console.log("FINISH", appendMap);
+		generateHashObject();
 	});
 //	$("#infoContent").append(chartHTML);
 }
