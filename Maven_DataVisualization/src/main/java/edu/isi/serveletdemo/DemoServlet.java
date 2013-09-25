@@ -1,7 +1,5 @@
 package edu.isi.serveletdemo;
 
-import weka.core.converters.*;//ArffSaver;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
@@ -9,8 +7,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.URL;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,10 +22,6 @@ import org.supercsv.cellprocessor.ift.CellProcessor;
 import org.supercsv.io.CsvListWriter;
 import org.supercsv.prefs.CsvPreference;
 
-import weka.core.Instances;
-import au.com.bytecode.opencsv.CSVWriter;
-import edu.isi.linearRegression.ConvertCSV;
-import edu.isi.linearRegression.InterprateArff;
 import edu.isi.linearRegression.WekaDemo;
 
 /**
@@ -46,10 +39,7 @@ public class DemoServlet extends HttpServlet {
      */
     public DemoServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
-   
-
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -61,63 +51,52 @@ public class DemoServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		//InputStream in = request.getInputStream();
-		//if(in==null)throw new IOException("Input is null");
-		response.setContentType("text");
-		PrintWriter out = response.getWriter();
-		String rankingTest ="";
 		//String ranking1 = ""+1.1+"\n"+""+1.2+"\n"+""+1.3+"\n"+""+2.1+"\n"+""+2.2+"\n"+""+2.3+"\n";
 		//out.print(ranking1);
 		
 		String features = request.getParameter("features");	//process request	
-		
-		String[] array = features.split("\n");
-		for(int i = 0; i <array.length; i++){
-			String[] entrie = array[i].split(",");
-			for(int j=0;j<entrie.length;j++){
-				out.println(entrie[j]);
-			}
-				//String ranking1 = ""+1.1+"\n"+""+1.2+"\n"+""+1.3+"\n"+""+2.1+"\n"+""+2.2+"\n"+""+2.3+"\n"+features;		
-		}
-		//out.print(rankingTest);
-		
-		/*try {	
-			//String features = request.getParameter("features");	//process request	
-			
+		try {		
 			generateCSV(generateCsvLocation,features);
-			
-			WekaDemo demo= new WekaDemo(generateCsvLocation,trainFileLocation,testFileLocation);
+			WekaDemo demo= new WekaDemo();
+			demo.ConvertCSV(generateCsvLocation);
+			demo.TrainModel(trainFileLocation);
 			String ranking = demo.getRanking(); 
-			
-			//response.setContentType("text");
-			//PrintWriter out = response.getWriter();
-
+			response.setContentType("text");
+			PrintWriter out = response.getWriter();
 			out.print(ranking);		//Response with the ranking array
-				
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		finally {
-			in.close();
-		}*/
-		
 	}
 	
 
 	public void generateCSV(String fileName,String features) throws Exception{
+		listWriter = new CsvListWriter(new FileWriter(fileName+"test.csv"),
+				CsvPreference.STANDARD_PREFERENCE);
+		String[] arrayFeatures = features.split("\n");
+		List<Double> cell = new ArrayList<Double>();
+
+		    try{
+		    	final String[] header = new String[] { "rarity", "EitherNotPlace", "differentOccupation"};
+		    		listWriter.writeHeader(header);
+		    			
+		    	final CellProcessor[] processors = getProcessors();
+		    		
+		    	for(int i = 0; i <arrayFeatures.length; i++){
+		    		cell = new ArrayList<Double>();
+		    		String[] entries = arrayFeatures[i].split(",");
 			
-		ArraySplitting(features);
-    	/*CSVLoader loader = new CSVLoader();
-        loader.setSource(new File("/Users/Alison/Documents/test.csv"));
-        Instances data = loader.getDataSet();
-     
-        // save ARFF
-        ArffSaver saver = new ArffSaver();
-        saver.setInstances(data);
-        saver.setFile(new File("/Users/Alison/Documents/test.arff"));
-       // saver.setDestination(new File(args[1]));
-        saver.writeBatch();*/
+		    		for(int j=0;j<entries.length;j++){
+		    			cell.add(Double.parseDouble(entries[j]));			
+		    		}//end of j for   		
+		    		listWriter.write(cell, processors);
+		    	}//end of i for		
+		    }//end of try	    	
+		    finally {
+				if( listWriter != null ) {
+					listWriter.close();
+			}
+		    	}
 	}
 	
 	private static CellProcessor[] getProcessors() {
@@ -125,46 +104,10 @@ public class DemoServlet extends HttpServlet {
         final CellProcessor[] processors = new CellProcessor[] { 
                 new ParseDouble(), 
                 new ParseDouble(),
-                new ParseDouble()// customerNo (must be unique)
-               // new NotNull(), // firstName
-               // new NotNull() // lastName
+                new ParseDouble()
         };
         return processors;
 }
-	
-	public void  ArraySplitting(String features) throws Exception{
-    	listWriter = new CsvListWriter(new FileWriter("/Users/Alison/Documents/test.csv"),
-		CsvPreference.STANDARD_PREFERENCE);
-    	String[] arrayFeatures = features.split("\n");
-    	List<Double> cell = new ArrayList<Double>();
-
-    	try{
-    		final String[] header = new String[] { "rarity", "EitherNotPlace", "differentOccupation"};
-    			listWriter.writeHeader(header);
-    			
-    		final CellProcessor[] processors = getProcessors();
-    		
-    		for(int i = 0; i <arrayFeatures.length; i++){
-    			cell = new ArrayList<Double>();
-    			String[] entries = arrayFeatures[i].split(",");
-	
-    			for(int j=0;j<entries.length;j++){
-    				cell.add(Double.parseDouble(entries[j]));			
-    				System.out.println(cell.get(j));		
-			
-    			}//end of j for
-    								
-    			listWriter.write(cell, processors);
-    		}//end of i for
-	
-    	}//end of try
-    	finally {
-			if( listWriter != null ) {
-				listWriter.close();
-			}
-    	}
-	}
-			
 		
 }
 		

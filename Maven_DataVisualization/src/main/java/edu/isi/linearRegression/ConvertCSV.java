@@ -11,22 +11,20 @@ public class ConvertCSV {
    * takes 2 arguments:
    * - CSV input file
    * - ARFF output file
- * @throws Exception 
- * @throws Exception 
    */
 	public ConvertCSV(){ 	 }
 	
 	public void convert(String fileName) throws Exception{
 		// load CSV
     CSVLoader loader = new CSVLoader();
-    loader.setSource(new File(fileName+".csv"));
+    loader.setSource(new File(fileName+"test.csv"));
     Instances data = loader.getDataSet();
  
     // save ARFF
     ArffSaver saver = new ArffSaver();
     saver.setInstances(data);
-    saver.setFile(new File(fileName+".arff"));
-   // saver.setDestination(new File(args[1]));
+    saver.setFile(new File(fileName+"test.arff"));
+    saver.setDestination(new File(fileName+"test.arff"));
     saver.writeBatch();
     
 	}

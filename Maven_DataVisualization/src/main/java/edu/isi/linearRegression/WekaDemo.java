@@ -4,19 +4,19 @@ public class WekaDemo {
 	  //public static void main(String[] args) throws Exception {
 	
 	String rankResponse ="";
-    public WekaDemo(String csvFileLocation,String trainFileLocation, String testFileLocation) throws Exception{
-    	
+	
+    public WekaDemo(){}
+ 
+    public void ConvertCSV(String fileLocation) throws Exception{
     	ConvertCSV c = new ConvertCSV();
-    	c.convert(csvFileLocation);
-        InterprateArff ia = new InterprateArff(trainFileLocation,testFileLocation);//"d:/etc/train1.arff","d:/etc/test1.arff");
-        ia.TrainModel();
-		rankResponse = ia.getPredict();
-        
+    	c.convert(fileLocation);
     }
     
-    /*public static void main(String[] args) throws Exception {
-    	WekaDemo wk= new WekaDemo();
-    }*/
+    public void TrainModel(String fileLocation) throws Exception{
+    	InterprateArff ia = new InterprateArff(fileLocation+"train.arff",fileLocation+"test.arff");
+        ia.TrainModel();
+		rankResponse = ia.getPredict();
+    }
    
    public String getRanking(){
 	   return rankResponse;
