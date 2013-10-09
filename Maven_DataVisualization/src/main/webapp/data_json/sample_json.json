@@ -1,0 +1,12 @@
+{
+	"name":"computer",
+	"uri":"URI_of_current_node",
+	"relation":"URI_relation_between_current_and_parent",
+	"children":[
+				{"name":"c++","uri":"some_URI","relation":"some_relation"},
+				{"name":"mouse","uri":"some_URI","relation":"some_relation"},
+				{"name":"screen","uri":"some_URI","relation":"some_relation"},
+				{"name":"javascript","uri":"some_URI","relation":"some_relation"},
+				{"name":"python","uri":"some_URI","relation":"some_relation"}
+	]
+}

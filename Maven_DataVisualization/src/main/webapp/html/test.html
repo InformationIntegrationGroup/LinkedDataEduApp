@@ -23,8 +23,8 @@
 		} else {
 			request = new ActiveXObject("Microsoft.XMLHTTP");
 		}
-		//request.open('GET', '../java/edu/isi/serverbackend/Servlet');
-		request.open('GET','data_json/hash_test.json');
+		//request.open('GET', '../java/edu/isi/serverbackend/Servlet');data_json/sample_path.json
+		request.open('GET','data_json/sample_path.json');
 		request.onreadystatechange = function() {
 			console.log(request);
 			if ((request.readyState===4) && (request.status===200)) {

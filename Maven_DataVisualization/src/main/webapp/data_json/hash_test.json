@@ -7,7 +7,24 @@
 	"path": [
 		{
 			"type": "node",
-			"uri": "http:\/\/dbpedia.org\/resource\/Barack_Obama"
+			"uri": "http:\/\/dbpedia.org\/resource\/Barack_Obama",
+			"audio_text":"actual text",
+			"slide_description":[
+				{
+					"type":"img",
+					"data":{
+						"uri":"...",
+						"effect":"ease_out"
+					},
+					"duration":"1000"
+				},{
+					"type":"youtube_slide",
+					"uri":"someURI"
+				},{
+					"type":"audio",
+					""
+				}
+			]
 		}, {
 			"inverse": false,
 			"type": "link",

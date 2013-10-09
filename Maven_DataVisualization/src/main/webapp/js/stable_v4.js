@@ -35,7 +35,7 @@ var chartHTML = '<div id="chart">';
 	chartHTML += '<h3 id="info">Information</h3>';
 	chartHTML += '<p class = "infoContent" id="name"> </p>';
 	chartHTML += '<p class = "infoContent" id="catalog"> </p>';
-	chartHTML += '<img id="stickyNote" src="img/stickyNotes.png" />';
+	chartHTML += '<img id="stickyNote" src="../img/stickyNotes.png" />';
 	chartHTML += '</div></div>';
 
 var searchBoxHTML = '<div id="searchBox">';
@@ -60,7 +60,7 @@ $("#chart").click(function(){
 });
 function add(name) {
 	console.log("called add(); ==================================================");
-	var keyWord = "data_json/";
+	var keyWord = "../data_json/";
 	keyWord += name;
 	keyWord += ".json";
 
