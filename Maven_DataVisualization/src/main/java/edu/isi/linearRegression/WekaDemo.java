@@ -13,7 +13,7 @@ public class WekaDemo {
     }
     
     public void TrainModel(String fileLocation) throws Exception{
-    	InterprateArff ia = new InterprateArff(fileLocation+"train.arff",fileLocation+"test.arff");
+    	InterprateArff ia = new InterprateArff(fileLocation+"train.arff",fileLocation+"test1.arff");
         ia.TrainModel();
 		rankResponse = ia.getPredict();
     }

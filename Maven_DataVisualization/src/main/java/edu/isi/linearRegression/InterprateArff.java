@@ -19,24 +19,17 @@ public class InterprateArff {
 	String rankingResponse;
 	BufferedReader reader;
 	Instances data,test,labeled;
-	/*public InterprateArff(String fileName) throws Exception{
-		BufferedReader reader = new BufferedReader(
-                             new FileReader(fileName));
-		Instances data = new Instances(reader);
-	}*/
 	
 	public InterprateArff(String file1, String file2) throws Exception{
 		
 		ReadIn(file1, file2);
-		TrainModel();
-		//rankingResponse = "";
-			
+		rankingResponse = "";			
 		/* Evaluation eval = new Evaluation(data);
 		 Random rand = new Random(1);  // using seed = 1
 		 int folds = 10;
 		 eval.crossValidateModel(lr, data, folds, rand);
 		 System.out.println(eval.toSummaryString());
-	*/
+		 */
 	} 
 	
 	public void TrainModel() throws Exception{
@@ -47,17 +40,14 @@ public class InterprateArff {
 		LinearRegression lr = new LinearRegression();
 		lr.setOptions(options);
 		lr.buildClassifier(data);
-		
-		//Involving Testing
-		labeled = new Instances(test);
+		//rankingResponse = test.numInstances()+"\n";
+		//labeled = new Instances(test);
 		for(int i = 0; i < test.numInstances(); i++){
 			double clsLabel = lr.classifyInstance(test.instance(i));
-			rankingResponse = ""+clsLabel+"\n";
-			
-			labeled.instance(i).setClassValue(clsLabel);
+			rankingResponse += clsLabel+"\n";			
+			//labeled.instance(i).setClassValue(clsLabel);
 		}
-		System.out.println(rankingResponse);
-		
+		System.out.println(rankingResponse);		
 		//BufferedWriter writer = new BufferedWriter(new FileWriter("d:/etc/label.arff"));
 		//writer.write(labeled.toString());
 		
