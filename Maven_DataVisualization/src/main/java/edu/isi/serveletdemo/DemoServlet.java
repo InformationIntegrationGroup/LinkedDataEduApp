@@ -77,7 +77,7 @@ public class DemoServlet extends HttpServlet {
 		List<Double> cell = new ArrayList<Double>();
 
 		    try{
-		    	final String[] header = new String[] { "rarity", "EitherNotPlace", "differentOccupation"};
+		    	final String[] header = new String[] { "rarity", "EitherNotPlace", "differentOccupation","interestingness"};
 		    		listWriter.writeHeader(header);
 		    			
 		    	final CellProcessor[] processors = getProcessors();
@@ -103,6 +103,7 @@ public class DemoServlet extends HttpServlet {
         
         final CellProcessor[] processors = new CellProcessor[] { 
                 new ParseDouble(), 
+                new ParseDouble(),
                 new ParseDouble(),
                 new ParseDouble()
         };
