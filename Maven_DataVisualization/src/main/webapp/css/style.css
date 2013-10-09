@@ -5,7 +5,7 @@ html, body {
 	font-family: Arial, Helvetica, sans-serif;
 }
 body{
-	background-image: url('img/background2.jpg');
+	background-image: url('../img/background2.jpg');
 }
 .node circle {
 	cursor: pointer;
@@ -113,6 +113,19 @@ input {
 	position: absolute;
 	top: 20px;
 	left: 150px;
+	width: 100px;
+	height: 30px;
+	border: none;
+	border-radius: 3px;
+	background: #6b0000;
+	cursor: pointer;
+	font-size: 20px;
+	color: #ff9900;
+}
+#finish {
+	position: absolute;
+	top: 20px;
+	left: 300px;
 	width: 100px;
 	height: 30px;
 	border: none;

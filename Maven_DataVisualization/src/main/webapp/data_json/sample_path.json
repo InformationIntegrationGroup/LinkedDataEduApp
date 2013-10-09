@@ -1,0 +1,114 @@
+{
+	"hash":"h-3690378823082678040",
+	"excecution_time": 12200,
+	"source":"source_URI",
+	"destination":"destination_URI",
+	"path":[
+		{
+			"type":"node",
+			"uri":"node_#1_URI",
+			"audio_text":"Here is the audio text about this node",
+			"slide_description":[
+				{
+					"type":"img",
+					"duration":"1000",
+					"data":{
+						"uri":"image_uri",
+						"effect":"ease-out"
+					}
+				},{
+					"type":"youtube_slides",
+					"duration":"16000",
+					"data":{
+						"uri":"youtube_video_URI",
+						"effect":"none",
+						"start":"3'01",
+						"end":"3'17"
+					}
+				},{
+					"type":"google_map_slide",
+					"duration":"3000",
+					"data":{
+						"uri":"google_map_URI",
+						"effect":"slide_in"
+					}
+				}
+			]
+		},{
+			"type":"link",
+			"inverse":false,
+			"uri":"link_content_URI",
+			"audio_text":"Here is the audio text about the relation",
+			"slide_description":[
+				{
+					"type":"img",
+					"duration":"1000",
+					"data":{
+						"uri":"image_uri",
+						"effect":"ease-out"
+					}
+				},{
+					"type":"youtube_slides",
+					"duration":"7000",
+					"data":{
+						"uri":"youtube_video_URI",
+						"effect":"none",
+						"start":"1'40",
+						"end":"1'47"
+					}
+				}
+			]
+		},{
+			"type":"node",
+			"uri":"node_#2_URI",
+			"audio_text":"Here is the audio text about this node",
+			"slide_description":[
+				{
+					"type":"img",
+					"duration":"1000",
+					"data":{
+						"uri":"image_uri",
+						"effect":"ease-out"
+					}
+				},{
+					"type":"youtube_slides",
+					"duration":"2000",
+					"data":{
+						"uri":"youtube_video_URI",
+						"effect":"none",
+						"start":"0'20",
+						"end":"0'22"
+					}
+				},{
+					"type":"google_map_slide",
+					"duration":"3000",
+					"data":{
+						"uri":"google_map_URI",
+						"effect":"slide_in"
+					}
+				},{
+					"type":"img",
+					"duration":"1000",
+					"data":{
+						"uri":"image_uri",
+						"effect":"ease-out"
+					}
+				},{
+					"type":"img03",
+					"duration":"3000",
+					"data":{
+						"uri":"image_uri",
+						"effect":"expand"
+					}
+				}
+			]
+		}
+	]
+}
+
+
+
+
+
+
+

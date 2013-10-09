@@ -1,0 +1,58 @@
+{
+	"hash": "h-3690378823082678040",
+	"execution_time": 1220,
+	"destination": "http:\/\/dbpedia.org\/resource\/Paris",
+	"novelty": 0.1111111111,
+	"source": "http:\/\/dbpedia.org\/resource\/Barack_Obama",
+	"path": [
+		{
+			"type": "node",
+			"uri": "http:\/\/dbpedia.org\/resource\/Barack_Obama",
+			"audio_text":"actual text",
+			"slide_description":[
+				{
+					"type":"img",
+					"data":{
+						"uri":"...",
+						"effect":"ease_out"
+					},
+					"duration":"1000"
+				},{
+					"type":"youtube_slide",
+					"uri":"someURI"
+				},{
+					"type":"audio",
+					""
+				}
+			]
+		}, {
+			"inverse": false,
+			"type": "link",
+			"uri": "http:\/\/dbpedia.org\/ontology\/vicePresident"
+		}, {
+			"type": "node",
+			"uri": "http:\/\/dbpedia.org\/resource\/Joe_Biden"
+		}, {
+			"inverse": false,
+			"type": "link",
+			"uri": "http:\/\/dbpedia.org\/ontology\/religion"
+		}, {
+			"type": "node",
+			"uri": "http:\/\/dbpedia.org\/resource\/Catholic_Church"
+		}, {
+			"inverse": true,
+			"type": "link",
+			"uri": "http:\/\/dbpedia.org\/ontology\/religion"
+		}, {
+			"type": "node",
+			"uri": "http:\/\/dbpedia.org\/resource\/Bertrand_Delano%C3%AB"
+		}, {
+			"inverse": true,
+			"type": "link",
+			"uri": "http:\/\/dbpedia.org\/ontology\/mayor"
+		}, {
+			"type": "node",
+			"uri": "http:\/\/dbpedia.org\/resource\/Paris"
+		}
+	]
+}
