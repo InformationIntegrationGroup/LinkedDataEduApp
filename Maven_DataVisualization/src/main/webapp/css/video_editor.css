@@ -1,10 +1,78 @@
-#videoEditor {
+/*GLOBAL*/
+.fullWidth {
 	width: 100%;
+}
+.fullHeight {
 	height: 100%;
-	border: 1px black solid;
+}
+.height1 {
+	height: 7%;
+}
+.height2 {
+	height: 16%;
+}
+.height3 {
+	height: 20%;
+}
+.height4 {
+	height: 25%;
+}
+.floatLeft {
+	float: left;
+}
+.floatRight {
+	float: right;
+}
+
+
+/*ELEMENTS*/
+#videoEditor {
+
 }
 #generateVideoEditor {
 	position: relative;
 	top: 48%;
 	left: 48%;
+}
+.nodeNavBar {
+	position: absolute;
+	top: 0px;
+	display: none;
+}
+.nodeElementBar {
+	width: 96%;
+	position: absolute;
+	bottom: 0px;
+	left: 2%;
+	display: none;
+	overflow-y: scroll;
+}
+.nodeElement {
+	position: relative;
+	margin: 0 auto;
+	text-align: center;
+}
+.nodeElementContent {
+	height: 100%;
+	display: inline;
+	cursor: pointer;
+}
+.moviePreview {
+	width: 480px;
+	height: 360px;
+	position: relative;
+	top: 9%;
+	margin: 0 auto;
+	background: yellow;
+	display: none;
+}
+.imgPreview {
+	width: 100%;
+}
+.textDescription {
+	width: 700px;
+	height: 250px;
+	position: relative;
+	margin: 70px auto 20px;
+	display: none;
 }
