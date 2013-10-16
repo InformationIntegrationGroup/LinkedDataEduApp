@@ -1,6 +1,9 @@
 package edu.isi.serverbackend.request;
 
 import edu.isi.serverbackend.linkedData.*;
+import edu.isi.serverbackend.feature.DifferentOccupationFeature;
+import edu.isi.serverbackend.feature.EitherNotPlaceFeature;
+import edu.isi.serverbackend.feature.RarityFeature;
 import edu.isi.serverbackend.feature.util.*;
 
 import java.io.*;
@@ -52,9 +55,12 @@ public class ConnectionRankRequest {
 	}
 	
 	public void rateInterestingness(){
-		for(int i = 0; i < samples.size(); i++){
-			samples.get(i).evalutateFeature();
-		}
+//		for(int i = 0; i < samples.size(); i++){
+//			samples.get(i).evalutateFeature();
+//		}
+		RarityFeature.calculateRarity(samples);
+		DifferentOccupationFeature.isDifferentOccupation(samples);
+		EitherNotPlaceFeature.isEitherNotPlace(samples);
 		try {
 			URL url = new URL("http://127.0.0.1:8080/Maven_DataVisualization-0.0.1-SNAPSHOT/DemoServlet");//
 			URLConnection modelConn = url.openConnection();
