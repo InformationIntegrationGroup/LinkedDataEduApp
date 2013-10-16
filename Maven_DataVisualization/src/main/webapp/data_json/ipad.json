@@ -1,10 +1,10 @@
 {
 	"name":"ipad",
 	"children":[
-				{"name":"game","catalog":"activity"},
-				{"name":"lightening","catalog":"phenomenon"},
-				{"name":"tablet","catalog":"electronics"},
-				{"name":"smartcover","catalog":"device"},
-				{"name":"nexus7","catalog":"electronics"}
+				{"name":"game","uri":"URI","relation":"relation","inverse":false},
+				{"name":"lightening","uri":"URI","relation":"relation","inverse":true},
+				{"name":"tablet","uri":"URI","relation":"relation","inverse":false},
+				{"name":"smartcover","uri":"URI","relation":"relation","inverse":false},
+				{"name":"nexus7","uri":"URI","relation":"relation","inverse":true}
 	]
 }

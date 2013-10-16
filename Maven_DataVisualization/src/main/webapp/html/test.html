@@ -13,8 +13,8 @@
   </head>
   <body>
     <div id="chart"> </div>
-    <script type="text/javascript" src="js/jquery.js"> </script>
-    <script type="text/javascript" src="js/d3.js"> </script>
+    <script type="text/javascript" src="../js/jquery.js"> </script>
+    <script type="text/javascript" src="../js/d3.js"> </script>
     <script type="text/javascript">
  
 		var request;
@@ -24,7 +24,7 @@
 			request = new ActiveXObject("Microsoft.XMLHTTP");
 		}
 		//request.open('GET', '../java/edu/isi/serverbackend/Servlet');data_json/sample_path.json
-		request.open('GET','data_json/sample_path.json');
+		request.open('GET','../data_json/sample_path.json');
 		request.onreadystatechange = function() {
 			console.log(request);
 			if ((request.readyState===4) && (request.status===200)) {

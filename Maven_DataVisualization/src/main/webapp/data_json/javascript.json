@@ -1,10 +1,10 @@
 {
 	"name":"javascript",
 	"children":[
-				{"name":"java","catalog":"language"},
-				{"name":"website","catalog":"product"},
-				{"name":"browser","catalog":"product"},
-				{"name":"chrome","catalog":"product"},
-				{"name":"ie","catalog":"product"}
+				{"name":"java","uri":"URI","relation":"relation","inverse":false},
+				{"name":"website","uri":"URI","relation":"relation","inverse":false},
+				{"name":"browser","uri":"URI","relation":"relation","inverse":false},
+				{"name":"chrome","uri":"URI","relation":"relation","inverse":true},
+				{"name":"ie","uri":"URI","relation":"relation","inverse":false}
 	]
 }

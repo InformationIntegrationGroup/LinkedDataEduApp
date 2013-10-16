@@ -63,7 +63,7 @@
 	position: relative;
 	top: 9%;
 	margin: 0 auto;
-	background: yellow;
+	border: 1px solid black;
 	display: none;
 }
 .imgPreview {

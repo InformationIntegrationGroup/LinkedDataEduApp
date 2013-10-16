@@ -59,7 +59,7 @@ function generateNodeNavBar(){
 
 function generateNodeElementBar(nodeName){
 	$("#nodeElement").empty();
-	//$("#textDescription").attr("placeholder", hashObjectArray[nodeName][1].audio_text);
+	$("#textDescription").html(hashObjectArray[nodeName][1].audio_text);
 	console.log(hashObjectArray[nodeName]);
 	var elementLength = (hashObjectArray[nodeName][0].slide_description.length + 
 						hashObjectArray[nodeName][1].slide_description.length) * (pathElementWidth);

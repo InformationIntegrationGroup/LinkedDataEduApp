@@ -1,10 +1,10 @@
 {
 	"name":"macbook",
 	"children":[
-				{"name":"iMac","catalog":"electronics"},
-				{"name":"iPhone","catalog":"electronics"},
-				{"name":"thunderbolt","catalog":"electronics"},
-				{"name":"macbookair","catalog":"electronics"},
-				{"name":"retina","catalog":"organ"}
+				{"name":"iMac","uri":"URI","relation":"relation","inverse":true},
+				{"name":"iPhone","uri":"URI","relation":"relation","inverse":false},
+				{"name":"thunderbolt","uri":"URI","relation":"relation","inverse":false},
+				{"name":"macbookair","uri":"URI","relation":"relation","inverse":false},
+				{"name":"retina","uri":"URI","relation":"relation","inverse":true}
 	]
 }

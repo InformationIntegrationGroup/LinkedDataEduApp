@@ -66,14 +66,15 @@ function add(name) {
 
 	
 	d3.json(keyWord, function(json){
-		json.x0 = 800;
+		json.x0 = 0;
   		json.y0 = 0;
 console.log("json: ", json);
 		if (json){
-			addTestingURI(json);
+			//addTestingURI(json);
 			if (round == 1){
 				json.parent = null;
 				json.relation = null;
+				json.uri = "URI";
 				history = json;
 				appendMap[json.name] = json;
 				appendMap[json.name].search = 1;
@@ -357,23 +358,26 @@ function trackPath(data) {
 	}
 }
 function generateHashObject(){
-	userHash.hash = "h-3690378823082678040";
-	userHash.execution_time = 1220;
-	userHash.novelty = 0.11111111;
-	userHash.source = userPath[0].uri;
-	userHash.target = userPath[userPath.length - 1].uri;
+	userHash.hash = "hashID";
+	userHash.source = new Object;
+	userHash.target = new Object;
+	userHash.source.label = userPath[0].name;
+	userHash.source.uri = userPath[0].uri;
+	userHash.target.label = userPath[userPath.length - 1].name;
+	userHash.target.uri = userPath[userPath.length - 1].uri;
 	userHash.path = [];
 	for (var i = 0; i < userPath.length; i++){
 		if (userPath[i].relation != null){
 			var linktype = new Object;
 			linktype.type = "link";
-			linktype.inverse = true;
+			linktype.inverse = userPath[i].inverse;
 			linktype.uri = userPath[i].relation;
 			userHash.path.push(linktype);
 		}
 		var nodetype = new Object;
 		nodetype.type = "node";
 		nodetype.uri = userPath[i].uri;
+		nodetype.name = userPath[i].name;
 		userHash.path.push(nodetype);
 	}
 	console.log(userHash);

@@ -1,10 +1,10 @@
 {
 	"name":"screen",
 	"children":[
-				{"name":"keyboard","catalog":"device"},
-				{"name":"trackpad","catalog":"device"},
-				{"name":"apple","catalog":"fruit"},
-				{"name":"television","catalog":"electronics"},
-				{"name":"touchscreen","catalog":"device"}
+				{"name":"keyboard","uri":"URI","relation":"relation","inverse":false},
+				{"name":"trackpad","uri":"URI","relation":"relation","inverse":false},
+				{"name":"apple","uri":"URI","relation":"relation","inverse":false},
+				{"name":"television","uri":"URI","relation":"relation","inverse":false},
+				{"name":"touchscreen","uri":"URI","relation":"relation","inverse":false}
 	]
 }

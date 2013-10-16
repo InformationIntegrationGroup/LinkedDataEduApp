@@ -1,12 +1,10 @@
 {
 	"name":"computer",
-	"catalog":"electronics",
-	
 	"children":[
-				{"name":"c++","catalog":"language"},
-				{"name":"mouse","catalog":"electronics"},
-				{"name":"screen","catalog":"device"},
-				{"name":"javascript","catalog":"language"},
-				{"name":"python","catalog":"language"}
+				{"name":"c++","uri":"URI","relation":"relation","inverse":true},
+				{"name":"mouse","uri":"URI","relation":"relation","inverse":false},
+				{"name":"screen","uri":"URI","relation":"relation","inverse":false},
+				{"name":"javascript","uri":"URI","relation":"relation","inverse":false},
+				{"name":"python","uri":"URI","relation":"relation","inverse":true}
 	]
 }

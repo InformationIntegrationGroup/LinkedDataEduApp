@@ -1,8 +1,8 @@
 {
 	"hash":"h-3690378823082678040",
 	"excecution_time": 12200,
-	"source":"source_URI",
-	"destination":"destination_URI",
+	"source":{"label":"sourceName", "uri":"sourceURI"},
+	"destination":{"label":"destinationName", "uri":"destinationURI"},
 	"path":[
 		{
 			"name":"node0",

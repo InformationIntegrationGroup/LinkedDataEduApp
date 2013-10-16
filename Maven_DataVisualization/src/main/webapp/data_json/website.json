@@ -1,10 +1,10 @@
 {
 	"name":"website",
 	"children":[
-				{"name":"usc.com","catalog":"product"},
-				{"name":"httpprotocal","catalog":"tool"},
-				{"name":"frontend","catalog":"product"},
-				{"name":"backend","catalog":"product"},
-				{"name":"localserver","catalog":"tool"}
+				{"name":"usc.com","uri":"URI","relation":"relation","inverse":false},
+				{"name":"httpprotocal","uri":"URI","relation":"relation","inverse":true},
+				{"name":"frontend","uri":"URI","relation":"relation","inverse":true},
+				{"name":"backend","uri":"URI","relation":"relation","inverse":true},
+				{"name":"localserver","uri":"URI","relation":"relation","inverse":false}
 	]
 }
