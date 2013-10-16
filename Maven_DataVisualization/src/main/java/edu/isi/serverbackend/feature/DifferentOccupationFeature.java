@@ -1,11 +1,12 @@
 package edu.isi.serverbackend.feature;
 
-import edu.isi.serverbackend.linkedData.LinkedDataConnection;
+import java.util.*;
 
-import org.openrdf.query.BooleanQuery;
-import org.openrdf.query.MalformedQueryException;
-import org.openrdf.query.QueryEvaluationException;
-import org.openrdf.query.QueryLanguage;
+import edu.isi.serverbackend.linkedData.LinkedDataConnection;
+import edu.isi.serverbackend.feature.util.*;
+
+import org.openrdf.query.*;
+import org.openrdf.repository.RepositoryConnection;
 import org.openrdf.repository.RepositoryException;
 
 public class DifferentOccupationFeature {
@@ -48,4 +49,74 @@ public class DifferentOccupationFeature {
 		
 		return differentOccupation;
 	}
+	
+	public static void isDifferentOccupation(List<Sample> samples){
+		if(!samples.isEmpty()){
+			RepositoryConnection repoConn = samples.get(0).getLink().getRepoConnection();
+			HashSet<String> diffOccupationSet = new HashSet<String>();
+			String stringQuery = "SELECT ?s2 WHERE{ "
+					+ "?s1 a ?type. " 
+					+ "?s2 a ?type. "
+					+ "?type rdfs:subClassOf dbpedia-owl:Person. ";
+			String filterQuery = "FILTER(";
+			if(samples.get(0).getLink().isSubjectConnection()){
+				filterQuery +="?s1 = <" + samples.get(0).getLink().getSubject().getURI() + "> AND (";
+			}
+			else{
+				filterQuery +="?s1 = <" + samples.get(0).getLink().getObject().getURI() + "> AND (";
+			}
+			for(int i = 0; i < samples.size(); i++){
+				if(samples.get(i).getLink().isSubjectConnection()){
+					filterQuery += "<" + samples.get(i).getLink().getObject().getURI() + ">";
+				}
+				else{
+					filterQuery += "<" + samples.get(i).getLink().getSubject().getURI() + ">";
+				}
+				if(i < samples.size() - 1){
+					filterQuery += " OR ";
+				}
+			}
+			filterQuery += ")). }";
+			stringQuery += filterQuery;
+			System.out.println(stringQuery);
+			try {
+				TupleQuery query = repoConn.prepareTupleQuery(QueryLanguage.SPARQL, stringQuery);
+				TupleQueryResult result = query.evaluate();
+				while(result.hasNext()){
+					BindingSet bindingSet = result.next();
+					diffOccupationSet.add(bindingSet.getValue("s2").stringValue());
+				}
+			} catch (RepositoryException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (MalformedQueryException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (QueryEvaluationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			for(int i = 0; i < samples.size(); i++){
+				if(samples.get(i).getLink().isSubjectConnection()){
+					if(diffOccupationSet.contains(samples.get(i).getLink().getObject().getURI())){
+						samples.get(i).setDifferentOccupation(0);
+					}
+					else{
+						samples.get(i).setDifferentOccupation(1);
+					}
+				}
+				else{
+					if(diffOccupationSet.contains(samples.get(i).getLink().getSubject().getURI())){
+						samples.get(i).setDifferentOccupation(0);
+					}
+					else{
+						samples.get(i).setDifferentOccupation(1);
+					}
+				}
+			}
+		}
+	}
+	
+	
 }

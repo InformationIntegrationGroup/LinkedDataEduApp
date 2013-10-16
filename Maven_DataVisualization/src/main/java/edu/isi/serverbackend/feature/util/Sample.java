@@ -23,6 +23,16 @@ public class Sample {
 		
 	}
 	
+	public Sample(LinkedDataConnection link, double interestingness){
+		this.link = link;
+		this.rarity = 0;
+		this.eitherNotPlace = -1;
+		this.differentOccupation = -1;
+		this.smallPlace = -1;
+		this.interestingness = interestingness;
+		
+	}
+	
 	public void evalutateFeature(){
 		//rarity = RarityFeature.calculateRarity(link);
 		eitherNotPlace = EitherNotPlaceFeature.isEitherNotPlace(link);

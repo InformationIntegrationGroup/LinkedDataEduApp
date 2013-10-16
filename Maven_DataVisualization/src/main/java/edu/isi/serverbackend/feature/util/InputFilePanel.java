@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.util.*;
+
 import javax.swing.*;
 
 import org.openrdf.query.BindingSet;
@@ -16,6 +17,9 @@ import org.openrdf.repository.RepositoryConnection;
 import org.openrdf.repository.RepositoryException;
 import org.openrdf.repository.http.HTTPRepository;
 
+import edu.isi.serverbackend.feature.DifferentOccupationFeature;
+import edu.isi.serverbackend.feature.EitherNotPlaceFeature;
+import edu.isi.serverbackend.feature.RarityFeature;
 import edu.isi.serverbackend.linkedData.*;
 import edu.isi.serverbackend.linkedData.LinkedDataConnection.CurrentNode;
 
@@ -102,7 +106,7 @@ public class InputFilePanel extends JPanel implements ActionListener{
 			RepositoryConnection repoConnection = endpoint.getConnection();
 			LinkedDataNode seed = new LinkedDataNode(seedURI, repoConnection);
 			DBpediaCrawler crawler = new DBpediaCrawler(seed);
-			crawler.startExplore(1000);
+			crawler.startExplore(100);
 			ArrayList<LinkedDataConnection> links = crawler.exportLinks();
 			for(int i = 0; i < links.size(); i++){
 				pw.print(links.get(i).getSubject().getURI() + " ");
@@ -155,7 +159,7 @@ public class InputFilePanel extends JPanel implements ActionListener{
 		try{
 			HTTPRepository endpoint = new HTTPRepository("http://dbpedia.org/sparql", "");
 			endpoint.initialize();
-			ArrayList<TrainingSample> samples = new ArrayList<TrainingSample>();
+			ArrayList<Sample> samples = new ArrayList<Sample>();
 			RepositoryConnection repoConnection = endpoint.getConnection();
 			FileInputStream fstream = new FileInputStream(fileName);
 			DataInputStream dstream = new DataInputStream(fstream);
@@ -164,18 +168,23 @@ public class InputFilePanel extends JPanel implements ActionListener{
 			line = reader.readLine();
 			while(line != null){
 				String[] strs = line.split(" ");
-				if(strs.length == 4){
+				if(strs.length == 3){
 					System.out.println("sample detected");
 					LinkedDataNode subject = new LinkedDataNode(strs[0], repoConnection);
 					LinkedDataNode object = new LinkedDataNode(strs[2], repoConnection);
 					String predicate = strs[1];
 					LinkedDataConnection link = new LinkedDataConnection(subject, object, predicate, CurrentNode.subject, repoConnection);
-					TrainingSample newSample = new TrainingSample(link, Float.parseFloat(strs[3]));
-					newSample.evalutateFeature();
+					Sample newSample = new Sample(link);
+					//Sample newSample = new Sample(link, Double.parseDouble(strs[3]));
+					//newSample.evalutateFeature();
 					samples.add(newSample);
 				}
 				line = reader.readLine();
 			}
+			RarityFeature.calculateRarity(samples);
+			EitherNotPlaceFeature.isEitherNotPlace(samples);
+			DifferentOccupationFeature.isDifferentOccupation(samples);
+			
 			System.out.println("Sample processing finished");
 			dstream.close();
 			fstream.close();
@@ -186,7 +195,7 @@ public class InputFilePanel extends JPanel implements ActionListener{
 		}
 	}
 	
-	public void exportTraingSetCSV(ArrayList<TrainingSample> samples){
+	public void exportTraingSetCSV(ArrayList<Sample> samples){
 		try {
 			FileWriter fwriter = new FileWriter("train1.csv");
 			PrintWriter pw = new PrintWriter(fwriter);
