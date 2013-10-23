@@ -3,6 +3,7 @@
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     	<title>Linked Data Education</title>
     	<script type="text/javascript" src="../js/jquery.js"> </script>
+    	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     	<link rel="stylesheet" href="../css/bootstrap3.min.css" type="text/css" media="screen">
     	<link rel="stylesheet" href="../css/bootstrap-responsive.css" type="text/css" media="screen"> 
     	<link rel="stylesheet" href="../css/video_editor.css" type="text/css" media="screen">
@@ -13,11 +14,37 @@
 			<button id="generateVideoEditor" class="btn btn-primary">Video Editor</button>
 			
 			<div id="moviePreview" class="moviePreview"> </div>
-			<textarea class="form-control textDescription" id="textDescription"> </textarea>
+			<div id="audioDescriptionWrap" class="audioDescriptionWrap">
+				<textarea class="textDescription" id="textDescription"> 
+				</textarea>
+				<button id="editTestDescription" class="btn btn-primary">Edit</button>
+			</div>
 			<div id="nodeElementBar" class="height2 nodeElementBar">
 				<div id="nodeElement" class="nodeElement fullHeight">
 					
 				</div> 
+			</div>
+			<div id="movieNav" class="movieNavBar">
+				<ul id="sortable">
+	  				<li class="ui-state-default">
+	  					<img class="movieNavElement" src="../img/sample_img.jpg">
+	  				</li>
+	  				<li class="ui-state-default">
+	  					<img class="movieNavElement" src="../img/stickyNotes.png">
+	  				</li>
+	  				<li class="ui-state-default">
+	  					<img class="movieNavElement" src="../img/sample_video.jpg">
+	  				</li>
+	  				<li class="ui-state-default">
+						<img class="movieNavElement" src="../img/sample_map.jpg">
+					</li>
+	  				<li class="ui-state-default">
+	  					<img class="movieNavElement" src="../img/stickyNotes.png">
+	  				</li>
+	  				<li class="ui-state-default">
+	  					<img class="movieNavElement" src="../img/background.jpg">
+	  				</li>
+			</ul>
 			</div>
 		</div>
 		<script type="text/javascript" src="../js/video_editor.js"> </script>

@@ -64,25 +64,32 @@ function generateNodeElementBar(nodeName){
 	var elementLength = (hashObjectArray[nodeName][0].slide_description.length + 
 						hashObjectArray[nodeName][1].slide_description.length) * (pathElementWidth);
 	console.log(elementLength);
-	$("#nodeElement").css("width", elementLength + "px");
+	//$("#nodeElement").css("width", elementLength + "px");
 	for (var i = 0; i < hashObjectArray[nodeName][0].slide_description.length; i++){
 		generateNodeElement(hashObjectArray[nodeName][0].slide_description[i]);
 	}
 	for (var i = 0; i < hashObjectArray[nodeName][1].slide_description.length; i++){
 		generateNodeElement(hashObjectArray[nodeName][1].slide_description[i]);
 	}
-	$(".nodeElementContent").css("width", pathElementWidth + "px");
+	//$(".nodeElementContent").css("width", pathElementWidth + "px");
 	$(".nodeElementContent").click(function(){
-		$("#moviePreview").html("<img class='imgPreview' src='" + $(this).attr("id") + "'>");
+		$("#moviePreview").html("<img class='imgPreview' src='" + $(this).attr("src") + "'>");
 	});
 }
 
 function generateNodeElement(node){
 	console.log(node, "uri", node.data.uri);
-	var element = "<div id='" + node.data.uri + "' class='nodeElementContent'>";
-		element += "<img class='fullHeight' src='" + node.data.uri + "'/>"
+	var element = "<div id='" + node.data.uri + "' class='nodeElementContentWrap'>";
+		element += "<img class='nodeElementContent' src='" + node.data.uri + "'/>"
 		element += "</div>";
 	$("#nodeElement").append(element);
+	//$(".nodeElementContentWrap").draggable();
+	
+	$(".nodeElementContent").mousedown(function(){
+		$("#videoEditor").mousemove(function(e){
+			console.log(e.pageY);
+		});
+	});
 	
 }
 
@@ -95,9 +102,12 @@ $("#generateVideoEditor").click(function(){
 	$("#nodeNavBar").css("display","block");
 	$("#nodeElementBar").css("display", "block");
 	$("#moviePreview").css("display", "block");
-	$("#textDescription").css("display", "block");
+	$("#audioDescriptionWrap").css("display", "block");
+	$("#movieNav").css("display", "block");
 	console.log(dataPathHash);
 	generatePathArray();
 	generateNodeNavBar();
+	$( "#sortable" ).sortable();
+    $( "#sortable" ).disableSelection();
 });
 
