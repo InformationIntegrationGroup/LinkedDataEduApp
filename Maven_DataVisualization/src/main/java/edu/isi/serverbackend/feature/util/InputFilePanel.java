@@ -181,6 +181,7 @@ public class InputFilePanel extends JPanel implements ActionListener{
 				}
 				line = reader.readLine();
 			}
+			InfoExtractor.extractNames(samples);
 			RarityFeature.calculateRarity(samples);
 			EitherNotPlaceFeature.isEitherNotPlace(samples);
 			DifferentOccupationFeature.isDifferentOccupation(samples);
