@@ -149,6 +149,7 @@ public class ConnectionRankRequest {
 		result.put("relation", "none");
 		result.put("children", childrenArray);
 		result.put("resultLine", ratingResponse);
+		result.put("Size", samples.size());
 		return result;
 	}
 	

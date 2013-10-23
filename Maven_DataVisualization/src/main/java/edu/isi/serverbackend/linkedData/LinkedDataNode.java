@@ -19,7 +19,7 @@ public class LinkedDataNode {
 	public LinkedDataNode(String uri, RepositoryConnection connection) throws RepositoryException, MalformedQueryException, QueryEvaluationException{
 		this.uri = uri;
 		this.repoConnection = connection;
-		retrieveName();
+		//retrieveName();
 	}
 	
 	public LinkedDataNode(String uri, String name, RepositoryConnection connection){
@@ -47,11 +47,11 @@ public class LinkedDataNode {
 	public void retrieveSubjectConnections(List<Sample> samples) throws RepositoryException, MalformedQueryException, QueryEvaluationException{
 		String queryString = "SELECT ?predicate ?object ?label WHERE{ "
                    + "<"+ uri + "> ?predicate ?object ."
+                   + "?predicate rdf:type owl:ObjectProperty ."
                    + "?object a owl:Thing ."
                    + "?object rdfs:label ?label ."
-                  // + "?s ?predicate ?object . "
                   // + "FILTER(langMatches(lang(?label), \"EN\")) "
-                   + "}";
+                   + "} GROUP BY ?object";
 		System.out.println(queryString);
 		TupleQuery query = repoConnection.prepareTupleQuery(QueryLanguage.SPARQL, queryString);
 		TupleQueryResult result = query.evaluate();
@@ -75,11 +75,11 @@ public class LinkedDataNode {
 	public void retrieveObjectConnections(List<Sample> samples) throws RepositoryException, MalformedQueryException, QueryEvaluationException{
 		String queryString = "SELECT ?predicate ?subject ?label WHERE{ "
                              + "?subject ?predicate <"+ uri + "> ."
+                             + "?predicate rdf:type owl:ObjectProperty ."
                              + "?subject a owl:Thing ."
                              + "?subject rdfs:label ?label ."
-                            // + "?subject ?predicate ?o . "
                            //  + "FILTER(langMatches(lang(?label), \"EN\")) "
-                             + "}";
+                             + "} GROUP BY ?object";
 		System.out.println(queryString);
 		TupleQuery query = repoConnection.prepareTupleQuery(QueryLanguage.SPARQL, queryString);
 		TupleQueryResult result = query.evaluate();
@@ -98,7 +98,9 @@ public class LinkedDataNode {
 			}
 		}
 	}
-	
+	public void setName(String name){
+		this.name = name;
+	}
 	public String getName(){
 		return name;
 	}
