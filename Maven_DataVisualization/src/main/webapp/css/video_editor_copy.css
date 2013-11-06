@@ -1,0 +1,218 @@
+/*GLOBAL*/
+.fullWidth {
+	width: 100%;
+}
+.fullHeight {
+	height: 100%;
+}
+.height1 {
+	height: 7%;
+}
+.height2 {
+	height: 16%;
+}
+.height3 {
+	height: 20%;
+}
+.height4 {
+	height: 25%;
+}
+.floatLeft {
+	float: left;
+}
+.floatRight {
+	float: right;
+}
+
+
+/*ELEMENTS*/
+#videoEditor {
+	
+}
+
+#sortable { 
+	list-style-type: none; 
+	margin: 0; 
+	padding: 0; 
+	width: 100%;
+}
+#sortable li { 
+	height: 100%;
+	margin: 0 3px 3px 3px; 
+	padding: 0.4em; 
+	padding-left: 1.5em; 
+	display: inline;
+}
+
+
+
+
+
+
+
+#generateVideoEditor {
+	position: relative;
+	top: 48%;
+	left: 48%;
+}
+.nodeNavBar {
+	position: absolute;
+	top: 0px;
+	display: none;
+}
+.nodeElementBar {
+	width: 30%;
+	height: 70%;
+	position: absolute;
+	top: 10%;
+	left: 1%;
+	display: none;
+	overflow-x: scroll;
+	border: 1px black solid;
+}
+.nodeElementBarContentWrap {
+	width: 44%;
+	height: 20%;
+	margin: 3%;
+	float: left;
+}
+.nodeElementBarContent {
+	width: 85%;
+	height: 85%;
+	margin: 5px;
+	float: left;
+}
+.nodeElement {
+	width: 100%;
+	position: relative;
+	margin: 0 auto;
+	text-align: center;
+}
+.nodeElementContentWrap {
+	width: 50%;
+	padding: 5px;
+	float: left;
+	cursor: pointer;
+}
+.nodeElementContent {
+	width: 100%;
+}
+.moviePreview {
+	width: 65%;
+	height: 55%;
+	position: absolute;
+	top: 10%;
+	left: 33%;
+	margin: 0 auto;
+	border: 1px solid black;
+	display: none;
+	text-align: center;
+}
+.imgPreview {
+	height: 100%;
+	text-align: center;
+}
+.audioDescriptionWrap{
+	width: 65%;
+	height: 15%;
+	position: absolute;
+	top: 65.5%;
+	left: 33%;
+	display: none;
+}
+.textDescriptionEdit {
+	position: relative;
+	left: 96%;
+	top: -83%;
+	width: 80px;
+}
+.textDescriptionCancel {
+	position: relative;
+	left: 82.5%;
+	top: -40%;
+	width: 80px;
+}
+.textDescription {
+	width: 80%;
+	height: 90%;
+	margin: 5px 0px;
+	position: absolute;
+}
+.textDescriptionButtonGroup {
+	width: 20%;
+	height: 100%;
+	position: absolute;
+	right: 0px;
+	text-align: center;
+}
+.btnOpt {
+	width: 80%;
+	height: 35%;
+	margin-top: 6%;
+}
+.movieNavBarWrap {
+	width: 98%;
+	height: 15%;
+	position: absolute;
+	left: 1%;
+	bottom: 1%;
+	display: none;
+	border: 1px black solid;
+	
+	
+	overflow-x: scroll;	
+	overflow-y: auto;
+}
+.movieNavBar {
+	height: 100%;
+	position: absolute;
+	background: yellow;	
+}
+.movieNavElementWrap {
+	width: 19%;
+	height: 95%;
+	position: relative;
+	top: 1%;
+	margin: 2px;
+	float: left;
+	text-align: left;
+	border-radius: 5px;
+}
+.movieNavElement {
+	height: 50%;
+}
+.movieNavOperation {
+	font-size: 10px;
+	bottom: 5px;
+	float: right;	
+}
+
+.Enable {
+	opacity: 1;
+	-webkit-animation: enterWrapEnable 0.8s ;
+	-o-animation: enterWrapEnable 0.8s ;
+	-moz-animation: enterWrapEnable 0.8s ;
+	animation: enterWrapEnable 0.8s ;
+}
+@keyframes Enable {
+	0% {opacity: 0;}
+	100% {opacity: 1;}
+}
+@-webkit-keyframes Enable {
+	0% {opacity: 0;}
+	100% {opacity: 1;}
+}
+@-o-keyframes Enable {
+	0% {opacity: 0;}
+	100% {opacity: 1;}
+}
+@-moz-keyframes Enable {
+	0% {opacity: 0;}
+	100% {opacity: 1;}
+}
+
+
+.mainScreenTemp {
+	position: absolute;
+	cursor: pointer;
+}
