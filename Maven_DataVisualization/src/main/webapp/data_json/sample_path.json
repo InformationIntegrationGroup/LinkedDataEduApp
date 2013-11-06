@@ -1,6 +1,6 @@
 {
 	"hash":"h-3690378823082678040",
-	"excecution_time": 12200,
+	"excecution_time": 6000,
 	"source":{"label":"sourceName", "uri":"sourceURI"},
 	"destination":{"label":"destinationName", "uri":"destinationURI"},
 	"path":[
@@ -14,7 +14,7 @@
 					"type":"img",
 					"duration":"1000",
 					"data":{
-						"uri":"../img/sample_img.jpg",
+						"uri":"../img/stickyNotes.png",
 						"effect":"ease-out"
 					}
 				},{
@@ -33,16 +33,7 @@
 						"uri":"../img/sample_map.jpg",
 						"effect":"slide_in"
 					}
-				}
-			]
-		},{
-			"name":"node0-node1",
-			"type":"link",
-			"inverse":false,
-			"uri":"link_content_URI",
-			"audio_text":"Here is the audio text about the relation",
-			"slide_description":[
-				{
+				},{
 					"type":"img",
 					"duration":"1000",
 					"data":{
@@ -59,6 +50,15 @@
 						"end":"1'47"
 					}
 				}
+			]
+		},{
+			"name":"node0-node1",
+			"type":"link",
+			"inverse":false,
+			"uri":"link_content_URI",
+			"audio_text":"Here is the audio text about the relation",
+			"slide_description":[
+				
 			]
 		},{
 			"name":"node1",
@@ -70,7 +70,7 @@
 					"type":"img",
 					"duration":"1000",
 					"data":{
-						"uri":"../img/sample_img.jpg",
+						"uri":"../img/background2.jpg",
 						"effect":"ease-out"
 					}
 				},{
@@ -86,19 +86,10 @@
 					"type":"google_map_slide",
 					"duration":"3000",
 					"data":{
-						"uri":"../img/sample_map.jpg",
+						"uri":"../img/background3.jpg",
 						"effect":"slide_in"
 					}
-				}
-			]
-		},{
-			"name":"node1-node2",
-			"type":"link",
-			"inverse":false,
-			"uri":"link_content_URI",
-			"audio_text":"Here is the audio text about the relation",
-			"slide_description":[
-				{
+				},{
 					"type":"img",
 					"duration":"1000",
 					"data":{
@@ -109,12 +100,21 @@
 					"type":"youtube_slides",
 					"duration":"7000",
 					"data":{
-						"uri":"../img/sample_video.jpg",
+						"uri":"../img/stickyNotes.png",
 						"effect":"none",
 						"start":"1'40",
 						"end":"1'47"
 					}
 				}
+			]
+		},{
+			"name":"node1-node2",
+			"type":"link",
+			"inverse":false,
+			"uri":"link_content_URI",
+			"audio_text":"Here is the audio text about the relation",
+			"slide_description":[
+				
 			]
 		},{
 			"name":"node2",
@@ -126,7 +126,7 @@
 					"type":"img",
 					"duration":"1000",
 					"data":{
-						"uri":"../img/sample_img.jpg",
+						"uri":"../img/background.jpg",
 						"effect":"ease-out"
 					}
 				},{
@@ -142,14 +142,14 @@
 					"type":"google_map_slide",
 					"duration":"3000",
 					"data":{
-						"uri":"../img/sample_map.jpg",
+						"uri":"../img/background3.jpg",
 						"effect":"slide_in"
 					}
 				},{
 					"type":"img",
 					"duration":"1000",
 					"data":{
-						"uri":"../img/sample_img.jpg",
+						"uri":"../img/background2.jpg",
 						"effect":"ease-out"
 					}
 				},{
@@ -179,23 +179,39 @@
 					"type":"img",
 					"duration":"1000",
 					"data":{
-						"uri":"../img/sample_img.jpg",
+						"uri":"../img/background2.jpg",
 						"effect":"ease-out"
 					}
 				},{
 					"type":"youtube_slides",
 					"duration":"2000",
 					"data":{
-						"uri":"../img/sample_video.jpg",
+						"uri":"../img/stickyNotes.png",
 						"effect":"none",
 						"start":"0'20",
 						"end":"0'22"
 					}
 				},{
+					"type":"img",
+					"duration":"1000",
+					"data":{
+						"uri":"../img/stickyNotes.png",
+						"effect":"ease-out"
+					}
+				},{
+					"type":"youtube_slides",
+					"duration":"7000",
+					"data":{
+						"uri":"../img/sample_video.jpg",
+						"effect":"none",
+						"start":"1'40",
+						"end":"1'47"
+					}
+				},{
 					"type":"google_map_slide",
 					"duration":"3000",
 					"data":{
-						"uri":"../img/sample_map.jpg",
+						"uri":"../img/background3.jpg",
 						"effect":"slide_in"
 					}
 				},{
@@ -214,23 +230,7 @@
 			"uri":"link_content_URI",
 			"audio_text":"Here is the audio text about the relation",
 			"slide_description":[
-				{
-					"type":"img",
-					"duration":"1000",
-					"data":{
-						"uri":"../img/sample_img.jpg",
-						"effect":"ease-out"
-					}
-				},{
-					"type":"youtube_slides",
-					"duration":"7000",
-					"data":{
-						"uri":"../img/sample_video.jpg",
-						"effect":"none",
-						"start":"1'40",
-						"end":"1'47"
-					}
-				}
+				
 			]
 		},{
 			"name":"node3",
@@ -242,14 +242,14 @@
 					"type":"img",
 					"duration":"1000",
 					"data":{
-						"uri":"../img/sample_img.jpg",
+						"uri":"../img/background2.jpg",
 						"effect":"ease-out"
 					}
 				},{
 					"type":"youtube_slides",
 					"duration":"2000",
 					"data":{
-						"uri":"../img/sample_video.jpg",
+						"uri":"../img/stickyNotes.png",
 						"effect":"none",
 						"start":"0'20",
 						"end":"0'22"
@@ -272,14 +272,14 @@
 					"type":"img03",
 					"duration":"3000",
 					"data":{
-						"uri":"../img/sample_img.jpg",
+						"uri":"../img/background2.jpg",
 						"effect":"expand"
 					}
 				},{
 					"type":"youtube_slides",
 					"duration":"2000",
 					"data":{
-						"uri":"../img/sample_video.jpg",
+						"uri":"../img/background3.jpg",
 						"effect":"none",
 						"start":"0'20",
 						"end":"0'22"
@@ -298,20 +298,11 @@
 						"uri":"../img/sample_img.jpg",
 						"effect":"ease-out"
 					}
-				}
-			]
-		},{
-			"name":"node3-node4",
-			"type":"link",
-			"inverse":false,
-			"uri":"link_content_URI",
-			"audio_text":"Here is the audio text about the relation",
-			"slide_description":[
-				{
+				},{
 					"type":"img",
 					"duration":"1000",
 					"data":{
-						"uri":"../img/sample_img.jpg",
+						"uri":"../img/background2.jpg",
 						"effect":"ease-out"
 					}
 				},{
@@ -324,6 +315,15 @@
 						"end":"1'47"
 					}
 				}
+			]
+		},{
+			"name":"node3-node4",
+			"type":"link",
+			"inverse":false,
+			"uri":"link_content_URI",
+			"audio_text":"Here is the audio text about the relation",
+			"slide_description":[
+				
 			]
 		},{
 			"name":"node4",
@@ -342,7 +342,7 @@
 					"type":"youtube_slides",
 					"duration":"2000",
 					"data":{
-						"uri":"../img/sample_video.jpg",
+						"uri":"../img/background3.jpg",
 						"effect":"none",
 						"start":"0'20",
 						"end":"0'22"
@@ -362,22 +362,6 @@
 						"effect":"ease-out"
 					}
 				},{
-					"type":"img03",
-					"duration":"3000",
-					"data":{
-						"uri":"../img/sample_img.jpg",
-						"effect":"expand"
-					}
-				}
-			]
-		},{
-			"name":"node4-node5",
-			"type":"link",
-			"inverse":false,
-			"uri":"link_content_URI",
-			"audio_text":"Here is the audio text about the relation",
-			"slide_description":[
-				{
 					"type":"img",
 					"duration":"1000",
 					"data":{
@@ -393,7 +377,23 @@
 						"start":"1'40",
 						"end":"1'47"
 					}
+				},{
+					"type":"img03",
+					"duration":"3000",
+					"data":{
+						"uri":"../img/sample_img.jpg",
+						"effect":"expand"
+					}
 				}
+			]
+		},{
+			"name":"node4-node5",
+			"type":"link",
+			"inverse":false,
+			"uri":"link_content_URI",
+			"audio_text":"Here is the audio text about the relation",
+			"slide_description":[
+				
 			]
 		},{
 			"name":"node5",
@@ -405,7 +405,7 @@
 					"type":"img",
 					"duration":"1000",
 					"data":{
-						"uri":"../img/sample_img.jpg",
+						"uri":"../img/background3.jpg",
 						"effect":"ease-out"
 					}
 				},{
