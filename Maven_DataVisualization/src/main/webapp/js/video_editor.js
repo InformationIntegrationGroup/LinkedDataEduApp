@@ -42,7 +42,7 @@ function generateNodeNavBar(){
 	var NodeNavBar = "<ul class='nav nav-pills nav-justified'>";
 	NodeNavBar += "<li class='active'><a href='#' class='" + dataPathHash.path[0].name + "'>"; 
 	NodeNavBar += dataPathHash.path[0].name + "</a></li>";
-	generateNodeElementBar(dataPathHash.path[0].name);
+	//generateNodeElementBar(dataPathHash.path[0].name);
 	for (var i = 2; i < dataPathHash.path.length; i=i+2){
 		NodeNavBar += "<li><a href='#' class='" + dataPathHash.path[i].name + "'>"; 
 		NodeNavBar += dataPathHash.path[i].name + "</a></li>";
@@ -53,7 +53,7 @@ function generateNodeNavBar(){
 		$(".nav-pills li").removeClass("active");
 		var classSelector = "." + $(this).attr("class");
 		$(classSelector).parent().addClass("active");
-		generateNodeElementBar($(this).attr("class"));
+		//generateNodeElementBar($(this).attr("class"));
 	});
 }
 
@@ -103,7 +103,7 @@ $("#generateVideoEditor").click(function(){
 	$("#nodeElementBar").css("display", "block");
 	$("#moviePreview").css("display", "block");
 	$("#audioDescriptionWrap").css("display", "block");
-	$("#movieNav").css("display", "block");
+	$("#movieNavBarWrap").css("display", "block");
 	console.log(dataPathHash);
 	generatePathArray();
 	generateNodeNavBar();

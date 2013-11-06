@@ -4,11 +4,13 @@
     	<title>Linked Data Education</title>
     	<script type="text/javascript" src="../js/jquery.js"> </script>
     	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    	<script src="../js/bootstrap3.min.js"></script>
     	<link rel="stylesheet" href="../css/bootstrap3.min.css" type="text/css" media="screen">
     	<link rel="stylesheet" href="../css/bootstrap-responsive.css" type="text/css" media="screen"> 
     	<link rel="stylesheet" href="../css/video_editor.css" type="text/css" media="screen">
 	</head>
 	<body>
+		<span class="glyphicon glyphicon-search"></span>
 		<div id="videoEditor" class="fullWidth fullHeight"> 
 			<div id="nodeNavBar" class="fullWidth height1 nodeNavBar"> </div>
 			<button id="generateVideoEditor" class="btn btn-primary">Video Editor</button>
@@ -17,49 +19,54 @@
 			<div id="audioDescriptionWrap" class="audioDescriptionWrap">
 				<textarea class="textDescription" id="textDescription"> 
 				</textarea>
-				<button id="editTestDescription" class="btn btn-primary textDescriptionEdit">Edit</button>
-				<button id="cancelTestDescription" class="btn btn-warning textDescriptionCancel">Cancel</button>
+				<div id="textDescriptionOperation" class="textDescriptionButtonGroup">
+					<button id="editTestDescription" class="btn btn-primary btn-sm btnOpt">Edit</button>
+					<button id="cancelTestDescription" class="btn btn-warning btn-sm btnOpt">Cancel</button>
+				</div>
 			</div>
 			<div id="nodeElementBar" class="height2 nodeElementBar">
-				<div id="nodeElement" class="nodeElement fullHeight">
-					
-				</div> 
+				<div class="nodeElementBarContentWrap btn btn-default">
+					<img class="nodeElementBarContent" name="spimg" src="../img/sample_img.jpg">
+				</div>
+				<div class="nodeElementBarContentWrap btn btn-default">
+					<img class="nodeElementBarContent" name="spbg" src="../img/background.jpg">
+				</div>
+				<div class="nodeElementBarContentWrap btn btn-default">
+					<img class="nodeElementBarContent" name="spbg2" src="../img/background2.jpg">
+				</div>
+				<div class="nodeElementBarContentWrap btn btn-default">
+					<img class="nodeElementBarContent" name="spbg3" src="../img/background3.jpg">
+				</div>
+				<div class="nodeElementBarContentWrap btn btn-default">
+					<img class="nodeElementBarContent" name="spmp" src="../img/sample_map.jpg">
+				</div>
+				<div class="nodeElementBarContentWrap btn btn-default">
+					<img class="nodeElementBarContent" name="spvdo" src="../img/sample_video.jpg">
+				</div>
+				<div class="nodeElementBarContentWrap btn btn-default">
+					<img class="nodeElementBarContent" name="stynt" src="../img/stickyNotes.png">
+				</div>
+				
 			</div>
-			<div id="movieNav" class="movieNavBar">
-				<ul id="movieNavList">
-	  				<li>
-	  					<img class="movieNavElement" src="../img/sample_img.jpg">
-	  				</li>
-	  				<li >
-	  					<img class="movieNavElement" src="../img/stickyNotes.png">
-	  				</li>
-	  				<li >
-	  					<img class="movieNavElement" src="../img/sample_video.jpg">
-	  				</li>
-	  				<li >
-						<img class="movieNavElement" src="../img/sample_map.jpg">
-					</li>
-	  				<li >
-	  					<img class="movieNavElement" src="../img/stickyNotes.png">
-	  				</li>
-	  				<li >
-	  					<img class="movieNavElement" src="../img/background.jpg">
-	  				</li>
-	  				<li >
-	  					<img class="movieNavElement" src="../img/stickyNotes.png">
-	  				</li>
-	  				<li >
-	  					<img class="movieNavElement" src="../img/background.jpg">
-	  				</li>
-	  				<li >
-	  					<img class="movieNavElement" src="../img/stickyNotes.png">
-	  				</li>
-	  				<li >
-	  					<img class="movieNavElement" src="../img/background.jpg">
-	  				</li>
-				</ul>
+			<div id="movieNavBarWrap" class="movieNavBarWrap">
+					<!-- <div class="movieNavElementWrap btn btn-default">
+						<img class="movieNavElement" src="../img/sample_video.jpg">
+					</div>
+					<div class="movieNavElementWrap btn btn-default">
+						<img class="movieNavElement" src="../img/background.jpg">
+					</div>
+					<div class="movieNavElementWrap btn btn-default">
+						<img class="movieNavElement" src="../img/sample_img.jpg">
+					</div>
+					<div class="movieNavElementWrap btn btn-default">
+						<img class="movieNavElement" src="../img/stickyNotes.png">
+					</div>
+					<div class="movieNavElementWrap btn btn-default">
+						<img class="movieNavElement" src="../img/sample_video.jpg">
+					</div> -->
 			</div>
 		</div>
 		<script type="text/javascript" src="../js/video_editor.js"> </script>
+		<script type="text/javascript" src="../js/video_editor_test.js"> </script>
 	</body>
 </html>
