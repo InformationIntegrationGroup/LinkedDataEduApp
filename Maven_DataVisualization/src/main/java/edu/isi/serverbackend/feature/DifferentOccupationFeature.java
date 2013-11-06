@@ -54,29 +54,30 @@ public class DifferentOccupationFeature {
 		if(!samples.isEmpty()){
 			RepositoryConnection repoConn = samples.get(0).getLink().getRepoConnection();
 			HashSet<String> diffOccupationSet = new HashSet<String>();
+			String currentNode;
+			if(samples.get(0).getLink().isSubjectConnection()){
+				currentNode = samples.get(0).getLink().getSubject().getURI();
+			}
+			else{
+				currentNode = samples.get(0).getLink().getObject().getURI();
+			}
 			String stringQuery = "SELECT ?s2 WHERE{ "
-					+ "?s1 a ?type. " 
+					+ "<"+ currentNode + "> a ?type. " 
 					+ "?s2 a ?type. "
 					+ "?type rdfs:subClassOf dbpedia-owl:Person. ";
 			String filterQuery = "FILTER(";
-			if(samples.get(0).getLink().isSubjectConnection()){
-				filterQuery +="?s1 = <" + samples.get(0).getLink().getSubject().getURI() + "> AND (";
-			}
-			else{
-				filterQuery +="?s1 = <" + samples.get(0).getLink().getObject().getURI() + "> AND (";
-			}
 			for(int i = 0; i < samples.size(); i++){
 				if(samples.get(i).getLink().isSubjectConnection()){
-					filterQuery += "<" + samples.get(i).getLink().getObject().getURI() + ">";
+					filterQuery += "?s2 = <" + samples.get(i).getLink().getObject().getURI() + ">";
 				}
 				else{
-					filterQuery += "<" + samples.get(i).getLink().getSubject().getURI() + ">";
+					filterQuery += "?s2 = <" + samples.get(i).getLink().getSubject().getURI() + ">";
 				}
 				if(i < samples.size() - 1){
 					filterQuery += " OR ";
 				}
 			}
-			filterQuery += ")). }";
+			filterQuery += "). }";
 			stringQuery += filterQuery;
 			System.out.println(stringQuery);
 			try {
@@ -117,6 +118,5 @@ public class DifferentOccupationFeature {
 			}
 		}
 	}
-	
 	
 }
