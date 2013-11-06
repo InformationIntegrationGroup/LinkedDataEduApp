@@ -181,9 +181,10 @@ public class InputFilePanel extends JPanel implements ActionListener{
 				}
 				line = reader.readLine();
 			}
-			InfoExtractor.extractNames(samples);
-			RarityFeature.calculateRarity(samples);
-			EitherNotPlaceFeature.isEitherNotPlace(samples);
+			//InfoExtractor.extractNames(samples);
+			//InfoRetriever.retrieveNames(samples);
+			//RarityFeature.calculateRarity(samples);
+			//EitherNotPlaceFeature.isEitherNotPlace(samples);
 			DifferentOccupationFeature.isDifferentOccupation(samples);
 			
 			System.out.println("Sample processing finished");
@@ -200,14 +201,19 @@ public class InputFilePanel extends JPanel implements ActionListener{
 		try {
 			FileWriter fwriter = new FileWriter("train1.csv");
 			PrintWriter pw = new PrintWriter(fwriter);
-			
-			pw.print("rarity,");
+			pw.print("Subject,");
+			pw.print("predicate,");
+			pw.print("Object,");
+			pw.print("Rarity,");
 			pw.print("EitherNotPlace,");
-			pw.print("differentOccupation,");
+			pw.print("DifferentOccupation,");
 			//pw.print("smallPlace,");
 			pw.println("interestingness");
 			for(int i = 0; i < samples.size(); i++){
-				String features = samples.get(i).getRarity()+","
+				String features = samples.get(i).getLink().getSubject().getName()+","
+						+ samples.get(i).getLink().getPredicate()+","
+						+ samples.get(i).getLink().getObject().getName()+","
+						+ samples.get(i).getRarity()+","
 						+ samples.get(i).getEitherNotPlace()+","
 						+ samples.get(i).getDifferentOccupation()+","
 						+ samples.get(i).getInterestingness()+"\n";

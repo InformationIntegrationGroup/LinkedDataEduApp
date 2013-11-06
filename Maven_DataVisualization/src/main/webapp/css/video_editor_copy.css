@@ -169,6 +169,7 @@
 	background: yellow;	
 }
 .movieNavElementWrap {
+	width: 19%;
 	height: 95%;
 	position: relative;
 	top: 1%;

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    	<script src="../js/bootstrap3.min.js" type="text/javascript"></script>
+    	<script src="../js/jquery.js" type="text/javascript"></script>
+		<link rel="stylesheet" href="../css/bootstrap3.min.css" type="text/css" media="screen">
+		<link rel="stylesheet" href="../css/style.css" type="text/css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+    	<div class="container">
+        	<div class="row">
+        		<img class="col-md-6" src="../img/kitten_2182000b.jpg">
+        		<img class="col-md-6" src="../img/kitten_2182000b.jpg">
+        	</div>
+        	<div class="jumbotron row">
+        		<h2 id="header">Kittens are related to Kittens</h2>
+        		<p id="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+        			Praesent leo magna, vehicula quis iaculis at, consectetur sed velit. 
+        			Vestibulum convallis quam id viverra lobortis. Duis malesuada quam eget 
+        			bibendum interdum. Etiam vel ligula ipsum. Nulla sed lobortis risus. 
+        			Donec eu arcu tristique tortor tincidunt dignissim. Aliquam erat volutpat.
+        			Nullam nec mollis elit. Nulla urna eros, sodales at risus eu, iaculis 
+        			tristique mi. Aenean sed justo dapibus, varius eros et, fermentum nisi.
+        		</p>
+        	</div>
+        	<div class="row">
+        		<button class="btn btn-default col-md-3">Interesting?</button>
+        		<button class="btn btn-default col-md-3">Know A?</button>
+        		<button class="btn btn-default col-md-3">Know B?</button>
+        		<button class="btn btn-info col-md-3" id="nxt">Start</button>
+        	</div>
+        </div>
+    </body>
+    <script>
+    	var loaded;
+    	var d;
+    	var index;
+    	$('#nxt').click(function(){
+    		if(!loaded){
+    			$.getJSON("/Maven_DataVisualization-0.0.1-SNAPSHOT/rankServlet?uri=http%3A%2F%2Fdbpedia.org%2Fresource%2FBill_Clinton&num=10", function(data){
+					console.log(data);
+					d = data;
+				}).success( function() {
+					loaded = true;
+					index = 1;
+					$('#nxt').html("Next");
+					var children = d['children'];
+					var first = children[0];
+					var sec = children[1];
+					$("#header").html(first['name'] + " is connected to " + sec['name']);
+				});
+			}
+			
+			if(loaded){
+				var children = d['children'];
+				if(index < children.length){
+					var first = children[index];
+					var sec = children[index+1];
+					$("#header").html(first['name'] + " is connected to " + sec['name']);
+					index++;
+				}
+			}
+		});
+    </script>
+</html>

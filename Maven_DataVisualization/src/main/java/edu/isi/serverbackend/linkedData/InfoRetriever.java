@@ -1,23 +1,19 @@
 package edu.isi.serverbackend.linkedData;
 
+
 import java.util.*;
-
-
 import org.openrdf.query.*;
-import org.openrdf.repository.RepositoryConnection;
-import org.openrdf.repository.RepositoryException;
+import org.openrdf.repository.*;
 
-import edu.isi.serverbackend.feature.util.*;
+import edu.isi.serverbackend.feature.util.Sample;
 
-public class InfoExtractor {
-	public static void extractNames(List<Sample> samples){
+public class InfoRetriever {
+	
+	public static void retrieveNames(List<Sample> samples){
 		if(!samples.isEmpty()){
 			RepositoryConnection repoConn = samples.get(0).getLink().getRepoConnection();
-			HashMap<String, String> nameMap = new HashMap<String, String>();
-			String stringQuery = "SELECT ?s ?label{ "
-					+ "?s rdfs:label ?label. " 
-					+ "FILTER(langMatches(lang(?label), \"EN\")) ";
-			String filterQuery = "FILTER( ";
+			Map<String, String> nameMap = new LinkedHashMap<String, String>();
+			List<String> nameList =  new ArrayList<String>();
 			for(Sample sample:samples){
 				if(!nameMap.containsKey(sample.getLink().getSubject().getURI())){
 					nameMap.put(sample.getLink().getSubject().getURI(), "");
@@ -26,26 +22,35 @@ public class InfoExtractor {
 					nameMap.put(sample.getLink().getObject().getURI(), "");
 				}
 			}
+			StringBuilder queryBuilder = new StringBuilder("SELECT ?label WHERE{");
+			StringBuilder unionQueryBuilder = new StringBuilder();
 			int count = 0;
 			for(String node:nameMap.keySet()){
-				filterQuery += "?s = <" + node + ">";
+				unionQueryBuilder.append("{ <"+node+"> rdfs:label ?label ");
+				unionQueryBuilder.append("FILTER(langMatches(lang(?label), \"EN\")) }");
 				count++;
 				if(count < nameMap.keySet().size()){
-					filterQuery += " OR ";
+					unionQueryBuilder.append(" UNION ");
 				}
 			}
-
-			filterQuery += ") }";
-			stringQuery += filterQuery;
-			System.out.println(filterQuery);
-			System.out.println(stringQuery);
+			queryBuilder.append(unionQueryBuilder);
+			queryBuilder.append("}");
+			System.out.println(unionQueryBuilder.toString());
+			System.out.println(queryBuilder.toString());
 			
 			try{
-				TupleQuery query = repoConn.prepareTupleQuery(QueryLanguage.SPARQL, stringQuery);
+				TupleQuery query = repoConn.prepareTupleQuery(QueryLanguage.SPARQL, queryBuilder.toString());
 				TupleQueryResult result = query.evaluate();
 				while(result.hasNext()){
 					BindingSet bindingSet = result.next();
-					nameMap.put(bindingSet.getValue("s").stringValue(), bindingSet.getValue("label").stringValue());
+					nameList.add(bindingSet.getValue("label").stringValue());
+				}
+				count = 0;
+				for(String key:nameMap.keySet()){
+					if(count < nameList.size()){
+						nameMap.put(key, nameList.get(count));
+						count++;
+					}
 				}
 			} catch (RepositoryException e) {
 			// TODO Auto-generated catch block
