@@ -54,12 +54,11 @@
 			
 			if(loaded){
 				var children = d['children'];
-				if(index < children.length){
-					var first = children[index];
-					var sec = children[index+1];
-					$("#header").html(first['name'] + " is connected to " + sec['name']);
-					index++;
-				}
+				if(index == children.length) index = 0;
+				var first = children[index];
+				var sec = children[index+1];
+				$("#header").html(first['name'] + " is connected to " + sec['name']);
+				index++;
 			}
 		});
     </script>
