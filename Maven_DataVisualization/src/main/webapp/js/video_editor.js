@@ -249,6 +249,9 @@ $("#generateVideoEditor").click(function(){
 	$("#moviePreview").css("display", "block");
 	$("#audioDescriptionWrap").css("display", "block");
 	$("#movieNavBarWrap").css("display", "block");
+	$("#stepNavigator").css("display", "block");
+	$("#nodeElementOperation").css("display", "block");
+	$(".slideProgressBar").css("display", "block");
 	generatePathArray();
 	generateNodeNavBar();
 });
