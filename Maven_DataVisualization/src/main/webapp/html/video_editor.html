@@ -2,6 +2,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     	<title>Linked Data Education</title>
+    	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
     	<script type="text/javascript" src="../js/jquery.js"> </script>
     	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     	<script src="../js/bootstrap3.min.js"></script>
@@ -10,22 +11,44 @@
     	<link rel="stylesheet" href="../css/video_editor.css" type="text/css" media="screen">
 	</head>
 	<body>
-		<span class="glyphicon glyphicon-search"></span>
 		<div id="videoEditor" class="fullWidth fullHeight"> 
-			<div id="nodeNavBar" class="fullWidth height1 nodeNavBar"> </div>
+			<div id="stepNavigator" class="stepNavigator">
+				<button id="lastStep" type="button" class="floatLeft btn btn-default btn-sm">Go Back To Canvas</button>
+				<button id="nextStep" type="button" class="floatRight btn btn-success btn-sm">Proceed to Player</button>
+			</div>
+			<div id="nodeNavBar" class="fullWidth height1 nodeNavBar">
+				<ul class='nav nav-pills nav-justified'>
+					<li class='active'><a href='#' class="nodeNavBarElem" id='node01'>NodeName#1</a></li>
+					<li class=''><a href='#' class="nodeNavBarElem" id='node02'>NodeName#2</a></li>
+					<li class=''><a href='#' class="nodeNavBarElem" id='node03'>NodeName#3</a></li>
+					<li class=''><a href='#' class="nodeNavBarElem" id='node04'>NodeName#4</a></li>
+					<li class=''><a href='#' class="nodeNavBarElem" id='node05'>NodeName#5</a></li>
+					<li class=''><a href='#' class="nodeNavBarElem" id='node06'>NodeName#6</a></li>
+					<li class=''><a href='#' class="nodeNavBarElem" id='node07'>NodeName#7</a></li>
+				</ul>
+			</div>
+			
 			<button id="generateVideoEditor" class="btn btn-primary">Video Editor</button>
 			
-			<div id="moviePreview" class="moviePreview">Movie Preview</div>
-			<div id="audioDescriptionWrap" class="audioDescriptionWrap">
-				<textarea class="textDescription" id="textDescription"> 
-				</textarea>
-				<div id="textDescriptionOperation" class="textDescriptionButtonGroup">
-					<button id="editTestDescription" class="btn btn-primary btn-sm btnOpt">Edit</button>
-					<button id="cancelTestDescription" class="btn btn-warning btn-sm btnOpt">Cancel</button>
+			<div id="nodeElementOperation" class="nodeElementOperation">
+				<div id="nodeElementEditing" class="nodeElementEditing">
+					Node Element Editing
+				</div>
+				<div id="playButtonGroup" class="playButtonGroup">
+					Play, Play All, Stop
+				</div>
+				<div id="moviePreview" class="moviePreview">Movie Preview</div>
+				<div id="audioDescriptionWrap" class="audioDescriptionWrap">
+					<textarea class="textDescription" id="textDescription"> 
+					</textarea>
+					<div id="textDescriptionOperation" class="textDescriptionButtonGroup">
+						<button id="editTestDescription" class="btn btn-primary btnOpt">Revert</button>
+					</div>
 				</div>
 			</div>
+			
 			<div id="nodeElementBar" class="height2 nodeElementBar">
-				<div class="nodeElementBarContentWrap btn btn-default">
+				<!-- <div class="nodeElementBarContentWrap btn btn-default">
 					<img class="nodeElementBarContent" name="spimg" src="../img/sample_img.jpg">
 				</div>
 				<div class="nodeElementBarContentWrap btn btn-default">
@@ -45,9 +68,12 @@
 				</div>
 				<div class="nodeElementBarContentWrap btn btn-default">
 					<img class="nodeElementBarContent" name="stynt" src="../img/stickyNotes.png">
-				</div>
+				</div> -->
 				
 			</div>
+			
+			<div id="slider-range-min" class="slideProgressBar"> </div>
+			
 			<div id="movieNavBarWrap" class="movieNavBarWrap">
 					<!-- <div class="movieNavElementWrap btn btn-default">
 						<img class="movieNavElement" src="../img/sample_video.jpg">
@@ -66,7 +92,7 @@
 					</div> -->
 			</div>
 		</div>
+		<!-- <script type="text/javascript" src="../js/video_editor.js"> </script> -->
 		<script type="text/javascript" src="../js/video_editor.js"> </script>
-		<script type="text/javascript" src="../js/video_editor_test.js"> </script>
 	</body>
 </html>
