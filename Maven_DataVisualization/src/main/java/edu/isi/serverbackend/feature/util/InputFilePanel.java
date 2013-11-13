@@ -7,19 +7,12 @@ import java.util.*;
 
 import javax.swing.*;
 
-import org.openrdf.query.BindingSet;
-import org.openrdf.query.MalformedQueryException;
-import org.openrdf.query.QueryEvaluationException;
-import org.openrdf.query.QueryLanguage;
-import org.openrdf.query.TupleQuery;
-import org.openrdf.query.TupleQueryResult;
+import org.openrdf.query.*;
 import org.openrdf.repository.RepositoryConnection;
 import org.openrdf.repository.RepositoryException;
 import org.openrdf.repository.http.HTTPRepository;
 
-import edu.isi.serverbackend.feature.DifferentOccupationFeature;
-import edu.isi.serverbackend.feature.EitherNotPlaceFeature;
-import edu.isi.serverbackend.feature.RarityFeature;
+import edu.isi.serverbackend.feature.*;
 import edu.isi.serverbackend.linkedData.*;
 import edu.isi.serverbackend.linkedData.LinkedDataConnection.CurrentNode;
 
@@ -181,11 +174,13 @@ public class InputFilePanel extends JPanel implements ActionListener{
 				}
 				line = reader.readLine();
 			}
-			//InfoExtractor.extractNames(samples);
+			InfoExtractor.extractNames(samples);
 			//InfoRetriever.retrieveNames(samples);
-			//RarityFeature.calculateRarity(samples);
-			//EitherNotPlaceFeature.isEitherNotPlace(samples);
+			RarityFeature.calculateRarity(samples);
+			EitherNotPlaceFeature.isEitherNotPlace(samples);
 			DifferentOccupationFeature.isDifferentOccupation(samples);
+			SmallPlaceFeature.calculateSmallPlace(samples);
+			//ImportanceFeature.calculateImportance(samples);
 			
 			System.out.println("Sample processing finished");
 			dstream.close();
@@ -207,7 +202,7 @@ public class InputFilePanel extends JPanel implements ActionListener{
 			pw.print("Rarity,");
 			pw.print("EitherNotPlace,");
 			pw.print("DifferentOccupation,");
-			//pw.print("smallPlace,");
+			pw.print("smallPlace,");
 			pw.println("interestingness");
 			for(int i = 0; i < samples.size(); i++){
 				String features = samples.get(i).getLink().getSubject().getName()+","
@@ -216,6 +211,7 @@ public class InputFilePanel extends JPanel implements ActionListener{
 						+ samples.get(i).getRarity()+","
 						+ samples.get(i).getEitherNotPlace()+","
 						+ samples.get(i).getDifferentOccupation()+","
+						+ samples.get(i).getSmallPlace()+","
 						+ samples.get(i).getInterestingness()+"\n";
 				pw.print(features);
 				/*pw.print(samples.get(i).getRarity() + ",");

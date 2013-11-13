@@ -2,7 +2,6 @@ package edu.isi.serverbackend.feature.util;
 
 import edu.isi.serverbackend.feature.DifferentOccupationFeature;
 import edu.isi.serverbackend.feature.EitherNotPlaceFeature;
-import edu.isi.serverbackend.feature.RarityFeature;
 import edu.isi.serverbackend.linkedData.*;
 
 public class Sample {
@@ -10,15 +9,15 @@ public class Sample {
 	protected double rarity;
 	protected float eitherNotPlace;
 	protected float differentOccupation;
-	protected float smallPlace;
+	protected double smallPlace;
 	double interestingness;
 	
 	public Sample(LinkedDataConnection link){
 		this.link = link;
 		this.rarity = 0;
-		this.eitherNotPlace = -1;
-		this.differentOccupation = -1;
-		this.smallPlace = -1;
+		this.eitherNotPlace = 0;
+		this.differentOccupation = 0;
+		this.smallPlace = 0;
 		this.interestingness = 0;
 		
 	}
@@ -26,9 +25,9 @@ public class Sample {
 	public Sample(LinkedDataConnection link, double interestingness){
 		this.link = link;
 		this.rarity = 0;
-		this.eitherNotPlace = -1;
-		this.differentOccupation = -1;
-		this.smallPlace = -1;
+		this.eitherNotPlace = 0;
+		this.differentOccupation = 0;
+		this.smallPlace = 0;
 		this.interestingness = interestingness;
 		
 	}
@@ -72,11 +71,11 @@ public class Sample {
 		this.differentOccupation = differentOccupation;
 	}
 
-	public float getSmallPlace() {
+	public double getSmallPlace() {
 		return smallPlace;
 	}
 
-	public void setSmallPlace(float smallPlace) {
+	public void setSmallPlace(double smallPlace) {
 		this.smallPlace = smallPlace;
 	}
 	
