@@ -1,7 +1,7 @@
 //DISABLE ANIMATION WHEN DISPLAYING NEW NODES
 
 var m = [20, 120, 20, 120],
-    w = 120,
+    w = 150,
     h = 580,
     i = 0,
     duration = 500,
@@ -12,20 +12,18 @@ var input = document.getElementById("input");
 var diagramDepth = 0, round = 1;
 var appendMap = new Object();
 var mainDepth = 1;
-
-var userPath = [];
-var userHash = new Object();
-
-
-
 var tree = d3.layout.tree()
 	.size([h, w]);
 console.log(draw);
 var diagonal = d3.svg.diagonal()
     .projection(function(d) { return [d.y, d.x]; });
  
+var userPath = [];
+var userHash = new Object(); 
+ 
+ 
 var vis = d3.select("#chart").append("svg:svg")
-    .attr("width", w + 110)
+    .attr("width", w + 200)
     .attr("height", h )
   	.append("svg:g")
     .attr("transform", "translate(40,0)");
@@ -35,7 +33,7 @@ var chartHTML = '<div id="chart">';
 	chartHTML += '<h3 id="info">Information</h3>';
 	chartHTML += '<p class = "infoContent" id="name"> </p>';
 	chartHTML += '<p class = "infoContent" id="catalog"> </p>';
-	chartHTML += '<img id="stickyNote" src="../img/stickyNotes.png" />';
+	chartHTML += '<img id="stickyNote" src="img/stickyNotes.png" />';
 	chartHTML += '</div></div>';
 
 var searchBoxHTML = '<div id="searchBox">';
@@ -54,27 +52,23 @@ var stickyNote ='<div id="nodeInfo">';
 var redraw = '<button id="redraw">Redraw</button>';	
 var finish = '<button id="finish">Finish</button>';	    		
 var relationBox = '<div id="relation" style="display: none;"></div>';
-
+var firstNode = 'http%3A%2F%2Fdbpedia.org%2Fresource%2FBill_Clinton&num=5';
 $("#chart").click(function(){
 	$("#relation").empty();
 });
 function add(name) {
 	console.log("called add(); ==================================================");
-	var keyWord = "../data_json/";
+	var keyWord = "/Maven_DataVisualization-0.0.1-SNAPSHOT/rankServlet?uri=";
 	keyWord += name;
-	keyWord += ".json";
+	keyWord += '&num=5';
 
 	
 	d3.json(keyWord, function(json){
-		json.x0 = 0;
-  		json.y0 = 0;
+		//json.x0 = 800;
+  		//json.y0 = 0;
 console.log("json: ", json);
 		if (json){
-			//addTestingURI(json);
 			if (round == 1){
-				json.parent = null;
-				json.relation = null;
-				json.uri = "URI";
 				history = json;
 				appendMap[json.name] = json;
 				appendMap[json.name].search = 1;
@@ -134,7 +128,7 @@ function update(source) {
 	    })
 	    .on("click", click)
 	    .on("mouseover", function(d){
-	   		var output = nodeMouseOver(d.name, d.catalog);
+	   		var output = nodeMouseOver(d.name, d.relation);
 	    });	
 			
 // Enter any new nodes at the parent's previous position.
@@ -252,7 +246,7 @@ function click(d) {
 		  
 		  mainDepth = 0;
 		  var getDepth = getTreeWidth(root);		
-		  w = (mainDepth) * 120;
+		  w = (mainDepth) * 170;
 		  console.log("mainDepth: ", mainDepth, " , w: ", w);
 		  tree.size([h, w]);
 		  update(d);
@@ -262,9 +256,9 @@ function click(d) {
 		  
 		  mainDepth = 0;
 		  var getDepth = getTreeWidth(root);
-		  w = (mainDepth) * 120;
+		  w = (mainDepth) * 170;
 		  console.log("mainDepth: ", mainDepth, " , w: ", w);
-		  $("svg").attr("width", w + 120 + "");
+		  $("svg").attr("width", w + 170 + "");
 		  tree.size([h, w]);
 		  update(d);
 		}
@@ -272,15 +266,12 @@ function click(d) {
 	else if (d.search == 0){
 		mainDepth = 0;	
 		var getDepth = getTreeWidth(root);
-		w = (mainDepth + 1) * 120;
+		w = (mainDepth + 1) * 170;
 		console.log("mainDepth: ", mainDepth, " , w: ", w);
-		$("svg").attr("width", w + 120 + "");
+		$("svg").attr("width", w + 170 + "");
 		tree.size([h, w]);
-		add(d.name);
+		add(d.uri);
 	}
-	userPath = [];
-	trackPath(d);
-	console.log("HIGHLIGHTPATH: ", userPath);
 }
 
 function getMousePosition(x, y){
@@ -350,7 +341,6 @@ function highlightPath(){
 		}
 	}
 }
-
 function trackPath(data) {
 	userPath.unshift(data);
 	if (data.parent != null){
@@ -358,31 +348,31 @@ function trackPath(data) {
 	}
 }
 function generateHashObject(){
-	userHash.hash = "hashID";
-	userHash.source = new Object;
-	userHash.target = new Object;
-	userHash.source.label = userPath[0].name;
+	userHash.hash = "h-3690378823082678040";
+	//userHash.execution_time = 1220;
+	//userHash.novelty = 0.11111111;
+	userHash.source = new Object();
+	userHash.source.name = userPath[0].name;
 	userHash.source.uri = userPath[0].uri;
-	userHash.target.label = userPath[userPath.length - 1].name;
-	userHash.target.uri = userPath[userPath.length - 1].uri;
+	userHash.destination = new Object();
+	userHash.destination.name = userPath[userPath.length - 1].name;
+	userHash.destination.uri = userPath[userPath.length - 1].uri;
 	userHash.path = [];
 	for (var i = 0; i < userPath.length; i++){
 		if (userPath[i].relation != null){
 			var linktype = new Object;
 			linktype.type = "link";
-			linktype.inverse = userPath[i].inverse;
+			linktype.inverse = true;
 			linktype.uri = userPath[i].relation;
 			userHash.path.push(linktype);
 		}
 		var nodetype = new Object;
 		nodetype.type = "node";
 		nodetype.uri = userPath[i].uri;
-		nodetype.name = userPath[i].name;
 		userHash.path.push(nodetype);
 	}
 	console.log(userHash);
 }
-
 function beginSearch(){
 	$("#searchBox").remove();
 	$("#chart").append(stickyNote);
@@ -396,6 +386,7 @@ function beginSearch(){
 	}
 	$("#finish").click(function(){
 		generateHashObject();
+		$("#contentWrap").html(JSON.stringify(userHash));
 	});
 //	$("#infoContent").append(chartHTML);
 }
@@ -407,7 +398,6 @@ function removeRelation(){
 // $("#chart").onclick = function(){
 	// $("#relation").remove();
 // }
-
 draw.onclick = function(){
 	var search = beginSearch();
 	var key = input.value;
@@ -417,15 +407,9 @@ draw.onclick = function(){
 
 
 
-///////////////////////////TESTING///////////////////////////////////////
 
-function addTestingURI(something){
-	something.uri = "URITEST" + something.name;
-	for (var i = 0; i < something.children.length; i++) {
-		something.children[i].uri = "URITEST" + something.children[i].name + "";
-		something.children[i].relation = "somerelation";
-	}
-}
+
+
 
 
 
