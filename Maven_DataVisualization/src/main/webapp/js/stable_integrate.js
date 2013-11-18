@@ -20,7 +20,7 @@ var diagonal = d3.svg.diagonal()
  
 var userPath = [];
 var userHash = new Object(); 
- 
+var keyWord
  
 var vis = d3.select("#chart").append("svg:svg")
     .attr("width", w + 200)
@@ -56,22 +56,23 @@ var firstNode = 'http%3A%2F%2Fdbpedia.org%2Fresource%2FBill_Clinton&num=5';
 $("#chart").click(function(){
 	$("#relation").empty();
 });
-function add(name) {
+function add(nodeURI, name) {
 	console.log("called add(); ==================================================");
-	var keyWord = "/Maven_DataVisualization-0.0.1-SNAPSHOT/rankServlet?uri=";
-	keyWord += name;
-	keyWord += '&num=5';
+	var searchURI = "/Maven_DataVisualization-0.0.1-SNAPSHOT/rankServlet?uri=";
+	searchURI += nodeURI;
+	searchURI += '&num=5';
 
 	
-	d3.json(keyWord, function(json){
+	d3.json(searchURI, function(json){
 		//json.x0 = 800;
   		//json.y0 = 0;
 console.log("json: ", json);
 		if (json){
 			if (round == 1){
 				history = json;
-				appendMap[json.name] = json;
-				appendMap[json.name].search = 1;
+				appendMap[keyWord] = json;
+				appendMap[keyWord].name = name;
+				appendMap[keyWord].search = 1;
 				console.log("appendMap", appendMap);
 				for (var i = 0; i < json.children.length; i++){
 					json.children[i].search = 0;
@@ -80,8 +81,8 @@ console.log("json: ", json);
 				}
 			}
 			else {
-				appendMap[json.name].search = 1;
-				appendMap[json.name].children = json.children;
+				appendMap[name].search = 1;
+				appendMap[name].children = json.children;
 				for (var i = 0; i < json.children.length; i++){
 					json.children[i].search = 0;
 					json.children[i].children = null;
@@ -246,7 +247,7 @@ function click(d) {
 		  
 		  mainDepth = 0;
 		  var getDepth = getTreeWidth(root);		
-		  w = (mainDepth) * 170;
+		  w = (mainDepth) * 120;
 		  console.log("mainDepth: ", mainDepth, " , w: ", w);
 		  tree.size([h, w]);
 		  update(d);
@@ -256,9 +257,9 @@ function click(d) {
 		  
 		  mainDepth = 0;
 		  var getDepth = getTreeWidth(root);
-		  w = (mainDepth) * 170;
+		  w = (mainDepth) * 120;
 		  console.log("mainDepth: ", mainDepth, " , w: ", w);
-		  $("svg").attr("width", w + 170 + "");
+		  $("svg").attr("width", w + 120 + "");
 		  tree.size([h, w]);
 		  update(d);
 		}
@@ -266,12 +267,15 @@ function click(d) {
 	else if (d.search == 0){
 		mainDepth = 0;	
 		var getDepth = getTreeWidth(root);
-		w = (mainDepth + 1) * 170;
+		w = (mainDepth + 1) * 120;
 		console.log("mainDepth: ", mainDepth, " , w: ", w);
-		$("svg").attr("width", w + 170 + "");
+		$("svg").attr("width", w + 120 + "");
 		tree.size([h, w]);
-		add(d.uri);
+		add(d.uri, d.name);
 	}
+	userPath = [];
+	trackPath(d);
+	console.log("HIGHLIGHTPATH: ", userPath);
 }
 
 function getMousePosition(x, y){
@@ -385,6 +389,7 @@ function beginSearch(){
 		location.reload();
 	}
 	$("#finish").click(function(){
+		console.log(userPath);
 		generateHashObject();
 		$("#contentWrap").html(JSON.stringify(userHash));
 	});
@@ -400,9 +405,9 @@ function removeRelation(){
 // }
 draw.onclick = function(){
 	var search = beginSearch();
-	var key = input.value;
-	console.log(key);
-	var newRoot = add(key);
+	keyWord = input.value;
+	console.log(keyWord);
+	var newRoot = add(keyWord, keyWord);
 }
 
 

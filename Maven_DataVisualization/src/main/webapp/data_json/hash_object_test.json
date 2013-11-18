@@ -1,0 +1,73 @@
+{
+	"hash": "h-3690378823082678040",
+	"source": {
+		"name": "http%3A%2F%2Fdbpedia.org%2Fresource%2FRay_Bradbury",
+		"uri": "http://dbpedia.org/resource/Ray_Bradbury"
+	},
+	"destination": {
+		"name": "Blue Mink",
+		"uri": "http://dbpedia.org/resource/Blue_Mink"
+	},
+	"path": [
+		{
+			"type": "node",
+			"uri": "http://dbpedia.org/resource/Ray_Bradbury"
+		}, {
+			"type": "link",
+			"inverse": true,
+			"uri": "http://dbpedia.org/ontology/influencedBy"
+		}, {
+			"type": "node",
+			"uri": "http://dbpedia.org/resource/George_Orwell"
+		}, {
+			"type": "link",
+			"inverse": true,
+			"uri": "http://dbpedia.org/ontology/influencedBy"
+		}, {
+			"type": "node",
+			"uri": "http://dbpedia.org/resource/James_Joyce"
+		}, {
+			"type": "link",
+			"inverse": true,
+			"uri": "http://dbpedia.org/ontology/birthPlace"
+		}, {
+			"type": "node",
+			"uri": "http://dbpedia.org/resource/Dublin"
+		}, {
+			"type": "link",
+			"inverse": true,
+			"uri": "http://dbpedia.org/ontology/isPartOf"
+		}, {
+			"type": "node",
+			"uri": "http://dbpedia.org/resource/Leinster"
+		}, {
+			"type": "link",
+			"inverse": true,
+			"uri": "http://dbpedia.org/ontology/leaderName"
+		}, {
+			"type": "node",
+			"uri": "http://dbpedia.org/resource/Fine_Gael"
+		}, {
+			"type": "link",
+			"inverse": true,
+			"uri": "http://dbpedia.org/ontology/colour"
+		}, {
+			"type": "node",
+			"uri": "http://dbpedia.org/resource/Blue"
+		}, {
+			"type": "link",
+			"inverse": true,
+			"uri": "http://dbpedia.org/ontology/connotation"
+		}, {
+			"type": "node",
+			"uri": "http://dbpedia.org/resource/Sky"
+		}, {
+			"type": "link",
+			"inverse": true,
+			"uri": "http://dbpedia.org/ontology/associatedBand"
+		}, {
+			"type": "node",
+			"uri": "http://dbpedia.org/resource/Blue_Mink"
+		}
+	]
+}
