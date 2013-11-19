@@ -355,6 +355,7 @@ function generateHashObject(){
 	userHash.hash = "h-3690378823082678040";
 	//userHash.execution_time = 1220;
 	//userHash.novelty = 0.11111111;
+	//console.log("userPath", userPath);
 	userHash.source = new Object();
 	userHash.source.name = userPath[0].name;
 	userHash.source.uri = userPath[0].uri;
@@ -363,7 +364,7 @@ function generateHashObject(){
 	userHash.destination.uri = userPath[userPath.length - 1].uri;
 	userHash.path = [];
 	for (var i = 0; i < userPath.length; i++){
-		if (userPath[i].relation != null){
+		if (userPath[i].relation != "none"){
 			var linktype = new Object;
 			linktype.type = "link";
 			linktype.inverse = true;
@@ -389,7 +390,7 @@ function beginSearch(){
 		location.reload();
 	}
 	$("#finish").click(function(){
-		console.log(userPath);
+		console.log("userPath", userPath);
 		generateHashObject();
 		$("#contentWrap").html(JSON.stringify(userHash));
 	});

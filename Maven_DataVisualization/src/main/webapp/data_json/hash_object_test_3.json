@@ -1,0 +1,62 @@
+{
+    "hash": "h-3690378823082678040",
+    "source": {
+        "name": "http%3A%2F%2Fdbpedia.org%2Fresource%2FHillary_Rodham_Clinton",
+        "uri": "http://dbpedia.org/resource/Hillary_Rodham_Clinton"
+    },
+    "destination": {
+        "name": "Jim Nash",
+        "uri": "http://dbpedia.org/resource/Jim_Nash"
+    },
+    "path": [
+        {
+            "type": "node",
+            "uri": "http://dbpedia.org/resource/Hillary_Rodham_Clinton"
+        },
+        {
+            "type": "link",
+            "inverse": true,
+            "uri": "http://dbpedia.org/ontology/almaMater"
+        },
+        {
+            "type": "node",
+            "uri": "http://dbpedia.org/resource/Wellesley_College"
+        },
+        {
+            "type": "link",
+            "inverse": true,
+            "uri": "http://dbpedia.org/ontology/state"
+        },
+        {
+            "type": "node",
+            "uri": "http://dbpedia.org/resource/Massachusetts"
+        },
+        {
+            "type": "link",
+            "inverse": true,
+            "uri": "http://dbpedia.org/ontology/deathPlace"
+        },
+        {
+            "type": "node",
+            "uri": "http://dbpedia.org/resource/Bill_Barrett_(outfielder)"
+        },
+        {
+            "type": "link",
+            "inverse": true,
+            "uri": "http://dbpedia.org/ontology/formerTeam"
+        },
+        {
+            "type": "node",
+            "uri": "http://dbpedia.org/resource/Oakland_Athletics"
+        },
+        {
+            "type": "link",
+            "inverse": true,
+            "uri": "http://dbpedia.org/ontology/team"
+        },
+        {
+            "type": "node",
+            "uri": "http://dbpedia.org/resource/Jim_Nash"
+        }
+    ]
+}

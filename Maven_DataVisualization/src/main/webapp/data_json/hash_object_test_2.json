@@ -1,0 +1,53 @@
+{
+    "hash": "h-3690378823082678040",
+    "source": {
+        "name": "http%3A%2F%2Fdbpedia.org%2Fresource%2FRay_Bradbury",
+        "uri": "http://dbpedia.org/resource/Ray_Bradbury"
+    },
+    "destination": {
+        "name": "HarperCollins",
+        "uri": "http://dbpedia.org/resource/HarperCollins"
+    },
+    "path": [
+        {
+            "type": "node",
+            "uri": "http://dbpedia.org/resource/Ray_Bradbury"
+        },
+        {
+            "type": "link",
+            "inverse": true,
+            "uri": "http://dbpedia.org/ontology/notableWork"
+        },
+        {
+            "type": "node",
+            "uri": "http://dbpedia.org/resource/Something_Wicked_This_Way_Comes_(novel)"
+        },
+        {
+            "type": "link",
+            "inverse": true,
+            "uri": "http://dbpedia.org/ontology/subsequentWork"
+        },
+        {
+            "type": "node",
+            "uri": "http://dbpedia.org/resource/Farewell_Summer"
+        },
+        {
+            "type": "link",
+            "inverse": true,
+            "uri": "http://dbpedia.org/ontology/publisher"
+        },
+        {
+            "type": "node",
+            "uri": "http://dbpedia.org/resource/William_Morrow_and_Company"
+        },
+        {
+            "type": "link",
+            "inverse": true,
+            "uri": "http://dbpedia.org/ontology/parentCompany"
+        },
+        {
+            "type": "node",
+            "uri": "http://dbpedia.org/resource/HarperCollins"
+        }
+    ]
+}
