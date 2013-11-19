@@ -373,6 +373,7 @@ function generateHashObject(){
 		}
 		var nodetype = new Object;
 		nodetype.type = "node";
+		nodetype.name = userPath[i].name;
 		nodetype.uri = userPath[i].uri;
 		userHash.path.push(nodetype);
 	}

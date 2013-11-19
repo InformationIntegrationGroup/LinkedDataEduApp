@@ -5,49 +5,64 @@
         "uri": "http://dbpedia.org/resource/Ray_Bradbury"
     },
     "destination": {
-        "name": "HarperCollins",
-        "uri": "http://dbpedia.org/resource/HarperCollins"
+        "name": "Kentucky",
+        "uri": "http://dbpedia.org/resource/Kentucky"
     },
     "path": [
         {
             "type": "node",
+            "name": "http%3A%2F%2Fdbpedia.org%2Fresource%2FRay_Bradbury",
             "uri": "http://dbpedia.org/resource/Ray_Bradbury"
         },
         {
             "type": "link",
             "inverse": true,
-            "uri": "http://dbpedia.org/ontology/notableWork"
+            "uri": "http://dbpedia.org/ontology/influencedBy"
         },
         {
             "type": "node",
-            "uri": "http://dbpedia.org/resource/Something_Wicked_This_Way_Comes_(novel)"
+            "name": "George Orwell",
+            "uri": "http://dbpedia.org/resource/George_Orwell"
         },
         {
             "type": "link",
             "inverse": true,
-            "uri": "http://dbpedia.org/ontology/subsequentWork"
+            "uri": "http://dbpedia.org/ontology/influencedBy"
         },
         {
             "type": "node",
-            "uri": "http://dbpedia.org/resource/Farewell_Summer"
+            "name": "James Joyce",
+            "uri": "http://dbpedia.org/resource/James_Joyce"
         },
         {
             "type": "link",
             "inverse": true,
-            "uri": "http://dbpedia.org/ontology/publisher"
+            "uri": "http://dbpedia.org/ontology/influencedBy"
         },
         {
             "type": "node",
-            "uri": "http://dbpedia.org/resource/William_Morrow_and_Company"
+            "name": "Gayl Jones",
+            "uri": "http://dbpedia.org/resource/Gayl_Jones"
         },
         {
             "type": "link",
             "inverse": true,
-            "uri": "http://dbpedia.org/ontology/parentCompany"
+            "uri": "http://dbpedia.org/ontology/birthPlace"
         },
         {
             "type": "node",
-            "uri": "http://dbpedia.org/resource/HarperCollins"
+            "name": "Lexington, Kentucky",
+            "uri": "http://dbpedia.org/resource/Lexington,_Kentucky"
+        },
+        {
+            "type": "link",
+            "inverse": true,
+            "uri": "http://dbpedia.org/ontology/isPartOf"
+        },
+        {
+            "type": "node",
+            "name": "Kentucky",
+            "uri": "http://dbpedia.org/resource/Kentucky"
         }
     ]
 }

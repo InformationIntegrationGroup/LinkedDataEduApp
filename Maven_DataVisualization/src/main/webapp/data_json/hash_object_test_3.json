@@ -1,17 +1,28 @@
 {
     "hash": "h-3690378823082678040",
     "source": {
-        "name": "http%3A%2F%2Fdbpedia.org%2Fresource%2FHillary_Rodham_Clinton",
-        "uri": "http://dbpedia.org/resource/Hillary_Rodham_Clinton"
+        "name": "http%3A%2F%2Fdbpedia.org%2Fresource%2FBill_Clinton",
+        "uri": "http://dbpedia.org/resource/Bill_Clinton"
     },
     "destination": {
-        "name": "Jim Nash",
-        "uri": "http://dbpedia.org/resource/Jim_Nash"
+        "name": "Providence, Rhode Island",
+        "uri": "http://dbpedia.org/resource/Providence,_Rhode_Island"
     },
     "path": [
         {
             "type": "node",
-            "uri": "http://dbpedia.org/resource/Hillary_Rodham_Clinton"
+            "name": "http%3A%2F%2Fdbpedia.org%2Fresource%2FBill_Clinton",
+            "uri": "http://dbpedia.org/resource/Bill_Clinton"
+        },
+        {
+            "type": "link",
+            "inverse": true,
+            "uri": "http://dbpedia.org/ontology/governor"
+        },
+        {
+            "type": "node",
+            "name": "David Pryor",
+            "uri": "http://dbpedia.org/resource/David_Pryor"
         },
         {
             "type": "link",
@@ -20,43 +31,68 @@
         },
         {
             "type": "node",
-            "uri": "http://dbpedia.org/resource/Wellesley_College"
+            "name": "University of Arkansas",
+            "uri": "http://dbpedia.org/resource/University_of_Arkansas"
         },
         {
             "type": "link",
             "inverse": true,
-            "uri": "http://dbpedia.org/ontology/state"
+            "uri": "http://dbpedia.org/ontology/affiliation"
         },
         {
             "type": "node",
-            "uri": "http://dbpedia.org/resource/Massachusetts"
+            "name": "Southeastern Conference",
+            "uri": "http://dbpedia.org/resource/Southeastern_Conference"
         },
         {
             "type": "link",
             "inverse": true,
-            "uri": "http://dbpedia.org/ontology/deathPlace"
+            "uri": "http://dbpedia.org/ontology/employer"
         },
         {
             "type": "node",
-            "uri": "http://dbpedia.org/resource/Bill_Barrett_(outfielder)"
+            "name": "Michael Slive",
+            "uri": "http://dbpedia.org/resource/Michael_Slive"
         },
         {
             "type": "link",
             "inverse": true,
-            "uri": "http://dbpedia.org/ontology/formerTeam"
+            "uri": "http://dbpedia.org/ontology/education"
         },
         {
             "type": "node",
-            "uri": "http://dbpedia.org/resource/Oakland_Athletics"
+            "name": "Dartmouth College",
+            "uri": "http://dbpedia.org/resource/Dartmouth_College"
         },
         {
             "type": "link",
             "inverse": true,
-            "uri": "http://dbpedia.org/ontology/team"
+            "uri": "http://dbpedia.org/ontology/athletics"
         },
         {
             "type": "node",
-            "uri": "http://dbpedia.org/resource/Jim_Nash"
+            "name": "Ivy League",
+            "uri": "http://dbpedia.org/resource/Ivy_League"
+        },
+        {
+            "type": "link",
+            "inverse": true,
+            "uri": "http://dbpedia.org/ontology/sport"
+        },
+        {
+            "type": "node",
+            "name": "Brown University",
+            "uri": "http://dbpedia.org/resource/Brown_University"
+        },
+        {
+            "type": "link",
+            "inverse": true,
+            "uri": "http://dbpedia.org/ontology/city"
+        },
+        {
+            "type": "node",
+            "name": "Providence, Rhode Island",
+            "uri": "http://dbpedia.org/resource/Providence,_Rhode_Island"
         }
     ]
 }

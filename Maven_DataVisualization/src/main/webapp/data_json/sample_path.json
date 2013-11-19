@@ -8,7 +8,7 @@
 			"name":"node0",
 			"type":"node",
 			"uri":"node_#1_URI",
-			"audio_text":"Here is the audio text about this node",
+			"audio_text":"Here is the audio text about node 0 node 0, here are some text but they really are meaningless and boring just for testing purposes",
 			"slide_description":[
 				{
 					"type":"img",
@@ -56,15 +56,11 @@
 			"type":"link",
 			"inverse":false,
 			"uri":"link_content_URI",
-			"audio_text":"Here is the audio text about the relation",
-			"slide_description":[
-				
-			]
 		},{
 			"name":"node1",
 			"type":"node",
 			"uri":"node_#1_URI",
-			"audio_text":"Here is the audio text about this node",
+			"audio_text":"Here is the audio text about node 1, I say it again, NODE 1!!! Here are some text but they really are meaningless and boring just for testing purposes",
 			"slide_description":[
 				{
 					"type":"img",
@@ -112,15 +108,11 @@
 			"type":"link",
 			"inverse":false,
 			"uri":"link_content_URI",
-			"audio_text":"Here is the audio text about the relation",
-			"slide_description":[
-				
-			]
 		},{
 			"name":"node2",
 			"type":"node",
 			"uri":"node_#2_URI",
-			"audio_text":"Here is the audio text about this node",
+			"audio_text":"Here is the audio text about node 2, I say it again, NODE TWO!!! qpwiuvhbqutb019845uhfaiugb123... for holding the space haha",
 			"slide_description":[
 				{
 					"type":"img",
@@ -228,15 +220,11 @@
 			"type":"link",
 			"inverse":false,
 			"uri":"link_content_URI",
-			"audio_text":"Here is the audio text about the relation",
-			"slide_description":[
-				
-			]
 		},{
 			"name":"node3",
 			"type":"node",
 			"uri":"node_#2_URI",
-			"audio_text":"Here is the audio text about this node",
+			"audio_text":"Here is the audio text about node 3, I say it again, NODE THREE!!! Here are some text but they really are meaningless and boring just for testing purposes only. Guys we can work out something by the end of this semester can't we?",
 			"slide_description":[
 				{
 					"type":"img",
