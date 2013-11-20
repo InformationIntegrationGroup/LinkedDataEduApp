@@ -47,7 +47,8 @@
 					var children = d['children'];
 					var first = children[0];
 					var sec = children[1];
-					$("#header").html(first['name'] + " is connected to " + sec['name']);
+                    console.log(children);
+					//$("#header").html(first['name'] + " is connected to " + sec['name']);
 				});
 			}
 			
@@ -70,8 +71,8 @@
 				if(index == children.length) index = 0;
 				var first = children[index];
 				var sec = children[index+1];
-				$("#header").html(first['name'] + " is connected to " + sec['name']);
-				index++;
+				//$("#header").html(first['name'] + " is connected to " + sec['name']);
+				//index++;
 			}
 		});
     </script>
