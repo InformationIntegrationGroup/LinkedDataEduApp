@@ -180,7 +180,7 @@ public class InputFilePanel extends JPanel implements ActionListener{
 			EitherNotPlaceFeature.isEitherNotPlace(samples);
 			DifferentOccupationFeature.isDifferentOccupation(samples);
 			SmallPlaceFeature.calculateSmallPlace(samples);
-			//ImportanceFeature.calculateImportance(samples);
+			ImportanceFeature.calculateImportance(samples);
 			
 			System.out.println("Sample processing finished");
 			dstream.close();
@@ -203,6 +203,7 @@ public class InputFilePanel extends JPanel implements ActionListener{
 			pw.print("EitherNotPlace,");
 			pw.print("DifferentOccupation,");
 			pw.print("smallPlace,");
+			pw.print("Importance,");
 			pw.println("interestingness");
 			for(int i = 0; i < samples.size(); i++){
 				String features = samples.get(i).getLink().getSubject().getName()+","
@@ -212,6 +213,7 @@ public class InputFilePanel extends JPanel implements ActionListener{
 						+ samples.get(i).getEitherNotPlace()+","
 						+ samples.get(i).getDifferentOccupation()+","
 						+ samples.get(i).getSmallPlace()+","
+						+ samples.get(i).getExtensionImportance()+","
 						+ samples.get(i).getInterestingness()+"\n";
 				pw.print(features);
 				/*pw.print(samples.get(i).getRarity() + ",");
