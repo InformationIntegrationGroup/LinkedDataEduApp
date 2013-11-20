@@ -1,5 +1,17 @@
 //DISABLE ANIMATION WHEN DISPLAYING NEW NODES
 
+
+
+
+
+
+
+
+
+
+
+
+
 var m = [20, 120, 20, 120],
     w = 150,
     h = 580,
@@ -58,11 +70,14 @@ $("#chart").click(function(){
 });
 function add(nodeURI, name) {
 	console.log("called add(); ==================================================");
-	var searchURI = "/Maven_DataVisualization-0.0.1-SNAPSHOT/rankServlet?uri=";
-	searchURI += nodeURI;
-	searchURI += '&num=5';
+	// var searchURI = "/Maven_DataVisualization-0.0.1-SNAPSHOT/rankServlet?uri=";
+	// searchURI += nodeURI;
+	// searchURI += '&num=5';
 
-	
+	var searchURI = "../data_json/";
+	searchURI += name;
+	searchURI += ".json";
+
 	d3.json(searchURI, function(json){
 		//json.x0 = 800;
   		//json.y0 = 0;
@@ -391,9 +406,16 @@ function beginSearch(){
 		location.reload();
 	}
 	$("#finish").click(function(){
+		$("#contentWrap").html(JSON.stringify(userHash));
+		$("#contentWrap").css("display", "none");
+		$("chart").css("display", "none");
+		$("#videoEditor").css("display", "block");
 		console.log("userPath", userPath);
 		generateHashObject();
-		$("#contentWrap").html(JSON.stringify(userHash));
+		var controller = new PresentationController2(userHash);
+		var view = new PiecesUI(controller);
+		view.drawScreen($("#screen"));
+		
 	});
 //	$("#infoContent").append(chartHTML);
 }

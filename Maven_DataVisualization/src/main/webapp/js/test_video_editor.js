@@ -1,3 +1,10 @@
+var HashObject, dataPathHash = Object;
+
+$.getJSON("../data_json/sample_path.json", function(data){
+	var HashObject = data;
+	console.log("hash_object", HashObject);
+});
+
 $("#generateVideoEditor").click(function(){
 	$(this).remove();
 	$("#nodeNavBar").css("display","block");
@@ -8,9 +15,56 @@ $("#generateVideoEditor").click(function(){
 	$("#stepNavigator").css("display", "block");
 	$("#nodeElementOperation").css("display", "block");
 	$(".slideProgressBar").css("display", "block");
-
+	
+	generateVideoEditor();
+	
 	enableCSSResponse();
+	
+	enableNodeOperation()
+	
+	
+	
 });
+
+function generateNodeNavBar(){
+	var NodeNavBar = "<ul class='nav nav-pills nav-justified'>";
+//	NodeNavBar += "<li class=''><a href='#' id='" + dataPathHash.path[0].name + "'>"; 
+//	NodeNavBar += dataPathHash.path[0].name + "</a></li>";
+//	generateNodeElementBar(dataPathHash.path[0].name);
+	for (var i = 0; i < HashObject.path.length; i=i+2){
+		NodeNavBar += "<li class=''><a href='#' id='" + dataPathHash.path[i].name + "'>"; 
+		NodeNavBar += dataPathHash.path[i].name + "</a></li>";
+	}
+	NodeNavBar += "</ul>";
+	$("#nodeNavBar").html(NodeNavBar);
+	$(".nav-pills a").click(function(){
+		$("#movieNavBarWrap").empty();
+		$(".nav-pills li").removeClass("active");
+		var classSelector = "#" + $(this).attr("id");
+		$(classSelector).parent().addClass("active");
+		generateNodeElementBar($(this).attr("id"));
+		durationRecords = [];
+		IDRecords = [];
+	});
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function enableCSSResponse(){
 	$(".nav-pills a").click(function(){
@@ -47,18 +101,18 @@ function enableCSSResponse(){
 			    					  // })
 //     	
     // }); containment: "#videoEditor", scroll: false, revert: true, 
-    $("#dragtest").draggable({
-    	helper: "clone" , 
-    	opcaity: 0.5, 
-    	revert: true, 
-    	scroll: false, 
-    	appendTo: "#videoEditor",
-    	drag: function(event, ui){
-    		ui.helper.css({
-    			"width":$(this).css("width"),
-    			"height": $(this).css("height")
-    		});
-    	}
-    });
+    // $("#dragtest").draggable({
+    	// helper: "clone" , 
+    	// opcaity: 0.5, 
+    	// revert: true, 
+    	// scroll: false, 
+    	// appendTo: "#videoEditor",
+    	// drag: function(event, ui){
+    		// ui.helper.css({
+    			// "width":$(this).css("width"),
+    			// "height": $(this).css("height")
+    		// });
+    	// }
+    // });
 
 }
