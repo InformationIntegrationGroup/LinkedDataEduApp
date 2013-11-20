@@ -7,6 +7,7 @@ import edu.isi.serverbackend.linkedData.*;
 public class Sample {
 	protected LinkedDataConnection link;
 	protected double rarity;
+	protected double extensionImporatance;
 	protected float eitherNotPlace;
 	protected float differentOccupation;
 	protected double smallPlace;
@@ -15,6 +16,7 @@ public class Sample {
 	public Sample(LinkedDataConnection link){
 		this.link = link;
 		this.rarity = 0;
+		this.extensionImporatance = 0;
 		this.eitherNotPlace = 0;
 		this.differentOccupation = 0;
 		this.smallPlace = 0;
@@ -28,6 +30,7 @@ public class Sample {
 		this.eitherNotPlace = 0;
 		this.differentOccupation = 0;
 		this.smallPlace = 0;
+		this.extensionImporatance = 0;
 		this.interestingness = interestingness;
 		
 	}
@@ -79,6 +82,13 @@ public class Sample {
 		this.smallPlace = smallPlace;
 	}
 	
+	public double getExtensionImportance(){
+		return this.extensionImporatance;
+	}
+	
+	public void setExtensionImportance(double imp){
+		this.extensionImporatance = imp;
+	}
 	public double getInterestingness() {
 		return interestingness;
 	}
