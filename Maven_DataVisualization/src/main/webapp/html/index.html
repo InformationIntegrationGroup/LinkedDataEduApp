@@ -10,21 +10,28 @@
     <body>
     	<div class="container">
         	<div class="row">
-        		<img class="col-md-6" src="../img/kitten_2182000b.jpg">
-        		<img class="col-md-6" src="../img/kitten_2182000b.jpg">
+        		<div id="screen" class="row"></div>
         	</div>
         	<div class="jumbotron row">
         		<h2 id="header">Kittens are related to Kittens</h2>
         	</div>
-        	<div class="row">
-        		<button class="btn btn-default col-md-3">Interesting?</button>
-        		<button class="btn btn-default col-md-3">Know A?</button>
-        		<button class="btn btn-default col-md-3">Know B?</button>
-        		<button class="btn btn-info col-md-3" id="nxt">Start</button>
-        	</div>
+            <div class="row">
+            <div class="col-md-6">
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="int" value="int">Interesting?
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="A" value="A">Know A?
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="B" value="B">Know B?
+                </label>
+            </div>
+            <button class="btn btn-info col-md-6" id="nxt">Start</button>
+            </div>
         </div>
     </body>
-    <script>
+    <script type="text/javascript">
     	var loaded;
     	var d;
     	var index;
@@ -45,6 +52,20 @@
 			}
 			
 			if(loaded){
+                var data = {};
+                if($("#int").is(':checked')) data["Interesting"] = 1;
+                else data["Interesting"] = 0;
+                if($("#A").is(':checked')) data["A"] = 1;
+                else data["A"] = 0;
+                if($("#B").is(':checked')) data["B"] = 1;
+                else data["B"] = 0;
+
+                $.ajax({
+                    url: "/Maven_DataVisualization-0.0.1-SNAPSHOT/storeServlet",
+                    data: data,
+                    type: 'POST'
+                });
+
 				var children = d['children'];
 				if(index == children.length) index = 0;
 				var first = children[index];

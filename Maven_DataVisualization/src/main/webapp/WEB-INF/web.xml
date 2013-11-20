@@ -42,4 +42,13 @@
 		<servlet-name>Demo</servlet-name>
 		<url-pattern>/demoServlet</url-pattern>
 	</servlet-mapping>
+
+    <servlet>
+        <servlet-name>Store-Data</servlet-name>
+        <servlet-class>edu.isi.serverbackend.Servlet.AnswerStoreServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Store-Data</servlet-name>
+        <url-pattern>/storeServlet</url-pattern>
+    </servlet-mapping>
 </web-app>
