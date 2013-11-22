@@ -1,6 +1,0 @@
-* text=auto
-
-*.js text
-
-*.pdf binary
-*.tex text diff=tex
