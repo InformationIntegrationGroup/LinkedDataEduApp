@@ -1,0 +1,3 @@
+[submodule "eic-gui"]
+	path = eic-gui
+	url = https://github.com/raphgt2/eic-gui.git
