@@ -69,7 +69,7 @@ public class DemoServlet extends HttpServlet {
 			String ranking ="";
 			for(int i = 0; i <arrayFeatures.length; i++){
 	    		String[] entries = arrayFeatures[i].split(",");
-	    		double value = (3.9595 * Double.parseDouble(entries[0])) + (0.8631 * Double.parseDouble(entries[1])) +  (-0.1643 *Double.parseDouble(entries[2]))+ (0.00143 *Double.parseDouble(entries[3]))+ (-0.001623 *Double.parseDouble(entries[4])) +1.2394;
+	    		double value = (3.9595 * Double.parseDouble(entries[0])) + (0.8631 * Double.parseDouble(entries[1])) +  (-0.1643 *Double.parseDouble(entries[2]))+ (0.00143 *Double.parseDouble(entries[3]))+ (2.001623 *Double.parseDouble(entries[4])) +1.2394;
 	    		ranking += value+"\n";	
 			}
 			

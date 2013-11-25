@@ -181,6 +181,8 @@ public class InputFilePanel extends JPanel implements ActionListener{
 			DifferentOccupationFeature.isDifferentOccupation(samples);
 			SmallPlaceFeature.calculateSmallPlace(samples);
 			ImportanceFeature.calculateImportance(samples);
+			SameBirthPlaceFeature.isSameBirthPlace(samples);
+			CloseBirthdayFeature.calculateCloseBirthDayFeature(samples);
 			
 			System.out.println("Sample processing finished");
 			dstream.close();
