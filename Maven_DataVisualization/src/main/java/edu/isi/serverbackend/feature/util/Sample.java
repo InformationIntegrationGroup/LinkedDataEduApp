@@ -11,6 +11,7 @@ public class Sample {
 	protected float eitherNotPlace;
 	protected float differentOccupation;
 	protected double smallPlace;
+	protected double birthdayCloseness;
 	protected float sameBirthPlace;
 	double interestingness;
 	
@@ -22,6 +23,7 @@ public class Sample {
 		this.differentOccupation = 0;
 		this.smallPlace = 0;
 		this.interestingness = 0;
+		this.birthdayCloseness = 0;
 		this.sameBirthPlace = 0;
 		
 	}
@@ -34,6 +36,7 @@ public class Sample {
 		this.smallPlace = 0;
 		this.extensionImporatance = 0;
 		this.sameBirthPlace = 0;
+		this.birthdayCloseness = 0;
 		this.interestingness = interestingness;
 		
 	}
@@ -103,6 +106,14 @@ public class Sample {
 	
 	public void setSameBirthPlace(float sameBirthPlace){
 		this.sameBirthPlace = sameBirthPlace;
+	}
+	
+	public double getBirthdayCloseness(){
+		return this.birthdayCloseness;
+	}
+	
+	public void setBirthdayCloseness(double birthdayCloseness){
+		this.birthdayCloseness = birthdayCloseness;
 	}
 	
 	public void setInterestingness(double interestingness) {
