@@ -56,20 +56,20 @@ public class DemoServlet extends HttpServlet {
 		
 		String features = request.getParameter("features");	//process request	
 		try {	
-			/*
-			generateCSV(generateCsvLocation,features);
-			WekaDemo demo= new WekaDemo();
-			demo.ConvertCSV(generateCsvLocation);
-			demo.TrainModel(trainFileLocation);
-			String ranking = demo.getRanking(); 
-			*/
+			
+			//generateCSV(generateCsvLocation,features);
+			//WekaDemo demo= new WekaDemo();
+			//demo.ConvertCSV(generateCsvLocation);
+			//demo.TrainModel(trainFileLocation);
+			//String ranking = demo.getRanking(); 
+			
 			
 			String[] arrayFeatures = features.split("\n");
 			List<Double> cell ;
 			String ranking ="";
 			for(int i = 0; i <arrayFeatures.length; i++){
 	    		String[] entries = arrayFeatures[i].split(",");
-	    		double value = (-6.9595 * Double.parseDouble(entries[0])) + (0.8631 * Double.parseDouble(entries[1])) +  (-0.1643 *Double.parseDouble(entries[2]))+ (-0.143 *Double.parseDouble(entries[3]))+ (-0.1623 *Double.parseDouble(entries[4])) +1.9394;
+	    		double value = (3.9595 * Double.parseDouble(entries[0])) + (0.8631 * Double.parseDouble(entries[1])) +  (-0.1643 *Double.parseDouble(entries[2]))+ (0.00143 *Double.parseDouble(entries[3]))+ (-0.001623 *Double.parseDouble(entries[4])) +1.2394;
 	    		ranking += value+"\n";	
 			}
 			
