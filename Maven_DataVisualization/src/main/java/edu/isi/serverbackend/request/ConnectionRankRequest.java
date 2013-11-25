@@ -80,7 +80,8 @@ public class ConnectionRankRequest {
 				content += URLEncoder.encode(samples.get(i).getRarity()+",", "UTF-8")
 						+ URLEncoder.encode(samples.get(i).getEitherNotPlace()+",", "UTF-8" )
 						+ URLEncoder.encode(samples.get(i).getDifferentOccupation()+",", "UTF-8")
-						+ URLEncoder.encode(samples.get(i).getRarity()+"\n", "UTF-8");
+						+ URLEncoder.encode(samples.get(i).getExtensionImportance()+",", "UTF-8")
+				        + URLEncoder.encode(samples.get(i).getSmallPlace()+"\n", "UTF-8");
 			}
 			modelInput.writeBytes(content);
 			modelInput.flush();
