@@ -1,7 +1,7 @@
 {
     "hash": "h-3690378823082678040",
     "source": {
-        "name": "http%3A%2F%2Fdbpedia.org%2Fresource%2FHillary_Rodham_Clinton",
+        "name": "Hillary Rodham Clinton",
         "uri": "http://dbpedia.org/resource/Hillary_Rodham_Clinton"
     },
     "destination": {
@@ -11,7 +11,7 @@
     "path": [
         {
             "type": "node",
-            "name": "http%3A%2F%2Fdbpedia.org%2Fresource%2FHillary_Rodham_Clinton",
+            "name": "Hillary Rodham Clinton",
             "uri": "http://dbpedia.org/resource/Hillary_Rodham_Clinton"
         },
         {
