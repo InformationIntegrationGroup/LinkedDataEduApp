@@ -1,3 +1,6 @@
 [submodule "Maven_DataVisualization/src/main/webapp/js/eic-gui"]
 	path = Maven_DataVisualization/src/main/webapp/js/eic-gui
 	url = git@github.com:raphgt2/eic-gui.git
+[submodule "Maven_DataVisualization/src/main/webapp/js/eic_mmlab"]
+	path = Maven_DataVisualization/src/main/webapp/js/eic_mmlab
+	url = https://github.com/raphgt2/eic-gui.git
