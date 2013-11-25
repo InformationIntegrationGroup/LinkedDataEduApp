@@ -11,6 +11,7 @@ public class Sample {
 	protected float eitherNotPlace;
 	protected float differentOccupation;
 	protected double smallPlace;
+	protected float sameBirthPlace;
 	double interestingness;
 	
 	public Sample(LinkedDataConnection link){
@@ -21,6 +22,7 @@ public class Sample {
 		this.differentOccupation = 0;
 		this.smallPlace = 0;
 		this.interestingness = 0;
+		this.sameBirthPlace = 0;
 		
 	}
 	
@@ -31,6 +33,7 @@ public class Sample {
 		this.differentOccupation = 0;
 		this.smallPlace = 0;
 		this.extensionImporatance = 0;
+		this.sameBirthPlace = 0;
 		this.interestingness = interestingness;
 		
 	}
@@ -89,10 +92,19 @@ public class Sample {
 	public void setExtensionImportance(double imp){
 		this.extensionImporatance = imp;
 	}
+	
 	public double getInterestingness() {
 		return interestingness;
 	}
 
+	public float getSameBirthPlace(){
+		return this.sameBirthPlace;
+	}
+	
+	public void setSameBirthPlace(float sameBirthPlace){
+		this.sameBirthPlace = sameBirthPlace;
+	}
+	
 	public void setInterestingness(double interestingness) {
 		this.interestingness = interestingness;
 	}
