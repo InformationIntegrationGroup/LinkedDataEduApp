@@ -24,7 +24,7 @@
 				<button id="nextStep" type="button" class="floatRight btn btn-success btn-sm">Proceed to Player</button>
 			</div>
 			<div id="nodeNavBar" class="fullWidth height1 nodeNavBar">
-				<ul class='nav nav-pills nav-justified'>
+				<!-- <ul class='nav nav-pills nav-justified'>
 					<li class='active'><a href='#' class="nodeNavBarElem" id='node01'>NodeName#1</a></li>
 					<li class=''><a href='#' class="nodeNavBarElem" id='node02'>NodeName#2</a></li>
 					<li class=''><a href='#' class="nodeNavBarElem" id='node03'>NodeName#3</a></li>
@@ -32,7 +32,7 @@
 					<li class=''><a href='#' class="nodeNavBarElem" id='node05'>NodeName#5</a></li>
 					<li class=''><a href='#' class="nodeNavBarElem" id='node06'>NodeName#6</a></li>
 					<li class=''><a href='#' class="nodeNavBarElem" id='node07'>NodeName#7</a></li>
-				</ul>
+				</ul> -->
 			</div>
 			
 			<button id="generateVideoEditor" class="btn btn-primary">Video Editor</button>
@@ -44,7 +44,10 @@
 				<div id="playButtonGroup" class="playButtonGroup">
 					Play, Play All, Stop
 				</div>
-				<div id="moviePreview" class="moviePreview">Movie Preview</div>
+				<div id="moviePreview" class="moviePreview">
+					Movie Preview
+					<div id="frame"> </div>
+				</div>
 				<div id="audioDescriptionWrap" class="audioDescriptionWrap">
 					<textarea class="textDescription" id="textDescription"> 
 					</textarea>
@@ -55,6 +58,14 @@
 			</div>
 			
 			<div id="nodeElementBar" class="height2 nodeElementBar">
+				<ul id="edit-list" class="nav nav-tabs">
+					<li><a href="#" id="edit-imgs">Images</a></li>
+					<li><a href="#" id="edit-vids">Videos</a></li>
+				</ul>
+				<div id="nodeElementContent" class="">
+					<div id="imgs" style="display: inline;"> </div>
+					<div id="vids" style="display: none;"> </div>
+				</div>
 				<!-- <div class="nodeElementBarContentWrap btn btn-default">
 					<img class="nodeElementBarContent" name="spimg" src="../img/sample_img.jpg">
 				</div>
