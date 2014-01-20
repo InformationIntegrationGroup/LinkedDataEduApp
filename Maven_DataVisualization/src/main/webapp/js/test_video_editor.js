@@ -53,9 +53,21 @@ function generateNodeNavBar(){
 
 
 
+console.log("drag and drop test");
 
-
-
+$("#dragtest").draggable({
+    	helper: "clone" , 
+    	opcaity: 0.5, 
+    	revert: true, 
+    	scroll: false, 
+    	appendTo: "#videoEditor",
+    	drag: function(event, ui){
+    		ui.helper.css({
+    			"width":$(this).css("width"),
+    			"height": $(this).css("height")
+    		});
+    	}
+    });
 
 
 

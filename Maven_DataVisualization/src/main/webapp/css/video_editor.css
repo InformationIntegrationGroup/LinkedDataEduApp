@@ -280,3 +280,11 @@
 	position: absolute;
 	cursor: pointer;
 }
+
+
+
+
+/*TESTS*/
+.ui-draggable-dragging {
+	z-index: 1000;
+}
