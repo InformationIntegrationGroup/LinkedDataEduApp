@@ -1,4 +1,0 @@
-http://dbpedia.org/resource/Pablo_Picasso
-http://dbpedia.org/resource/Vincent_van_Gogh
-http://dbpedia.org/resource/George_Orwell
-http://dbpedia.org/resource/Bill_Clinton
