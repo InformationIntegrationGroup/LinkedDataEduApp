@@ -1,25 +1,26 @@
 package edu.isi.serverbackend.localDatabase.bean;
 
 public class NodeBean {
-	private int nodeId;
+	private String nodeId;
 	private String nodeName;
 	private String uri;
+	private String typeURI;
 	private boolean explored;
 	
 	public NodeBean(){
 		explored = false;
 	}
 	
-	public int getNodeId() {
+	public String getNodeId() {
 		return nodeId;
 	}
-	public void setNodeId(int nodeId) {
+	public void setNodeId(String nodeId) {
 		this.nodeId = nodeId;
 	}
-	public String getNodeName() {
+	public String getName() {
 		return nodeName;
 	}
-	public void setNodeName(String nodeName) {
+	public void setName(String nodeName) {
 		this.nodeName = nodeName;
 	}
 	public String getUri() {
@@ -33,6 +34,14 @@ public class NodeBean {
 	}
 	public void setExplored(boolean explored) {
 		this.explored = explored;
+	}
+
+	public String getTypeURI() {
+		return typeURI;
+	}
+
+	public void setTypeURI(String typeURI) {
+		this.typeURI = typeURI;
 	}
 	
 	

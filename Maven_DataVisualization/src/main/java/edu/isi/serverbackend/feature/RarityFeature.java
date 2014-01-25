@@ -11,7 +11,7 @@ import edu.isi.serverbackend.linkedData.LinkedDataConnection;
 
 public class RarityFeature {
 	
-	public static double calculateRarity(LinkedDataConnection link){
+	public static double calculatePredicateRarity(LinkedDataConnection link){
 		double rarity = 0;
 		String stringQuery = "SELECT (COUNT(*) AS ?count) WHERE{ "
 				+ "?s <"+link.getPredicate()+"> ?o. "
@@ -33,7 +33,7 @@ public class RarityFeature {
 		return rarity;
 	}
 	
-	public static void calculateRarity(List<Sample> samples){
+	public static void calculatePredicateRarity(List<Sample> samples){
 		HashMap<String, Double> rarityMap = new HashMap<String, Double>();
 		for(int i = 0; i < samples.size(); i++){
 			if(!rarityMap.containsKey(samples.get(i).getLink().getPredicate())){

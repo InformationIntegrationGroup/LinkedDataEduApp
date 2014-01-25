@@ -3,12 +3,13 @@ package edu.isi.serverbackend.localDatabase.bean;
 public class ConnectionBean {
 	
 	private int connectionId;
-	private String relation;
+	private String predicate;
 	private String namespace;
 	private int subjectId;
 	private int objectId;
 	private int subjectRank;
 	private int objectRank;
+	
 	
 	public ConnectionBean(){
 		subjectRank = -1;
@@ -22,10 +23,10 @@ public class ConnectionBean {
 		this.connectionId = connectionId;
 	}
 	public String getRelation() {
-		return relation;
+		return predicate;
 	}
-	public void setRelation(String relation) {
-		this.relation = relation;
+	public void setRelation(String predicate) {
+		this.predicate = predicate;
 	}
 	public String getNamespace() {
 		return namespace;
@@ -46,13 +47,13 @@ public class ConnectionBean {
 		this.objectId = objectId;
 	}
 	public int getSubjectRank() {
-		return subjectRank;
+		return this.subjectRank;
 	}
 	public void setSubjectRank(int subjectRank) {
 		this.subjectRank = subjectRank;
 	}
 	public int getObjectRank() {
-		return objectRank;
+		return this.objectRank;
 	}
 	public void setObjectRank(int objectRank) {
 		this.objectRank = objectRank;

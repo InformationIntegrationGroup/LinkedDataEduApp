@@ -60,11 +60,12 @@ public class ConnectionRankRequest {
 //		for(int i = 0; i < samples.size(); i++){
 //			samples.get(i).evalutateFeature();
 //		}
-		RarityFeature.calculateRarity(samples);
-		DifferentOccupationFeature.isDifferentOccupation(samples);
-		EitherNotPlaceFeature.isEitherNotPlace(samples);
-		SmallPlaceFeature.calculateSmallPlace(samples);
-		ImportanceFeature.calculateImportance(samples);
+		RarityFeature.calculatePredicateRarity(samples);
+		
+		//DifferentOccupationFeature.isDifferentOccupation(samples);
+		//EitherNotPlaceFeature.isEitherNotPlace(samples);
+		//SmallPlaceFeature.calculateSmallPlace(samples);
+		//ImportanceFeature.calculateImportance(samples);
 		try {
 			URL url = new URL("http://127.0.0.1:8080/Maven_DataVisualization-0.0.1-SNAPSHOT/DemoServlet");//
 			URLConnection modelConn = url.openConnection();

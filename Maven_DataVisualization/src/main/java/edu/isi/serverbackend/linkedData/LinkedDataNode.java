@@ -14,12 +14,12 @@ public class LinkedDataNode {
 	private String name;
 	private String uri;
 	private RepositoryConnection repoConnection;
-	public enum NodeType{person, organization, place, work};
+	private String typeURI;
 	
 	public LinkedDataNode(String uri, RepositoryConnection connection) throws RepositoryException, MalformedQueryException, QueryEvaluationException{
 		this.uri = uri;
 		this.repoConnection = connection;
-		//retrieveName();
+		//retrieveNameAndType();
 	}
 	
 	public LinkedDataNode(String uri, String name, RepositoryConnection connection){
@@ -28,9 +28,22 @@ public class LinkedDataNode {
 		this.repoConnection = connection;
 	}
 	
-	public void retrieveName() throws RepositoryException, MalformedQueryException, QueryEvaluationException{
-		String queryString = "SELECT ?label WHERE { "
+	public LinkedDataNode(String uri, String name, String typeURI, RepositoryConnection connection){
+		this.uri = uri;
+		this.name = name;
+		this.typeURI = typeURI;
+		this.repoConnection = connection;
+	}
+	
+	public void retrieveNameAndType() throws RepositoryException, MalformedQueryException, QueryEvaluationException{
+		String queryString = "SELECT ?label ?type WHERE { "
 				+ "<" + uri + "> rdfs:label ?label ." 
+				+ "<" + uri + "> a ?type."
+                + "FILTER(?type = <http://dbpedia.org/ontology/Person> OR "
+                + "?type = <http://dbpedia.org/ontology/Place> OR "
+                + "?type = <http://dbpedia.org/ontology/Organisation> OR "
+                + "?type = <http://dbpedia.org/ontology/Work> OR "
+                + "?type =<http://dbpedia.org/ontology/Event>)."
 				+" FILTER(langMatches(lang(?label), \"EN\")) }";
 		System.out.println(queryString);
 		TupleQuery query = repoConnection.prepareTupleQuery(QueryLanguage.SPARQL, queryString);
@@ -42,15 +55,22 @@ public class LinkedDataNode {
 		System.out.println(literal.getLanguage());
 		System.out.println(literal.stringValue());
 		this.name = literal.stringValue();
+		this.typeURI = bindingSet.getValue("type").stringValue();
 	}
 	
 	public void retrieveSubjectConnections(List<Sample> samples) throws RepositoryException, MalformedQueryException, QueryEvaluationException{
-		String queryString = "SELECT ?predicate ?object ?label WHERE{ "
+		String queryString = "SELECT ?predicate ?object ?label ?type WHERE{ "
                    + "<"+ uri + "> ?predicate ?object ."
                    + "?predicate rdf:type owl:ObjectProperty ."
                    + "?object a owl:Thing ."
                    + "?object rdfs:label ?label ."
-                  // + "FILTER(langMatches(lang(?label), \"EN\")) "
+                   + "?object a ?type."
+                   + "FILTER(?type = <http://dbpedia.org/ontology/Person> OR "
+                   + "?type = <http://dbpedia.org/ontology/Place> OR "
+                   + "?type = <http://dbpedia.org/ontology/Organisation> OR "
+                   + "?type = <http://dbpedia.org/ontology/Work> OR "
+                   + "?type =<http://dbpedia.org/ontology/Event>)."
+                   + "FILTER(langMatches(lang(?label), \"EN\")) "
                    + "} GROUP BY ?object";
 		System.out.println(queryString);
 		TupleQuery query = repoConnection.prepareTupleQuery(QueryLanguage.SPARQL, queryString);
@@ -62,7 +82,7 @@ public class LinkedDataNode {
 			String language = objectLiteral.getLanguage();
 			if(language != null){
 				if(objectLiteral.getLanguage().equals("en")){
-					LinkedDataNode objectNode = new LinkedDataNode(bindingSet.getValue("object").stringValue(), objectLiteral.stringValue(), repoConnection);
+					LinkedDataNode objectNode = new LinkedDataNode(bindingSet.getValue("object").stringValue(), objectLiteral.stringValue(), bindingSet.getValue("type").stringValue(), repoConnection);
 					LinkedDataConnection newConnection = new LinkedDataConnection(this, objectNode, bindingSet.getValue("predicate").stringValue(), CurrentNode.subject, repoConnection);
 					//newConnection.setConnectionParam(Integer.parseInt(bindingSet.getValue("count").stringValue()));
 					samples.add(new Sample(newConnection));
@@ -73,13 +93,19 @@ public class LinkedDataNode {
 	}
 	
 	public void retrieveObjectConnections(List<Sample> samples) throws RepositoryException, MalformedQueryException, QueryEvaluationException{
-		String queryString = "SELECT ?predicate ?subject ?label WHERE{ "
+		String queryString = "SELECT ?predicate ?subject ?label ?type WHERE{ "
                              + "?subject ?predicate <"+ uri + "> ."
                              + "?predicate rdf:type owl:ObjectProperty ."
                              + "?subject a owl:Thing ."
                              + "?subject rdfs:label ?label ."
-                           //  + "FILTER(langMatches(lang(?label), \"EN\")) "
-                             + "} GROUP BY ?object";
+                             + "?subject a ?type."
+                             + "FILTER(?type = <http://dbpedia.org/ontology/Person> OR "
+                             + "?type = <http://dbpedia.org/ontology/Place> OR "
+                             + "?type = <http://dbpedia.org/ontology/Organisation> OR "
+                             + "?type = <http://dbpedia.org/ontology/Work> OR "
+                             + "?type =<http://dbpedia.org/ontology/Event>)."
+                             + "FILTER(langMatches(lang(?label), \"EN\")). "
+                             + "} GROUP BY ?subject";
 		System.out.println(queryString);
 		TupleQuery query = repoConnection.prepareTupleQuery(QueryLanguage.SPARQL, queryString);
 		TupleQueryResult result = query.evaluate();
@@ -90,7 +116,7 @@ public class LinkedDataNode {
 			String language = subjectLiteral.getLanguage();
 			if(language != null){
 				if(subjectLiteral.getLanguage().equals("en")){
-					LinkedDataNode subjectNode = new LinkedDataNode(bindingSet.getValue("subject").stringValue(), subjectLiteral.stringValue(), repoConnection);
+					LinkedDataNode subjectNode = new LinkedDataNode(bindingSet.getValue("subject").stringValue(), subjectLiteral.stringValue(), bindingSet.getValue("type").stringValue(), repoConnection);
 					LinkedDataConnection newConnection = new LinkedDataConnection(subjectNode, this, bindingSet.getValue("predicate").stringValue(), CurrentNode.object, repoConnection);
 					//newConnection.setConnectionParam(Integer.parseInt(bindingSet.getValue("count").stringValue()));
 					samples.add(new Sample(newConnection));
@@ -98,6 +124,7 @@ public class LinkedDataNode {
 			}
 		}
 	}
+	
 	public void setName(String name){
 		this.name = name;
 	}
@@ -107,6 +134,10 @@ public class LinkedDataNode {
 	
 	public String getURI(){
 		return uri;
+	}
+	
+	public String getTypeURI(){
+		return this.typeURI;
 	}
 	
 	public RepositoryConnection getRepoConnection(){
