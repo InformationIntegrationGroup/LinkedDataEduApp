@@ -193,9 +193,9 @@ public class InputFilePanel extends JPanel implements ActionListener{
 			pw.println("Subject,Predicate,Object,sbjExtensionRarity,objExtensionRarity,subjectDegree,objectDegree");
 			for(Sample sample:samples){
 				if(sample.getLink().getSubject().getTypeURI().equals(TYPEPREFIX+subjectType) && sample.getLink().getObject().getTypeURI().equals(TYPEPREFIX+objectType)){
-					String record = sample.getLink().getSubject().getName() + ","
-							+ PredicateBean.obtainPredicateName(sample.getLink().getPredicate()) +","
-							+ sample.getLink().getObject().getName() + ","
+					String record = "\"" + sample.getLink().getSubject().getName() + "\","
+							+ "\"" + PredicateBean.obtainPredicateName(sample.getLink().getPredicate()) +"\","
+							+ "\"" + sample.getLink().getObject().getName() + "\","
 							+ sample.getSubjectExtensionRarity() + ","
 							+ sample.getObjectExtensionRarity() + ","
 							+ sample.getSubjectRarity() + ","

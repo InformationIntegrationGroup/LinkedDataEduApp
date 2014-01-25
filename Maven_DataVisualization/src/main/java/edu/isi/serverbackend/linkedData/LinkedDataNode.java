@@ -131,7 +131,6 @@ public class LinkedDataNode {
 	public String getName(){
 		return name;
 	}
-	
 	public String getURI(){
 		return uri;
 	}
