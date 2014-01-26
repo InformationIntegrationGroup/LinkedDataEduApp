@@ -18,10 +18,12 @@
     	
 	</head>
 	<body>
+		<div id="body">
 		<div id="videoEditor" class="fullWidth fullHeight"> 
 			<div id="stepNavigator" class="stepNavigator">
-				<button id="lastStep" type="button" class="floatLeft btn btn-default btn-sm">Go Back To Canvas</button>
-				<button id="play-button" type="button" class="floatRight btn btn-success btn-sm">Proceed to Player</button>
+				<button id="lastStep" type="button" class="floatLeft btn btn-default btn-sm">Start Editing</button>
+				<button id="play-slide" type="button" class="floatRight btn btn-warning btn-sm">Play Slide</button>
+				<button id="play-button" type="button" class="floatRight btn btn-success btn-sm">Play Default</button>
 			</div>
 			<div id="nodeNavBar" class="fullWidth height1 nodeNavBar">
 				<!-- <ul class='nav nav-pills nav-justified'>
@@ -45,7 +47,7 @@
 					Play, Play All, Stop
 				</div>
 				<div id="moviePreview" class="moviePreview">
-					Movie Preview
+					<!-- Movie Preview -->
 					<div id="frame"> </div>
 				</div>
 				<div id="audioDescriptionWrap" class="audioDescriptionWrap">
@@ -63,8 +65,48 @@
 					<li><a href="#" id="edit-vids">Videos</a></li>
 				</ul>
 				<div id="nodeElementContent" class="">
-					<div id="imgs" style="display: inline;"> </div>
-					<div id="vids" style="display: none;"> </div>
+					<div>
+						<ul id="imgs" class="droptrue node-element-list"> 
+							<!-- <li class="ui-state-default nodeElementBarContentWrap btn btn-default">
+								<img class="nodeElementBarContent" name="spimg" src="../img/sample_img.jpg">
+								<div class="nodeElementBarContent" ><h5>sample_img.jpg</h5></div>
+								<div class="nodeInformation"> Hidden information about this element 1</div>
+							</li>
+							<li class="ui-state-default nodeElementBarContentWrap btn btn-default">
+								<img class="nodeElementBarContent" name="spbg" src="../img/background.jpg">
+								<div class="nodeElementBarContent" ><h5>background.jpg</h5></div>
+								<div class="nodeInformation"> Hidden information about this element 2</div>
+							</li>
+							<li class="ui-state-default nodeElementBarContentWrap btn btn-default">
+								<img class="nodeElementBarContent" name="spbg2" src="../img/background2.jpg">
+								<div class="nodeElementBarContent" ><h5>background2.jpg</h5></div>
+								<div class="nodeInformation"> Hidden information about this element 3</div>
+							</li>
+							<li class="ui-state-default nodeElementBarContentWrap btn btn-default">
+								<img class="nodeElementBarContent" name="spbg3" src="../img/background3.jpg">
+								<div class="nodeElementBarContent" ><h5>background3.jpg</h5></div>
+								<div class="nodeInformation"> Hidden information about this element 4</div>
+							</li>
+							<li class="ui-state-default nodeElementBarContentWrap btn btn-default">
+								<img class="nodeElementBarContent" name="spmp" src="../img/sample_map.jpg">
+								<div class="nodeElementBarContent" ><h5>sample_map.jpg</h5></div>
+								<div class="nodeInformation"> Hidden information about this element 5</div>
+							</li>
+							<li class="ui-state-default nodeElementBarContentWrap btn btn-default">
+								<img class="nodeElementBarContent" name="spvdo" src="../img/sample_video.jpg">
+								<div class="nodeElementBarContent" ><h5>sample_video.jpg</h5></div>
+								<div class="nodeInformation"> Hidden information about this element 6</div>
+							</li>
+							<li class="ui-state-default nodeElementBarContentWrap btn btn-default">
+								<img class="nodeElementBarContent" name="stynt" src="../img/stickyNotes.png">
+								<div class="nodeElementBarContent" ><h5>stickyNotes.png</h5></div>
+								<div class="nodeInformation"> Hidden information about this element 7</div>
+							</li> -->
+						</ul>
+					</div>
+					<div>
+						<ul id="vids" class="droptrue node-element-list"> </ul>
+					</div>
 				</div>
 				<!-- <div class="nodeElementBarContentWrap btn btn-default">
 					<img class="nodeElementBarContent" name="spimg" src="../img/sample_img.jpg">
@@ -93,6 +135,7 @@
 			<div id="slider-range-min" class="slideProgressBar"> </div>
 			
 			<div id="movieNavBarWrap" class="movieNavBarWrap">
+				<ul id="movie-nav-bar" class="droptrue movie-nav-bar"> </ul>
 					<!-- <div class="movieNavElementWrap btn btn-default">
 						<img class="movieNavElement" src="../img/sample_video.jpg">
 					</div>
@@ -109,8 +152,8 @@
 						<img class="movieNavElement" src="../img/sample_video.jpg">
 					</div> -->
 			</div>
-		</div>
-		<div id="screen"></div>
+		</div></div>
+		<div id="screen"> </div>
 		<!-- <script type="text/javascript" src="../js/video_editor.js"> </script> -->
 		<!-- <script type="text/javascript" src="../js/integrationtest.js"> </script> -->
 	</body>

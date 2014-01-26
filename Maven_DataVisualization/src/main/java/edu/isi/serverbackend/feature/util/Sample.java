@@ -13,6 +13,10 @@ public class Sample {
 	protected double smallPlace;
 	protected double birthdayCloseness;
 	protected float sameBirthPlace;
+	protected double objectExtensionRarity;
+	protected double subjectExtensionRarity;
+	protected double objectRarity;
+	protected double subjectRarity;
 	double interestingness;
 	
 	public Sample(LinkedDataConnection link){
@@ -120,4 +124,36 @@ public class Sample {
 		this.interestingness = interestingness;
 	}
 
+	public double getObjectExtensionRarity() {
+		return objectExtensionRarity;
+	}
+
+	public void setObjectExtensionRarity(double objectExtensionRarity) {
+		this.objectExtensionRarity = objectExtensionRarity;
+	}
+
+	public double getSubjectExtensionRarity() {
+		return subjectExtensionRarity;
+	}
+
+	public void setSubjectExtensionRarity(double subjectExtensionRarity) {
+		this.subjectExtensionRarity = subjectExtensionRarity;
+	}
+
+	public double getSubjectRarity() {
+		return subjectRarity;
+	}
+
+	public void setSubjectRarity(double subjectRarity) {
+		this.subjectRarity = subjectRarity;
+	}
+
+	public double getObjectRarity() {
+		return objectRarity;
+	}
+
+	public void setObjectRarity(double objectRarity) {
+		this.objectRarity = objectRarity;
+	}
+	
 }

@@ -12,19 +12,29 @@ import org.openrdf.repository.RepositoryConnection;
 import org.openrdf.repository.RepositoryException;
 import org.openrdf.repository.http.HTTPRepository;
 
+import com.mongodb.*;
+
 import edu.isi.serverbackend.feature.*;
 import edu.isi.serverbackend.linkedData.*;
-import edu.isi.serverbackend.linkedData.LinkedDataConnection.CurrentNode;
+import edu.isi.serverbackend.localDatabase.bean.*;
+import edu.isi.serverbackend.localDatabase.mongoCollection.TripleCollection;
 
 
 public class InputFilePanel extends JPanel implements ActionListener{
-	final static long LINKTOTAL = 10000; //256470235;
+	final static String PERSON = "Person";
+	final static String PLACE = "Place";
+	final static String WORK = "Work";
+	final static String ORG = "Organisation";
+	final static String EVENT = "Event";
+	final static String TYPEPREFIX = "http://dbpedia.org/ontology/";
+	
 	JFrame parent;
 	JLabel fileNameLabel, seedLabel;
 	JTextField fileNameField, seedField;
-	JButton generateBtn, extractBtn;
+	JButton generateBtn, extractBtn, testMongoBtn;
 	JPanel inputPanel;
 	JPanel extractPanel;
+	JPanel mongoTestPanel;
 	private BufferedReader reader;
 	public InputFilePanel(JFrame parent){
 		this.parent = parent;
@@ -72,11 +82,22 @@ public class InputFilePanel extends JPanel implements ActionListener{
 		inputPanel.add(Box.createRigidArea(new Dimension(10, 30)));
 		extractPanel.add(extractBtn);
 		
+		testMongoBtn = new JButton("Test MongoDB");
+		testMongoBtn.setPreferredSize(new Dimension(150, 30));
+		testMongoBtn.setMaximumSize(new Dimension(150, 30));
+		testMongoBtn.setMinimumSize(new Dimension(150, 30));
+		testMongoBtn.addActionListener(this);
+		
+		mongoTestPanel =  new JPanel();
+		mongoTestPanel.setLayout(new BoxLayout(mongoTestPanel, BoxLayout.X_AXIS));
+		mongoTestPanel.add(testMongoBtn);
+		
 		
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.setAlignmentY(CENTER_ALIGNMENT);
 		this.add(extractPanel);
 		this.add(inputPanel);
+		this.add(mongoTestPanel);
 	}
 	
 	
@@ -87,6 +108,9 @@ public class InputFilePanel extends JPanel implements ActionListener{
 		}
 		else if(ae.getSource() == extractBtn){
 			extractTriples(seedField.getText());
+		}
+		else if (ae.getSource() == testMongoBtn){
+			testMongoDB(seedField.getText());
 		}
 	}
 	
@@ -107,29 +131,6 @@ public class InputFilePanel extends JPanel implements ActionListener{
 				pw.println(links.get(i).getObject().getURI() + " ");
 				pw.flush();
 			}
-			/*for(int i = 0; i < 1000; i++){
-				long offset = (long) (LINKTOTAL * Math.random());
-				String queryString = "SELECT ?s ?p ?o { "
-					+ "?s ?p ?o. "	
-					//+ "?o a owl:Thing. "
-					//+ "?s a owl:Thing. "
-					+ "?s rdfs:label ?label1. "
-					+ "?o rdfs:label ?label2. "
-					+ "FILTER(langMatches(lang(?label1), \"EN\")) "
-					+ "FILTER(langMatches(lang(?label2), \"EN\")) "
-					+ "} OFFSET " + offset + " LIMIT 1";
-				System.out.println(queryString);
-				TupleQuery query = repoConnection.prepareTupleQuery(QueryLanguage.SPARQL, queryString);
-				query.setMaxQueryTime(10000000);
-				TupleQueryResult result = query.evaluate();
-				while(result.hasNext()){
-					BindingSet bindingSet = result.next();
-					pw.print(bindingSet.getValue("s").stringValue()+" ");
-					pw.print(bindingSet.getValue("p").stringValue()+" ");
-					pw.println(bindingSet.getValue("o").stringValue()+" ");
-					pw.flush();
-				}
-			}*/
 			pw.close();
 			fwriter.close();
 		} catch (RepositoryException e) {
@@ -153,44 +154,62 @@ public class InputFilePanel extends JPanel implements ActionListener{
 			HTTPRepository endpoint = new HTTPRepository("http://dbpedia.org/sparql", "");
 			endpoint.initialize();
 			ArrayList<Sample> samples = new ArrayList<Sample>();
-			RepositoryConnection repoConnection = endpoint.getConnection();
+			RepositoryConnection repoConn = endpoint.getConnection();
 			FileInputStream fstream = new FileInputStream(fileName);
 			DataInputStream dstream = new DataInputStream(fstream);
 			reader = new BufferedReader(new InputStreamReader(dstream));
 			String line;
 			line = reader.readLine();
 			while(line != null){
-				String[] strs = line.split(" ");
-				if(strs.length == 3){
-					System.out.println("sample detected");
-					LinkedDataNode subject = new LinkedDataNode(strs[0], repoConnection);
-					LinkedDataNode object = new LinkedDataNode(strs[2], repoConnection);
-					String predicate = strs[1];
-					LinkedDataConnection link = new LinkedDataConnection(subject, object, predicate, CurrentNode.subject, repoConnection);
-					Sample newSample = new Sample(link);
-					//Sample newSample = new Sample(link, Double.parseDouble(strs[3]));
-					//newSample.evalutateFeature();
-					samples.add(newSample);
-				}
+				ArrayList<Sample> temp  =  new ArrayList<Sample>();
+				LinkedDataNode node = new LinkedDataNode(line, repoConn);
+				node.retrieveNameAndType();
+				node.retrieveSubjectConnections(temp);
+				node.retrieveObjectConnections(temp);
+				RarityDegree.calculateExtensionRarity(temp);
+				RarityDegree.calcuateNodeDegree(temp);
+				samples.addAll(temp);
 				line = reader.readLine();
 			}
-			InfoExtractor.extractNames(samples);
-			//InfoRetriever.retrieveNames(samples);
-			RarityFeature.calculateRarity(samples);
-			EitherNotPlaceFeature.isEitherNotPlace(samples);
-			DifferentOccupationFeature.isDifferentOccupation(samples);
-			SmallPlaceFeature.calculateSmallPlace(samples);
-			ImportanceFeature.calculateImportance(samples);
-			SameBirthPlaceFeature.isSameBirthPlace(samples);
-			CloseBirthdayFeature.calculateCloseBirthDayFeature(samples);
 			
 			System.out.println("Sample processing finished");
 			dstream.close();
 			fstream.close();
-			exportTraingSetCSV(samples);
+			
+			exportTypeTrainingSetCSV(samples, PERSON, PERSON);
+			exportTypeTrainingSetCSV(samples, PERSON, WORK);
+			exportTypeTrainingSetCSV(samples, PERSON, PLACE);
+			exportTypeTrainingSetCSV(samples, WORK, PERSON);
 		}
 		catch(Exception e){
 			System.err.println("Error: " + e.getMessage());
+		}
+	}
+	
+	public void exportTypeTrainingSetCSV(ArrayList<Sample> samples, String subjectType, String objectType){
+		try {
+			FileWriter fwriter = new FileWriter(subjectType + "_" + objectType + ".csv", false);
+			PrintWriter pw = new PrintWriter(fwriter);
+			pw.println("Subject,Predicate,Object,sbjExtensionRarity,objExtensionRarity,subjectDegree,objectDegree");
+			for(Sample sample:samples){
+				if(sample.getLink().getSubject().getTypeURI().equals(TYPEPREFIX+subjectType) && sample.getLink().getObject().getTypeURI().equals(TYPEPREFIX+objectType)){
+					String record = "\"" + sample.getLink().getSubject().getName() + "\","
+							+ "\"" + PredicateBean.obtainPredicateName(sample.getLink().getPredicate()) +"\","
+							+ "\"" + sample.getLink().getObject().getName() + "\","
+							+ sample.getSubjectExtensionRarity() + ","
+							+ sample.getObjectExtensionRarity() + ","
+							+ sample.getSubjectRarity() + ","
+							+ sample.getObjectRarity();
+					pw.println(record);
+				}
+			}
+			pw.flush();
+			pw.close();
+			fwriter.close();
+		}
+		catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
 		}
 	}
 	
@@ -231,5 +250,62 @@ public class InputFilePanel extends JPanel implements ActionListener{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void testMongoDB(String seed){
+		try{
+			HTTPRepository endpoint = new HTTPRepository("http://dbpedia.org/sparql", "");
+			MongoClient mongoClient = new MongoClient("localhost");
+			DB dbConn = mongoClient.getDB("LinkedData");
+			endpoint.initialize();
+			RepositoryConnection repoConn = endpoint.getConnection();
+			LinkedDataNode currentNode = new LinkedDataNode(seed, repoConn);
+			currentNode.retrieveNameAndType();
+			ArrayList<Sample> samples = new ArrayList<Sample>();
+			currentNode.retrieveSubjectConnections(samples);
+			currentNode.retrieveObjectConnections(samples);
+			RarityDegree.calcuateNodeDegree(samples);
+			RarityDegree.calculateExtensionRarity(samples);
+			NodeBean currentNodeBean = new NodeBean();
+			currentNodeBean.setName(currentNode.getName());
+			currentNodeBean.setExplored(true);
+			currentNodeBean.setUri(currentNode.getURI());
+			currentNodeBean.setTypeURI(currentNode.getTypeURI());
+			for(Sample sample:samples){
+				TripleBean tripleBean = new TripleBean();
+				PredicateBean predicateBean = new PredicateBean();
+				predicateBean.setURI(sample.getLink().getPredicate());
+				tripleBean.setPredicate(predicateBean);
+				if(sample.getLink().isSubjectConnection()){
+						NodeBean node = new NodeBean();
+						node.setExplored(false);
+						node.setName(sample.getLink().getObject().getName());
+						node.setTypeURI(sample.getLink().getObject().getTypeURI());
+						node.setUri(sample.getLink().getObject().getURI());
+					
+					tripleBean.setSubject(currentNodeBean);
+					tripleBean.setObject(node);
+				}
+				else{
+						NodeBean node = new NodeBean();
+						node.setExplored(false);
+						node.setName(sample.getLink().getSubject().getName());
+						node.setTypeURI(sample.getLink().getSubject().getTypeURI());
+						node.setUri(sample.getLink().getSubject().getURI());
+					
+					tripleBean.setObject(currentNodeBean);
+					tripleBean.setSubject(node);
+				}
+				tripleBean.setSbjExtensionRarity(sample.getSubjectExtensionRarity());
+				tripleBean.setObjExtensionRarity(sample.getObjectExtensionRarity());
+				tripleBean.setSubjectDegree(sample.getSubjectRarity());
+				tripleBean.setObjectDegree(sample.getObjectRarity());
+				TripleCollection.insertTriple(tripleBean, dbConn);
+			}
+			TripleCollection.retrieveTriples(seed, dbConn);
+		}catch(Exception e){
+			System.err.println("Error: " + e.getMessage());
+		}
+		
 	}
 }

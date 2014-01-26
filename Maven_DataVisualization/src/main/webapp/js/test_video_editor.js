@@ -55,21 +55,57 @@ function generateNodeNavBar(){
 
 console.log("drag and drop test");
 
-$("#dragtest").draggable({
-    	helper: "clone" , 
-    	opcaity: 0.5, 
-    	revert: true, 
-    	scroll: false, 
-    	appendTo: "#videoEditor",
-    	drag: function(event, ui){
-    		ui.helper.css({
-    			"width":$(this).css("width"),
-    			"height": $(this).css("height")
-    		});
-    	}
+// $(".nodeElementBarContentWrap").draggable({
+    	// helper: "clone" , 
+    	// opcaity: 0.5, 
+    	// revert: true, 
+    	// scroll: false, 
+    	// appendTo: "#videoEditor",
+    	// drag: function(event, ui){
+    		// ui.helper.css({
+    			// "width":$(this).css("width"),
+    			// "height": $(this).css("height")
+    		// });
+    		// //.addClass("ui-sortable-helper");
+    	// }
+    // });
+
+$( "#node-element-list" ).sortable({
+	  connectWith: "#movie-nav-bar",
+	  helper: "clone",
+      appendTo: "#videoEditor",
+      revert: true,
+      scroll: false,
+      receive: function(event, ui){
+      	ui.item.removeClass("movieNavElementWrap")
+			   .addClass("nodeElementBarContentWrap")
+      }
+      // drag: function(event, ui){
+      	// ui.helper.css({
+      		// "width":$(this).css("width"),
+      		// "height":$(this).css("height")
+      	// });
+      // }
     });
-
-
+$("#movie-nav-bar").sortable({
+	connectWith: "#node-element-list",
+	helper:"clone",
+	appendTo:"#videoEditor",
+	revert: true,
+	scroll: false,
+	over: function(event, ui){
+		$("#movie-nav-bar").css("background", "yellow");
+	},
+	out: function(event, ui){
+		$("#movie-nav-bar").css("background", "grey");
+	},
+	receive: function(event, ui){
+		
+		ui.item.removeClass("nodeElementBarContentWrap")
+			   .addClass("movieNavElementWrap")
+	}
+});
+$( "#movie-nav-bar, #node-element-list" ).disableSelection();
 
 
 
