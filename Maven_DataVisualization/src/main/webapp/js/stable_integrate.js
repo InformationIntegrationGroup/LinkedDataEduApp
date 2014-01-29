@@ -70,13 +70,13 @@ $("#chart").click(function(){
 });
 function add(nodeURI, name) {
 	console.log("called add(); ==================================================");
-	// var searchURI = "/Maven_DataVisualization-0.0.1-SNAPSHOT/rankServlet?uri=";
-	// searchURI += nodeURI;
-	// searchURI += '&num=5';
+	var searchURI = "/Maven_DataVisualization-0.0.1-SNAPSHOT/rankServlet?uri=";
+	searchURI += nodeURI;
+	searchURI += '&num=5';
 
-	var searchURI = "../data_json/";
-	searchURI += name;
-	searchURI += ".json";
+	// var searchURI = "../data_json/";
+	// searchURI += name;
+	// searchURI += ".json";
 
 	d3.json(searchURI, function(json){
 		//json.x0 = 800;
