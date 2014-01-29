@@ -51,7 +51,7 @@ var chartHTML = '<div id="chart">';
 var searchBoxHTML = '<div id="searchBox">';
 	searchBoxHTML += '<h1>Linked Data Education</h1>';
 	searchBoxHTML += '<input id="input" />';
-	searchBoxHTML += '<button id="draw">Draw</button>';
+	searchBoxHTML += '<button id="draw">Go</button>';
 	searchBoxHTML += '</div>';
 
 var stickyNote ='<div id="nodeInfo">';
@@ -61,8 +61,8 @@ var stickyNote ='<div id="nodeInfo">';
 	stickyNote +='<img id="stickyNote" src="img/stickyNotes.png" />';
 	stickyNote +='</div>';
 
-var redraw = '<button id="redraw">Redraw</button>';	
-var finish = '<button id="finish">Finish</button>';	    		
+var redraw = '<button id="redraw">Start Over</button>';	
+var finish = '<button id="finish">Proceed</button>';	    		
 var relationBox = '<div id="relation" style="display: none;"></div>';
 var firstNode = 'http%3A%2F%2Fdbpedia.org%2Fresource%2FBill_Clinton&num=5';
 $("#chart").click(function(){
@@ -72,7 +72,7 @@ function add(nodeURI, name) {
 	console.log("called add(); ==================================================");
 	var searchURI = "/Maven_DataVisualization-0.0.1-SNAPSHOT/rankServlet?uri=";
 	searchURI += nodeURI;
-	searchURI += '&num=5';
+	searchURI += '&num=7';
 
 	// var searchURI = "../data_json/";
 	// searchURI += name;

@@ -12,12 +12,42 @@
     	<!-- <script src="../js/bootstrap3.min.js"></script> -->
     	<link rel="stylesheet" href="../css/bootstrap3.min.css" type="text/css" media="screen">
     	<link rel="stylesheet" href="../css/bootstrap-responsive.css" type="text/css" media="screen"> 
-    	<link rel="stylesheet" href="../css/style.css" type="text/css" media="screen">
+    	<!-- <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" /> -->
+    	
     	<!-- Customized Links -->
     	<link rel="stylesheet" href="../css/video_editor.css" type="text/css" media="screen">
+    	<link rel="stylesheet" href="../css/style.css" type="text/css" media="screen">
     	
 	</head>
 	<body>
+		
+		<div id="searchWindow" class="mainWrap">
+			
+			<!-- <div id="chart" class="mainContent"> 
+		    	
+			</div> -->
+			<div id="searchBox">
+				<h1>Linked Data Education</h1>
+				<input id="input" />
+				<button id="draw" accesskey="">Draw</button>
+			</div>
+		</div>
+		<div id="canvasWindow" class="mainWrap">
+			
+			<div id="chart" class="mainContent"> 
+		    	<div id="nodeInfo">
+					<h3 id="info">Information</h3>
+					<p class = "infoContent" id="name"> </p>
+					<p class = "infoContent" id="catalog"> </p>
+					<img id="stickyNote" src="../img/stickyNotes.png" />
+				</div>
+				<div id="relation" style="display: none;"></div>
+				<button id="redraw">Redraw</button>
+				<button id="finish">Finish</button>
+			</div>
+			
+		</div> 
+
 		<div id="body">
 			<div id="videoEditor" class="fullWidth fullHeight"> 
 				<div id="stepNavigator" class="stepNavigator">
