@@ -127,7 +127,7 @@ input {
 }
 #redraw {
 	position: absolute;
-	top: 20px;
+	top: -20px;
 	left: 150px;
 	width: 100px;
 	height: 30px;
@@ -140,7 +140,7 @@ input {
 }
 #finish {
 	position: absolute;
-	top: 20px;
+	top: -20px;
 	left: 300px;
 	width: 100px;
 	height: 30px;
