@@ -1,0 +1,112 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    	<title>Linked Data Education</title>
+    	<!-- RequireJS -->
+    	<script data-main="../js/eic_mmlab/client/scripts/linked_data_main.js" src="../js/eic_mmlab/client/scripts/lib/require.js" async> </script>
+    	
+    	<!-- Libraries -->
+    	<!-- <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" /> -->
+    	<!-- <script type="text/javascript" src="../js/jquery.js"> </script>
+    	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script> -->
+    	<!-- <script src="../js/bootstrap3.min.js"></script> -->
+    	<link rel="stylesheet" href="../css/bootstrap3.min.css" type="text/css" media="screen">
+    	<link rel="stylesheet" href="../css/bootstrap-responsive.css" type="text/css" media="screen"> 
+    	<!-- <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" /> -->
+    	
+    	<!-- Customized Links -->
+    	<link rel="stylesheet" href="../css/video_editor.css" type="text/css" media="screen">
+    	<link rel="stylesheet" href="../css/style.css" type="text/css" media="screen">
+    	
+	</head>
+	<body>
+		
+		<div id="searchWindow" class="mainWrap">
+			
+			<!-- <div id="chart" class="mainContent"> 
+		    	
+			</div> -->
+			<div id="searchBox">
+				<h1>Linked Data Education</h1>
+				<input id="input" />
+				<button id="draw" accesskey="">Draw</button>
+			</div>
+		</div>
+		<div id="canvasWindow" class="mainWrap">
+			
+			<div id="chart" class="mainContent"> 
+		    	<div id="nodeInfo">
+					<h3 id="info">Information</h3>
+					<p class = "infoContent" id="name"> </p>
+					<p class = "infoContent" id="catalog"> </p>
+					<img id="stickyNote" src="../img/stickyNotes.png" />
+				</div>
+				<div id="relation" style="display: none;"></div>
+				<button id="redraw">Redraw</button>
+				<button id="finish">Finish</button>
+			</div>
+			
+		</div> 
+
+		<div id="body" background="../img/background2.jpg">
+			<div id="videoEditor" class="fullWidth fullHeight"> 
+				<div id="stepNavigator" class="stepNavigator">
+					<button id="lastStep" type="button" class="floatLeft btn btn-default btn-sm">Print Hash Object</button>
+					<button id="play-slide" type="button" class="floatRight btn btn-warning btn-sm">Play Slide</button>
+					<button id="play-button" type="button" class="floatRight btn btn-success btn-sm">Play Movie</button>
+				</div>
+				<div id="nodeNavBar" class="fullWidth height1 nodeNavBar">
+	
+				</div>
+				<div id="nodeElementOperation" class="nodeElementOperation">
+					<div id="nodeElementEditing" class="nodeElementEditing">
+						Node Element Editing
+					</div>
+					<div id="playButtonGroup" class="playButtonGroup">
+						Play, Play All, Stop
+					</div>
+					<div id="moviePreview" class="moviePreview">
+						<!-- Movie Preview -->
+						<div id="frame"> </div>
+					</div>
+					<div id="audioDescriptionWrap" class="audioDescriptionWrap">
+						<textarea class="textDescription" id="textDescription"> 
+						</textarea>
+						<div id="textDescriptionOperation" class="textDescriptionButtonGroup">
+							<button id="editTestDescription" class="btn btn-primary btnOpt">Revert</button>
+						</div>
+					</div>
+				</div>
+				
+				<div id="nodeElementBar" class="height2 nodeElementBar">
+					<ul id="edit-list" class="nav nav-tabs">
+						<li><a href="#" id="edit-imgs">Images</a></li>
+						<li><a href="#" id="edit-vids">Videos</a></li>
+					</ul>
+					<div id="nodeElementContent" class="">
+						<div>
+							<ul id="imgs" class="droptrue node-element-list"> 
+			
+							</ul>
+						</div>
+						<div>
+							<ul id="vids" class="droptrue node-element-list">
+								
+							</ul>
+						</div>
+					</div>
+				</div>
+				
+				<div id="slider-range-min" class="slideProgressBar"> </div>
+				
+				<div id="movieNavBarWrap" class="movieNavBarWrap">
+					<ul id="movie-nav-bar" class="droptrue movie-nav-bar"> </ul>
+	
+				</div>
+			</div>
+		</div>
+		<div id="screen"> </div>
+		<!-- <script type="text/javascript" src="../js/video_editor.js"> </script> -->
+		<!-- <script type="text/javascript" src="../js/integrationtest.js"> </script> -->
+	</body>
+</html>

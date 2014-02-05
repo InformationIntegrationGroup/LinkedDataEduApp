@@ -204,7 +204,7 @@ public class RarityDegree {
 					String predicate = sample.getLink().getPredicate();
 					String subject = sample.getLink().getSubject().getURI();
 					sample.setSubjectExtensionRarity(subjectExtensionMap.get(predicate + " " +subject) / normalizeMap.get(predicate));
-					sample.setObjectRarity(objectPredicateMap.get(predicate) / normalizeMap.get(predicate));
+					sample.setObjectExtensionRarity(objectPredicateMap.get(predicate) / normalizeMap.get(predicate));
 				}
 			}
 		}
@@ -319,7 +319,7 @@ public class RarityDegree {
 					sample.setObjectRarity(objectExtensionDegreeMap.get(sample.getLink().getObject().getURI()) / objectTypeNormalizeMap.get(sample.getLink().getObject().getTypeURI()));
 				}
 				else{
-					sample.setObjectExtensionRarity(subjectExtensionNum / objectTypeNormalizeMap.get(currentType));
+					sample.setObjectRarity(subjectExtensionNum / objectTypeNormalizeMap.get(currentType));
 					sample.setSubjectRarity(subjectExtensionDegreeMap.get(sample.getLink().getSubject().getURI()) / subjectTypeNormalizeMap.get(sample.getLink().getSubject().getTypeURI()));
 				}
 			}

@@ -1,0 +1,12 @@
+http://dbpedia.org/resource/War_Of_The_Pacific
+http://dbpedia.org/resource/Pablo_Picasso
+http://dbpedia.org/resource/Vincent_van_Gogh
+http://dbpedia.org/resource/George_Orwell
+http://dbpedia.org/resource/Bill_Clinton
+http://dbpedia.org/resource/Harvard_University
+http://dbpedia.org/resource/Paris
+http://dbpedia.org/resource/Kent
+http://dbpedia.org/resource/Walt_Disney
+http://dbpedia.org/resource/The_Beatles
+http://dbpedia.org/resource/Ivy_League
+

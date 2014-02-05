@@ -175,11 +175,37 @@ public class InputFilePanel extends JPanel implements ActionListener{
 			System.out.println("Sample processing finished");
 			dstream.close();
 			fstream.close();
-			
 			exportTypeTrainingSetCSV(samples, PERSON, PERSON);
 			exportTypeTrainingSetCSV(samples, PERSON, WORK);
 			exportTypeTrainingSetCSV(samples, PERSON, PLACE);
+			exportTypeTrainingSetCSV(samples, PERSON, EVENT);
+			exportTypeTrainingSetCSV(samples, PERSON, ORG);
+
 			exportTypeTrainingSetCSV(samples, WORK, PERSON);
+			exportTypeTrainingSetCSV(samples, WORK, EVENT);
+			exportTypeTrainingSetCSV(samples, WORK, WORK);
+			exportTypeTrainingSetCSV(samples, WORK, PLACE);
+			exportTypeTrainingSetCSV(samples, WORK, ORG);
+
+			exportTypeTrainingSetCSV(samples, ORG, PERSON);
+			exportTypeTrainingSetCSV(samples, ORG, EVENT);
+			exportTypeTrainingSetCSV(samples, ORG, WORK);
+			exportTypeTrainingSetCSV(samples, ORG, PLACE);
+			exportTypeTrainingSetCSV(samples, ORG, ORG);
+
+			exportTypeTrainingSetCSV(samples, EVENT, PERSON);
+			exportTypeTrainingSetCSV(samples, EVENT, EVENT);
+			exportTypeTrainingSetCSV(samples, EVENT, WORK);
+			exportTypeTrainingSetCSV(samples, EVENT, PLACE);
+			exportTypeTrainingSetCSV(samples, EVENT, ORG);
+
+			exportTypeTrainingSetCSV(samples, PLACE, PERSON);
+			exportTypeTrainingSetCSV(samples, PLACE, EVENT);
+			exportTypeTrainingSetCSV(samples, PLACE, WORK);
+			exportTypeTrainingSetCSV(samples, PLACE, PLACE);
+			exportTypeTrainingSetCSV(samples, PLACE, ORG);
+
+			
 		}
 		catch(Exception e){
 			System.err.println("Error: " + e.getMessage());
