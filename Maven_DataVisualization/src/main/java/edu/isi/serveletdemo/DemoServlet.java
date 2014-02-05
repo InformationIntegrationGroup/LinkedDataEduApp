@@ -51,27 +51,26 @@ public class DemoServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//String ranking1 = ""+1.1+"\n"+""+1.2+"\n"+""+1.3+"\n"+""+2.1+"\n"+""+2.2+"\n"+""+2.3+"\n";
-		//out.print(ranking1);
-		
 		String features = request.getParameter("features");	//process request	
 		try {	
-			
-			//generateCSV(generateCsvLocation,features);
-			//WekaDemo demo= new WekaDemo();
-			//demo.ConvertCSV(generateCsvLocation);
-			//demo.TrainModel(trainFileLocation);
-			//String ranking = demo.getRanking(); 
-			
-			
 			String[] arrayFeatures = features.split("\n");
-			List<Double> cell ;
 			String ranking ="";
 			for(int i = 0; i <arrayFeatures.length; i++){
 	    		String[] entries = arrayFeatures[i].split(",");
 	    		double value = (3.9595 * Double.parseDouble(entries[0])) + (0.8631 * Double.parseDouble(entries[1])) +  (-0.1643 *Double.parseDouble(entries[2]))+ (0.00143 *Double.parseDouble(entries[3]))+ (2.001623 *Double.parseDouble(entries[4])) +1.2394;
 	    		ranking += value+"\n";	
 			}
+			
+			/*
+			String[] arrayFeatures = features.split("\n");
+			String ranking ="";
+			for(int i = 0; i <arrayFeatures.length; i++){
+				String[] entries = arrayFeatures[i].split(",");
+				int indexOfRelationType = Integer.parseInt(entries[0]);
+				double value = CalculateInterestingness(indexOfRelationType,Double.parseDouble(entries[1]),Double.parseDouble(entries[2]), Double.parseDouble(entries[3]), Double.parseDouble(entries[4]));
+	    		ranking += value+"\n";	
+			}	  
+			 */
 			
 			response.setContentType("text");
 			PrintWriter out = response.getWriter();
@@ -80,7 +79,92 @@ public class DemoServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-
+	
+/*
+  public Double CalculateInterestingess(int index, Double SE,Double OE,Double SD,Double OD){	//Subject extension, object extension, subject degree, object degree
+	  Double interestingness = 0.0;
+	  switch(index){
+	  case 1:
+		  interestingness = *SE + *OE + *SD + *OD;
+		  break;
+	  case 2:
+		  interestingness = *SE + *OE + *SD + *OD;
+		  break;
+	  case 3:
+		  interestingness = *SE + *OE + *SD + *OD;
+		  break;
+	  case 4:
+		  interestingness = *SE + *OE + *SD + *OD;
+		  break;
+	  case 5:
+		  interestingness = *SE + *OE + *SD + *OD;
+		  break;
+	  case 6:
+		  interestingness = *SE + *OE + *SD + *OD;
+		  break;
+	  case 7:
+		  interestingness = *SE + *OE + *SD + *OD;
+		  break;
+	  case 8:
+		  interestingness = *SE + *OE + *SD + *OD;
+		  break;
+	  case 9:
+		  interestingness = *SE + *OE + *SD + *OD;
+		  break;
+	  case 10:
+		  interestingness = *SE + *OE + *SD + *OD;
+		  break;
+	  case 11:
+		  interestingness = *SE + *OE + *SD + *OD;
+		  break;
+	  case 12:
+		  interestingness = *SE + *OE + *SD + *OD;
+		  break;
+	  case 13:
+		  interestingness = *SE + *OE + *SD + *OD;
+		  break;	 
+	  case 14:
+		  interestingness = *SE + *OE + *SD + *OD;
+		  break;
+	  case 15:
+		  interestingness = *SE + *OE + *SD + *OD;
+		  break;
+	  case 16:
+		  interestingness = *SE + *OE + *SD + *OD;
+		  break;
+	  case 17:
+		  interestingness = *SE + *OE + *SD + *OD;
+		  break;
+	  case 18:
+		  interestingness = *SE + *OE + *SD + *OD;
+		  break;
+	  case 19:
+		  interestingness = *SE + *OE + *SD + *OD;
+		  break;
+	  case 20:
+		  interestingness = *SE + *OE + *SD + *OD;
+		  break;
+	  case 21:
+		  interestingness = *SE + *OE + *SD + *OD;
+		  break;
+	  case 22:
+		  interestingness = *SE + *OE + *SD + *OD;
+		  break;
+	  case 23:
+		  interestingness = *SE + *OE + *SD + *OD;
+		  break;
+	  case 24:
+		  interestingness = *SE + *OE + *SD + *OD;
+		  break;
+	  case 25:
+		  interestingness = *SE + *OE + *SD + *OD;
+		  break;
+	  default:
+		  interestingness = *SE + *OE + *SD + *OD;
+		  break;
+	  }
+  }
+ */
 	public void generateCSV(String fileName,String features) throws Exception{
 		listWriter = new CsvListWriter(new FileWriter(fileName+"test.csv"),
 				CsvPreference.STANDARD_PREFERENCE);
@@ -119,7 +203,7 @@ public class DemoServlet extends HttpServlet {
                 new ParseDouble()
         };
         return processors;
-}
+}*/
 		
 }
 		
