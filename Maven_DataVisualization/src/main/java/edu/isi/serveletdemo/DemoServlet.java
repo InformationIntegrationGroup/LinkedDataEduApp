@@ -1,12 +1,8 @@
 package edu.isi.serveletdemo;
 
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.io.InputStream;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +18,6 @@ import org.supercsv.cellprocessor.ift.CellProcessor;
 import org.supercsv.io.CsvListWriter;
 import org.supercsv.prefs.CsvPreference;
 
-import edu.isi.linearRegression.WekaDemo;
-
 /**
  * Servlet implementation class DemoServlet
  */
@@ -31,9 +25,6 @@ import edu.isi.linearRegression.WekaDemo;
 public class DemoServlet extends HttpServlet {
 	CsvListWriter listWriter = null;
 	private static final long serialVersionUID = 1L;
-    private static final String generateCsvLocation= "/Users/Alison/Documents/";
-    private static final String trainFileLocation = "/Users/Alison/Documents/";
-    private static final String testFileLocation = "/Users/Alison/Documents/";
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -203,8 +194,7 @@ public class DemoServlet extends HttpServlet {
                 new ParseDouble()
         };
         return processors;
-}*/
+}
 		
 }
 		
-
