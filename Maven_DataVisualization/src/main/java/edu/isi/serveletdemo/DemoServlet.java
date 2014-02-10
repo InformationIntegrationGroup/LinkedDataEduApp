@@ -76,82 +76,82 @@ public class DemoServlet extends HttpServlet {
 	  Double interestingness = 0.0;
 	  switch(index){
 	  case 1:
-		  interestingness = *SE + *OE + *SD + *OD;
+		  interestingness = 50*SE + 50*OE + 50*SD + 50*OD;
 		  break;
 	  case 2:
-		  interestingness = *SE + *OE + *SD + *OD;
+		  interestingness = 30*SE + 10*OE + 20*SD + 20*OD;
 		  break;
 	  case 3:
-		  interestingness = *SE + *OE + *SD + *OD;
+		  interestingness = 10*SE + 5*OE + 10*SD + 5*OD;
 		  break;
 	  case 4:
-		  interestingness = *SE + *OE + *SD + *OD;
+		  interestingness = 30*SE + 20*OE + 30*SD + 50*OD;
 		  break;
 	  case 5:
-		  interestingness = *SE + *OE + *SD + *OD;
+		  interestingness = 30*SE + 20*OE + 30*SD + 20*OD;
 		  break;
 	  case 6:
-		  interestingness = *SE + *OE + *SD + *OD;
+		  interestingness = 25*SE + 30*OE + 30*SD + 30*OD;
 		  break;
 	  case 7:
-		  interestingness = *SE + *OE + *SD + *OD;
+		  interestingness = 25*SE + 10*OE + 20*SD + 20*OD;
 		  break;
 	  case 8:
-		  interestingness = *SE + *OE + *SD + *OD;
+		  interestingness = 25*SE + 15*OE + 25*SD + 10*OD;
 		  break;
 	  case 9:
-		  interestingness = *SE + *OE + *SD + *OD;
+		  interestingness = 25*SE + 15*OE + 25*SD + 15*OD;
 		  break;
 	  case 10:
-		  interestingness = *SE + *OE + *SD + *OD;
+		  interestingness = 25*SE + 30*OE + 20*SD + 11*OD;
 		  break;
 	  case 11:
-		  interestingness = *SE + *OE + *SD + *OD;
+		  interestingness = 5*SE + 20*OE + 5*SD + 20*OD;
 		  break;
 	  case 12:
-		  interestingness = *SE + *OE + *SD + *OD;
+		  interestingness = 5*SE + 20*OE + 5*SD + 20*OD;
 		  break;
 	  case 13:
-		  interestingness = *SE + *OE + *SD + *OD;
+		  interestingness = 5*SE + 5*OE + 5*SD + 5*OD;
 		  break;	 
 	  case 14:
-		  interestingness = *SE + *OE + *SD + *OD;
+		  interestingness = 5*SE + 50*OE + 5*SD + 20*OD;
 		  break;
 	  case 15:
-		  interestingness = *SE + *OE + *SD + *OD;
+		  interestingness = 5*SE + 10*OE + 5*SD + 10*OD;
 		  break;
 	  case 16:
-		  interestingness = *SE + *OE + *SD + *OD;
+		  interestingness = 25*SE + 25*OE + 25*SD + 25*OD;
 		  break;
 	  case 17:
-		  interestingness = *SE + *OE + *SD + *OD;
+		  interestingness =25 *SE + 50*OE + 25*SD + 50 *OD;
 		  break;
 	  case 18:
-		  interestingness = *SE + *OE + *SD + *OD;
+		  interestingness = 25*SE + 20*OE + 25*SD + 20*OD;
 		  break;
 	  case 19:
-		  interestingness = *SE + *OE + *SD + *OD;
+		  interestingness = 20*SE + 20*OE +20 *SD + 20*OD;
 		  break;
 	  case 20:
-		  interestingness = *SE + *OE + *SD + *OD;
+		  interestingness = 25*SE + 20*OE + 25*SD + 20*OD;
 		  break;
 	  case 21:
-		  interestingness = *SE + *OE + *SD + *OD;
+		  interestingness = 20*SE + 20*OE +  20*SD +  25*OD;
 		  break;
 	  case 22:
-		  interestingness = *SE + *OE + *SD + *OD;
+		  interestingness =  20*SE + 10*OE + 20*SD + 10*OD;
 		  break;
 	  case 23:
-		  interestingness = *SE + *OE + *SD + *OD;
+		  interestingness = 20*SE + 8*OE + 20*SD + 8*OD;
 		  break;
 	  case 24:
-		  interestingness = *SE + *OE + *SD + *OD;
+		  interestingness = 20*SE + 20*OE + 20*SD + 30*OD;
 		  break;
 	  case 25:
-		  interestingness = *SE + *OE + *SD + *OD;
+		  interestingness = 20*SE + 20*OE + 20*SD + 20*OD;
 		  break;
 	  default:
-		  interestingness = *SE + *OE + *SD + *OD;
+		  interestingness = 1*SE + 1*OE + 1*SD + 1*OD;
 		  break;
 	  }
   }
