@@ -32,10 +32,6 @@
     "uri":"http://dbpedia.org/resource/Presidency_of_Bill_Clinton"
   },
   {
-    "name":"Bill Clinton",
-    "uri":"http://dbpedia.org/resource/Bill_Clinton"
-  },
-  {
     "name":"Charles Burson",
     "uri":"http://dbpedia.org/resource/Charles_Burson"
   },
@@ -90,82 +86,5 @@
   {
     "name":"The Color Purple (musical)",
     "uri":"http://dbpedia.org/resource/The_Color_Purple_(musical)"
-  },
-  {
-    "name":"Middlesex County, Massachusetts",
-    "uri":""
-  },
-  {
-    "name":"Middlesex County, Massachusetts",
-    "uri":""
-  },
-  {
-    "name":"Middlesex County, Massachusetts",
-    "uri":""
-  },
-  {
-    "name":"Middlesex County, Massachusetts",
-    "uri":""
-  },
-  {
-    "name":"Middlesex County, Massachusetts",
-    "uri":""
-  },
-  {
-    "name":"Middlesex County, Massachusetts",
-    "uri":""
-  },
-  {
-    "name":"Middlesex County, Massachusetts",
-    "uri":""
-  },
-  {
-    "name":"Middlesex County, Massachusetts",
-    "uri":""
-  },
-  {
-    "name":"Middlesex County, Massachusetts",
-    "uri":""
-  },
-  {
-    "name":"Middlesex County, Massachusetts",
-    "uri":""
-  },
-  {
-    "name":"Middlesex County, Massachusetts",
-    "uri":""
-  },
-  {
-    "name":"Middlesex County, Massachusetts",
-    "uri":""
-  },
-  {
-    "name":"Middlesex County, Massachusetts",
-    "uri":""
-  },
-  {
-    "name":"Middlesex County, Massachusetts",
-    "uri":""
-  },
-  {
-    "name":"Middlesex County, Massachusetts",
-    "uri":""
-  },
-  {
-    "name":"Middlesex County, Massachusetts",
-    "uri":""
-  },
-  {
-    "name":"Middlesex County, Massachusetts",
-    "uri":""
-  },
-  {
-    "name":"Middlesex County, Massachusetts",
-    "uri":""
-  },
-  {
-    "name":"Middlesex County, Massachusetts",
-    "uri":""
   }
-
 ]

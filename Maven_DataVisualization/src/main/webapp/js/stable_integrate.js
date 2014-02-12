@@ -272,7 +272,7 @@ function click(d) {
 		  
 		  mainDepth = 0;
 		  var getDepth = getTreeWidth(root);
-		  w = (mainDepth) * 120;
+		  w = (mainDepth) * 1;
 		  console.log("mainDepth: ", mainDepth, " , w: ", w);
 		  $("svg").attr("width", w + 120 + "");
 		  tree.size([h, w]);
@@ -317,10 +317,10 @@ function linkMouseOver(source, target) {
 	$("#relation").empty();
 	var relationContent = '<p id="relationContent">This is a relation between <b>' + source + '</b> and <b>' + target +'</b></p><h5 id="close" onclick = "removeRelation()">close</h5>';
 	$("#relation").append(relationContent);
-	// $("#close").onclick = function(){
-		// $("#relationContent").remove();
-		// $(this).remove();
-	// }
+	$("#close").onclick = function(){
+		$("#relationContent").remove();
+		$(this).remove();
+	}
 }
 
 function getTreeWidth(treeRoot){

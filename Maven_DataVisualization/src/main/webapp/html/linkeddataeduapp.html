@@ -28,22 +28,24 @@
 			</div> -->
 			<div id="searchBox">
 				<h1>Linked Data Education</h1>
-				<input id="input" />
-				<button id="draw" accesskey="">Draw</button>
+				<input id="search" class="form-control" placeholder="Search whatever you want to learn..." />
+				<button id="draw" class="btn btn-primary" accesskey="">Go</button>
+				<div id="liveSearch" > </div>
+				<div id="liveSearchResult" > </div>
 			</div>
 		</div>
 		<div id="canvasWindow" class="mainWrap">
 			
 			<div id="chart" class="mainContent"> 
-		    	<div id="nodeInfo">
+		    	<!-- <div id="nodeInfo">
 					<h3 id="info">Information</h3>
 					<p class = "infoContent" id="name"> </p>
 					<p class = "infoContent" id="catalog"> </p>
 					<img id="stickyNote" src="../img/stickyNotes.png" />
-				</div>
-				<div id="relation" style="display: none;"></div>
-				<button id="redraw">Redraw</button>
-				<button id="finish">Finish</button>
+				</div> -->
+				<div id="relation" style="display: none; color: white;"></div>
+				<button id="redraw" class="btn btn-primary">Start Over</button>
+				<button id="finish" class="btn btn-success">Proceed to Animation</button>
 			</div>
 			
 		</div> 
