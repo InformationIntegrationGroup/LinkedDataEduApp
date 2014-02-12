@@ -139,17 +139,21 @@ path.linkHighlight{
 }
 #redraw {
 	position: absolute;
-	top: -30px;
-	left: 150px;
+	top: 10px;
+	right: 150px;
 	
 	
 }
 #finish {
 	position: absolute;
-	top: -30px;
-	left: 300px;
+	top: 10px;
+	right: 300px;
 	
 	
+}
+
+#chart {
+	overflow: scroll;
 }
 svg {
 	position: relative;
@@ -195,6 +199,10 @@ svg {
 	position: absolute;
 	border-radius: 3px;
 	background: rgb(128,128,128);
+	color: yellow;
+	z-index: 9999;
+}
+#relation > p {
 	color: white;
 }
 #relationWrap{
