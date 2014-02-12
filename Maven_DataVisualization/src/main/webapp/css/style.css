@@ -3,11 +3,11 @@ html, body {
 	padding: 0px;
 	border: 0px;
 	font-family: Arial, Helvetica, sans-serif;
-	background: black;
+	
 }
 body{
-	background: black;
-	background-image: url('../img/background2.jpg');
+	
+	/*background-image: url('../img/background2.jpg');*/
 }
 #canvasWindow {
 	display: none;
@@ -31,17 +31,18 @@ img {
 .node text {
 	cursor: pointer;
 	font-weight: bold;
-	font-size: 11px;
-	color: white;
+	font-size: 12px;
+	color: black;
 }
 .mainWrap{
 	width: 100%;
 	height: 100%;
 	position: absolute;
+	text-align: center;
 }
 path.link {
 	fill: none;
-	stroke: #ccc;
+	stroke: grey;
 	stroke-width: 3px;
 }
 path.linkHighlight{
@@ -50,12 +51,13 @@ path.linkHighlight{
 	stroke-width: 4.5px;
 }
 .mainContent {
-	width: 1250px;
+	width: 100%;
 	height: 580px;
 	position: absolute;
 	top: 50px;
 	margin: 10px;
 	z-index: 0;
+	text-align: left;
 }
 #message {
 	width: 200px;
@@ -87,7 +89,7 @@ path.linkHighlight{
 #searchBox {
 	width: 1000px;
 	height: 200px;
-	position: absolute;
+	position: relative;
 	top: 200px;
 	margin: 0px auto;
 	
@@ -96,60 +98,62 @@ path.linkHighlight{
 	font-size: 60px;
 	margin: 0px;
 	text-align: center;
-	color: #3d0f00;
-	width: 100%
+	color: rgb(63,132,192);
+	width: 100%;
 }
-input {
-	height: 30px;
-	width: 500px;
-	margin: 5px;
-	border-radius: 2px;
-	border: none;
-	box-shadow: 2px 2px 1px #333;
-	position: relative;
-	top: 10px;
-	left: 190px;
-	font-size: 17px;
-	background: #ffb84d;
+#search {
+	width: 80%;
+	height: 45px;
+	margin: 20px 20px 0px;
+	padding: 20px;
+	font-size: 20px;
+	float: left;
 }
 #draw {
 	position: relative;
-	top: 10px;
-	left: 200px;
-	width: 100px;
-	height: 30px;
-	border: none;
-	border-radius: 3px;
-	background: #6b0000;
-	cursor: pointer;
+	height: 45px;
+	width: 130px;
+	margin: 20px 10px 0px;
+
 	font-size: 20px;
-	color: #ff9900;
+}
+#liveSearch {
+	width: 80%;
+	height: 130px;
+	margin: 0px 20px;
+	overflow: scroll;
+	
+}
+#searchUpdate {
+	top: 130px;
+	width: inherit;
+	height: 150px;
+	padding: 0px;
+	margin: 0px 20px;
+	z-index: 999;
+	overflow: scroll;
+	display: block;
+}
+#liveSearchResult{
+	display: none;
 }
 #redraw {
 	position: absolute;
-	top: -20px;
-	left: 150px;
-	width: 100px;
-	height: 30px;
-	border: none;
-	border-radius: 3px;
-	background: #6b0000;
-	cursor: pointer;
-	font-size: 20px;
-	color: #ff9900;
+	top: 10px;
+	right: 150px;
+	
+	
 }
 #finish {
 	position: absolute;
-	top: -20px;
-	left: 300px;
-	width: 100px;
-	height: 30px;
-	border: none;
-	border-radius: 3px;
-	background: #6b0000;
-	cursor: pointer;
-	font-size: 20px;
-	color: #ff9900;
+	top: 10px;
+	right: 300px;
+	
+	
+}
+
+#chart {
+	overflow: scroll;
 }
 svg {
 	position: relative;
@@ -194,7 +198,12 @@ svg {
 	font-size: 12px;
 	position: absolute;
 	border-radius: 3px;
-	background: #ffb84d;
+	background: rgb(128,128,128);
+	color: yellow;
+	z-index: 9999;
+}
+#relation > p {
+	color: white;
 }
 #relationWrap{
 	width: 100%;
@@ -206,6 +215,7 @@ svg {
 	left: 5px;
 	margin: 2px;
 	border: 0px;
+	font-size: 11px;
 }
 #relation > h5{
 	font-size: 10px;
@@ -225,4 +235,7 @@ svg {
 	margin: 0px;
 	padding: 0px;
 	border: 0px;
+}
+.close{
+	color: white;
 }

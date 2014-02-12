@@ -18,7 +18,7 @@ import edu.isi.serverbackend.feature.*;
 import edu.isi.serverbackend.linkedData.*;
 import edu.isi.serverbackend.localDatabase.bean.*;
 import edu.isi.serverbackend.localDatabase.mongoCollection.TripleCollection;
-
+import edu.isi.serverbackend.request.*;
 
 public class InputFilePanel extends JPanel implements ActionListener{
 	final static String PERSON = "Person";
@@ -82,7 +82,7 @@ public class InputFilePanel extends JPanel implements ActionListener{
 		inputPanel.add(Box.createRigidArea(new Dimension(10, 30)));
 		extractPanel.add(extractBtn);
 		
-		testMongoBtn = new JButton("Test MongoDB");
+		testMongoBtn = new JButton("Test Caching");
 		testMongoBtn.setPreferredSize(new Dimension(150, 30));
 		testMongoBtn.setMaximumSize(new Dimension(150, 30));
 		testMongoBtn.setMinimumSize(new Dimension(150, 30));
@@ -110,7 +110,7 @@ public class InputFilePanel extends JPanel implements ActionListener{
 			extractTriples(seedField.getText());
 		}
 		else if (ae.getSource() == testMongoBtn){
-			testMongoDB(seedField.getText());
+			testCaching(seedField.getText());
 		}
 	}
 	
@@ -276,6 +276,27 @@ public class InputFilePanel extends JPanel implements ActionListener{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void testCaching(String seed){
+		
+		try {
+			HTTPRepository endpoint = new HTTPRepository("http://dbpedia.org/sparql", "");
+			endpoint.initialize();
+			RepositoryConnection repoConn = endpoint.getConnection();
+			LinkedDataCachingRequest caching = new LinkedDataCachingRequest();
+			caching.cachingTripleByBFS(new LinkedDataNode(seed, repoConn), LinkedDataCachingRequest.TripleType.Person, 100000);
+		} catch (RepositoryException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MalformedQueryException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (QueryEvaluationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 	public void testMongoDB(String seed){
