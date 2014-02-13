@@ -35,8 +35,12 @@
 			</div>
 		</div>
 		<div id="canvasWindow" class="mainWrap">
-			<button id="redraw" class="btn btn-primary">Start Over</button>
-			<button id="finish" class="btn btn-success">Proceed to Animation</button>
+			<div id="canvasStepNavigator" class="stepNavigator">
+					<button id="redraw" type="button" class="floatLeft btn btn-primary btn-sm redraw">Start Over</button>
+					<button id="finish" type="button" class="floatRight btn btn-success btn-sm">Proceed to Story Editor</button>
+			</div>
+			<!-- <button id="redraw" class="btn btn-primary">Start Over</button>
+			<button id="finish" class="btn btn-success">Proceed to Animation</button> -->
 			<div id="chart" class="mainContent"> 
 		    	<!-- <div id="nodeInfo">
 					<h3 id="info">Information</h3>
@@ -44,7 +48,7 @@
 					<p class = "infoContent" id="catalog"> </p>
 					<img id="stickyNote" src="../img/stickyNotes.png" />
 				</div> -->
-				<div id="relation" style="display: none; color: white;"></div>
+				<div id="relation" style="display: none; color: white;"> </div>
 				
 			</div>
 			
@@ -53,7 +57,7 @@
 		<div id="body" background="../img/background2.jpg">
 			<div id="videoEditor" class="fullWidth fullHeight"> 
 				<div id="stepNavigator" class="stepNavigator">
-					<button id="lastStep" type="button" class="floatLeft btn btn-default btn-sm">Print Hash Object</button>
+					<button id="lastStep" type="button" class="floatLeft btn btn-default btn-sm redraw">Start Over</button>
 					<button id="play-slide" type="button" class="floatRight btn btn-warning btn-sm">Play Slide</button>
 					<button id="play-button" type="button" class="floatRight btn btn-success btn-sm">Play Movie</button>
 				</div>
@@ -85,13 +89,13 @@
 						<li><a href="#" id="edit-imgs">Images</a></li>
 						<li><a href="#" id="edit-vids">Videos</a></li>
 					</ul>
-					<div id="nodeElementContent" class="">
-						<div>
+					<div id="nodeElementContent" >
+						<div class="element-list-wrap">
 							<ul id="imgs" class="droptrue node-element-list"> 
 			
 							</ul>
 						</div>
-						<div>
+						<div class="element-list-wrap">
 							<ul id="vids" class="droptrue node-element-list">
 								
 							</ul>
