@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>ISI_LinkedData</groupId>
-	<artifactId>Maven_DataVisualization</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>LODStories</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 
-	<name>Maven_DataVisualization</name>
+	<name>LODStories</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
