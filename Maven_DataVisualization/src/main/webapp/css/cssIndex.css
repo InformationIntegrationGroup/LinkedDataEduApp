@@ -62,11 +62,11 @@ footer {
 #title_1 {
 	top:40px;
 	left:20px;
-	transform: rotate(-7deg);
+	/*transform: rotate(-7deg);
 	-moz-transform: rotate(-7deg);
 	-webkit-transform: rotate(-7deg);
 	-o-transform: rotate(-7deg);
-	-ms-transform: rotate(-7deg);
+	-ms-transform: rotate(-7deg);*/
 }
 
 #title_2 {

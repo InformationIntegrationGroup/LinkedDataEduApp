@@ -25,10 +25,10 @@
 		<div id="body">
 		<div id="videoEditor" class="fullWidth fullHeight"> 
 			<div id="stepNavigator" class="stepNavigator">
-				<button id="lastStep" type="button" class="floatLeft btn btn-default btn-sm">Print Hash Object</button>
-				<button id="play-slide" type="button" class="floatRight btn btn-warning btn-sm">Play Slide</button>
-				<button id="play-button" type="button" class="floatRight btn btn-success btn-sm">Play Default</button>
-			</div>
+					<button id="lastStep" type="button" class="floatLeft btn btn-default btn-sm redraw">Start Over</button>
+					<button id="play-slide" type="button" class="floatRight btn btn-warning btn-sm" style="display: none;">Play Slide</button>
+					<button id="play-button" type="button" class="floatRight btn btn-success btn-sm">Play Movie</button>
+				</div>
 			<div id="nodeNavBar" class="fullWidth height1 nodeNavBar">
 				<!-- <ul class='nav nav-pills nav-justified'>
 					<li class='active'><a href='#' class="nodeNavBarElem" id='node01'>NodeName#1</a></li>
@@ -44,9 +44,9 @@
 			<!-- <button id="generateVideoEditor" class="btn btn-primary">Video Editor</button> -->
 			
 			<div id="nodeElementOperation" class="nodeElementOperation">
-				<div id="nodeElementEditing" class="nodeElementEditing">
+				<!-- <div id="nodeElementEditing" class="nodeElementEditing">
 					Node Element Editing
-				</div>
+				</div> -->
 				<div id="playButtonGroup" class="playButtonGroup">
 					Play, Play All, Stop
 				</div>
@@ -65,14 +65,14 @@
 			
 			<div id="nodeElementBar" class="height2 nodeElementBar">
 				<ul id="edit-list" class="nav nav-tabs">
-					<li><a href="#" id="edit-imgs">Images</a></li>
+					<li><a href="#" id="edit-imgs" class="btn-primary">Images</a></li>
 					<li><a href="#" id="edit-vids">Videos</a></li>
 				</ul>
 				<div id="nodeElementContent" >
 					<div class="element-list-wrap" id="img-element-list-wrap">
-						<!-- <ul id="imgs" class="droptrue node-element-list"> 
+						<ul id="imgs" class="droptrue node-element-list"> 
 		
-						</ul> -->
+						</ul>
 					</div>
 					<div class="element-list-wrap">
 						<ul id="vids" class="droptrue node-element-list">
@@ -80,27 +80,7 @@
 						</ul>
 					</div>
 				</div>
-				<!-- <div class="nodeElementBarContentWrap btn btn-default">
-					<img class="nodeElementBarContent" name="spimg" src="../img/sample_img.jpg">
-				</div>
-				<div class="nodeElementBarContentWrap btn btn-default">
-					<img class="nodeElementBarContent" name="spbg" src="../img/background.jpg">
-				</div>
-				<div class="nodeElementBarContentWrap btn btn-default">
-					<img class="nodeElementBarContent" name="spbg2" src="../img/background2.jpg">
-				</div>
-				<div class="nodeElementBarContentWrap btn btn-default">
-					<img class="nodeElementBarContent" name="spbg3" src="../img/background3.jpg">
-				</div>
-				<div class="nodeElementBarContentWrap btn btn-default">
-					<img class="nodeElementBarContent" name="spmp" src="../img/sample_map.jpg">
-				</div>
-				<div class="nodeElementBarContentWrap btn btn-default">
-					<img class="nodeElementBarContent" name="spvdo" src="../img/sample_video.jpg">
-				</div>
-				<div class="nodeElementBarContentWrap btn btn-default">
-					<img class="nodeElementBarContent" name="stynt" src="../img/stickyNotes.png">
-				</div> -->
+				
 				
 			</div>
 			
