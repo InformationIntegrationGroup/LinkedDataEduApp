@@ -1,79 +1,56 @@
-<!DOCTYPE html>
 <html>
-    <head>
-    	<script src="../js/bootstrap3.min.js" type="text/javascript"></script>
-    	<script src="../js/jquery.js" type="text/javascript"></script>
-		<link rel="stylesheet" href="../css/bootstrap3.min.css" type="text/css" media="screen">
-		<link rel="stylesheet" href="../css/style.css" type="text/css">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    	<title>LOD Stories</title>
+    	
+    	<!-- <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script> -->
+    	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    	<link rel="stylesheet" href="../css/index.css">
     </head>
     <body>
-    	<div class="container">
-        	<div class="row">
-        		<div id="screen" class="row"></div>
-        	</div>
-        	<div class="jumbotron row">
-        		<h2 id="header">Kittens are related to Kittens</h2>
-        	</div>
-            <div class="row">
-            <div class="col-md-6">
-                <label class="checkbox-inline">
-                    <input type="checkbox" id="int" value="int">Interesting?
-                </label>
-                <label class="checkbox-inline">
-                    <input type="checkbox" id="A" value="A">Know A?
-                </label>
-                <label class="checkbox-inline">
-                    <input type="checkbox" id="B" value="B">Know B?
-                </label>
-            </div>
-            <button class="btn btn-info col-md-6" id="nxt">Start</button>
-            </div>
-        </div>
+    	<div id="main-title" class="main-title">
+    		<div class="title-text">LODStories</div>
+    		<div class="second-title-text">Learning About Art by Building Multimedia Stories</div>
+    		<div class="demo-btn-group">
+			 
+			  	<a href="http://lodstories.isi.edu:8080/LODStories-1.0.0-SNAPSHOT/html/linkeddataeduapp.html"><button type="button" class="btn btn-lg btn-demo">Demo Page</button></a>
+			  	
+			  <a href="http://lodstories.isi.edu:8080/LODStories-1.0.0-SNAPSHOT/LODStories.pdf"><button type="button" class="btn btn-lg btn-demo">Demo Paper</button></a>
+			</div>
+    	</div>
+    	<div class="main-content">
+    		<div class="main-content-title">Introduction</div>
+    		<div class="main-content-text">LODStories is an engaging application where people learn about art while constructing multimedia stories about art. LODStories mines the Linked Open Data cloud to discover interesting connections between artworks, artists, places and ideas. LODStories guides users to construct a storyboard that connects the entities in an interesting way. It then fetches text, images and videos that users can arrange to create a multimedia story, and finally constructs a narrated video that users can edit and then publish to tell their story. The process is fun, and students learn about art and its connection to the world they live in. The paper describes the architecture of the system and the algorithms to make the exploration entertaining and educational.
+    			</div>
+    	</div>
+    	<div class="main-content">
+    		<div class="main-content-title">Step 1: Search for Art...</div>
+    		<div class="main-content-img-wrap"><img class="main-content-img" src="../img/Path_Search.png"></div>
+    		<div class="main-content-text">Type the name of the artist or the artwork that you are interested in, and click GO, the app will find other nodes that have relationship with the one you searched, and create path accordingly.
+    			</div>
+    	</div>
+    	<div class="main-content">
+    		<div class="main-content-title">Step 2: Explore the Path...</div>
+    		<div class="main-content-img-wrap"><img class="main-content-img" src="../img/Path_Explorer.png"></div>
+    		<div class="main-content-text">Click the node you are interested in, and the system will other nodes that is connected to the node you clicked. You may explore step by step, and finally create a path showing how things are connected.  
+    		</div>
+    		<div class="main-content-text">When you click "Proceed to Story Editor", the path from the starting node to the last node you clicked will be passed to the story editor.
+    		</div>
+    		<div class="main-content-text">When you click "Start Over", you will be directed to the search page.
+    		</div>
+    		
+    	</div>
+    	<div class="main-content">
+    		<div class="main-content-title">Step 3: Edit Your Story...</div>
+    		<div class="main-content-img-wrap"><img class="main-content-img" src="../img/story-editor.png"></div>
+    		<div class="main-content-text">Click each node and you can edit the story about that node. You may drag interesting videos and images from the collection on the left to the bottom bar, or edit the description text according to your own like. You can listen to the audio description after making changes. Click "Play Movie" to play your story. You don't have to edit all the nodes. The nodes your left blank will be added with default images and videos.
+    		</div>
+    		
+    		
+    	</div>
+    	<div class="main-content">
+    		
+    		
+    	</div>
     </body>
-    <script type="text/javascript">
-    	var loaded;
-    	var d;
-    	var index;
-    	$('#nxt').click(function(){
-    		if(!loaded){
-    			$.getJSON("/Maven_DataVisualization-0.0.1-SNAPSHOT/rankServlet?uri=http%3A%2F%2Fdbpedia.org%2Fresource%2FBill_Clinton&num=10", function(data){
-					console.log(data);
-					d = data;
-				}).success( function() {
-					loaded = true;
-					index = 1;
-					$('#nxt').html("Next");
-					var children = d['children'];
-					var first = children[0];
-					var sec = children[1];
-                    console.log(children);
-					//$("#header").html(first['name'] + " is connected to " + sec['name']);
-				});
-			}
-			
-			if(loaded){
-                var data = {};
-                if($("#int").is(':checked')) data["Interesting"] = 1;
-                else data["Interesting"] = 0;
-                if($("#A").is(':checked')) data["A"] = 1;
-                else data["A"] = 0;
-                if($("#B").is(':checked')) data["B"] = 1;
-                else data["B"] = 0;
-
-                $.ajax({
-                    url: "/Maven_DataVisualization-0.0.1-SNAPSHOT/storeServlet",
-                    data: data,
-                    type: 'POST'
-                });
-
-				var children = d['children'];
-				if(index == children.length) index = 0;
-				var first = children[index];
-				var sec = children[index+1];
-				//$("#header").html(first['name'] + " is connected to " + sec['name']);
-				//index++;
-			}
-		});
-    </script>
 </html>
