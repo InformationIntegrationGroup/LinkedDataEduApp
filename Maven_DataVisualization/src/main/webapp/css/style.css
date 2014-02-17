@@ -29,11 +29,12 @@ img {
 	stroke-width: 1.5px;
 }
 .node text {
+	width: 115px;
 	cursor: pointer;
 	font-weight: bold;
 	font-size: 12px;
 	color: black;
-	z-index: 999;
+	z-index: 9999;
 }
 .mainWrap{
 	width: 100%;
@@ -206,7 +207,7 @@ svg {
 #relationContent {
 	width: 95%;
 	position: relative;
-	left: 5px;
+	left: 0px;
 	font-size: 12px;
 	color: black;
 	margin: 2px;

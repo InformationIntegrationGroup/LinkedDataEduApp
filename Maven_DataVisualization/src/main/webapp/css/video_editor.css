@@ -370,3 +370,6 @@ h5{
 .ui-draggable-dragging {
 	z-index: 1000;
 }
+.title > content {
+	z-index: 99999;
+}
