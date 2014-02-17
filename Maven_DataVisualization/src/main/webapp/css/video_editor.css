@@ -72,9 +72,9 @@ h5{
 .nodeNavBar {
 	height:8%;
 	position: absolute;
-	top: 4.6%;
+	top: 6%;
+	left: 1%;
 	font-size: 16px;
-
 }
 
 .nodeNavBarElem {
@@ -101,7 +101,9 @@ h5{
 	left: 1%;
 	overflow-x: scroll;
 	text-align: left;
-	border: 1px black solid;
+	border: 1px solid;
+	border-radius: 10px;
+	border-color: gray;
 	z-index: 99;
 
 }
@@ -126,6 +128,7 @@ h5{
 }
 .movieNavElementWrap > img {
 	height: 100%;
+	width: 100%;
 }
 .nodeInformation {
 	display: none;
@@ -135,14 +138,12 @@ h5{
 /*Movie Nav Bar*/
 .movieNavBarWrap {
 	width: 98%;
-	height: 15%;
+	height: 17%;
 	position: absolute;
 	left: 1%;
 	bottom: 1%;
-
-	border: 1px black solid;
-
-
+    border: 1px solid gray;
+    border-radius: 10px;
 	overflow-x: scroll;
 	overflow-y:hidden;
 
@@ -162,7 +163,7 @@ h5{
 	background: yellow;
 }
 .movieNavElementWrap {
-	width: 16%;
+	width: 12%;
 	height: 95%;
 	position: relative;
 	top: 1%;
@@ -180,8 +181,8 @@ h5{
 	position: absolute;
 	top: 11.5%;
 	right: 1%;
-
-	border: 1px black solid;
+    border: 1px solid gray;
+    border-radius: 10px;
 }
 
 
@@ -226,7 +227,7 @@ h5{
 	position: absolute;
 	top: 70%;
 	left: 0%;
-	border: 1px solid black;
+	right: 5%;
 	text-align: center;
 }
 .moviePreview {
@@ -236,9 +237,6 @@ h5{
 	top: 0%;
 	right: 0%;
 	margin: 0 auto;
-	border: 1px solid black;
-
-	text-align: center;
 }
 /***************************Animation*****************************/
 .slides2 {
@@ -259,7 +257,9 @@ h5{
 }
 .imgPreview {
 	height: 100%;
-	text-align: center;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
 }
 .audioDescriptionWrap{
 	width: 100%;
@@ -283,8 +283,11 @@ h5{
 .textDescription {
 	width: 83%;
 	height: 90%;
-	margin: 5px 0px;
+	margin-left: 5px;
+	margin-top: 7px;
 	position: absolute;
+	border: 1px solid gray;
+    border-radius: 10px;
 }
 .textDescriptionButtonGroup {
 	width: 17%;
