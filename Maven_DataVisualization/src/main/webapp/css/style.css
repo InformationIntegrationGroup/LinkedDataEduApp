@@ -33,6 +33,7 @@ img {
 	font-weight: bold;
 	font-size: 12px;
 	color: black;
+	z-index: 999;
 }
 .mainWrap{
 	width: 100%;
@@ -191,16 +192,13 @@ svg {
 }
 #relation {
 	width: 260px;
-	font-size: 12px;
+	font-size: 15px;
 	position: absolute;
-	border-radius: 3px;
-	background: rgb(128,128,128);
-	color: yellow;
-	z-index: 9999;
+	background: rgb(230,230,230);
+	z-index: 1000;
+	border-radius: 7px;
 }
-#relation > p {
-	color: white;
-}
+
 #relationWrap{
 	width: 100%;
 	height: 100%;
@@ -209,11 +207,12 @@ svg {
 	width: 95%;
 	position: relative;
 	left: 5px;
+	font-size: 12px;
+	color: black;
 	margin: 2px;
 	border: 0px;
-	font-size: 11px;
 }
-#relation > h5{
+/*#relation > h5{
 	font-size: 10px;
 	position: relative;
 	left: 220px;
@@ -231,7 +230,7 @@ svg {
 	margin: 0px;
 	padding: 0px;
 	border: 0px;
-}
+}*/
 .close{
-	color: white;
+	z-index: 1001;
 }
