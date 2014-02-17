@@ -1,6 +1,7 @@
 package edu.isi.serverbackend.request;
 
 import edu.isi.serverbackend.linkedData.*;
+import edu.isi.serverbackend.localDatabase.bean.PredicateBean;
 import edu.isi.serverbackend.feature.DifferentOccupationFeature;
 import edu.isi.serverbackend.feature.EitherNotPlaceFeature;
 import edu.isi.serverbackend.feature.ImportanceFeature;
@@ -138,13 +139,13 @@ public class ConnectionRankRequest {
 			if(samples.get(i).getLink().isSubjectConnection()){
 				newNode.put("name", samples.get(i).getLink().getObject().getName());
 				newNode.put("uri", samples.get(i).getLink().getObject().getURI());
-				newNode.put("relation", samples.get(i).getLink().getPredicate());
+				newNode.put("relation", PredicateBean.obtainPredicateName( samples.get(i).getLink().getPredicate()));
 				newNode.put("rank", samples.get(i).getInterestingness());
 			}
 			else{
 				newNode.put("name", samples.get(i).getLink().getSubject().getName());
 				newNode.put("uri", samples.get(i).getLink().getSubject().getURI());
-				newNode.put("relation", samples.get(i).getLink().getPredicate());
+				newNode.put("relation", PredicateBean.obtainPredicateName(samples.get(i).getLink().getPredicate()));
 				newNode.put("rank", samples.get(i).getInterestingness());
 			}
 			childrenArray.put(newNode);

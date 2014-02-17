@@ -13,6 +13,7 @@ import org.openrdf.repository.RepositoryException;
 import edu.isi.serverbackend.linkedData.*;
 import edu.isi.serverbackend.localDatabase.bean.*;
 import edu.isi.serverbackend.localDatabase.mongoCollection.*;
+import edu.isi.serverbackend.feature.ImportanceFeature;
 import edu.isi.serverbackend.feature.RarityDegree;
 import edu.isi.serverbackend.feature.util.*;
 
@@ -23,6 +24,7 @@ public class LinkedDataCachingRequest{
 	private static final String DATABASE = "LinkedData";
 	private static final String EXPLORED = "FullyExploredNode";
 	private static final String ADDED = "QueueAddedNode";
+	private static final String STARTDATA = "StartingMap";
 
 	
 	private DB dbConn;
@@ -42,7 +44,7 @@ public class LinkedDataCachingRequest{
 		
 	}
 	
-	public void cachingTripleByBFS(LinkedDataNode seed, TripleType cachingType, long max){
+	public void cachingTripleByBFS(LinkedDataNode seed, TripleType cachingType, long maxNum, double minDegree){
 		String type =  null;
 		List<Sample> samples = new ArrayList<Sample>();
 		Queue<LinkedDataNode> nodeQueue = new LinkedList<LinkedDataNode>();
@@ -70,15 +72,17 @@ public class LinkedDataCachingRequest{
 			seed.retrieveObjectConnections(samples);
 			RarityDegree.calcuateNodeDegree(samples);
 			RarityDegree.calculateExtensionRarity(samples);
-			total += pushNodeIntoQueueAndStoreTriple(samples, nodeQueue, type);
-			while (!nodeQueue.isEmpty() && total < max) {
+			ImportanceFeature.calculateImportance(samples);
+			total += pushNodeIntoQueueAndStoreTriple(samples, nodeQueue, type, minDegree);
+			while (!nodeQueue.isEmpty() && total < maxNum) {
 				samples = new ArrayList<Sample>();
 				LinkedDataNode currentNode = nodeQueue.remove();
 				currentNode.retrieveSubjectConnections(samples);
 				currentNode.retrieveObjectConnections(samples);
 				RarityDegree.calcuateNodeDegree(samples);
 				RarityDegree.calculateExtensionRarity(samples);
-				total += pushNodeIntoQueueAndStoreTriple(samples, nodeQueue, type);
+				ImportanceFeature.calculateImportance(samples);
+				total += pushNodeIntoQueueAndStoreTriple(samples, nodeQueue, type, minDegree);
 			}
 		} catch (RepositoryException e) {
 			// TODO Auto-generated catch block
@@ -92,25 +96,25 @@ public class LinkedDataCachingRequest{
 		}
 	}
 	
-	private long pushNodeIntoQueueAndStoreTriple(List<Sample> samples, Queue<LinkedDataNode> nodeQueue, String type){
+	private long pushNodeIntoQueueAndStoreTriple(List<Sample> samples, Queue<LinkedDataNode> nodeQueue, String type, double minDegree){
 		DBCollection exploredNodeCollection = dbConn.getCollection(EXPLORED);
 		DBCollection addedNodeCollection = dbConn.getCollection(ADDED);
 		NodeBean currentNodeBean = new NodeBean();
 		long tripleNum = 0;
 		if(!samples.isEmpty()){
 			if(samples.get(0).getLink().isSubjectConnection()){
-				insertNodeIntoTemp(samples.get(0).getLink().getSubject(), EXPLORED);
 				currentNodeBean.setName(samples.get(0).getLink().getSubject().getName());
 				currentNodeBean.setExplored(true);
 				currentNodeBean.setUri(samples.get(0).getLink().getSubject().getURI());
 				currentNodeBean.setTypeURI(samples.get(0).getLink().getSubject().getTypeURI());
+				insertNodeIntoTemp(samples.get(0).getLink().getSubject(), EXPLORED);
 			}
 			else{
-				insertNodeIntoTemp(samples.get(0).getLink().getObject(), EXPLORED);
 				currentNodeBean.setName(samples.get(0).getLink().getObject().getName());
 				currentNodeBean.setExplored(true);
 				currentNodeBean.setUri(samples.get(0).getLink().getObject().getURI());
 				currentNodeBean.setTypeURI(samples.get(0).getLink().getObject().getTypeURI());
+				insertNodeIntoTemp(samples.get(0).getLink().getObject(), EXPLORED);
 			}
 		}
 		for(Sample sample:samples){
@@ -119,9 +123,12 @@ public class LinkedDataCachingRequest{
 				DBCursor cursor = exploredNodeCollection.find(query);
 				if(!cursor.hasNext()){
 					cursor = addedNodeCollection.find(query);
-					if(!cursor.hasNext() && (sample.getLink().getObject().getTypeURI().equals(type) || type == null)){
+					if(!cursor.hasNext()){
+						insertNodeIntoTemp(sample.getLink().getObject(), ADDED);
 						nodeQueue.add(sample.getLink().getObject());
-						addedNodeCollection.insert(query);
+						if((sample.getLink().getObject().getTypeURI().equals(type) || type == null) && sample.getExtensionImportance() >= minDegree){
+							insertNodeIntoTemp(sample.getLink().getObject(), STARTDATA);
+						}
 					}
 					
 					TripleBean tripleBean =  new TripleBean();
@@ -149,9 +156,12 @@ public class LinkedDataCachingRequest{
 				DBCursor cursor = exploredNodeCollection.find(query);
 				if(!cursor.hasNext()){
 					cursor = addedNodeCollection.find(query);
-					if(!cursor.hasNext() && (sample.getLink().getSubject().getTypeURI().equals(type) || type == null)){
+					if(!cursor.hasNext()){
+						insertNodeIntoTemp(sample.getLink().getSubject(), ADDED);
 						nodeQueue.add(sample.getLink().getSubject());
-						addedNodeCollection.insert(query);
+						if((sample.getLink().getSubject().getTypeURI().equals(type) || type == null)  && sample.getExtensionImportance() >= minDegree){
+							insertNodeIntoTemp(sample.getLink().getSubject(), STARTDATA);
+						}
 					}
 					TripleBean tripleBean =  new TripleBean();
 					PredicateBean predicateBean = new PredicateBean();
@@ -178,7 +188,8 @@ public class LinkedDataCachingRequest{
 	}
 	
 	private void insertNodeIntoTemp(LinkedDataNode node, String collectionName){
-		BasicDBObject query = new BasicDBObject("uri", node.getURI());
+		BasicDBObject query = new BasicDBObject("name", node.getName());
+		query.append("uri", node.getURI());
 		DBCollection tempCollection = dbConn.getCollection(collectionName);
 		tempCollection.insert(query);
 	}

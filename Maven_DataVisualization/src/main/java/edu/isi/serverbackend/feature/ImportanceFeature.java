@@ -139,10 +139,10 @@ public class ImportanceFeature {
 			}
 			for(Sample sample:samples){
 				if(sample.getLink().isSubjectConnection()){
-					sample.setExtensionImportance(Math.log(importanceMap.get(sample.getLink().getObject().getURI())));
+					sample.setExtensionImportance(importanceMap.get(sample.getLink().getObject().getURI()));
 				}
 				else{
-					sample.setExtensionImportance(Math.log(importanceMap.get(sample.getLink().getSubject().getURI())));
+					sample.setExtensionImportance(importanceMap.get(sample.getLink().getSubject().getURI()));
 				}
 			}
 		}
