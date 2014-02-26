@@ -412,7 +412,6 @@
 { "_id" : { "$oid" : "52fc6477036470d9727797f8" }, "name" : "Annette P. Jimerson", "uri" : "http://dbpedia.org/resource/Annette_P._Jimerson" },
 { "_id" : { "$oid" : "52fc6478036470d9727797fb" }, "name" : "Arman", "uri" : "http://dbpedia.org/resource/Arman" },
 { "_id" : { "$oid" : "52fc647a036470d972779802" }, "name" : "Hadaa Sendoo", "uri" : "http://dbpedia.org/resource/Hadaa_Sendoo" },
-{ "_id" : { "$oid" : "52fc647c036470d97277980a" }, "name" : "Vincent Van Gogh", "uri" : "http://dbpedia.org/resource/Vincent_Van_Gogh" },
 { "_id" : { "$oid" : "52fc6480036470d97277980b" }, "name" : "Subhash Awchat", "uri" : "http://dbpedia.org/resource/Subhash_Awchat" },
 { "_id" : { "$oid" : "52fc6483036470d97277980f" }, "name" : "Adolphe Joseph Thomas Monticelli", "uri" : "http://dbpedia.org/resource/Adolphe_Joseph_Thomas_Monticelli" },
 { "_id" : { "$oid" : "52fc6485036470d972779814" }, "name" : "Maggie Laubser", "uri" : "http://dbpedia.org/resource/Maggie_Laubser" },
