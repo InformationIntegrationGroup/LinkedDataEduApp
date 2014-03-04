@@ -525,7 +525,6 @@
 { "_id" : { "$oid" : "52fc6668036470d97277abc0" }, "name" : "Subimal Mishra", "uri" : "http://dbpedia.org/resource/Subimal_Mishra" },
 { "_id" : { "$oid" : "52fc666a036470d97277abc8" }, "name" : "Ian Miller (illustrator)", "uri" : "http://dbpedia.org/resource/Ian_Miller_(illustrator)" },
 { "_id" : { "$oid" : "52fc666c036470d97277abcd" }, "name" : "Andrea del Verrocchio", "uri" : "http://dbpedia.org/resource/Andrea_del_Verrocchio" },
-{ "_id" : { "$oid" : "52fc666e036470d97277abdb" }, "name" : "Leonardo Da Vinci", "uri" : "http://dbpedia.org/resource/Leonardo_Da_Vinci" },
 { "_id" : { "$oid" : "52fc6671036470d97277abdc" }, "name" : "John Argyropoulos", "uri" : "http://dbpedia.org/resource/John_Argyropoulos" },
 { "_id" : { "$oid" : "52fc6673036470d97277abed" }, "name" : "Kaja Norum", "uri" : "http://dbpedia.org/resource/Kaja_Norum" },
 { "_id" : { "$oid" : "52fc6678036470d97277abf0" }, "name" : "Walter Lowenfels", "uri" : "http://dbpedia.org/resource/Walter_Lowenfels" },
