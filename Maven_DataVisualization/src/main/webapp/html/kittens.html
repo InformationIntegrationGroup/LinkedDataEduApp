@@ -1,13 +1,32 @@
 <!DOCTYPE html>
 <html>
     <head>
-    	<script src="../js/bootstrap3.min.js" type="text/javascript"></script>
-    	<script src="../js/jquery.js" type="text/javascript"></script>
-		<link rel="stylesheet" href="../css/bootstrap3.min.css" type="text/css" media="screen">
+    	<link rel="stylesheet" href="../css/bootstrap3.min.css" type="text/css" media="screen">
 		<link rel="stylesheet" href="../css/style.css" type="text/css">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
+    
     <body>
+    
+    <script type="text/javascript">
+    	var loaded;
+    	var d;
+    	var index;
+    	$('#nxt').click(function(){
+    		if(!loaded){
+    			$.getJSON("/LODStories-1.0.0-SNAPSHOT/DemoPageServlet?num=1", function(data){
+					console.log(data);
+					d = data;
+				}).success( function() {
+					loaded = true;
+					index = 1;
+					$('#nxt').html("Next");
+				});
+			}	
+			}
+    	);
+    </script>
+    
     	<div class="container">
         	<div class="row">
         		<div id="screen" class="row"></div>
@@ -15,65 +34,25 @@
         	<div class="jumbotron row">
         		<h2 id="header">Kittens are related to Kittens</h2>
         	</div>
-            <div class="row">
             <div class="col-md-6">
-                <label class="checkbox-inline">
-                    <input type="checkbox" id="int" value="int">Interesting?
-                </label>
-                <label class="checkbox-inline">
-                    <input type="checkbox" id="A" value="A">Know A?
-                </label>
-                <label class="checkbox-inline">
-                    <input type="checkbox" id="B" value="B">Know B?
-                </label>
+         		
+                    <input type="checkbox" id="feed" value="int">Story Interesting?      
+                    <input type="checkbox" id="feed" value="A">Subject Interesting?
+                    <input type="checkbox" id="feed" value="B">Object Interesting?   
+                    <input type="checkbox" id="feed" value="C">Relation Interesting?
+                    <input type="submit" name = "submit" value="submit">
+ 			$.ajax({
+            dataType: 'jsonp',
+            jsonpCallback: '_wrapper',
+            data: $('#formID').serialize(),
+            type: 'POST',
+            url: "http://localhost:9999/start",
+            success: handleButtonResponse,
+            });
             </div>
             <button class="btn btn-info col-md-6" id="nxt">Start</button>
             </div>
-        </div>
+       
     </body>
-    <script type="text/javascript">
-    	var loaded;
-    	var d;
-    	var index;
-    	$('#nxt').click(function(){
-    		if(!loaded){
-    			$.getJSON("/Maven_DataVisualization-0.0.1-SNAPSHOT/rankServlet?uri=http%3A%2F%2Fdbpedia.org%2Fresource%2FBill_Clinton&num=10", function(data){
-					console.log(data);
-					d = data;
-				}).success( function() {
-					loaded = true;
-					index = 1;
-					$('#nxt').html("Next");
-					var children = d['children'];
-					var first = children[0];
-					var sec = children[1];
-                    console.log(children);
-					//$("#header").html(first['name'] + " is connected to " + sec['name']);
-				});
-			}
-			
-			if(loaded){
-                var data = {};
-                if($("#int").is(':checked')) data["Interesting"] = 1;
-                else data["Interesting"] = 0;
-                if($("#A").is(':checked')) data["A"] = 1;
-                else data["A"] = 0;
-                if($("#B").is(':checked')) data["B"] = 1;
-                else data["B"] = 0;
-
-                $.ajax({
-                    url: "/Maven_DataVisualization-0.0.1-SNAPSHOT/storeServlet",
-                    data: data,
-                    type: 'POST'
-                });
-
-				var children = d['children'];
-				if(index == children.length) index = 0;
-				var first = children[index];
-				var sec = children[index+1];
-				//$("#header").html(first['name'] + " is connected to " + sec['name']);
-				//index++;
-			}
-		});
-    </script>
+    
 </html>
