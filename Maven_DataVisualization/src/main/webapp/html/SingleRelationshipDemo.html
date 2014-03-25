@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>A story </title>
+    <meta charset="UTF-8">
+    <script data-main="../js/eic_mmlab/client/scripts/single" src="../js/eic_mmlab/client/scripts/lib/require.js" async></script>
+    <link rel="stylesheet" href="../css/cssSlides.css" type="text/css"/>
+    <link rel="stylesheet" href="../css/cssIndex.css" type="text/css"/>
+  </head>
+<body>
+	<div class = "display"> 
+		<button type="button" class="btn btn-primary" id="play-button">Next</button>
+	</div>
+	<div class = "feedback">
+		<p>
+	 	<input type="checkbox" id="feed" value="int">Story Interesting?      
+     	<input type="checkbox" id="feed" value="A" >Subject Interesting?
+     	<input type="checkbox" id="feed" value="B" >Object Interesting?   
+     	<input type="checkbox" id="feed" value="C" >Relation Interesting?
+     	<input type="submit" name = "submit" value="submit" onclick = "validate(this)">
+    	</p>
+	</div>
+	<script type="text/javascript">
+	function validate(cb){
+		$('input: checkbox[id="feed"]').each(function(){
+			if(this.checked){
+				console.log("clicked "+this.value);
+			}
+		});
+	}
+	</script>
+	
+	
+</body>
+</html>
