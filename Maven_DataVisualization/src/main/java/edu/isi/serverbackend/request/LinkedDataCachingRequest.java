@@ -18,10 +18,10 @@ import edu.isi.serverbackend.feature.RarityDegree;
 import edu.isi.serverbackend.feature.util.*;
 
 public class LinkedDataCachingRequest{
-	private static final String USER = "linkedDataAdmin";
+	private static final String USER = "lodstoriesAdmin";
 	private static final String PASSWORD = "";
 	private static final String HOST = "localhost";
-	private static final String DATABASE = "LinkedData";
+	private static final String DATABASE = "lodstories";
 	private static final String EXPLORED = "FullyExploredNode";
 	private static final String ADDED = "QueueAddedNode";
 	private static final String STARTDATA = "StartingMap";

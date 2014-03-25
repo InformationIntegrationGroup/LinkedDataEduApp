@@ -285,7 +285,7 @@ public class InputFilePanel extends JPanel implements ActionListener{
 			endpoint.initialize();
 			RepositoryConnection repoConn = endpoint.getConnection();
 			LinkedDataCachingRequest caching = new LinkedDataCachingRequest();
-			caching.cachingTripleByBFS(new LinkedDataNode(seed, repoConn), LinkedDataCachingRequest.TripleType.Person, 100000, 10.0);
+			caching.cachingTripleByBFS(new LinkedDataNode(seed, repoConn), LinkedDataCachingRequest.TripleType.Work, 100000, 3.0);
 		} catch (RepositoryException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
