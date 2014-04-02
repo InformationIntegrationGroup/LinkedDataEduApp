@@ -120,7 +120,6 @@ public class ConnectionRankRequest {
 				}
 			}
 		}
-		eliminateSameNodeExtension();
 	}
 	
 	/*Precondition: Sample is sorted*/
@@ -143,13 +142,14 @@ public class ConnectionRankRequest {
 	public JSONObject exportD3JSON(int num) throws JSONException{
 		JSONObject result = new JSONObject();
 		JSONArray childrenArray = new JSONArray();
+		eliminateSameNodeExtension();
 		List<Sample> orderedSamples = reorderByRelation(num);
 		for(int i = 0; i < num; i++){
 			if(i >= orderedSamples.size())
 				break;
 			JSONObject newNode = new JSONObject();
 			
-			if(samples.get(i).getLink().isSubjectConnection()){
+			if(orderedSamples.get(i).getLink().isSubjectConnection()){
 				newNode.put("name", orderedSamples.get(i).getLink().getObject().getName());
 				newNode.put("uri", orderedSamples.get(i).getLink().getObject().getURI());
 				newNode.put("relation", PredicateBean.obtainPredicateName( orderedSamples.get(i).getLink().getPredicate()));
@@ -173,7 +173,7 @@ public class ConnectionRankRequest {
 		result.put("relation", "none");
 		result.put("children", childrenArray);
 		result.put("resultLine", ratingResponse);
-		result.put("Size", samples.size());
+		result.put("Size", orderedSamples.size());
 		return result;
 	}
 	
