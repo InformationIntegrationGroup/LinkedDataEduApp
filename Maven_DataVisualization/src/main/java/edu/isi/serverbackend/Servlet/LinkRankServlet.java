@@ -67,6 +67,7 @@ public class LinkRankServlet extends HttpServlet {
 					rankRequest.sortConnections();
 					long sortingEndTime = System.currentTimeMillis();
 					response.setContentType("application/json");
+					response.setCharacterEncoding("UTF-8");
 					
 					try {
 						out.println(rankRequest.exportD3JSON(num).toString());

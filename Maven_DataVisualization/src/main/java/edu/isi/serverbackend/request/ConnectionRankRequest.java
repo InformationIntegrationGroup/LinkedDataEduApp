@@ -58,17 +58,11 @@ public class ConnectionRankRequest {
 	}
 	
 	public void rateInterestingness(){
-//		for(int i = 0; i < samples.size(); i++){
-//			samples.get(i).evalutateFeature();
-//		}
 		RarityFeature.calculatePredicateRarity(samples);
-		
-		//DifferentOccupationFeature.isDifferentOccupation(samples);
-		//EitherNotPlaceFeature.isEitherNotPlace(samples);
-		//SmallPlaceFeature.calculateSmallPlace(samples);
 		//ImportanceFeature.calculateImportance(samples);
+		
 		try {
-			URL url = new URL("http://127.0.0.1:8080/Maven_DataVisualization-0.0.1-SNAPSHOT/DemoServlet");//
+			URL url = new URL("http://127.0.0.1:8080/LODStories-1.0.0-SNAPSHOT/DemoServlet");//
 			URLConnection modelConn = url.openConnection();
 			modelConn.setDoInput(true);
 			modelConn.setDoOutput(true);
@@ -126,29 +120,50 @@ public class ConnectionRankRequest {
 				}
 			}
 		}
+		eliminateSameNodeExtension();
 	}
+	
+	/*Precondition: Sample is sorted*/
+	private void eliminateSameNodeExtension(){
+		HashSet<String> nodeSet = new HashSet<String>();
+		for(Sample sample:samples){
+			String target;
+			if(sample.getLink().isSubjectConnection())
+				target= sample.getLink().getObject().getURI();
+			else
+				target = sample.getLink().getSubject().getURI();
+			if(nodeSet.contains(target))
+				samples.remove(sample);
+			else
+				nodeSet.add(target);
+		}
+	}
+	
 	
 	public JSONObject exportD3JSON(int num) throws JSONException{
 		JSONObject result = new JSONObject();
 		JSONArray childrenArray = new JSONArray();
-		
+		List<Sample> orderedSamples = reorderByRelation(num);
 		for(int i = 0; i < num; i++){
-			if(i >= samples.size())
+			if(i >= orderedSamples.size())
 				break;
 			JSONObject newNode = new JSONObject();
+			
 			if(samples.get(i).getLink().isSubjectConnection()){
-				newNode.put("name", samples.get(i).getLink().getObject().getName());
-				newNode.put("uri", samples.get(i).getLink().getObject().getURI());
-				newNode.put("relation", PredicateBean.obtainPredicateName( samples.get(i).getLink().getPredicate()));
-				newNode.put("inverse", 0);
-				newNode.put("rank", samples.get(i).getInterestingness());
+				newNode.put("name", orderedSamples.get(i).getLink().getObject().getName());
+				newNode.put("uri", orderedSamples.get(i).getLink().getObject().getURI());
+				newNode.put("relation", PredicateBean.obtainPredicateName( orderedSamples.get(i).getLink().getPredicate()));
+				//newNode.put("importance", samples.get(i).getExtensionImportance());
+				newNode.put("inverse", 1);
+				newNode.put("rank", orderedSamples.get(i).getInterestingness());
 			}
 			else{
-				newNode.put("name", samples.get(i).getLink().getSubject().getName());
-				newNode.put("uri", samples.get(i).getLink().getSubject().getURI());
-				newNode.put("relation", PredicateBean.obtainPredicateName(samples.get(i).getLink().getPredicate()));
-				newNode.put("inverse", 1);
-				newNode.put("rank", samples.get(i).getInterestingness());
+				newNode.put("name", orderedSamples.get(i).getLink().getSubject().getName());
+				newNode.put("uri", orderedSamples.get(i).getLink().getSubject().getURI());
+				newNode.put("relation", PredicateBean.obtainPredicateName(orderedSamples.get(i).getLink().getPredicate()));
+				//newNode.put("importance", samples.get(i).getExtensionImportance());
+				newNode.put("inverse", 0);
+				newNode.put("rank", orderedSamples.get(i).getInterestingness());
 			}
 			childrenArray.put(newNode);
 		}
@@ -170,4 +185,23 @@ public class ConnectionRankRequest {
 		return samples.size();
 	}
 	
+	private List<Sample> reorderByRelation(int num){
+		List<Sample> result = new ArrayList<Sample>();
+		int count = 0;
+		HashSet<String> relationSet = new HashSet<String>();
+		while (count < num){
+			relationSet.clear();
+			for(int i = 0; i < samples.size(); i++){
+				if(!relationSet.contains(samples.get(i).getLink().getPredicate())){
+					relationSet.add(samples.get(i).getLink().getPredicate());
+					result.add(samples.get(i));
+					samples.remove(i);
+					count++;
+					if(count == num)
+						return result;
+				}
+			}
+		}
+		return result;
+	}
 }
