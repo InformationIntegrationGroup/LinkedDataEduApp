@@ -120,19 +120,21 @@ public class ConnectionRankRequest {
 				}
 			}
 		}
+		eliminateSameNodeExtension();
+
 	}
 	
 	/*Precondition: Sample is sorted*/
 	private void eliminateSameNodeExtension(){
 		HashSet<String> nodeSet = new HashSet<String>();
-		for(Sample sample:samples){
+		for(int i = 0; i < samples.size(); i++){
 			String target;
-			if(sample.getLink().isSubjectConnection())
-				target= sample.getLink().getObject().getURI();
+			if(samples.get(i).getLink().isSubjectConnection())
+				target= samples.get(i).getLink().getObject().getURI();
 			else
-				target = sample.getLink().getSubject().getURI();
+				target = samples.get(i).getLink().getSubject().getURI();
 			if(nodeSet.contains(target))
-				samples.remove(sample);
+				samples.remove(i);
 			else
 				nodeSet.add(target);
 		}
@@ -142,7 +144,6 @@ public class ConnectionRankRequest {
 	public JSONObject exportD3JSON(int num) throws JSONException{
 		JSONObject result = new JSONObject();
 		JSONArray childrenArray = new JSONArray();
-		eliminateSameNodeExtension();
 		List<Sample> orderedSamples = reorderByRelation(num);
 		for(int i = 0; i < num; i++){
 			if(i >= orderedSamples.size())
@@ -172,7 +173,7 @@ public class ConnectionRankRequest {
 		result.put("uri", currentNode.getURI());
 		result.put("relation", "none");
 		result.put("children", childrenArray);
-		result.put("resultLine", ratingResponse);
+		//result.put("resultLine", ratingResponse);
 		result.put("Size", orderedSamples.size());
 		return result;
 	}
@@ -189,10 +190,14 @@ public class ConnectionRankRequest {
 		List<Sample> result = new ArrayList<Sample>();
 		int count = 0;
 		HashSet<String> relationSet = new HashSet<String>();
-		while (count < num){
+		while (count < num || samples.size() == 0){
 			relationSet.clear();
 			for(int i = 0; i < samples.size(); i++){
 				if(!relationSet.contains(samples.get(i).getLink().getPredicate())){
+					if(samples.get(i).getLink().getPredicate().equals("http://dbpedia.org/ontology/wikiPageRedirects")){
+						samples.remove(i);
+						continue;
+					}	
 					relationSet.add(samples.get(i).getLink().getPredicate());
 					result.add(samples.get(i));
 					samples.remove(i);

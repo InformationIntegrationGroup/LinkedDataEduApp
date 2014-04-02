@@ -7,6 +7,7 @@ import java.util.*;
 
 import javax.swing.*;
 
+import org.json.JSONException;
 import org.openrdf.query.*;
 import org.openrdf.repository.RepositoryConnection;
 import org.openrdf.repository.RepositoryException;
@@ -354,5 +355,31 @@ public class InputFilePanel extends JPanel implements ActionListener{
 			System.err.println("Error: " + e.getMessage());
 		}
 		
+	}
+	
+	public void testRankRequest(){
+		try {
+			HTTPRepository endpoint = new HTTPRepository("http://live.dbpedia.org/sparql", "");
+			endpoint.initialize();
+			RepositoryConnection repoConn = endpoint.getConnection();
+			LinkedDataNode node = new LinkedDataNode("http://dbpedia.org/resource/Vincent_van_Gogh" ,repoConn);
+			ConnectionRankRequest rankRequest = new ConnectionRankRequest(node);
+			rankRequest.rateInterestingness();
+			rankRequest.sortConnections();
+			rankRequest.exportD3JSON(10);
+
+		} catch (RepositoryException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MalformedQueryException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (QueryEvaluationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
