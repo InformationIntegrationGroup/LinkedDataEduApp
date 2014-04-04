@@ -82,3 +82,14 @@ a{
 	font-weight: 300;
 	margin: 10px auto;
 }
+
+.demo-foot {
+	position: absolute;
+	width: 80%;
+	left: 23px;
+	bottom: 10px;
+	font-size: 9pt;
+	font-weight: 200;
+	margin: 10px auto;
+	text-align: left;
+}
