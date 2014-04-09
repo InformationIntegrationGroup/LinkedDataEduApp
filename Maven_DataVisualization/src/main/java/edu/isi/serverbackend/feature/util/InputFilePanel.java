@@ -111,7 +111,7 @@ public class InputFilePanel extends JPanel implements ActionListener{
 			extractTriples(seedField.getText());
 		}
 		else if (ae.getSource() == testMongoBtn){
-			testRankRequest(seedField.getText());
+			testCaching(seedField.getText());
 		}
 	}
 	
@@ -286,7 +286,7 @@ public class InputFilePanel extends JPanel implements ActionListener{
 			endpoint.initialize();
 			RepositoryConnection repoConn = endpoint.getConnection();
 			LinkedDataCachingRequest caching = new LinkedDataCachingRequest();
-			caching.cachingTripleByBFS(new LinkedDataNode(seed, repoConn), LinkedDataCachingRequest.TripleType.Work, 100000, 3.0);
+			caching.cachingTripleByBFS(new LinkedDataNode(seed, repoConn), LinkedDataCachingRequest.TripleType.Person, 100000, 0.0);
 		} catch (RepositoryException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
