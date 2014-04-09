@@ -111,7 +111,7 @@ public class InputFilePanel extends JPanel implements ActionListener{
 			extractTriples(seedField.getText());
 		}
 		else if (ae.getSource() == testMongoBtn){
-			testCaching(seedField.getText());
+			testRankRequest(seedField.getText());
 		}
 	}
 	
@@ -357,12 +357,12 @@ public class InputFilePanel extends JPanel implements ActionListener{
 		
 	}
 	
-	public void testRankRequest(){
+	public void testRankRequest(String uri){
 		try {
 			HTTPRepository endpoint = new HTTPRepository("http://live.dbpedia.org/sparql", "");
 			endpoint.initialize();
 			RepositoryConnection repoConn = endpoint.getConnection();
-			LinkedDataNode node = new LinkedDataNode("http://dbpedia.org/resource/Vincent_van_Gogh" ,repoConn);
+			LinkedDataNode node = new LinkedDataNode(uri ,repoConn);
 			ConnectionRankRequest rankRequest = new ConnectionRankRequest(node);
 			rankRequest.rateInterestingness();
 			rankRequest.sortConnections();

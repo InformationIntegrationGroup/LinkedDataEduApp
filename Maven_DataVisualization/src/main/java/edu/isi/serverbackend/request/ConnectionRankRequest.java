@@ -190,11 +190,13 @@ public class ConnectionRankRequest {
 		List<Sample> result = new ArrayList<Sample>();
 		int count = 0;
 		HashSet<String> relationSet = new HashSet<String>();
-		while (count < num || samples.size() == 0){
+		while (count < num && samples.size() > 0){
 			relationSet.clear();
 			for(int i = 0; i < samples.size(); i++){
 				if(!relationSet.contains(samples.get(i).getLink().getPredicate())){
-					if(samples.get(i).getLink().getPredicate().equals("http://dbpedia.org/ontology/wikiPageRedirects")){
+					if(samples.get(i).getLink().getPredicate().equals("http://dbpedia.org/ontology/wikiPageRedirects")
+							|| samples.get(i).getLink().getPredicate().equals("http://dbpedia.org/ontology/wikiPageDisambiguates")
+							|| samples.get(i).getLink().getPredicate().equals("http://dbpedia.org/ontology/wikiPageExternalLink")){
 						samples.remove(i);
 						continue;
 					}	
