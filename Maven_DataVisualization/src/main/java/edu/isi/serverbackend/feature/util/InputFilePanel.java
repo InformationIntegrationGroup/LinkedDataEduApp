@@ -286,7 +286,7 @@ public class InputFilePanel extends JPanel implements ActionListener{
 			endpoint.initialize();
 			RepositoryConnection repoConn = endpoint.getConnection();
 			LinkedDataCachingRequest caching = new LinkedDataCachingRequest();
-			caching.cachingTripleByBFS(new LinkedDataNode(seed, repoConn), LinkedDataCachingRequest.TripleType.Work, 100000, 3.0);
+			caching.cachingTripleByBFS(new LinkedDataNode(seed, repoConn), LinkedDataCachingRequest.TripleType.Person, 100000, 0.0);
 		} catch (RepositoryException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -357,12 +357,12 @@ public class InputFilePanel extends JPanel implements ActionListener{
 		
 	}
 	
-	public void testRankRequest(){
+	public void testRankRequest(String uri){
 		try {
 			HTTPRepository endpoint = new HTTPRepository("http://live.dbpedia.org/sparql", "");
 			endpoint.initialize();
 			RepositoryConnection repoConn = endpoint.getConnection();
-			LinkedDataNode node = new LinkedDataNode("http://dbpedia.org/resource/Vincent_van_Gogh" ,repoConn);
+			LinkedDataNode node = new LinkedDataNode(uri ,repoConn);
 			ConnectionRankRequest rankRequest = new ConnectionRankRequest(node);
 			rankRequest.rateInterestingness();
 			rankRequest.sortConnections();
