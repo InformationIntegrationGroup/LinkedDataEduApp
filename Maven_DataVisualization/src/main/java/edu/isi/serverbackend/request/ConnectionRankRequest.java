@@ -155,7 +155,7 @@ public class ConnectionRankRequest {
 				newNode.put("uri", orderedSamples.get(i).getLink().getObject().getURI());
 				newNode.put("relation", PredicateBean.obtainPredicateName( orderedSamples.get(i).getLink().getPredicate()));
 				//newNode.put("importance", samples.get(i).getExtensionImportance());
-				newNode.put("inverse", 1);
+				newNode.put("inverse", 0);
 				newNode.put("rank", orderedSamples.get(i).getInterestingness());
 			}
 			else{
@@ -163,7 +163,7 @@ public class ConnectionRankRequest {
 				newNode.put("uri", orderedSamples.get(i).getLink().getSubject().getURI());
 				newNode.put("relation", PredicateBean.obtainPredicateName(orderedSamples.get(i).getLink().getPredicate()));
 				//newNode.put("importance", samples.get(i).getExtensionImportance());
-				newNode.put("inverse", 0);
+				newNode.put("inverse", 1);
 				newNode.put("rank", orderedSamples.get(i).getInterestingness());
 			}
 			childrenArray.put(newNode);
