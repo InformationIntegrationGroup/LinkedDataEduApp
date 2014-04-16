@@ -92,10 +92,10 @@ path.linkHighlight{
 }*/
 
 #searchBox {
-	width: 1000px;
-	height: 200px;
+	width: 80%;
+	height: 30%;
 	position: relative;
-	top: 200px;
+	top: 30%;
 	margin: 0px auto;
 	
 }
@@ -202,7 +202,15 @@ svg {
 	z-index: 1000;
 	border-radius: 7px;
 }
-
+.canvas-alert {
+	width: 50%;
+	height: 100%;
+	margin: 0 auto;
+	padding: 10px;
+}
+.progress {
+	padding: 7px;	
+}
 #relationWrap{
 	width: 100%;
 	height: 100%;
@@ -236,5 +244,6 @@ svg {
 	border: 0px;
 }*/
 .close{
+	padding: 5px;
 	z-index: 1001;
 }
