@@ -12,20 +12,14 @@
     	<script data-main="../js/eic_mmlab/client/scripts/linked_data_main.js" src="../js/eic_mmlab/client/scripts/lib/require.js" async> </script>
 
     	<!-- Libraries -->
-    	<!-- <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" /> -->
-    	<!-- <script type="text/javascript" src="../js/jquery.js"> </script>
-    	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script> -->
-    	<!-- <script src="../js/bootstrap3.min.js"></script> -->
     	<link rel="stylesheet" href="../css/bootstrap3.min.css" type="text/css" media="screen">
     	<link rel="stylesheet" href="../css/bootstrap-responsive.css" type="text/css" media="screen">
-    	<!-- <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" /> -->
 
     	<!-- Customized Links -->
     	<link rel="stylesheet" href="../css/video_editor.css" type="text/css" media="screen">
     	<link rel="stylesheet" href="../css/style.css" type="text/css" media="screen">
     	<link rel="stylesheet" href="../css/index.css" type="text/css"/>
 
-		<!-- <link rel="stylesheet" href="http://localhost:4000/stylesheets/main.less" type="text/css"/> -->
     	<link rel="stylesheet" href="../css/cssSlides.css" type="text/css"/>
 		<link rel="stylesheet" href="../css/cssIndex.css" type="text/css"/>
 
@@ -33,10 +27,6 @@
 	<body>
 
 		<div id="searchWindow" class="mainWrap">
-
-			<!-- <div id="chart" class="mainContent">
-
-			</div> -->
 			<div id="searchBox">
 				<h1>Linked Open Data Stories</h1>
 				<input id="search" class="form-control" placeholder="Search whatever you want to learn..." />
@@ -49,38 +39,30 @@
 		</div>
 		<div id="canvasWindow" class="mainWrap">
 			<div id="canvasStepNavigator" class="stepNavigator">
-					<button id="redraw" type="button" class="floatLeft btn btn-primary btn-sm redraw">Start Over</button>
-					<button id="finish" type="button" class="floatRight btn btn-success btn-sm">Proceed to Story Editor</button>
+				
+					<button id="redraw" type="button" class="floatLeft btn btn-primary btn-sm btn-nav redraw">Start Over</button>
+					<button id="finish" type="button" class="floatRight btn btn-success btn-nav btn-sm">Proceed to Story Editor</button>
+					
+			
 			</div>
-			<!-- <button id="redraw" class="btn btn-primary">Start Over</button>
-			<button id="finish" class="btn btn-success">Proceed to Animation</button> -->
 			<div id="chart" class="mainContent">
-		    	<!-- <div id="nodeInfo">
-					<h3 id="info">Information</h3>
-					<p class = "infoContent" id="name"> </p>
-					<p class = "infoContent" id="catalog"> </p>
-					<img id="stickyNote" src="../img/stickyNotes.png" />
-				</div> -->
 				<div id="relation" style="display: none;"> </div>
 
 			</div>
 
 		</div>
 <div id="editor">
-		<div id="body" background="../img/background2.jpg">
+		<div id="body">
 			<div id="videoEditor" class="fullWidth fullHeight">
 				<div id="stepNavigator" class="stepNavigator">
-					<button id="lastStep" type="button" class="floatLeft btn btn-default btn-sm redraw">Start Over</button>
-					<button id="play-slide" type="button" class="floatRight btn btn-warning btn-sm" style="display: none;">Play Slide</button>
-					<button id="play-button" type="button" class="floatRight btn btn-success btn-sm">Play Movie</button>
+					<button id="lastStep" type="button" class="floatLeft btn btn-default btn-sm btn-nav redraw">Start Over</button>
+				
+					<button id="play-button" type="button" class="floatRight btn btn-success btn-nav btn-sm">Play Movie</button>
 				</div>
 				<div id="nodeNavBar" class="fullWidth height1 nodeNavBar">
 
 				</div>
 				<div id="nodeElementOperation" class="nodeElementOperation">
-					<!-- <div id="nodeElementEditing" class="nodeElementEditing">
-						Node Element Editing
-					</div> -->
 					<div id="playButtonGroup" class="playButtonGroup">
 						Play, Play All, Stop
 					</div>
@@ -127,8 +109,5 @@
 			</div>
 		</div>
 </div>
-		<!-- <div id="screen"> </div> -->
-		<!-- <script type="text/javascript" src="../js/video_editor.js"> </script> -->
-		<!-- <script type="text/javascript" src="../js/integrationtest.js"> </script> -->
 	</body>
 </html>

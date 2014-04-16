@@ -86,6 +86,7 @@ a{
 .demo-foot {
 	position: absolute;
 	width: 80%;
+	top: 130px;
 	left: 23px;
 	bottom: 10px;
 	font-size: 9pt;
