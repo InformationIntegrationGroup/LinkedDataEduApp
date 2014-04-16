@@ -3,35 +3,52 @@
   <head>
     <meta charset="UTF-8">
     <script data-main="../js/eic_mmlab/client/scripts/single" src="../js/eic_mmlab/client/scripts/lib/require.js" async></script>
-    <link rel="stylesheet" href="../css/cssSlides.css" type="text/css"/>
+    <script type="text/javascript">
+		var answer = new Array();
+		answer[0] = 0; answer[1] = 0; answer[2] = 0; answer[3] = 0;
+			function validate(which){
+			      switch(which){
+						case 1:answer[0] = 1;break;
+						case 2:answer[1] = 1;break;
+						case 3:answer[2] = 1;break;
+						case 4:answer[3] = 1;break;
+						case 5: {
+							console.log("clicked ");
+							var i = 0;
+							for(i = 0; i<=3; i++){
+								if(answer[i] == 1){
+									console.log((i));
+								}
+							}
+							document.getElementById("a").checked = false;
+							document.getElementById("b").checked = false;
+							document.getElementById("c").checked = false;
+							document.getElementById("d").checked = false;
+							//document.getElementById("subject")
+							answer[0] = 0; answer[1] = 0; answer[2] = 0; answer[3] = 0;
+						
+						}break;
+					}	
+				}
+	</script>
+		
+	<link rel="stylesheet" href="../css/cssSlides.css" type="text/css"/>
     <link rel="stylesheet" href="../css/cssIndex.css" type="text/css"/>
   </head>
 <body bgcolor = "#E6E6FA">
-<h1>Welcome to LODStories, enjoy an interesting story you might never heard about</h1>
+<h1>Welcome to LODStories, tell us whether you like the story</h1>
 <div id="screenWrap" style = "height:465px; width: 758px; margin-left:200px" ></div>
-	<button type="button" class="btn btn-primary" id="play-button">Next Story</button>
-	
 	<div class = "feedback">
-		<p>Would you mind telling us what do you find interesting about this story?</p>
-		<p>
-	 	<input type="checkbox" id="feed" value="int">Story Interesting?      
-     	<input type="checkbox" id="feed" value="A" >Subject Interesting?
-     	<input type="checkbox" id="feed" value="B" >Object Interesting?   
-     	<input type="checkbox" id="feed" value="C" >Relation Interesting?
-     	<input type="submit" name = "submit" value="submit" onclick = validate(this)>
-    	</p>
-    	<a href="http://lodstories.isi.edu/LODStories-1.0.0-SNAPSHOT/html/lodstories_demo.html"><button type="button" class="btn btn-lg btn-demo">Create your personalized story!</button></a>
+		<p>What do you think make the story interesting?</p>
+		<form>
+	 	<input type="checkbox" value="1" id="a" onClick = "validate(1)">The whole story?      
+     	<input type="checkbox" value="2" id="b" onClick = "validate(2)"><span id="subject"> </span>
+     	<input type="checkbox" value="3" id="c" onClick = "validate(3)"><span id="object"></span>   
+     	<input type="checkbox" value="4" id="d" onClick = "validate(4)">the relationship?
+     	</form> 
+     	<button type="button" class="btn btn-primary" id="play-button">Submit and play next</button>
 	</div>
 	
-		<script type="text/javascript">
-			function validate(cb){
-			$('input: checkbox[id="feed"]').each(function(){
-				if(this.checked){
-					console.log("clicked "+this.value);
-				}
-				});
-			}
-		</script>
-
+		
 </body>
 </html>
