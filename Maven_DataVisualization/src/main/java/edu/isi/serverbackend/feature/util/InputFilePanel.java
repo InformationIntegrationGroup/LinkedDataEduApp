@@ -359,7 +359,7 @@ public class InputFilePanel extends JPanel implements ActionListener{
 	
 	public void testRankRequest(String uri){
 		try {
-			HTTPRepository endpoint = new HTTPRepository("http://live.dbpedia.org/sparql", "");
+			HTTPRepository endpoint = new HTTPRepository("http://dbpedia.org/sparql", "");
 			endpoint.initialize();
 			RepositoryConnection repoConn = endpoint.getConnection();
 			LinkedDataNode node = new LinkedDataNode(uri ,repoConn);
