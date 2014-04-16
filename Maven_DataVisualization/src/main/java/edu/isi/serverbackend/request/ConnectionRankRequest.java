@@ -127,16 +127,22 @@ public class ConnectionRankRequest {
 	/*Precondition: Sample is sorted*/
 	private void eliminateSameNodeExtension(){
 		HashSet<String> nodeSet = new HashSet<String>();
-		for(int i = 0; i < samples.size(); i++){
+		int i = 0;
+		while(i < samples.size()){
 			String target;
 			if(samples.get(i).getLink().isSubjectConnection())
 				target= samples.get(i).getLink().getObject().getURI();
 			else
 				target = samples.get(i).getLink().getSubject().getURI();
-			if(nodeSet.contains(target))
+			if(nodeSet.contains(target)){
 				samples.remove(i);
-			else
+				continue;
+			}
+			else{
 				nodeSet.add(target);
+				i++;
+			}
+				
 		}
 	}
 	
