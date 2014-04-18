@@ -3,69 +3,24 @@
   <head>
     <title></title>
     <meta charset="UTF-8">
-    <script>
-    function startApplication($, eic, lib) {
-	
-	if (Audio){
-        if (document.createElement('audio').canPlayType("audio/wav"))
-            plugintype="Audio";
-        else
-            plugintype=Plugin.getPluginsForMimeType("audio/wav");
-    }
-    else{
-        plugintype=Plugin.getPluginsForMimeType("audio/wav");
-    }
-				
-        
-        $('#send').click(function() {
-			var selector = document.getElementById("Voices");
-			var selected = document.getElementById("Voices").selectedIndex;
-			var voice= selector.options[selected].value;
-		
-			var tts = new eic.TTSService();
-			var text = $('#text').val();
-			tts.once('speechReady',function(event,data){
-				if (plugintype=="Audio"){
-					 $(html_obj).append(
-						"<audio id='track" + ++this.TrackCount + "' src=\""+snd_url+"\"'/>");
-				}
-				else if (plugintype=="QuickTime"){
-					 $(html_obj).append(
-						"<embed id='track" + ++this.TrackCount + "' src=\"" + snd_url + "\" width='1' height='1' enablejavascript='true' autoplay='false' loop='false'>");
-				}
-				else if (plugintype=="Windows Media"){
-					 $(html_obj).append(
-						"<embed id='track" + ++this.TrackCount + "' src=\"" + snd_url + "\" width='1' height='1' Enabled='false' AutoStart='false'>");
-				}
-				else if (plugintype=="VLC"){
-					 $(html_obj).append(
-						"<embed id='track" + ++this.TrackCount + "' type='application/x-vlc-plugin' pluginspage='http://www.videolan.org'width='500' height='500' target='"+snd_url+"' controls='false' autoplay='false' loop='false'/>" + 
-							"<object classid='clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921' codebase='http://download.videolan.org/pub/videolan/vlc/last/win32/axvlc.cab'></object>"
-				)}			
-			});
-			tts.getSpeech2(text,'en_GB',voice);
-		 });
-    }
-    
-    </script>
-    <script data-main="../js/eic_mmlab/client/scripts/demo" src="../js/eic_mmlab/client/scripts/lib/require.js"></script>
+    <script data-main="../js/eic_mmlab/client/scripts/mvn_demo" src="../js/eic_mmlab/client/scripts/lib/require.js"></script>
   </head>
   <body>
     
 	<div>
 		<select id="Voices" name="Voice_list">
-		  <option value="cmu_us_awb_arctic_clunits">cmu_us_awb_arctic_clunits</option>
-		  <option value="cmu_us_bdl_arctic_clunits">cmu_us_bdl_arctic_clunits</option>
-		  <option value="cmu_us_clb_arctic_clunits">cmu_us_clb_arctic_clunits</option>
-		  <option value="cmu_us_jmk_arctic_clunits">cmu_us_jmk_arctic_clunits</option>
-		  <option value="cmu_us_rms_arctic_clunits">cmu_us_rms_arctic_clunits</option>
-		  <option value="cmu_us_slt_arctic_clunits">cmu_us_slt_arctic_clunits</option>
+
+		  <option value="cstr_us_awb_arctic_multisyn">cstr_us_awb_arctic_multisyn</option>
+		  <option value="cstr_us_jmk_arctic_multisyn">cstr_us_jmk_arctic_multisyn</option>
+		  <option value="cmu_us_awb_cg">cmu_us_awb_cg</option>
+		  <option value="cmu_us_rms_cg">cmu_us_rms_cg</option>
+		  <option value="cmu_us_slt_arctic_hts">cmu_us_slt_arctic_hts</option>
 		  <option value="nitech_us_awb_arctic_hts">nitech_us_awb_arctic_hts</option>
 		  <option value="nitech_us_bdl_arctic_hts">nitech_us_bdl_arctic_hts</option>
 		  <option value="nitech_us_clb_arctic_hts">nitech_us_clb_arctic_hts</option>
 		  <option value="nitech_us_jmk_arctic_hts">nitech_us_jmk_arctic_hts</option>
 		  <option value="nitech_us_rms_arctic_hts">nitech_us_rms_arctic_hts</option>
-		  <option value="nitech_us_slt_arctic_hts">nitech_us_slt_arctic_hts</option>
+		  <option value="nitech_us_slt_arctic_hts">nitech_us_slt_arctic_hts</option>		  		  
 		</select>
 		
 		<textarea id='text'></textarea>
