@@ -1,17 +1,37 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title></title>
     <meta charset="UTF-8">
     <script data-main="../js/eic_mmlab/client/scripts/single" src="../js/eic_mmlab/client/scripts/lib/require.js" async></script>
     <link rel="stylesheet" href="../css/cssSlides.css" type="text/css"/>
     <link rel="stylesheet" href="../css/cssIndex.css" type="text/css"/>
   </head>
-<body>
-
-	<div id=screenWrap></div>
+<body bgcolor = "#E6E6FA">
+<h1>Welcome to LODStories, enjoy an interesting story you might never heard about</h1>
+<div id="screenWrap" style = "height:465px; width: 758px; margin-left:200px" ></div>
+	<button type="button" class="btn btn-primary" id="play-button">Next Story</button>
 	
-	<button type="button" class="btn btn-primary" id="play-button">Play Movie</button>
+	<div class = "feedback">
+		<p>Would you mind telling us what do you find interesting about this story?</p>
+		<p>
+	 	<input type="checkbox" id="feed" value="int">Story Interesting?      
+     	<input type="checkbox" id="feed" value="A" >Subject Interesting?
+     	<input type="checkbox" id="feed" value="B" >Object Interesting?   
+     	<input type="checkbox" id="feed" value="C" >Relation Interesting?
+     	<input type="submit" name = "submit" value="submit" onclick = validate(this)>
+    	</p>
+    	<a href="http://lodstories.isi.edu/LODStories-1.0.0-SNAPSHOT/html/lodstories_demo.html"><button type="button" class="btn btn-lg btn-demo">Create your personalized story!</button></a>
+	</div>
+	
+		<script type="text/javascript">
+			function validate(cb){
+			$('input: checkbox[id="feed"]').each(function(){
+				if(this.checked){
+					console.log("clicked "+this.value);
+				}
+				});
+			}
+		</script>
 
 </body>
 </html>
