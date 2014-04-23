@@ -1,5 +1,6 @@
 package edu.isi.serverbackend.request;
 
+import java.io.*;
 import java.net.UnknownHostException;
 
 import com.mongodb.*;
@@ -18,10 +19,10 @@ import edu.isi.serverbackend.feature.RarityDegree;
 import edu.isi.serverbackend.feature.util.*;
 
 public class LinkedDataCachingRequest{
-	private static final String USER = "lodstoriesAdmin";
-	private static final String PASSWORD = "";
+	private static final String USER = "lodstories";
+	private static final String PWDPATH = "/etc/mongo_key.txt";
 	private static final String HOST = "localhost";
-	private static final String DATABASE = "lodstories";
+	private static final String DATABASE = "LinkedData";
 	private static final String EXPLORED = "FullyExploredNode";
 	private static final String ADDED = "QueueAddedNode";
 	private static final String STARTDATA = "StartingMap";
@@ -37,6 +38,11 @@ public class LinkedDataCachingRequest{
 		try {
 			MongoClient mongo = new MongoClient(HOST);
 			this.dbConn = mongo.getDB(DATABASE);
+			boolean auth = dbConn.authenticate(USER, retrievePwdFromFile().toCharArray());
+			if(auth == false){
+				System.err.println("Local database authentication failed.");
+				System.exit(0);
+			}
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -192,6 +198,29 @@ public class LinkedDataCachingRequest{
 		query.append("uri", node.getURI());
 		DBCollection tempCollection = dbConn.getCollection(collectionName);
 		tempCollection.insert(query);
+	}
+	
+	private String retrievePwdFromFile(){
+		String pwd = null;
+		try {
+			BufferedReader bufferReader = new BufferedReader(new FileReader(PWDPATH));
+			String line = bufferReader.readLine();
+			while(line != null){
+				if(line.length() == 0){
+					line = bufferReader.readLine();
+					continue;
+				}
+				pwd = line;
+				break;
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return pwd;
 	}
 	
 	public void startCaching(){
