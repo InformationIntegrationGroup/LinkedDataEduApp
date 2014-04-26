@@ -42,7 +42,7 @@ public class LinkRankServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.out.println("Get Request!!!!");
 		PrintWriter out = response.getWriter();
-		HTTPRepository endpoint = new HTTPRepository("http://dbpedia.org/sparql", "");
+		HTTPRepository endpoint = new HTTPRepository("http://live.dbpedia.org/sparql", "");
 		LinkedDataNode currentNode;
 		
 		try {

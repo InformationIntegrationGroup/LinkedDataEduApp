@@ -176,35 +176,35 @@ public class InputFilePanel extends JPanel implements ActionListener{
 			System.out.println("Sample processing finished");
 			dstream.close();
 			fstream.close();
-			exportTypeTrainingSetCSV(samples, PERSON, PERSON);
-			exportTypeTrainingSetCSV(samples, PERSON, WORK);
-			exportTypeTrainingSetCSV(samples, PERSON, PLACE);
-			exportTypeTrainingSetCSV(samples, PERSON, EVENT);
-			exportTypeTrainingSetCSV(samples, PERSON, ORG);
+			exportTrainingSetHash(samples, PERSON, PERSON);
+			exportTrainingSetHash(samples, PERSON, WORK);
+			exportTrainingSetHash(samples, PERSON, PLACE);
+			exportTrainingSetHash(samples, PERSON, EVENT);
+			exportTrainingSetHash(samples, PERSON, ORG);
 
-			exportTypeTrainingSetCSV(samples, WORK, PERSON);
-			exportTypeTrainingSetCSV(samples, WORK, EVENT);
-			exportTypeTrainingSetCSV(samples, WORK, WORK);
-			exportTypeTrainingSetCSV(samples, WORK, PLACE);
-			exportTypeTrainingSetCSV(samples, WORK, ORG);
+			exportTrainingSetHash(samples, WORK, PERSON);
+			exportTrainingSetHash(samples, WORK, EVENT);
+			exportTrainingSetHash(samples, WORK, WORK);
+			exportTrainingSetHash(samples, WORK, PLACE);
+			exportTrainingSetHash(samples, WORK, ORG);
 
-			exportTypeTrainingSetCSV(samples, ORG, PERSON);
-			exportTypeTrainingSetCSV(samples, ORG, EVENT);
-			exportTypeTrainingSetCSV(samples, ORG, WORK);
-			exportTypeTrainingSetCSV(samples, ORG, PLACE);
-			exportTypeTrainingSetCSV(samples, ORG, ORG);
+			exportTrainingSetHash(samples, ORG, PERSON);
+			exportTrainingSetHash(samples, ORG, EVENT);
+			exportTrainingSetHash(samples, ORG, WORK);
+			exportTrainingSetHash(samples, ORG, PLACE);
+			exportTrainingSetHash(samples, ORG, ORG);
 
-			exportTypeTrainingSetCSV(samples, EVENT, PERSON);
-			exportTypeTrainingSetCSV(samples, EVENT, EVENT);
-			exportTypeTrainingSetCSV(samples, EVENT, WORK);
-			exportTypeTrainingSetCSV(samples, EVENT, PLACE);
-			exportTypeTrainingSetCSV(samples, EVENT, ORG);
+			exportTrainingSetHash(samples, EVENT, PERSON);
+			exportTrainingSetHash(samples, EVENT, EVENT);
+			exportTrainingSetHash(samples, EVENT, WORK);
+			exportTrainingSetHash(samples, EVENT, PLACE);
+			exportTrainingSetHash(samples, EVENT, ORG);
 
-			exportTypeTrainingSetCSV(samples, PLACE, PERSON);
-			exportTypeTrainingSetCSV(samples, PLACE, EVENT);
-			exportTypeTrainingSetCSV(samples, PLACE, WORK);
-			exportTypeTrainingSetCSV(samples, PLACE, PLACE);
-			exportTypeTrainingSetCSV(samples, PLACE, ORG);
+			exportTrainingSetHash(samples, PLACE, PERSON);
+			exportTrainingSetHash(samples, PLACE, EVENT);
+			exportTrainingSetHash(samples, PLACE, WORK);
+			exportTrainingSetHash(samples, PLACE, PLACE);
+			exportTrainingSetHash(samples, PLACE, ORG);
 
 			
 		}
@@ -212,7 +212,25 @@ public class InputFilePanel extends JPanel implements ActionListener{
 			System.err.println("Error: " + e.getMessage());
 		}
 	}
-	
+	public void exportTrainingSetHash(ArrayList<Sample> samples, String subjectType, String objectType){
+		//System.out.println("Subject,Predicate,Object,sbjExtensionRarity,objExtensionRarity,subjectDegree,objectDegree");
+		for(Sample sample:samples){
+			if(sample.getLink().getSubject().getTypeURI().equals(TYPEPREFIX+subjectType) && sample.getLink().getObject().getTypeURI().equals(TYPEPREFIX+objectType)){
+				String record = "{\"hash\":\"h-3690378823082678040\",\"excecution_time\": 1300,\"source\":{\"name\": "
+						+"\"" + sample.getLink().getSubject().getName() + "\", \"uri\": "
+						+"\"" + sample.getLink().getSubject().getURI() + "\"}, \"destination\":{\"name\": "   
+						+ "\"" + sample.getLink().getObject().getName() + "\", \"uri\": "
+						+ "\"" + sample.getLink().getObject().getURI() + "\"}, \"path\":[{\"type\":\"node\",\"uri\":"
+					    +  "\""+ sample.getLink().getSubject().getURI() + "\"},{\"type\":\"link\", \"inverse\":true, \"uri\":"
+						+ "\"http://dbpedia.org.ontology/"
+						+ PredicateBean.obtainPredicateName(sample.getLink().getPredicate()) +"\"},{\"type\":\"node\",\"uri\":"
+						+ "\"" + sample.getLink().getObject().getURI() +"\"}]}";
+						
+					
+				System.out.println(record);
+			}
+	}
+	}
 	public void exportTypeTrainingSetCSV(ArrayList<Sample> samples, String subjectType, String objectType){
 		try {
 			FileWriter fwriter = new FileWriter(subjectType + "_" + objectType + ".csv", false);
@@ -222,6 +240,7 @@ public class InputFilePanel extends JPanel implements ActionListener{
 				if(sample.getLink().getSubject().getTypeURI().equals(TYPEPREFIX+subjectType) && sample.getLink().getObject().getTypeURI().equals(TYPEPREFIX+objectType)){
 					String record = "\"" + sample.getLink().getSubject().getName() + "\","
 							+ "\"" + PredicateBean.obtainPredicateName(sample.getLink().getPredicate()) +"\","
+							+ " "+ sample.getLink().getPredicate()+"  "
 							+ "\"" + sample.getLink().getObject().getName() + "\","
 							+ sample.getSubjectExtensionRarity() + ","
 							+ sample.getObjectExtensionRarity() + ","
