@@ -24,9 +24,6 @@ import org.openrdf.repository.RepositoryConnection;
 import org.openrdf.repository.RepositoryException;
 import org.openrdf.repository.http.HTTPRepository;
 
-import edu.isi.serverbackend.linkedData.LinkedDataNode;
-import edu.isi.serverbackend.request.ConnectionRankRequest;
-
 
 /**
  * Servlet implementation class NodeDescriptionServlet
@@ -57,10 +54,10 @@ public class AbstractFinderServlet extends HttpServlet{
 		String allUris;
 		String[] uris;
 		JSONObject result = new JSONObject();
-		
+		RepositoryConnection repoConnection = null;
 		try {
 			endpoint.initialize();
-			RepositoryConnection repoConnection = endpoint.getConnection();
+			repoConnection = endpoint.getConnection();
 			allUris = request.getParameter("uri");
 			uris=allUris.split(",");
 			
@@ -122,7 +119,17 @@ public class AbstractFinderServlet extends HttpServlet{
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 		
+		}
+		finally{
+			if (repoConnection!=null){
+				try {
+					repoConnection.close();
+				} catch (RepositoryException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 
 	/**
