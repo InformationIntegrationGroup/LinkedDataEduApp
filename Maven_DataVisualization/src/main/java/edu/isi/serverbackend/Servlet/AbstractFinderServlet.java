@@ -3,6 +3,7 @@ package edu.isi.serverbackend.Servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -82,23 +83,28 @@ public class AbstractFinderServlet extends HttpServlet{
 				TupleQuery query = repoConnection.prepareTupleQuery(QueryLanguage.SPARQL, queryString);
 				TupleQueryResult queryResult = query.evaluate();
 				
-				BindingSet bindingSet = queryResult.next();
-				
-				JSONObject newNode = new JSONObject();
-				String abstractString = bindingSet.getValue("abstract").stringValue();
-				if (abstractString.contains("(") && abstractString.contains(")"))
-					abstractString = abstractString.substring(0, abstractString.indexOf('(')) + abstractString.substring(abstractString.indexOf(')')+1);
-				newNode.put("abstract", abstractString);
-				
-				abstractString = bindingSet.getValue("comment").stringValue();
-				if (abstractString.contains("(") && abstractString.contains(")"))
+				try{
+					BindingSet bindingSet = queryResult.next();
+					
+					JSONObject newNode = new JSONObject();
+					String abstractString = bindingSet.getValue("abstract").stringValue();
+					if (abstractString.contains("(") && abstractString.contains(")"))
 						abstractString = abstractString.substring(0, abstractString.indexOf('(')) + abstractString.substring(abstractString.indexOf(')')+1);
-				newNode.put("comment", abstractString);
-				
-				newNode.put("label", bindingSet.getValue("label").stringValue());
-				newNode.put("type", bindingSet.getValue("type").stringValue());
-				
-				result.put(uris[i], newNode);
+					newNode.put("abstract", abstractString);
+					
+					abstractString = bindingSet.getValue("comment").stringValue();
+					if (abstractString.contains("(") && abstractString.contains(")"))
+							abstractString = abstractString.substring(0, abstractString.indexOf('(')) + abstractString.substring(abstractString.indexOf(')')+1);
+					newNode.put("comment", abstractString);
+					
+					newNode.put("label", bindingSet.getValue("label").stringValue());
+					newNode.put("type", bindingSet.getValue("type").stringValue());
+					
+					result.put(uris[i], newNode);
+				}
+				catch (NoSuchElementException nse){
+					continue;
+				}
 				
 			
 			}
