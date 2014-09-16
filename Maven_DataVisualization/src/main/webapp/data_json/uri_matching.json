@@ -10,7 +10,6 @@
 { "_id" : { "$oid" : "52fc5f2b036470d97277727c" }, "name" : "Byron Galvez", "uri" : "http://dbpedia.org/resource/Byron_Galvez" },
 { "_id" : { "$oid" : "52fc5f2d036470d972777285" }, "name" : "Rodolfo Nieto", "uri" : "http://dbpedia.org/resource/Rodolfo_Nieto" },
 { "_id" : { "$oid" : "52fc5f2e036470d97277728d" }, "name" : "Gary Komarin", "uri" : "http://dbpedia.org/resource/Gary_Komarin" },
-{ "_id" : { "$oid" : "52fc5f30036470d972777299" }, "name" : "Picasso", "uri" : "http://dbpedia.org/resource/Picasso" },
 { "_id" : { "$oid" : "52fc5f32036470d97277729a" }, "name" : "Antonia Gerstacker", "uri" : "http://dbpedia.org/resource/Antonia_Gerstacker" },
 { "_id" : { "$oid" : "52fc5f34036470d9727772a2" }, "name" : "Aung Soe", "uri" : "http://dbpedia.org/resource/Aung_Soe" },
 { "_id" : { "$oid" : "52fc5f38036470d9727772b5" }, "name" : "Dorothy Annan", "uri" : "http://dbpedia.org/resource/Dorothy_Annan" },
