@@ -51,6 +51,7 @@ public class LinkRankServlet extends HttpServlet {
 			String currentURI = request.getParameter("uri");
 			int num = 0;
 			String numString = request.getParameter("num");
+			String jsonCallback = request.getParameter("jsoncallback");
 			
 			if(currentURI != null && numString != null){
 				//ExtractRankRequest extractRankRequest = new ExtractRankRequest(currentURI);
@@ -70,7 +71,7 @@ public class LinkRankServlet extends HttpServlet {
 					response.setCharacterEncoding("UTF-8");
 					
 					try {
-						out.println(rankRequest.exportD3JSON(num).toString());
+						out.println(jsonCallback + "(" + rankRequest.exportD3JSON(num).toString() + ")");
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
