@@ -56,6 +56,8 @@ public class AbstractFinderServlet extends HttpServlet{
 		String[] uris;
 		JSONObject result = new JSONObject();
 		RepositoryConnection repoConnection = null;
+		String jsonCallback = request.getParameter("jsoncallback");
+		
 		try {
 			endpoint.initialize();
 			repoConnection = endpoint.getConnection();
@@ -111,7 +113,7 @@ public class AbstractFinderServlet extends HttpServlet{
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");
 			
-			out.println(result.toString());
+			out.println(jsonCallback + "(" + result.toString() + ")");
 			
 		} catch (RepositoryException e) {
 			// TODO Auto-generated catch block
