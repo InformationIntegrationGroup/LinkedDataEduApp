@@ -7,13 +7,13 @@ $.getJSON("../data_json/sample_path.json", function(data){
 
 $("#generateVideoEditor").click(function(){
 	$(this).remove();
-	$("#nodeNavBar").css("display","block");
-	$("#nodeElementBar").css("display", "block");
+	$("#topic-navigator").css("display","block");
+	$("#img-video-box").css("display", "block");
 	$("#moviePreview").css("display", "block");
 	$("#audioDescriptionWrap").css("display", "block");
-	$("#movieNavBarWrap").css("display", "block");
+	$("#img-video-selection-wrap").css("display", "block");
 	$("#stepNavigator").css("display", "block");
-	$("#nodeElementOperation").css("display", "block");
+	$("#preview-box").css("display", "block");
 	$(".slideProgressBar").css("display", "block");
 	
 	generateVideoEditor();
@@ -36,9 +36,9 @@ function generateNodeNavBar(){
 		NodeNavBar += dataPathHash.path[i].name + "</a></li>";
 	}
 	NodeNavBar += "</ul>";
-	$("#nodeNavBar").html(NodeNavBar);
+	$("#topic-navigator").html(NodeNavBar);
 	$(".nav-pills a").click(function(){
-		$("#movieNavBarWrap").empty();
+		$("#img-video-selection-wrap").empty();
 		$(".nav-pills li").removeClass("active");
 		var classSelector = "#" + $(this).attr("id");
 		$(classSelector).parent().addClass("active");
