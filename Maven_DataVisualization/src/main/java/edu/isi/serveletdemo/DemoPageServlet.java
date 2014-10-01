@@ -1,9 +1,9 @@
 package edu.isi.serveletdemo;
-import java.util.List;
-
-import com.mongodb.*;
-
-import edu.isi.serverbackend.linkedData.LinkedDataNode;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,15 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.openrdf.repository.http.HTTPRepository;
-
-import java.io.*;
-import java.util.Random;
-
 @WebServlet("/DemoPageServlet")
 public class DemoPageServlet extends HttpServlet {
+	
+	private static final long serialVersionUID = 1L;
 
 	public DemoPageServlet(){
 		super();
@@ -28,24 +23,30 @@ public class DemoPageServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
 		response.setContentType("application/json");
-		
+		 out.println("hello1");
 		try {
+			String triple = request.getParameter("triple");
 			String number = request.getParameter("num");
-			int num = Integer.parseInt(number);
-			JSONObject hash = null;
-			hash.put("id", "h-3690378823082678040");
-			hash.put("subject","http://dbpedia.org/resource/Orsay_Tennyson_Dickens");
-			hash.put("relation","http://dbpedia.org/ontology/child");
-			hash.put("object","http://dbpedia.org/resource/Charles_Dickens");
-			out.println(hash.toString());
-		} catch (JSONException e) {
+			String[] SubjectObject = triple.split(",");
+			String[] features = number.split(",");
+			 out.println("hello3");
+			out.println(triple + ""+number);
+			SubjectObject[0] = "\""+SubjectObject[0] +"\"";
+			SubjectObject[1] = "\""+SubjectObject[1] +"\"";
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/lodstories?user=root");  
+			Statement statement = connection.createStatement();  
+		    statement.setQueryTimeout(30);  // set timeout to 30 sec.
+		    //statement.execute("insert into user_feedbacks(subject, predicate, object,SI, RI, OI, WI) values('"+SubjectObject[0]+"','" +"\"sf\""+"','"+ SubjectObject[1]+"','0','0','0','0' )");
+		    //statement.execute("insert into user_feedbacks(subject) values('"+SubjectObject[0]+"');");
+		    statement.execute("insert into user_feedbacks(subject) values('\"false\"');");
+		    out.println("hello2");
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally{
 			out.flush();
 			out.close();
-		}
-			//response = Response
-					
+		}		
 					
 	}
 	
@@ -64,49 +65,5 @@ public class DemoPageServlet extends HttpServlet {
 	
 	}
 
-
-}
-	/*
-		@Produces({"application/x-javascript", "application/json", "application/xml"})
-		public Response returnSimplePath(@QueryParam("jsoncallback") String callback){
-			BufferedReader reader = null;
-			try{
-				reader = new BufferedReader(new FileReader("/home/lindaxu/Desktop/hash.txt"));
-			}
-			catch(FileNotFoundException e){}
-			
-			String line = null;
-			int counter = 0;
-			int num;
-			Random random = new Random();
-			num = random.nextInt(4);
-			System.out.println(num);
-			String s = null;
-			
-			try{
-				while (counter<num){
-					line = reader.readLine();
-					counter ++;
-				}
-				s = reader.readLine();
-			}
-			catch(Exception e){	}
-			
-			Response response;
-			response = Response
-		    			.ok()
-		    			.entity(new JSONWithPadding(
-		    				"{'hash':'h-3690378823082678040','excecution_time': 1300,'source':	{label: 'Orsay Dickens', uri: 'http://dbpedia.org/resource/Orsay_Tennyson_Dickens'}, 'destination':	{label: 'Charles Dickens', uri: 'http://dbpedia.org/resource/Charles_Dickens'},	'path':[" +
-		    				"{'type':'node','uri':'http://dbpedia.org/resource/Orsay_Tennyson_Dickens', audio_text: 'More blah blah filler text for Orsay Dickens'},"+
-		    				"{'type':'link', 'inverse':true, 'uri':'http://dbpedia.org/ontology/child'},"+
-		    				"{'type':'node','uri':'http://dbpedia.org/resource/Charles_Dickens', }"+
-		    				"]}"
-		    					
-		    					,callback))
-		    			.build();
-		        
-		        return response;
-		}
-	*/
 	
-
+}
