@@ -38,7 +38,7 @@
 			</div>
 		</div>
 		<div id="canvasWindow" class="mainWrap">
-			<div id="canvasStepNavigator" class="step-navigator">
+			<div id="canvasStepNavigator" class="stepNavigator">
 				
 					<button id="redraw" type="button" class="floatLeft btn btn-primary btn-sm btn-nav redraw">Start Over</button>
 					<button id="finish" type="button" class="floatRight btn btn-success btn-nav btn-sm">Proceed to Story Editor</button>
@@ -54,15 +54,15 @@
 <div id="editor">
 		<div id="body">
 			<div id="videoEditor" class="fullWidth fullHeight">
-				<div id="stepNavigator" class="step-navigator">
+				<div id="stepNavigator" class="stepNavigator">
 					<button id="lastStep" type="button" class="floatLeft btn btn-default btn-sm btn-nav redraw">Start Over</button>
 				
-					<button id="playButton" type="button" class="floatRight btn btn-success btn-nav btn-sm">Play Movie</button>
+					<button id="play-button" type="button" class="floatRight btn btn-success btn-nav btn-sm">Play Movie</button>
 				</div>
-				<div id="topic-navigator" class="fullWidth height1">
+				<div id="nodeNavBar" class="fullWidth height1 nodeNavBar">
 
 				</div>
-				<div id="preview-box">
+				<div id="nodeElementOperation" class="nodeElementOperation">
 					<div id="playButtonGroup" class="playButtonGroup">
 						Play, Play All, Stop
 					</div>
@@ -79,19 +79,19 @@
 					</div>
 				</div>
 
-				<div id="img-video-box" class="height2">
+				<div id="nodeElementBar" class="height2 nodeElementBar">
 					<ul id="edit-list" class="nav nav-tabs">
 						<li><a href="#" id="edit-imgs" class="btn-primary">Images</a></li>
 						<li><a href="#" id="edit-vids">Videos</a></li>
 					</ul>
-					<div>
+					<div id="nodeElementContent" >
 						<div class="element-list-wrap" id="img-element-list-wrap">
-							<ul id="imgs" class="node-element-list">
+							<ul id="imgs" class="droptrue node-element-list">
                                 <div id = "imgerr" class="alert alert-danger">Loading images for topic...</div>
 							</ul>
 						</div>
 						<div class="element-list-wrap" id="vid-element-list-wrap">
-							<ul id="vids" class="node-element-list">
+							<ul id="vids" class="droptrue node-element-list">
                                 <div id="viderr" class="alert alert-danger">Loading videos for topic...</div>
 							</ul>
 						</div>
@@ -102,8 +102,8 @@
 
 				<div id="slider-range-min" class="slideProgressBar"> </div>
 
-				<div id="img-video-selection-wrap">
-					<ul id="movie-nav-bar" class="movie-nav-bar"> </ul>
+				<div id="movieNavBarWrap" class="movieNavBarWrap">
+					<ul id="movie-nav-bar" class="droptrue movie-nav-bar"> </ul>
 
 				</div>
 			</div>

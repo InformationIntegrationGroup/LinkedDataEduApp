@@ -67,16 +67,15 @@ h5{
 	top: 48%
 	left: 48%;
 }
-.step-navigator {
+.stepNavigator{
 	width: inherit;
 	height: 33px;
 }
-
 .btn-nav {
 	height: 100%;
 	width: 200px;
 }
-#topic-navigator {
+.nodeNavBar {
 	height:8%;
 	position: absolute;
 	top: 6%;
@@ -100,7 +99,7 @@ h5{
 	height: 100%;
 }
 /*Node Element Bar*/
-#img-video-box {
+.nodeElementBar {
 	width: 29%;
 	height: 69%;
 	position: absolute;
@@ -123,13 +122,13 @@ h5{
 	position: relative;
 	display: inline-block;
 }
-.img-video-wrap {
+.nodeElementBarContentWrap {
 	width: 40%;
 	height: 20%;
+	/*margin: 3%;*/
 	float: left;
-    draggable: true;
 }
-.img-video-wrap > img {
+.nodeElementBarContentWrap > img {
 	width: 85%;
 	height: 100%
 }
@@ -143,7 +142,7 @@ h5{
 
 /*End of Node Element Bar*/
 /*Movie Nav Bar*/
-#img-video-selection-wrap {
+.movieNavBarWrap {
 	width: 98%;
 	height: 17%;
 	position: absolute;
@@ -182,7 +181,7 @@ h5{
 
 /*End of Movie Nav Bar*/
 
-#preview-box {
+.nodeElementOperation {
 	width: 68%;
 	height: 69%;
 	position: absolute;
@@ -192,6 +191,27 @@ h5{
     border-radius: 10px;
 }
 
+
+.nodeElementBarContent {
+   
+}
+.nodeElement {
+	width: 100%;
+	position: relative;
+	margin: 0 auto;
+	text-align: center;
+}
+.nodeElementContentWrap {
+	width: 50%;
+	padding: 5px;
+	float: left;
+	cursor: pointer;
+	opacity: 0;
+}
+.nodeElementContent {
+	width: 100%;
+	height: 100%;
+}
 .nodeElementEditing {
 	width: 24%;
 	height: 60%;

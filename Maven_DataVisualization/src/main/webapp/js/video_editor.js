@@ -36,9 +36,9 @@ function generateNodeNavBar(){
 		NodeNavBar += dataPathHash.path[i].name + "</a></li>";
 	}
 	NodeNavBar += "</ul>";
-	$("#topic-navigator").html(NodeNavBar);
+	$("#nodeNavBar").html(NodeNavBar);
 	$(".nav-pills a").click(function(){
-		$("#img-video-selection-wrap").empty();
+		$("#movieNavBarWrap").empty();
 		$(".nav-pills li").removeClass("active");
 		var classSelector = "#" + $(this).attr("id");
 		$(classSelector).parent().addClass("active");
@@ -49,7 +49,7 @@ function generateNodeNavBar(){
 }
 
 function generateNodeElementBar(nodeName){
-	$("#img-video-box").empty();
+	$("#nodeElementBar").empty();
 	$("#textDescription").html(hashObjectArray[nodeName][0].audio_text);
 	console.log(hashObjectArray[nodeName]);
 	for (var i = 0; i < hashObjectArray[nodeName][0].slide_description.length; i++){
@@ -68,7 +68,7 @@ function generateNodeElement(nodename, node, index, duration){
 		element += nodename + index + node.type
 		element += "' duration='" + duration + "' src='" + node.data.uri + "'/>"
 		element += "</div>";
-	$("#img-video-box").append(element);
+	$("#nodeElementBar").append(element);
 }
 
 
@@ -78,7 +78,7 @@ var append, moveindicator;
 durationRecords[0] = 0;
 mainWidth = $("#videoEditor").css("width").replace(/[^-\d\.]/g, '');
 mainHeight = $("#videoEditor").css("height").replace(/[^-\d\.]/g, '');
-movieNavBarWidth = $("#img-video-selection-wrap").css("width").replace(/[^-\d\.]/g, '');
+movieNavBarWidth = $("#movieNavBarWrap").css("width").replace(/[^-\d\.]/g, '');
 thresholdHeight = mainHeight * 0.83;
 
 
@@ -169,7 +169,7 @@ function appendToMovieNav(e, temp, duration){
 		if (append == 0) {
 			//$("#movieNavBarWrap").append(newNavElement);
 			if (IDRecords.length == 1){
-				$("#img-video-selection-wrap").append(newNavElement);
+				$("#movieNavBarWrap").append(newNavElement);
 				append = 1;
 			}
 			else {
@@ -213,7 +213,7 @@ function appendToMovieNav(e, temp, duration){
 			});
 			$("#remove" + elementID).click(function(){
 				var elementBack = '<div class="nodeElementBarContentWrap btn btn-default"><img class="nodeElementBarContent" name="' + $(this).attr("target2") + '" src="' + $(this).attr("target1") + '"></div>';
-				$("#img-video-box").append(elementBack);
+				$("#nodeElementBar").append(elementBack);
 				enableElementBarContentOperation();
 				$(this).parent().remove();
 				
@@ -244,13 +244,13 @@ $(window).load(function(){
 })
 $("#generateVideoEditor").click(function(){
 	$(this).remove();
-	$("#topic-navigator").css("display","block");
-	$("#img-video-box").css("display", "block");
+	$("#nodeNavBar").css("display","block");
+	$("#nodeElementBar").css("display", "block");
 	$("#moviePreview").css("display", "block");
 	$("#audioDescriptionWrap").css("display", "block");
-	$("#img-video-selection-wrap").css("display", "block");
+	$("#movieNavBarWrap").css("display", "block");
 	$("#stepNavigator").css("display", "block");
-	$("#preview-box").css("display", "block");
+	$("#nodeElementOperation").css("display", "block");
 	$(".slideProgressBar").css("display", "block");
 	generatePathArray();
 	generateNodeNavBar();
