@@ -90,14 +90,10 @@ public class AbstractFinderServlet extends HttpServlet{
 					
 					JSONObject newNode = new JSONObject();
 					String abstractString = bindingSet.getValue("abstract").stringValue();
-					if (abstractString.contains("(") && abstractString.contains(")"))
-						abstractString = abstractString.substring(0, abstractString.indexOf('(')) + abstractString.substring(abstractString.indexOf(')')+1);
-					newNode.put("abstract", abstractString);
+					newNode.put("abstract", cutParenthesis(abstractString));
 					
 					abstractString = bindingSet.getValue("comment").stringValue();
-					if (abstractString.contains("(") && abstractString.contains(")"))
-							abstractString = abstractString.substring(0, abstractString.indexOf('(')) + abstractString.substring(abstractString.indexOf(')')+1);
-					newNode.put("comment", abstractString);
+					newNode.put("comment", cutParenthesis(abstractString));
 					
 					newNode.put("label", bindingSet.getValue("label").stringValue());
 					newNode.put("type", bindingSet.getValue("type").stringValue());
@@ -139,6 +135,22 @@ public class AbstractFinderServlet extends HttpServlet{
 			}
 		}
 	}
+	
+	private String cutParenthesis(String desc){
+		if (desc.contains("(") && desc.contains(")")){
+			if (desc.indexOf('(')<desc.indexOf(')'))
+				return desc.substring(0,desc.indexOf('(')) + cutParenthesis(desc.substring(desc.indexOf('(')+1));
+			else
+				return cutParenthesis(desc.substring(desc.indexOf(')')+1));
+		}
+			
+		if (desc.contains(")"))
+			return desc.substring(desc.indexOf(')')+1);
+			
+		return desc;
+		
+		
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -149,3 +161,20 @@ public class AbstractFinderServlet extends HttpServlet{
 	}
 
 }
+
+//Properly formatted query
+/*PREFIX p: <http://dbpedia.org/property/> 
+PREFIX dbpedia: <http://dbpedia.org/resource/>  
+PREFIX category: <http://dbpedia.org/resource/Category:> 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>  
+PREFIX dbo: <http://dbpedia.org/ontology/> 
+SELECT ?label ?abstract ?comment ?type WHERE { 
+<http://dbpedia.org/resource/Rainer_Maria_Rilke> rdfs:label ?label .
+?x rdfs:label ?label . 
+?x dbo:abstract ?abstract . 
+?x rdfs:comment ?comment .
+?x rdf:type ?type .
+FILTER (lang(?abstract) = "en") . 
+FILTER (lang(?comment) = "en") . 
+FILTER (lang(?label) = "en") .
+} LIMIT 2 */
