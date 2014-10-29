@@ -26,9 +26,6 @@ import org.openrdf.repository.RepositoryException;
 import org.openrdf.repository.http.HTTPRepository;
 
 
-/**
- * Servlet implementation class NodeDescriptionServlet
- */
 @WebServlet("/descriptions")
 public class AbstractFinderServlet extends HttpServlet{
 	
