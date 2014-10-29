@@ -70,7 +70,7 @@ public class HashStoreServlet extends HttpServlet{
 				while (!insertEntry(st,"INSERT INTO hashtest(id, hash) VALUES ('"+id+"', '"+hashObject+"')")){
 					id = generateId();
 				}
-			}
+			} 
 			
 			//Return the final id of the hash object.
 			response.setContentType("text/plain");

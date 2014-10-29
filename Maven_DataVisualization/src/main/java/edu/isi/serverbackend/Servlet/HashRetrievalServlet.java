@@ -66,7 +66,7 @@ public class HashRetrievalServlet extends HttpServlet{
 				response.setStatus(400);
 				out.println("Error retrieving hash object");
 				return;
-			}
+			} 
 			
 			result = rs.getString("hash");
 			
