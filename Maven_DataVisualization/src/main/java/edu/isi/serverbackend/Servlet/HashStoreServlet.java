@@ -60,11 +60,17 @@ public class HashStoreServlet extends HttpServlet{
 			//Update process rather than insert
 			if (id!=null){
 				updated = st.executeUpdate("UPDATE hashtest SET hash='"+hashObject+"',lastModified=NOW() WHERE id='"+id+"'");
+				
+				//If the update process didn't change any entries, then try to create a new entry with that id, since it's open...
+				if (updated==0){
+					//Loop to create new ids, in case the original insert fails (it shouldn't, since the update failed b/c the id didn't exist...just being cautious)
+					while (!insertEntry(st,"INSERT INTO hashtest(id, hash) VALUES ('"+id+"', '"+hashObject+"')")){
+						id = generateId();
+					}
+				}
 			}
-			
-			//If the update process didn't change any entries, then create a new entry with a new id
-			if (updated==0 || id.isEmpty()){
-				System.out.println("Putting new entry");
+			//if there's no given id, then we start with the randomizer
+			else{
 				id =generateId();
 			 
 				while (!insertEntry(st,"INSERT INTO hashtest(id, hash) VALUES ('"+id+"', '"+hashObject+"')")){
