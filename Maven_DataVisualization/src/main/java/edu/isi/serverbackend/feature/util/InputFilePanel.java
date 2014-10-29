@@ -161,7 +161,7 @@ public class InputFilePanel extends JPanel implements ActionListener{
 			reader = new BufferedReader(new InputStreamReader(dstream));
 			String line;
 			line = reader.readLine();
-			while(line != null){
+			while(line != null && !line.isEmpty()){
 				ArrayList<Sample> temp  =  new ArrayList<Sample>();
 				LinkedDataNode node = new LinkedDataNode(line, repoConn);
 				node.retrieveNameAndType();
@@ -178,33 +178,9 @@ public class InputFilePanel extends JPanel implements ActionListener{
 			fstream.close();
 			exportTrainingSetHash(samples, PERSON, PERSON);
 			exportTrainingSetHash(samples, PERSON, WORK);
-			exportTrainingSetHash(samples, PERSON, PLACE);
-			exportTrainingSetHash(samples, PERSON, EVENT);
-			exportTrainingSetHash(samples, PERSON, ORG);
-
 			exportTrainingSetHash(samples, WORK, PERSON);
-			exportTrainingSetHash(samples, WORK, EVENT);
-			exportTrainingSetHash(samples, WORK, WORK);
 			exportTrainingSetHash(samples, WORK, PLACE);
-			exportTrainingSetHash(samples, WORK, ORG);
-
-			exportTrainingSetHash(samples, ORG, PERSON);
-			exportTrainingSetHash(samples, ORG, EVENT);
-			exportTrainingSetHash(samples, ORG, WORK);
-			exportTrainingSetHash(samples, ORG, PLACE);
-			exportTrainingSetHash(samples, ORG, ORG);
-
-			exportTrainingSetHash(samples, EVENT, PERSON);
-			exportTrainingSetHash(samples, EVENT, EVENT);
-			exportTrainingSetHash(samples, EVENT, WORK);
-			exportTrainingSetHash(samples, EVENT, PLACE);
-			exportTrainingSetHash(samples, EVENT, ORG);
-
-			exportTrainingSetHash(samples, PLACE, PERSON);
-			exportTrainingSetHash(samples, PLACE, EVENT);
-			exportTrainingSetHash(samples, PLACE, WORK);
-			exportTrainingSetHash(samples, PLACE, PLACE);
-			exportTrainingSetHash(samples, PLACE, ORG);
+			
 
 			
 		}
