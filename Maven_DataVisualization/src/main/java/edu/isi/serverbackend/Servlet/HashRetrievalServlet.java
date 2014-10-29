@@ -68,7 +68,7 @@ public class HashRetrievalServlet extends HttpServlet{
 				return;
 			}
 			
-			result = rs.getString(1);
+			result = rs.getString("hash");
 			
 			//Update the lastAccessed field
 			st.executeUpdate("UPDATE hashtest SET lastModified=NOW() WHERE id='"+id+"'");
