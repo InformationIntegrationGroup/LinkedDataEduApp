@@ -38,7 +38,7 @@ public class HashRetrievalServlet extends HttpServlet{
 		String id = request.getParameter("hashID");
 		String result;
 		
-		if (id.isEmpty()){
+		if (id!=null && id.trim().isEmpty()){
 			response.setContentType("text/plain");
 			response.setStatus(400);
 			out.println("Empty hash ID");
