@@ -1,7 +1,6 @@
 package edu.isi.serverbackend.Servlet;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Random;
@@ -39,7 +38,7 @@ public class HashRetrievalServlet extends HttpServlet{
 		String id = request.getParameter("hashID");
 		String result;
 		
-		if (id.isEmpty()){
+		if (id!=null && id.trim().isEmpty()){
 			response.setContentType("text/plain");
 			response.setStatus(400);
 			out.println("Empty hash ID");
@@ -51,11 +50,19 @@ public class HashRetrievalServlet extends HttpServlet{
 		ResultSet rs=null;
 		
 		try{  
+			//Read the SQL password from a file
+			BufferedReader reader = null;
+			InputStream inputStream = getClass().getClassLoader().getResourceAsStream("SQLpw.txt");
+			reader = new BufferedReader(new InputStreamReader(inputStream));
+			String password = reader.readLine();
+		
+		
 			// create a mysql database connection
 			String myDriver = "com.mysql.jdbc.Driver";
 			String myUrl = "jdbc:mysql://localhost/test";
-			Class.forName(myDriver);
-			conn = DriverManager.getConnection(myUrl, "root", "Lx176967");
+			Class.forName(myDriver);			
+			conn = DriverManager.getConnection(myUrl, "root", password);
+			st = conn.createStatement();
 
 			st = conn.createStatement();
 		 
@@ -73,7 +80,7 @@ public class HashRetrievalServlet extends HttpServlet{
 			//Update the lastAccessed field
 			st.executeUpdate("UPDATE hashtest SET lastModified=NOW() WHERE id='"+id+"'");
 			
-			response.setContentType("application/json");
+			response.setContentType("text/plain");
 			
 		  
 			response.setCharacterEncoding("UTF-8");

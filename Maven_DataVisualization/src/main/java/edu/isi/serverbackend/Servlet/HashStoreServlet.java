@@ -37,6 +37,8 @@ public class HashStoreServlet extends HttpServlet{
 		PrintWriter out = response.getWriter();
 		String hashObject = request.getParameter("hash");
 		String id = request.getParameter("hashID");
+		if (id!=null)
+			id = id.trim();
 		
 		Connection conn=null;
 		Statement st=null;
@@ -58,14 +60,24 @@ public class HashStoreServlet extends HttpServlet{
 			int updated=0;
 			
 			//Update process rather than insert
-			if (id!=null){
+			if (id!=null && !id.isEmpty()){
+				System.out.println("UPDATE hashtest SET hash='"+hashObject+"',lastModified=NOW() WHERE id='"+id+"'");
+				
 				updated = st.executeUpdate("UPDATE hashtest SET hash='"+hashObject+"',lastModified=NOW() WHERE id='"+id+"'");
+				
+				//If the update process didn't change any entries, then try to create a new entry with that id, since it's open...
+				if (updated==0){
+					//Loop to create new ids, in case the original insert fails (it shouldn't, since the update failed b/c the id didn't exist...just being cautious)
+					while (!insertEntry(st,"INSERT INTO hashtest(id, hash) VALUES ('"+id+"', '"+hashObject+"')")){
+						id = generateId();
+					}
+				}
 			}
-			
-			//If the update process didn't change any entries, then create a new entry with a new id
-			if (updated==0 || id.isEmpty()){
-				System.out.println("Putting new entry");
+			//if there's no given id, then we start with the randomizer
+			else{
 				id =generateId();
+				
+				System.out.println("INSERT INTO hashtest(id, hash) VALUES ('"+id+"', '"+hashObject+"')");
 			 
 				while (!insertEntry(st,"INSERT INTO hashtest(id, hash) VALUES ('"+id+"', '"+hashObject+"')")){
 					id = generateId();
@@ -109,20 +121,17 @@ public class HashStoreServlet extends HttpServlet{
 	
 	private static String generateId(){
 		Random random = new Random();	
-		//Takes in a random value 0-2, where 0 will represent digits, 1 capitals, and 2 lower-case
+		//Takes in a random value 0-1, where 0 will represent digits and 2 lower-case letters
 		int type;
-		char[] tempID = new char[20];
+		char[] tempID = new char[10];
 		
-		for (int i=0; i<20; i++){
-			type = random.nextInt(3);
+		for (int i=0; i<10; i++){
+			type = random.nextInt(2);
 			switch(type){
 				case 0:		//Select a random digit 
 					tempID[i] = (char) (48+random.nextInt(10));
 					break;
-				case 1:		//Select a random capital letter
-					tempID[i] = (char) (65+random.nextInt(26));
-					break;
-				case 2:		//Select a random lower-case letter
+				case 1:		//Select a random lower-case letter
 					tempID[i] = (char) (97+random.nextInt(26));
 					break;
 				default:	//Shouldn't really ever reach this, but just in case
