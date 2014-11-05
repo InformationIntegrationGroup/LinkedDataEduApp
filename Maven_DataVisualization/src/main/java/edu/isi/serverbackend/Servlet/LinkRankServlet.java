@@ -112,3 +112,20 @@ public class LinkRankServlet extends HttpServlet {
 	}
 
 }
+
+
+/* demo dbpedia query
+SELECT ?predicate ?object ?label ?type WHERE{ 
+<http://dbpedia.org/resource/Pablo_Picasso> ?predicate ?object .
+?predicate rdf:type owl:ObjectProperty .
+?object a owl:Thing .
+?object rdfs:label ?label .
+?object a ?type.
+FILTER(?type = <http://dbpedia.org/ontology/Person> OR 
+?type = <http://dbpedia.org/ontology/Place> OR 
+?type = <http://dbpedia.org/ontology/Organisation> OR 
+?type = <http://dbpedia.org/ontology/Work> OR 
+?type =<http://dbpedia.org/ontology/Event>).
+FILTER(langMatches(lang(?label), "EN"))
+} GROUP BY ?object
+*/

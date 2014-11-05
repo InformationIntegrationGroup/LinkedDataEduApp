@@ -80,7 +80,7 @@ public class HashRetrievalServlet extends HttpServlet{
 			//Update the lastAccessed field
 			st.executeUpdate("UPDATE hashtest SET lastModified=NOW() WHERE id='"+id+"'");
 			
-			response.setContentType("application/json");
+			response.setContentType("text/plain");
 			
 		  
 			response.setCharacterEncoding("UTF-8");

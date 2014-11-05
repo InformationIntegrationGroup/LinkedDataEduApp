@@ -61,6 +61,8 @@ public class HashStoreServlet extends HttpServlet{
 			
 			//Update process rather than insert
 			if (id!=null && !id.isEmpty()){
+				System.out.println("UPDATE hashtest SET hash='"+hashObject+"',lastModified=NOW() WHERE id='"+id+"'");
+				
 				updated = st.executeUpdate("UPDATE hashtest SET hash='"+hashObject+"',lastModified=NOW() WHERE id='"+id+"'");
 				
 				//If the update process didn't change any entries, then try to create a new entry with that id, since it's open...
@@ -74,6 +76,8 @@ public class HashStoreServlet extends HttpServlet{
 			//if there's no given id, then we start with the randomizer
 			else{
 				id =generateId();
+				
+				System.out.println("INSERT INTO hashtest(id, hash) VALUES ('"+id+"', '"+hashObject+"')");
 			 
 				while (!insertEntry(st,"INSERT INTO hashtest(id, hash) VALUES ('"+id+"', '"+hashObject+"')")){
 					id = generateId();
@@ -119,9 +123,9 @@ public class HashStoreServlet extends HttpServlet{
 		Random random = new Random();	
 		//Takes in a random value 0-1, where 0 will represent digits and 2 lower-case letters
 		int type;
-		char[] tempID = new char[20];
+		char[] tempID = new char[10];
 		
-		for (int i=0; i<20; i++){
+		for (int i=0; i<10; i++){
 			type = random.nextInt(2);
 			switch(type){
 				case 0:		//Select a random digit 
