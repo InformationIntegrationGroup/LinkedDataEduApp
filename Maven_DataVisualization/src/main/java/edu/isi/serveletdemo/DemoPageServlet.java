@@ -4,6 +4,8 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,20 +28,33 @@ public class DemoPageServlet extends HttpServlet {
 		 out.println("hello1");
 		try {
 			String triple = request.getParameter("triple");
-			String number = request.getParameter("num");
+			String number = request.getParameter("key");
 			String[] SubjectObject = triple.split(",");
 			String[] features = number.split(",");
+			Map<Integer, Integer> mapping = new HashMap<Integer, Integer>();
+			mapping.put(1, 0);
+			mapping.put(2, 0);
+			mapping.put(3, 0);
+			mapping.put(4, 0);
+			mapping.put(5, 0);
+			for (String num : features) {
+				int n = Integer.parseInt(num);
+				mapping.put(n, 1);
+			}
 			 out.println("hello3");
 			out.println(triple + ""+number);
 			SubjectObject[0] = "\""+SubjectObject[0] +"\"";
 			SubjectObject[1] = "\""+SubjectObject[1] +"\"";
+			SubjectObject[2] = "\""+SubjectObject[2] +"\"";
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/lodstories?user=root");  
 			Statement statement = connection.createStatement();  
 		    statement.setQueryTimeout(30);  // set timeout to 30 sec.
-		    //statement.execute("insert into user_feedbacks(subject, predicate, object,SI, RI, OI, WI) values('"+SubjectObject[0]+"','" +"\"sf\""+"','"+ SubjectObject[1]+"','0','0','0','0' )");
+		    String stmt = String.format("insert into user_feedbacks(subject, predicate, object,SI, RI, OI, WI, NI) values('%s','%s','%s','%d','%d','%d','%d','%d')", 
+		    		SubjectObject[0], SubjectObject[1], SubjectObject[2], mapping.get(1), mapping.get(2), mapping.get(3), mapping.get(4), mapping.get(5));
+		    statement.execute(stmt);
 		    //statement.execute("insert into user_feedbacks(subject) values('"+SubjectObject[0]+"');");
-		    statement.execute("insert into user_feedbacks(subject) values('\"false\"');");
+		    //statement.execute("insert into user_feedbacks(subject) values('\"false\"');");
 		    out.println("hello2");
 		} catch (Exception e) {
 			e.printStackTrace();
