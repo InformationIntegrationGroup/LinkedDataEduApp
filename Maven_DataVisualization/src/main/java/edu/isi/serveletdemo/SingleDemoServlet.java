@@ -40,7 +40,7 @@ public class SingleDemoServlet {
 		int counter = 0;
 		int num;
 		Random random = new Random();
-		num = random.nextInt(216);
+		num = random.nextInt(704);
 		String s = null;
 		try{
 		while (counter<num){
