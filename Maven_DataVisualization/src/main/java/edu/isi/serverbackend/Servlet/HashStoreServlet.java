@@ -37,6 +37,9 @@ public class HashStoreServlet extends HttpServlet{
 		PrintWriter out = response.getWriter();
 		String hashObject = request.getParameter("hash");
 		String id = request.getParameter("hashID");
+		String title = request.getParameter("title");
+		String author = request.getParameter ("author");
+		String path = request.getParameter ("path");
 		if (id!=null)
 			id = id.trim();
 		
@@ -77,9 +80,9 @@ public class HashStoreServlet extends HttpServlet{
 			else{
 				id =generateId();
 				
-				System.out.println("INSERT INTO hashtest(id, hash) VALUES ('"+id+"', '"+hashObject+"')");
+				System.out.println("INSERT INTO hashtest(id, title, author, hash) VALUES ('"+id+"', '"+title+"', '"+author+"', '"+hashObject+"')");
 			 
-				while (!insertEntry(st,"INSERT INTO hashtest(id, hash) VALUES ('"+id+"', '"+hashObject+"')")){
+				while (!insertEntry(st,"INSERT INTO hashtest(id, title, author, hash) VALUES ('"+id+"', '"+title+"', '"+author+"', '"+hashObject+"')")){
 					id = generateId();
 				}
 			} 

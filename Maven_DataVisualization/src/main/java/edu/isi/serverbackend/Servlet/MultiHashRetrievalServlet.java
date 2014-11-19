@@ -11,12 +11,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.sql.*;
 import org.json.*;
 
-import java.sql.*;
-
-@WebServlet("/retrieveHash")
-public class HashRetrievalServlet extends HttpServlet{
+@WebServlet("/retrieveMultipleHash")
+public class MultiHashRetrievalServlet extends HttpServlet{
 	
 	/**
 	 * 
@@ -26,7 +25,7 @@ public class HashRetrievalServlet extends HttpServlet{
 	/**
      * @see HttpServlet#HttpServlet()
      */
-    public HashRetrievalServlet() {
+    public MultiHashRetrievalServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,16 +36,10 @@ public class HashRetrievalServlet extends HttpServlet{
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		PrintWriter out = response.getWriter();
-		String id = request.getParameter("hashID");
 		String jsonCallback = request.getParameter("jsoncallback");
+		String sourceFilter = request.getParameter("startNode");
 		JSONObject result = new JSONObject();
-		
-		if (id!=null && id.trim().isEmpty()){
-			response.setContentType("text/plain");
-			response.setStatus(400);
-			out.println("Empty hash ID");
-			return;
-		}
+		JSONArray hashObjects = new JSONArray();
 		
 		Connection conn=null;
 		Statement st=null;
@@ -65,8 +58,12 @@ public class HashRetrievalServlet extends HttpServlet{
 			String myUrl = "jdbc:mysql://localhost/test";
 			Class.forName(myDriver);			
 			conn = DriverManager.getConnection(myUrl, "root", password);
-			st = conn.createStatement();		 
-			rs = st.executeQuery("SELECT hash FROM hashtest where id='"+id+"'");
+			st = conn.createStatement();
+
+			if (sourceFilter!=null && !sourceFilter.trim().isEmpty())
+				rs = st.executeQuery("SELECT * FROM hashtest WHERE path LIKE '"+sourceFilter+",%'");
+			else
+				rs = st.executeQuery("SELECT * FROM hashtest");
 		  
 			if (!rs.next()){
 				response.setContentType("text/plain");
@@ -75,20 +72,34 @@ public class HashRetrievalServlet extends HttpServlet{
 				return;
 			} 
 			
-			result.put("hash", rs.getString("hash"));
-			result.put("title", rs.getString("title"));
-			result.put("author", rs.getString("author"));
-			result.put("path", rs.getString("path"));
-			result.put("rating", rs.getString("rating"));
+			//Handle the first match before entering the while loop...
+			JSONObject newNode = new JSONObject();
+			newNode.put("hashID", rs.getString("id"));
+			newNode.put("hash", rs.getString("hash"));
+			newNode.put("title", rs.getString("title"));
+			newNode.put("author", rs.getString("author"));
+			newNode.put("path", rs.getString("path"));
+			newNode.put("rating", rs.getString("rating"));
+			hashObjects.put(newNode);
 			
-			//Update the lastAccessed field
-			st.executeUpdate("UPDATE hashtest SET lastAccessed=NOW() WHERE id='"+id+"'");
+			while (rs.next()){
+				newNode = new JSONObject();
+				newNode.put("hashID", rs.getString("id"));
+				newNode.put("hash", rs.getString("hash"));
+				newNode.put("title", rs.getString("title"));
+				newNode.put("author", rs.getString("author"));
+				newNode.put("path", rs.getString("path"));
+				newNode.put("rating", rs.getString("rating"));
+				hashObjects.put(newNode);
+			}
 			
-			response.setContentType("application/json");
+			result.put("startingNode", sourceFilter);
+			result.put("hashObjects",hashObjects);
 			
-		  
+			response.setContentType("application/json");		  
 			response.setCharacterEncoding("UTF-8");
-			out.println(result);
+			
+			out.println(jsonCallback+"("+result+")");
 		}
 		catch (ClassNotFoundException e){
 			 System.err.println("Could not connect to driver!");
