@@ -38,7 +38,6 @@ public class HashRetrievalServlet extends HttpServlet{
 		// TODO Auto-generated method stub
 		PrintWriter out = response.getWriter();
 		String id = request.getParameter("hashID");
-		String jsonCallback = request.getParameter("jsoncallback");
 		JSONObject result = new JSONObject();
 		
 		if (id!=null && id.trim().isEmpty()){

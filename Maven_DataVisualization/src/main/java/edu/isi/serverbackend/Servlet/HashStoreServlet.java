@@ -62,16 +62,16 @@ public class HashStoreServlet extends HttpServlet{
 			
 			int updated=0;
 			
-			//Update process rather than insert
+			//Update process rather than insert...probably never going to be used with our current planned implementation
 			if (id!=null && !id.isEmpty()){
-				System.out.println("UPDATE hashtest SET hash='"+hashObject+"',lastModified=NOW() WHERE id='"+id+"'");
+				System.out.println("UPDATE hashtest SET hash='"+hashObject+"',lastAccessed=NOW() WHERE id='"+id+"',title='"+title+"',author='"+author+"',path='"+path+"'");
 				
-				updated = st.executeUpdate("UPDATE hashtest SET hash='"+hashObject+"',lastModified=NOW() WHERE id='"+id+"'");
+				updated = st.executeUpdate("UPDATE hashtest SET hash='"+hashObject+"',lastAccessed=NOW() WHERE id='"+id+"'");
 				
 				//If the update process didn't change any entries, then try to create a new entry with that id, since it's open...
 				if (updated==0){
 					//Loop to create new ids, in case the original insert fails (it shouldn't, since the update failed b/c the id didn't exist...just being cautious)
-					while (!insertEntry(st,"INSERT INTO hashtest(id, hash) VALUES ('"+id+"', '"+hashObject+"')")){
+					while (!insertEntry(st,"INSERT INTO hashtest(id, title, author, hash, path) VALUES ('"+id+"', '"+title+"', '"+author+"', '"+hashObject+"', '"+path+"')")){
 						id = generateId();
 					}
 				}
@@ -80,9 +80,9 @@ public class HashStoreServlet extends HttpServlet{
 			else{
 				id =generateId();
 				
-				System.out.println("INSERT INTO hashtest(id, title, author, hash) VALUES ('"+id+"', '"+title+"', '"+author+"', '"+hashObject+"')");
+				System.out.println("INSERT INTO hashtest(id, title, author, hash, path) VALUES ('"+id+"', '"+title+"', '"+author+"', '"+hashObject+"', '"+path+"')");
 			 
-				while (!insertEntry(st,"INSERT INTO hashtest(id, title, author, hash) VALUES ('"+id+"', '"+title+"', '"+author+"', '"+hashObject+"')")){
+				while (!insertEntry(st,"INSERT INTO hashtest(id, title, author, hash, path) VALUES ('"+id+"', '"+title+"', '"+author+"', '"+hashObject+"', '"+path+"')")){
 					id = generateId();
 				}
 			} 

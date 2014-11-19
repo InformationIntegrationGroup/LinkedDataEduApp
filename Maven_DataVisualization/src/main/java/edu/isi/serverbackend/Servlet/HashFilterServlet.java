@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.sql.*;
 import org.json.*;
 
-@WebServlet("/retrieveMultipleHash")
-public class MultiHashRetrievalServlet extends HttpServlet{
+@WebServlet("/filterHash")
+public class HashFilterServlet extends HttpServlet{
 	
 	/**
 	 * 
@@ -25,7 +25,7 @@ public class MultiHashRetrievalServlet extends HttpServlet{
 	/**
      * @see HttpServlet#HttpServlet()
      */
-    public MultiHashRetrievalServlet() {
+    public HashFilterServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,7 +36,6 @@ public class MultiHashRetrievalServlet extends HttpServlet{
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		PrintWriter out = response.getWriter();
-		String jsonCallback = request.getParameter("jsoncallback");
 		String sourceFilter = request.getParameter("startNode");
 		JSONObject result = new JSONObject();
 		JSONArray hashObjects = new JSONArray();
@@ -75,7 +74,6 @@ public class MultiHashRetrievalServlet extends HttpServlet{
 			//Handle the first match before entering the while loop...
 			JSONObject newNode = new JSONObject();
 			newNode.put("hashID", rs.getString("id"));
-			newNode.put("hash", rs.getString("hash"));
 			newNode.put("title", rs.getString("title"));
 			newNode.put("author", rs.getString("author"));
 			newNode.put("path", rs.getString("path"));
@@ -85,7 +83,6 @@ public class MultiHashRetrievalServlet extends HttpServlet{
 			while (rs.next()){
 				newNode = new JSONObject();
 				newNode.put("hashID", rs.getString("id"));
-				newNode.put("hash", rs.getString("hash"));
 				newNode.put("title", rs.getString("title"));
 				newNode.put("author", rs.getString("author"));
 				newNode.put("path", rs.getString("path"));
@@ -99,7 +96,7 @@ public class MultiHashRetrievalServlet extends HttpServlet{
 			response.setContentType("application/json");		  
 			response.setCharacterEncoding("UTF-8");
 			
-			out.println(jsonCallback+"("+result+")");
+			out.println(result);
 		}
 		catch (ClassNotFoundException e){
 			 System.err.println("Could not connect to driver!");
