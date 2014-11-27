@@ -1,4 +1,4 @@
 LinkedDataEduApp
 ================
 
-You should write some introdcutionary information here so people know what this repository contains
+[http://lodstories.isi.edu/LODStories-1.0.0-SNAPSHOT/html/linkeddataeduapp.html] (http://lodstories.isi.edu/LODStories-1.0.0-SNAPSHOT/html/linkeddataeduapp.html)

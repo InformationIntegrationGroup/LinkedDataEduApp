@@ -26,8 +26,7 @@
 
 	</head>
 	<body>
-
-		<div id="searchWindow" class="mainWrap">
+		<div id="searchWindow" class="mainWrap" style="display: none">
 			<div id="searchBox">
 				<h1>Linked Open Data Stories</h1>
 				<input id="search" class="form-control" placeholder="Search whatever you want to learn..." />
@@ -38,7 +37,7 @@
 				</div>
 			</div>
 		</div>
-		<div id="canvasWindow" class="mainWrap">
+		<div id="canvasWindow" class="mainWrap" style="display: none">
 			<div id="canvasStepNavigator" class="stepNavigator">
 				
 					<button id="redraw" type="button" class="floatLeft btn btn-primary btn-sm btn-nav redraw">Start Over</button>
@@ -52,18 +51,33 @@
 			</div>
 
 		</div>
-<div id="editor">
-		<div id="body">
+
+		<div id="editor" style="display: none">
 			<div id="videoEditor" class="fullWidth fullHeight">
 				<div id="stepNavigator" class="stepNavigator">
-					<button id="lastStep" type="button" class="floatLeft btn btn-default btn-sm btn-nav redraw">Start Over</button>
-				
-					<button id="play-button" type="button" class="floatRight btn btn-success btn-nav btn-sm">Play Movie</button>
+					<button id="lastStep" type="button" class="floatLeft btn btn-default btn-sm redraw">Start Over</button>
+					<button id="play-slide" type="button" class="floatRight btn btn-warning btn-sm" style="display: none;">Play Slide</button>
+					<button id="play-button" type="button" class="floatRight btn btn-success btn-sm">Play Movie</button>
+					<button id="save-button" type="button" class="floatRight btn btn-warning btn-sm">Save Movie</button>
 				</div>
 				<div id="nodeNavBar" class="fullWidth height1 nodeNavBar">
-
+					<!-- <ul class='nav nav-pills nav-justified'>
+					<li class='active'><a href='#' class="nodeNavBarElem" id='node01'>NodeName#1</a></li>
+					<li class=''><a href='#' class="nodeNavBarElem" id='node02'>NodeName#2</a></li>
+					<li class=''><a href='#' class="nodeNavBarElem" id='node03'>NodeName#3</a></li>
+					<li class=''><a href='#' class="nodeNavBarElem" id='node04'>NodeName#4</a></li>
+					<li class=''><a href='#' class="nodeNavBarElem" id='node05'>NodeName#5</a></li>
+					<li class=''><a href='#' class="nodeNavBarElem" id='node06'>NodeName#6</a></li>
+					<li class=''><a href='#' class="nodeNavBarElem" id='node07'>NodeName#7</a></li>
+					</ul> -->
 				</div>
+
+				<!-- <button id="generateVideoEditor" class="btn btn-primary">Video Editor</button> -->
+
 				<div id="nodeElementOperation" class="nodeElementOperation">
+					<!-- <div id="nodeElementEditing" class="nodeElementEditing">
+					Node Element Editing
+					</div> -->
 					<div id="playButtonGroup" class="playButtonGroup">
 						Play, Play All, Stop
 					</div>
@@ -72,8 +86,7 @@
 						<div id="frame"> </div>
 					</div>
 					<div id="audioDescriptionWrap" class="audioDescriptionWrap">
-						<textarea class="textDescription" id="textDescription">
-						</textarea>
+						<textarea class="textDescription" id="textDescription"></textarea>
 						<div id="textDescriptionOperation" class="textDescriptionButtonGroup">
 							<button id="editTestDescription" class="btn btn-primary btnOpt">Revert Text</button>
 						</div>
@@ -87,31 +100,21 @@
 					</ul>
 					<div id="nodeElementContent" >
 						<div class="element-list-wrap" id="img-element-list-wrap">
-							<ul id="imgs" class="droptrue node-element-list">
-                                <div id = "img-load" class="alert alert-danger">Loading images for topic...</div>
-                                <div id = "img-none"></div>
-							</ul>
+							<ul id="imgs" class="droptrue node-element-list"></ul>
 						</div>
 						<div class="element-list-wrap" id="vid-element-list-wrap">
-							<ul id="vids" class="droptrue node-element-list">
-                                <div id="vid-load" class="alert alert-danger">Loading videos for topic...</div>
-                                <div id="vid-none"></div>
-							</ul>
+							<ul id="vids" class="droptrue node-element-list"></ul>
 						</div>
 					</div>
-
-
 				</div>
 
 				<div id="slider-range-min" class="slideProgressBar"> </div>
 
 				<div id="movieNavBarWrap" class="movieNavBarWrap">
-					<ul id="movie-nav-bar" class="movie-nav-bar"> </ul>
+					<ul id="movie-nav-bar" class="droptrue movie-nav-bar"> </ul>
 				</div>
 			</div>
 		</div>
-</div>
-<div id="ytholder"></div>
-
-</body>
+		<div id="ytholder"></div>
+	</body>
 </html>

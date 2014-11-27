@@ -3,35 +3,6 @@
   <head>
     <meta charset="UTF-8">
     <script data-main="../js/eic_mmlab/scripts/single" src="../js/eic_mmlab/scripts/lib/require.js" async></script>
-    <script type="text/javascript">
-		
-		function validate(subject,object){
-			console.log("clicked ");
-			var info = {};
-			var values= "";
-			$("input:checkbox[name=checkbox]:checked").each(function(index, element) {
-				console.log(element);
-				    values += element.value + ",";
-		});
-			info["key"] = values; console.log(values);
-			info["triple"] = subject + "," + object;console.log(info["triple"]);
-			document.getElementById("checkbox1").checked = false;
-			document.getElementById("checkbox2").checked = false;
-			document.getElementById("checkbox3").checked = false;
-			document.getElementById("checkbox4").checked = false;
-			$.ajax({
-				url:"/LODStories-1.0.0-SNAPSHOT/DemoPageServlet",
-				type: "GET",
-				data:info,
-				dataType: "json",
-				complete: function(xhr, textStatus) {
-					console.log(xhr.responseText);
-				},
-				error: function(xhr, textStatus) {
-				}
-			});
-		}
-	</script>
 
 	<link rel="stylesheet" href="../css/cssSlides.css" type="text/css"/>
     <link rel="stylesheet" href="../css/cssIndex.css" type="text/css"/>
@@ -42,11 +13,14 @@
 <div id="ytholder"></div>
 	<div class = "feedback">
 		<p>What do you think make the story interesting?</p>
-	 	<input type="checkbox" name = "checkbox" value="1" id="checkbox1"> <label for = "checkbox1">  The whole story?  </label>    
-     	<input type="checkbox" name = "checkbox" value="2" id="checkbox2">  <span id="subject"> </span>
-     	<input type="checkbox" name = "checkbox" value="3" id="checkbox3" > <span id="object"></span>
-     	<input type="checkbox" name = "checkbox" value="4" id="checkbox4"> <label for = "checkbox4"> the relationship? </label>
-     	<input type="button" class="btn btn-primary" id="play-button">Submit and play next
+		<div id="singleCheckbox">
+	 		<input type="checkbox" name = "checkbox" value="1" id="checkbox1"> <label for = "checkbox1">  The whole story?  </label> 
+     		<input type="checkbox" name = "checkbox" value="2" id="checkbox2"> <span id="subject"> </span>
+     		<input type="checkbox" name = "checkbox" value="4" id="checkbox4"> <span id="relation"></span>
+     		<input type="checkbox" name = "checkbox" value="3" id="checkbox3" > <span id="object"></span>
+     		<input type="checkbox" name = "checkbox" value="5" id="checkbox5"> <label for = "checkbox5"> Nothing is interesting. </label>
+     		<input type="button" class="btn btn-primary" id="play-button" disabled>Submit and play next
+     	</div>
 	</div>
 
 
