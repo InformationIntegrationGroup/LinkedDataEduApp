@@ -77,7 +77,7 @@ public class HashFilterServlet extends HttpServlet{
 			newNode.put("title", rs.getString("title"));
 			newNode.put("author", rs.getString("author"));
 			newNode.put("path", rs.getString("path"));
-			newNode.put("rating", rs.getString("rating"));
+			newNode.put("rating", rs.getInt("rating"));
 			hashObjects.put(newNode);
 			
 			while (rs.next()){
@@ -86,7 +86,7 @@ public class HashFilterServlet extends HttpServlet{
 				newNode.put("title", rs.getString("title"));
 				newNode.put("author", rs.getString("author"));
 				newNode.put("path", rs.getString("path"));
-				newNode.put("rating", rs.getString("rating"));
+				newNode.put("rating", rs.getInt("rating"));
 				hashObjects.put(newNode);
 			}
 			

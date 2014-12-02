@@ -1,0 +1,145 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script src="../js/eic_mmlab/scripts/lib/jquery.js"></script>
+		<script src="../js/eic_mmlab/scripts/lib/jquery__ui.js"></script>
+		<link rel="stylesheet" href="../css/dialogForm.css" type="text/css"/>
+		<script type="text/javascript">
+		$(document).ready(function(){		
+			var hash={"source":{"name":"William Joseph Burns","uri":"http://dbpedia.org/resource/William_Joseph_Burns"},"destination":{"name":"Fort Bragg","uri":"http://dbpedia.org/resource/Fort_Bragg"},"path":[{"type":"node","name":"William Joseph Burns","uri":"http://dbpedia.org/resource/William_Joseph_Burns","defaultText":"Hillary Rodham Clinton's deputy is William Joseph Burns. William Joseph Burns , a U. S. diplomat, is the current Deputy Secretary of State.","audio_text":"Hillary Rodham Clinton's deputy is William Joseph Burns. William Joseph Burns , a U. S. diplomat, is the current Deputy Secretary of State.","audio_time":10000},{"type":"link","inverse":false,"uri":"http://dbpedia.org/ontology/birthPlace"},{"type":"node","name":"Fort Bragg","uri":"http://dbpedia.org/resource/Fort_Bragg","defaultText":"William Joseph Burns's birth place is Fort Bragg. Fort Bragg is a major United States Army installation, located in Cumberland, Hoke, Harnett and Moore counties, North Carolina, mostly in Fayetteville but also partly in the town of Spring Lake.","audio_text":"William Joseph Burns's birth place is Fort Bragg. Fort Bragg is a major United States Army installation, located in Cumberland, Hoke, Harnett and Moore counties, North Carolina, mostly in Fayetteville but also partly in the town of Spring Lake.","audio_time":10000}]}
+						
+			var hashString = JSON.stringify(hash);
+			
+			function escapeString(str){			
+				str = str.replace(/\\/g,"\\\\");
+				str = str.replace(/\0/g, "\\0");
+				str = str.replace(/\n/g, "\\n");
+				str = str.replace(/\r/g, "\\r");
+				str = str.replace(/'/g, "\\'");
+				str = str.replace(/"/g, '\\"');
+				str = str.replace(/\x1a/g, "\\Z");
+				
+				return str;
+			}
+			
+			var title, author, path="";
+			
+			for (var i=0; i<hash.path.length; i=i+2){
+				var node= hash.path[i].uri;
+				path+=	node.substr(node.lastIndexOf("/")+1)+", ";
+			}
+			
+			hashString = escapeString(hashString);
+			path = escapeString(path);
+			
+			//var form; 
+			var dialog = $( "#dialog-form" ).dialog({
+				dialogClass: "no-close",
+				autoOpen: false,
+				height: 300,
+				width: 250,
+				modal: true,
+				position: {
+					my: "center",
+					at: "center",
+					of: "body"
+				},
+				buttons: {
+					"Save Hash Object": function(){
+					title = $("#title").val();
+					author = $("#author").val();
+						if (!title)
+							title="Untitled";
+						if (!author)
+							author="Anonymous";
+						title = escapeString(title);
+						author = escapeString(author);
+						$("#mask").hide();
+						dialog.dialog("close");
+						$("#result").html(title + "____" + author);
+					},
+					Cancel: function() {
+						$("#mask").hide();
+						dialog.dialog( "close" );
+					}
+				}
+			});
+			
+			//form =  dialog.find( "form");
+			
+		
+			$("#save").click(function() {
+				$("#mask").show();
+				dialog.dialog("open");				
+			});
+			
+			function unescapeString(str){			
+				str = str.replace(/\\\\/g,"\\");
+				str = str.replace(/\\0/g, "\0");
+			str = str.replace(/\\n/g, "\n");
+				str = str.replace(/\\r/g, "\r");
+				str = str.replace(/\\'/g, "'");
+				str = str.replace(/\\"/g, '"');
+				str = str.replace(/\\Z/g, "\x1a");
+				
+				return str;
+			}
+			
+			$("#retrieve").click(function() {
+				$.ajax({
+					url: "/LODStories/retrieveHash?",	
+					type: 'GET',
+					data: {hashID: location.hash.slice(1)},
+					success: function (data) {
+						console.log(data);
+					},
+					error: function(error){
+						alert("something f'd up");
+					}
+				});
+			});
+			
+			$("#searchHashes").click(function(){
+				$.ajax({
+					url: "/LODStories/filterHash?",	
+					type: 'GET',
+					data: {startNode: "William_Joseph_Burns"},
+					success: function (data) {
+						console.log(data);
+					},
+					error: function(error){
+						alert("something f'd up");
+					}
+				});
+			});
+			
+		}); 
+		
+		
+			
+		</script>
+		
+    </head>
+    <body>
+		<input id='save' type='submit' value='Save Hash'/>
+		<input id='retrieve' type='submit' value='Retrieve Hash'/>
+		<input id='searchHashes' type='submit' value='Search Hash'/>
+		
+		<div id="mask"></div>
+		
+		<div id="dialog-form" title="Save new hash object">
+			<form>
+				<fieldset>
+					<label for="title" class="saveForm">Title</label>
+					<input type="text" name="title" id="title" maxlength="255" class="text ui-widget-content ui-corner-all saveForm">
+					<label for="author" class="saveForm">Author</label>
+					<input type="text" name="author" id="author" maxlength="255" class="text ui-widget-content ui-corner-all saveForm">
+					<!-- Allow form submission with keyboard without duplicating the dialog button -->
+					<input type="submit" tabindex="-1" style="position:absolute; top:-1000px" class="saveForm">
+				</fieldset>
+			</form>
+		</div>
+		
+		<div id="result"></div>
+    </body>
+</html>
