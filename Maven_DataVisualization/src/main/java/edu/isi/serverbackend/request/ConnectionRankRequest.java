@@ -62,7 +62,7 @@ public class ConnectionRankRequest {
 		//ImportanceFeature.calculateImportance(samples);
 		
 		try {
-			URL url = new URL("http://127.0.0.1:8080/LODStories-1.0.0-SNAPSHOT/DemoServlet");//
+			URL url = new URL("http://127.0.0.1:8080/LODStories/DemoServlet");//
 			URLConnection modelConn = url.openConnection();
 			modelConn.setDoInput(true);
 			modelConn.setDoOutput(true);
