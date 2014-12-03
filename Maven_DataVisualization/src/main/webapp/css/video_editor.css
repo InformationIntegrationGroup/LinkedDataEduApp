@@ -120,15 +120,14 @@ h5{
 	list-style-type: none;
 	margin: 0;
 	padding: 20;
-	/*background: yellow;*/
 	position: relative;
 	display: inline-block;
 }
 .nodeElementBarContentWrap {
 	width: 40%;
-	height: 20%;
-	/*margin: 3%;*/
+	height: 150px;
 	float: left;
+    position: relative;
 }
 .nodeElementBarContentWrap > img {
 	width: 85%;
@@ -157,11 +156,10 @@ h5{
 
 }
 .movie-nav-bar {
-	width: 80%;
+	width: 75%;
 	list-style-type: none;
 	margin: 0px;
 	padding: 50px;
-	
 	display: inline-block;
 }
 .movie-nav-item-wrap{
@@ -371,15 +369,15 @@ h5{
 	cursor: pointer;
 }
 
-
 #audioPlayer {
  width: 100%;
 }
 
-/*TESTS*/
+/*	Used by old drag&drop method
 .ui-draggable-dragging {
 	z-index: 2;
 }
 .title > content {
 	z-index: 3;
 }
+*/
