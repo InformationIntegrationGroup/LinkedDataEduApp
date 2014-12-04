@@ -13,7 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.sql.*;
 import org.json.*;
-
+/**
+ *	This servlet merely searches the database and returns meta data about hash objects.
+ *	It does NOT update the lastAccessed field, and does NOT return actual hash objects.
+ *	To actually retrieve a hash object, one must use the retrieved hash ID to call the HashRetrievalServlet
+ */
 @WebServlet("/filterHash")
 public class HashFilterServlet extends HttpServlet{
 	
@@ -54,20 +58,20 @@ public class HashFilterServlet extends HttpServlet{
 		
 			// create a mysql database connection
 			String myDriver = "com.mysql.jdbc.Driver";
-			String myUrl = "jdbc:mysql://localhost/test";
+			String myUrl = "jdbc:mysql://localhost/lodstories";
 			Class.forName(myDriver);			
 			conn = DriverManager.getConnection(myUrl, "root", password);
 			st = conn.createStatement();
 
 			if (sourceFilter!=null && !sourceFilter.trim().isEmpty())
-				rs = st.executeQuery("SELECT * FROM hashtest WHERE path LIKE '"+sourceFilter+",%'");
+				rs = st.executeQuery("SELECT * FROM hash_objects WHERE path LIKE '"+sourceFilter+",%'");
 			else
-				rs = st.executeQuery("SELECT * FROM hashtest");
+				rs = st.executeQuery("SELECT * FROM hash_objects");
 		  
 			if (!rs.next()){
 				response.setContentType("text/plain");
 				response.setStatus(400);
-				out.println("Error retrieving hash object");
+				out.println("No videos available");
 				return;
 			} 
 			
@@ -151,4 +155,4 @@ public class HashFilterServlet extends HttpServlet{
 
 
 //Delete function example
-//delete from hashtest where lastModified<=DATE_SUB(NOW(), INTERVAL 1 MONTH);
+//delete from hash_objects where lastModified<=DATE_SUB(NOW(), INTERVAL 1 MONTH);

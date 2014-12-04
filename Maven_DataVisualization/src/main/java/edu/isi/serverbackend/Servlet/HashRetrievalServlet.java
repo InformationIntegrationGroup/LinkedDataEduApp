@@ -61,11 +61,11 @@ public class HashRetrievalServlet extends HttpServlet{
 		
 			// create a mysql database connection
 			String myDriver = "com.mysql.jdbc.Driver";
-			String myUrl = "jdbc:mysql://localhost/test";
+			String myUrl = "jdbc:mysql://localhost/lodstories";
 			Class.forName(myDriver);			
 			conn = DriverManager.getConnection(myUrl, "root", password);
 			st = conn.createStatement();		 
-			rs = st.executeQuery("SELECT hash FROM hashtest where id='"+id+"'");
+			rs = st.executeQuery("SELECT hash FROM hash_objects where id='"+id+"'");
 		  
 			if (!rs.next()){
 				response.setContentType("text/plain");
@@ -81,7 +81,7 @@ public class HashRetrievalServlet extends HttpServlet{
 			result.put("rating", rs.getInt("rating"));
 			
 			//Update the lastAccessed field
-			st.executeUpdate("UPDATE hashtest SET lastAccessed=NOW() WHERE id='"+id+"'");
+			st.executeUpdate("UPDATE hash_objects SET lastAccessed=CURRENT_TIMESTAMP() WHERE id='"+id+"'");
 			
 			response.setContentType("application/json");
 			
@@ -141,5 +141,5 @@ public class HashRetrievalServlet extends HttpServlet{
 }
 
 
-//Delete function example
-//delete from hashtest where lastModified<=DATE_SUB(NOW(), INTERVAL 1 MONTH);
+//Delete function example for deleting anything older than 60 days
+//delete from hash_objects where DATEDIFF(CURRENT_TIMESTAMP(),lastAccessed)>60;

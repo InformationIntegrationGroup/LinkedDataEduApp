@@ -6,6 +6,13 @@
 		<link rel="stylesheet" href="../css/dialogForm.css" type="text/css"/>
 		<script type="text/javascript">
 		$(document).ready(function(){		
+			var uri = 	"http://dbpedia.org/resource/T%C3%BDn_nad_Vltavou";
+			var label = uri.substr(uri.lastIndexOf('/') + 1);
+			label = decodeURI(label);
+			console.log(label);
+            //console.log(label.replace(/[^A-Za-z0-9]/g, ' '));
+			console.log(label.replace(/_/g,' '));
+		
 			var hash={"source":{"name":"William Joseph Burns","uri":"http://dbpedia.org/resource/William_Joseph_Burns"},"destination":{"name":"Fort Bragg","uri":"http://dbpedia.org/resource/Fort_Bragg"},"path":[{"type":"node","name":"William Joseph Burns","uri":"http://dbpedia.org/resource/William_Joseph_Burns","defaultText":"Hillary Rodham Clinton's deputy is William Joseph Burns. William Joseph Burns , a U. S. diplomat, is the current Deputy Secretary of State.","audio_text":"Hillary Rodham Clinton's deputy is William Joseph Burns. William Joseph Burns , a U. S. diplomat, is the current Deputy Secretary of State.","audio_time":10000},{"type":"link","inverse":false,"uri":"http://dbpedia.org/ontology/birthPlace"},{"type":"node","name":"Fort Bragg","uri":"http://dbpedia.org/resource/Fort_Bragg","defaultText":"William Joseph Burns's birth place is Fort Bragg. Fort Bragg is a major United States Army installation, located in Cumberland, Hoke, Harnett and Moore counties, North Carolina, mostly in Fayetteville but also partly in the town of Spring Lake.","audio_text":"William Joseph Burns's birth place is Fort Bragg. Fort Bragg is a major United States Army installation, located in Cumberland, Hoke, Harnett and Moore counties, North Carolina, mostly in Fayetteville but also partly in the town of Spring Lake.","audio_time":10000}]}
 						
 			var hashString = JSON.stringify(hash);
