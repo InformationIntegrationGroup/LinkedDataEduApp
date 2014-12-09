@@ -81,6 +81,7 @@ h5{
 	top: 6%;
 	left: 1%;
 	font-size: 16px;
+	z-index: 2;
 }
 
 .nodeNavBarElem {
@@ -88,6 +89,7 @@ h5{
 	margin: 0px;
 	border: 0px;
 	font-size: 14px;
+	z-index: 2;
 }
 .nav-justified {
 	height: 100%;
@@ -110,7 +112,7 @@ h5{
 	border: 1px solid;
 	border-radius: 10px;
 	border-color: gray;
-	z-index: 99;
+	z-index: 2;
 
 }
 .node-element-list {
@@ -233,7 +235,7 @@ h5{
 	left: 0%;
 	right: 5%;
 	text-align: center;
-	z-index: 999;
+	z-index: 2;
 }
 .moviePreview {
 	width: 100%;
@@ -259,6 +261,7 @@ h5{
 
 .audioPlayer {
 	width: 100%;
+	z-index: 2;
 }
 .imgPreview {
 	height: 100%;
@@ -369,3 +372,12 @@ h5{
 #audioPlayer {
  width: 100%;
 }
+
+/*	Used by old drag&drop method
+.ui-draggable-dragging {
+	z-index: 2;
+}
+.title > content {
+	z-index: 3;
+}
+*/

@@ -23,6 +23,8 @@
 
     	<link rel="stylesheet" href="../css/cssSlides.css" type="text/css"/>
 		<link rel="stylesheet" href="../css/cssIndex.css" type="text/css"/>
+		
+		<link rel="stylesheet" href="../css/dialogForm.css" type="text/css"/>
 
 	</head>
 	<body>
@@ -30,7 +32,7 @@
 			<div id="searchBox">
 				<h1>Linked Open Data Stories</h1>
 				<input id="search" class="form-control" placeholder="Search whatever you want to learn..." />
-				<button id="draw" class="btn btn-primary" accesskey="enter">Go</button>
+				<button id="searchButton" class="btn btn-primary" accesskey="enter">Go</button>
 				<div id="liveSearch" > </div>
 				<div id="liveSearchResult" > </div>
 				<div id="notice" class="demo-foot">You may find that some nodes are not working right now, this is probably because we are using DBpedia server and that server is sometimes down these days. We are working on a local version of DBpedia, which would solve this problem.
@@ -116,5 +118,25 @@
 			</div>
 		</div>
 		<div id="ytholder"></div>
+		
+		<div id="dialog-form" title="Save new hash object">
+			<form>
+				<fieldset>
+					<label for="title" class="saveForm">Title</label>
+					<input type="text" name="title" id="title" maxlength="255" class="text ui-widget-content ui-corner-all saveForm">
+					<label for="author" class="saveForm">Author</label>
+					<input type="text" name="author" id="author" maxlength="255" class="text ui-widget-content ui-corner-all saveForm">
+					<!-- Allow form submission with keyboard without duplicating the dialog button -->
+					<input type="submit" tabindex="-1" style="position:absolute; top:-1000px" class="saveForm">
+				</fieldset>
+			</form>
+		</div>
+		
+		<div id="mask"></div>
+		
+		<div id="screenWrap" style="display: none">
+			<div id="screen"></div>
+			<div id="subtitles"></div>
+		</div>
 	</body>
 </html>
