@@ -2,9 +2,12 @@ package edu.isi.serverbackend.linkedData;
 
 
 import java.util.*;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 
 import edu.isi.serverbackend.linkedData.LinkedDataConnection.CurrentNode;
 import edu.isi.serverbackend.feature.util.*;
+
 import org.openrdf.model.Literal;
 import org.openrdf.query.*;
 import org.openrdf.repository.*;
@@ -82,6 +85,7 @@ public class LinkedDataNode {
 			String language = objectLiteral.getLanguage();
 			if(language != null){
 				if(objectLiteral.getLanguage().equals("en")){
+					retrieveNameFromURI(bindingSet.getValue("object").stringValue());
 					LinkedDataNode objectNode = new LinkedDataNode(bindingSet.getValue("object").stringValue(), objectLiteral.stringValue(), bindingSet.getValue("type").stringValue(), repoConnection);
 					LinkedDataConnection newConnection = new LinkedDataConnection(this, objectNode, bindingSet.getValue("predicate").stringValue(), CurrentNode.subject, repoConnection);
 					//newConnection.setConnectionParam(Integer.parseInt(bindingSet.getValue("count").stringValue()));
@@ -125,6 +129,24 @@ public class LinkedDataNode {
 		}
 	}
 	
+	public String retrieveNameFromURI(String uri){
+		String temp = uri;
+		int index = 0;
+		try {
+			for(int i = 0; i < temp.length(); i++){
+				if(temp.charAt(i) == '/')
+					index = i;
+			}
+			temp = temp.substring(index + 1, temp.length());
+			temp = URLDecoder.decode(temp, "UTF-8");
+			temp = temp.replace("_", " ");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(temp);
+		return temp;
+	}
 	public void setName(String name){
 		this.name = name;
 	}
