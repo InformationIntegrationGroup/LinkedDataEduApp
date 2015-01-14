@@ -37,7 +37,7 @@ public class HashFilterServlet extends HttpServlet{
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		PrintWriter out = response.getWriter();
 		String sourceFilter = request.getParameter("startNode");
@@ -68,6 +68,7 @@ public class HashFilterServlet extends HttpServlet{
 			else
 				rs = st.executeQuery("SELECT * FROM hash_objects");
 		  
+			System.out.println("SELECT * FROM hash_objects WHERE path LIKE '"+sourceFilter+",%'");
 			if (!rs.next()){
 				response.setContentType("text/plain");
 				response.setStatus(400);
@@ -146,7 +147,7 @@ public class HashFilterServlet extends HttpServlet{
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doPost(request, response);
 	}

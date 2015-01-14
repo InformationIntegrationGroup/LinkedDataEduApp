@@ -1,0 +1,27 @@
+#videoList{
+	width: 100%;
+	table-layout: fixed;
+}
+.videoTitle, .videoAuthor{
+	width: 15%;
+}
+.videoID, .videoRating{
+	width: 10%;
+}
+.videoPath{
+	width: 50%;
+}
+table,td,th{
+	border: 1px solid black;
+    border-collapse: collapse;
+}
+th,td{
+	padding: 10px;
+	overflow: hidden;
+}
+th{
+	text-align: center;
+}
+td{
+	text-align: left;
+}

@@ -65,7 +65,7 @@ public class HashRetrievalServlet extends HttpServlet{
 			Class.forName(myDriver);			
 			conn = DriverManager.getConnection(myUrl, "root", password);
 			st = conn.createStatement();		 
-			rs = st.executeQuery("SELECT hash FROM hash_objects where id='"+id+"'");
+			rs = st.executeQuery("SELECT hash,title,author FROM hash_objects where id='"+id+"'");
 		  
 			if (!rs.next()){
 				response.setContentType("text/plain");
@@ -77,8 +77,8 @@ public class HashRetrievalServlet extends HttpServlet{
 			result.put("hash", rs.getString("hash"));
 			result.put("title", rs.getString("title"));
 			result.put("author", rs.getString("author"));
-			result.put("path", rs.getString("path"));
-			result.put("rating", rs.getInt("rating"));
+			//result.put("path", rs.getString("path"));
+			//result.put("rating", rs.getInt("rating"));
 			
 			//Update the lastAccessed field
 			st.executeUpdate("UPDATE hash_objects SET lastAccessed=CURRENT_TIMESTAMP() WHERE id='"+id+"'");

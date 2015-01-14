@@ -17,15 +17,15 @@
 	<link rel="stylesheet" href="../css/bootstrap-responsive.css" type="text/css" media="screen">
 
 	<!-- Customized Links -->
-	<link rel="stylesheet" href="../css/searchBox.css" type="text/css"/>
 	<link rel="stylesheet" href="../css/videoList.css" type="text/css"/>
-
+	<link rel="stylesheet" href="../css/searchBox.css" type="text/css"/>
+	
 	<link rel="stylesheet" href="../css/cssSlides.css" type="text/css"/>
 	<link rel="stylesheet" href="../css/cssIndex.css" type="text/css"/>
 
 </head>
 <body>
-	<div class="mainWrap">
+	<div id="searchWindow" class="mainWrap" style="display: none">
 		<div id="messageBox"></div>
 	
 		<div id="searchBox">
@@ -36,7 +36,20 @@
 			<div id="liveSearchResult" > </div>
 		</div>
 	</div>
-	<div id="videoList">
+	
+	<table id="videoList" style="display: none"> 
+		<tr>
+			<th class='videoID'>ID</th>
+			<th class='videoTitle'>Title</th>
+			<th class='videoAuthor'>Author</th>
+			<th class='videoPath'>Path</th>
+			<th class='videoRating'>Rating</th>
+		</tr>
+	</table>
+	
+	<div id="screenWrap" style="display: none">
+		<div id="screen"></div>
+		<div id="subtitles"></div>
 	</div>
 </body>
 </html>
