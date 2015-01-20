@@ -64,11 +64,11 @@ public class HashFilterServlet extends HttpServlet{
 			st = conn.createStatement();
 
 			if (sourceFilter!=null && !sourceFilter.trim().isEmpty())
-				rs = st.executeQuery("SELECT * FROM hash_objects WHERE path LIKE '"+sourceFilter+",%'");
+				rs = st.executeQuery("SELECT * FROM hash_objects WHERE path LIKE '"+sourceFilter+";%'");
 			else
 				rs = st.executeQuery("SELECT * FROM hash_objects");
 		  
-			System.out.println("SELECT * FROM hash_objects WHERE path LIKE '"+sourceFilter+",%'");
+			System.out.println("SELECT * FROM hash_objects WHERE path LIKE '"+sourceFilter+";%'");
 			if (!rs.next()){
 				response.setContentType("text/plain");
 				response.setStatus(400);
