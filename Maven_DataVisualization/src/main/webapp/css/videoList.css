@@ -2,17 +2,20 @@
 	width: 100%;
 	table-layout: fixed;
 }
-.videoTitle, .videoAuthor{
+.videoTitle, .videoAuthor, .videoThumbnail{
 	width: 15%;
+}
+.videoThumbnailImage{
+	width: 100%;
 }
 .videoID, .videoRating{
 	width: 10%;
 }
 .videoPath{
-	width: 50%;
+	width: 35%;
 }
 table,td,th{
-	border: 1px solid black;
+	border: 1px solid DarkGray;
     border-collapse: collapse;
 }
 th,td{

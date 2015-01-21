@@ -40,6 +40,7 @@ public class HashStoreServlet extends HttpServlet{
 		String title = request.getParameter("title");
 		String author = request.getParameter ("author");
 		String path = request.getParameter ("path");
+		String thumbnail = request.getParameter("thumbnail");
 		if (id!=null)
 			id = id.trim();
 		
@@ -64,14 +65,14 @@ public class HashStoreServlet extends HttpServlet{
 			
 			//Update process rather than insert...probably never going to be used with our current planned implementation
 			if (id!=null && !id.isEmpty()){
-				System.out.println("UPDATE hash_objects SET hash='"+hashObject+"',lastAccessed=NOW() WHERE id='"+id+"',title='"+title+"',author='"+author+"',path='"+path+"'");
+				System.out.println("UPDATE hash_objects SET hash='"+hashObject+"',lastAccessed=NOW() WHERE id='"+id+"',title='"+title+"',author='"+author+"',path='"+path+"',thumbnail='"+thumbnail+"'");
 				
 				updated = st.executeUpdate("UPDATE hash_objects SET hash='"+hashObject+"',lastAccessed=NOW() WHERE id='"+id+"'");
 				
 				//If the update process didn't change any entries, then try to create a new entry with that id, since it's open...
 				if (updated==0){
 					//Loop to create new ids, in case the original insert fails (it shouldn't, since the update failed b/c the id didn't exist...just being cautious)
-					while (!insertEntry(st,"INSERT INTO hash_objects(id, title, author, hash, path) VALUES ('"+id+"', '"+title+"', '"+author+"', '"+hashObject+"', '"+path+"')")){
+					while (!insertEntry(st,"INSERT INTO hash_objects(id, thumbnail, title, author, hash, path) VALUES ('"+id+"', '"+thumbnail+"', '"+title+"', '"+author+"', '"+hashObject+"', '"+path+"')")){
 						id = generateId();
 					}
 				}
@@ -80,9 +81,9 @@ public class HashStoreServlet extends HttpServlet{
 			else{
 				id =generateId();
 				
-				System.out.println("INSERT INTO hash_objects(id, title, author, hash, path) VALUES ('"+id+"', '"+title+"', '"+author+"', '"+hashObject+"', '"+path+"')");
+				System.out.println("INSERT INTO hash_objects(id, thumbnail, title, author, hash, path) VALUES ('"+id+"', '"+thumbnail+"', '"+title+"', '"+author+"', '"+hashObject+"', '"+path+"')");
 			 
-				while (!insertEntry(st,"INSERT INTO hash_objects(id, title, author, hash, path) VALUES ('"+id+"', '"+title+"', '"+author+"', '"+hashObject+"', '"+path+"')")){
+				while (!insertEntry(st,"INSERT INTO hash_objects(id, thumbnail, title, author, hash, path) VALUES ('"+id+"', '"+thumbnail+"', '"+title+"', '"+author+"', '"+hashObject+"', '"+path+"')")){
 					id = generateId();
 				}
 			} 

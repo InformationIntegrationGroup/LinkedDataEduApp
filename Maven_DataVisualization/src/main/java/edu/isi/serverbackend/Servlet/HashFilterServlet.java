@@ -64,11 +64,11 @@ public class HashFilterServlet extends HttpServlet{
 			st = conn.createStatement();
 
 			if (sourceFilter!=null && !sourceFilter.trim().isEmpty())
-				rs = st.executeQuery("SELECT * FROM hash_objects WHERE path LIKE '"+sourceFilter+";%'");
+				rs = st.executeQuery("SELECT id,table,author,path,rating,thumbnail FROM hash_objects WHERE path LIKE '"+sourceFilter+";%'");
 			else
-				rs = st.executeQuery("SELECT * FROM hash_objects");
+				rs = st.executeQuery("SELECT id,table,author,path,rating,thumbnail FROM hash_objects");
 		  
-			System.out.println("SELECT * FROM hash_objects WHERE path LIKE '"+sourceFilter+";%'");
+			System.out.println("SELECT id,table,author,path,rating,thumbnail FROM hash_objects WHERE path LIKE '"+sourceFilter+";%'");
 			if (!rs.next()){
 				response.setContentType("text/plain");
 				response.setStatus(400);
@@ -79,6 +79,7 @@ public class HashFilterServlet extends HttpServlet{
 			//Handle the first match before entering the while loop...
 			JSONObject newNode = new JSONObject();
 			newNode.put("hashID", rs.getString("id"));
+			newNode.put("thumbnail", rs.getString("thumbnail"));
 			newNode.put("title", rs.getString("title"));
 			newNode.put("author", rs.getString("author"));
 			newNode.put("path", rs.getString("path"));
@@ -88,6 +89,7 @@ public class HashFilterServlet extends HttpServlet{
 			while (rs.next()){
 				newNode = new JSONObject();
 				newNode.put("hashID", rs.getString("id"));
+				newNode.put("thumbnail", rs.getString("thumbnail"));
 				newNode.put("title", rs.getString("title"));
 				newNode.put("author", rs.getString("author"));
 				newNode.put("path", rs.getString("path"));
