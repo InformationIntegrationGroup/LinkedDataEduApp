@@ -25,6 +25,7 @@ public class HashFilterServlet extends HttpServlet{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private static int maxResults = 5;
 
 	/**
      * @see HttpServlet#HttpServlet()
@@ -41,6 +42,14 @@ public class HashFilterServlet extends HttpServlet{
 		// TODO Auto-generated method stub
 		PrintWriter out = response.getWriter();
 		String sourceFilter = request.getParameter("startNode");
+		int startIndex=0;
+		int i=0;
+		try{
+			startIndex = Integer.parseInt(request.getParameter("startIndex"));
+		}
+		catch(NumberFormatException e){
+			startIndex = 0;
+		}
 		JSONObject result = new JSONObject();
 		JSONArray hashObjects = new JSONArray();
 		
@@ -62,19 +71,26 @@ public class HashFilterServlet extends HttpServlet{
 			Class.forName(myDriver);			
 			conn = DriverManager.getConnection(myUrl, "root", password);
 			st = conn.createStatement();
-
+			
+			System.out.println("SELECT id,title,author,path,rating,thumbnail FROM hash_objects WHERE path LIKE '"+sourceFilter+";%' ORDER BY rating DESC,id ASC");
+			
 			if (sourceFilter!=null && !sourceFilter.trim().isEmpty())
-				rs = st.executeQuery("SELECT id,table,author,path,rating,thumbnail FROM hash_objects WHERE path LIKE '"+sourceFilter+";%'");
+				rs = st.executeQuery("SELECT id,title,author,path,rating,thumbnail FROM hash_objects WHERE path LIKE '"+sourceFilter+";%' ORDER BY rating DESC,id ASC");
 			else
-				rs = st.executeQuery("SELECT id,table,author,path,rating,thumbnail FROM hash_objects");
+				rs = st.executeQuery("SELECT id,title,author,path,rating,thumbnail FROM hash_objects ORDER BY rating DESC,id ASC");
 		  
-			System.out.println("SELECT id,table,author,path,rating,thumbnail FROM hash_objects WHERE path LIKE '"+sourceFilter+";%'");
 			if (!rs.next()){
 				response.setContentType("text/plain");
 				response.setStatus(400);
 				out.println("No videos available");
 				return;
 			} 
+			
+			i++;
+			while (i<=startIndex){
+				rs.next();
+				i++;
+			}
 			
 			//Handle the first match before entering the while loop...
 			JSONObject newNode = new JSONObject();
@@ -86,7 +102,8 @@ public class HashFilterServlet extends HttpServlet{
 			newNode.put("rating", rs.getInt("rating"));
 			hashObjects.put(newNode);
 			
-			while (rs.next()){
+			while (rs.next() && i<startIndex+maxResults){
+				i++;
 				newNode = new JSONObject();
 				newNode.put("hashID", rs.getString("id"));
 				newNode.put("thumbnail", rs.getString("thumbnail"));
@@ -113,6 +130,10 @@ public class HashFilterServlet extends HttpServlet{
 		catch (SQLException ex)
 		{
 			System.err.println("SQLException: " + ex.getMessage()+", SQLState: " + ex.getSQLState() + "VendorError: " + ex.getErrorCode());
+			response.setContentType("text/plain");
+			response.setStatus(400);
+			out.println("No videos available");
+			return;
 		}
 		catch (JSONException ex){
 			ex.printStackTrace();

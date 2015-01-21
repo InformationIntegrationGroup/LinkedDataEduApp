@@ -92,7 +92,8 @@ public class AbstractFinderServlet extends HttpServlet{
 					abstractString = bindingSet.getValue("comment").stringValue();
 					newNode.put("comment", cutParenthesis(abstractString));
 					
-					newNode.put("label", bindingSet.getValue("label").stringValue());
+					//Do NOT return the labels since character encoding screws over unicode labels
+					//newNode.put("label", bindingSet.getValue("label").stringValue());
 					newNode.put("type", bindingSet.getValue("type").stringValue());
 					
 					result.put(uris[i], newNode);

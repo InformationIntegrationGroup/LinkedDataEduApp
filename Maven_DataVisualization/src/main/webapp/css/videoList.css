@@ -28,3 +28,11 @@ th{
 td{
 	text-align: left;
 }
+#secondarySearch{
+	font-size: 1em;
+	position: relative;
+	font-family: JennaSue, sans-serif;
+	text-align: center;
+	width: 100%;
+	padding: 20px;
+}
