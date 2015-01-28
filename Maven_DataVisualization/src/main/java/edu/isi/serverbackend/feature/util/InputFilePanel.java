@@ -125,7 +125,7 @@ public class InputFilePanel extends JPanel implements ActionListener{
 			LinkedDataNode seed = new LinkedDataNode(seedURI, repoConnection);
 			DBpediaCrawler crawler = new DBpediaCrawler(seed);
 			crawler.startExplore(100);
-			ArrayList<LinkedDataConnection> links = crawler.exportLinks();
+			ArrayList<LinkedDataTriple> links = crawler.exportLinks();
 			for(int i = 0; i < links.size(); i++){
 				pw.print(links.get(i).getSubject().getURI() + " ");
 				pw.print(links.get(i).getPredicate() + " ");
@@ -165,8 +165,8 @@ public class InputFilePanel extends JPanel implements ActionListener{
 				ArrayList<Sample> temp  =  new ArrayList<Sample>();
 				LinkedDataNode node = new LinkedDataNode(line, repoConn);
 				node.retrieveNameAndType();
-				node.retrieveSubjectConnections(temp);
-				node.retrieveObjectConnections(temp);
+				node.retrieveObjectExtensions(temp, false);
+				node.retrieveSubjectExtensions(temp,false);
 				RarityDegree.calculateExtensionRarity(temp);
 				RarityDegree.calcuateNodeDegree(temp);
 				samples.addAll(temp);
@@ -305,8 +305,8 @@ public class InputFilePanel extends JPanel implements ActionListener{
 			LinkedDataNode currentNode = new LinkedDataNode(seed, repoConn);
 			currentNode.retrieveNameAndType();
 			ArrayList<Sample> samples = new ArrayList<Sample>();
-			currentNode.retrieveSubjectConnections(samples);
-			currentNode.retrieveObjectConnections(samples);
+			currentNode.retrieveObjectExtensions(samples, false);
+			currentNode.retrieveSubjectExtensions(samples, false);
 			RarityDegree.calcuateNodeDegree(samples);
 			RarityDegree.calculateExtensionRarity(samples);
 			NodeBean currentNodeBean = new NodeBean();
@@ -358,7 +358,7 @@ public class InputFilePanel extends JPanel implements ActionListener{
 			endpoint.initialize();
 			RepositoryConnection repoConn = endpoint.getConnection();
 			LinkedDataNode node = new LinkedDataNode(uri ,repoConn);
-			ConnectionRankRequest rankRequest = new ConnectionRankRequest(node);
+			TripleRankRequest rankRequest = new TripleRankRequest(node);
 			rankRequest.rateInterestingness();
 			rankRequest.sortConnections();
 			rankRequest.exportD3JSON(10);

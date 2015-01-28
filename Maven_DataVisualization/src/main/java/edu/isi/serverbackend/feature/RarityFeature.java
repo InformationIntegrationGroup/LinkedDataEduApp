@@ -7,11 +7,11 @@ import org.openrdf.repository.RepositoryConnection;
 import org.openrdf.repository.RepositoryException;
 
 import edu.isi.serverbackend.feature.util.Sample;
-import edu.isi.serverbackend.linkedData.LinkedDataConnection;
+import edu.isi.serverbackend.linkedData.LinkedDataTriple;
 
 public class RarityFeature {
 	
-	public static double calculatePredicateRarity(LinkedDataConnection link){
+	public static double calculatePredicateRarity(LinkedDataTriple link){
 		double rarity = 0;
 		String stringQuery = "SELECT (COUNT(*) AS ?count) WHERE{ "
 				+ "?s <"+link.getPredicate()+"> ?o. "

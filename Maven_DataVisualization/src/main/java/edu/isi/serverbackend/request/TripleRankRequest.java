@@ -17,21 +17,21 @@ import org.openrdf.query.*;
 import org.openrdf.repository.*;
 import org.json.*;
 
-public class ConnectionRankRequest {
+public class TripleRankRequest {
 	private LinkedDataNode currentNode;
 	private List<Sample> samples;
 	String ratingResponse = "";
 	//private RepositoryConnection repoConnection;
 	
-	public ConnectionRankRequest(LinkedDataNode currentNode){
+	public TripleRankRequest(LinkedDataNode currentNode){
 		this.currentNode = currentNode;
 		//this.repoConnection = currentNode.getRepoConnection();
 		this.samples = new ArrayList<Sample>();
 		
 		
 		try {
-			retrieveSubjectConnections();
-			retrieveObjectConnections();
+			retrieveObjectExtensions();
+			retrieveSubjectExtensions();
 			
 		} catch (RepositoryException e) {
 			// TODO Auto-generated catch block
@@ -49,12 +49,12 @@ public class ConnectionRankRequest {
 		
 	}
 	
-	public void retrieveSubjectConnections() throws RepositoryException, MalformedQueryException, QueryEvaluationException{
-		currentNode.retrieveSubjectConnections(samples);
+	public void retrieveObjectExtensions() throws RepositoryException, MalformedQueryException, QueryEvaluationException{
+		currentNode.retrieveObjectExtensions(samples, false);
 	}
 	
-	public void retrieveObjectConnections() throws RepositoryException, MalformedQueryException, QueryEvaluationException{
-		currentNode.retrieveObjectConnections(samples);
+	public void retrieveSubjectExtensions() throws RepositoryException, MalformedQueryException, QueryEvaluationException{
+		currentNode.retrieveSubjectExtensions(samples, false);
 	}
 	
 	public void rateInterestingness(){

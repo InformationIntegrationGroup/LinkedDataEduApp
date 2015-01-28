@@ -7,10 +7,10 @@ import org.openrdf.repository.RepositoryConnection;
 import org.openrdf.repository.RepositoryException;
 
 import edu.isi.serverbackend.feature.util.Sample;
-import edu.isi.serverbackend.linkedData.LinkedDataConnection;
+import edu.isi.serverbackend.linkedData.LinkedDataTriple;
 
 public class EitherNotPlaceFeature {
-	public static int isEitherNotPlace(LinkedDataConnection link){
+	public static int isEitherNotPlace(LinkedDataTriple link){
 		int eitherIsNotPlace = 1;
 		String currentURI;
 		String extensionURI;
