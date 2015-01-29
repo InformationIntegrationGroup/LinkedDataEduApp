@@ -72,12 +72,12 @@ public class HashFilterServlet extends HttpServlet{
 			conn = DriverManager.getConnection(myUrl, "root", password);
 			st = conn.createStatement();
 			
-			System.out.println("SELECT id,title,author,path,rating,thumbnail FROM hash_objects WHERE path LIKE '"+sourceFilter+";%' ORDER BY rating DESC,id ASC");
+			System.out.println("SELECT id,title,author,path,likes,dislikes,thumbnail FROM hash_objects WHERE path LIKE '"+sourceFilter+";%' ORDER BY rating DESC,id ASC");
 			
 			if (sourceFilter!=null && !sourceFilter.trim().isEmpty())
-				rs = st.executeQuery("SELECT id,title,author,path,rating,thumbnail FROM hash_objects WHERE path LIKE '"+sourceFilter+";%' ORDER BY rating DESC,id ASC");
+				rs = st.executeQuery("SELECT id,title,author,path,likes,dislikes,thumbnail FROM hash_objects WHERE path LIKE '"+sourceFilter+";%' ORDER BY (likes-dislikes) DESC,id ASC");
 			else
-				rs = st.executeQuery("SELECT id,title,author,path,rating,thumbnail FROM hash_objects ORDER BY rating DESC,id ASC");
+				rs = st.executeQuery("SELECT id,title,author,path,likes,dislikes,thumbnail FROM hash_objects ORDER BY (likes-dislikes) DESC,id ASC");
 		  
 			if (!rs.next()){
 				response.setContentType("text/plain");
@@ -99,7 +99,8 @@ public class HashFilterServlet extends HttpServlet{
 			newNode.put("title", rs.getString("title"));
 			newNode.put("author", rs.getString("author"));
 			newNode.put("path", rs.getString("path"));
-			newNode.put("rating", rs.getInt("rating"));
+			newNode.put("likes", rs.getInt("likes"));
+			newNode.put("dislikes", rs.getInt("dislikes"));
 			hashObjects.put(newNode);
 			
 			while (rs.next() && i<startIndex+maxResults){
@@ -110,7 +111,8 @@ public class HashFilterServlet extends HttpServlet{
 				newNode.put("title", rs.getString("title"));
 				newNode.put("author", rs.getString("author"));
 				newNode.put("path", rs.getString("path"));
-				newNode.put("rating", rs.getInt("rating"));
+				newNode.put("likes", rs.getInt("likes"));
+				newNode.put("dislikes", rs.getInt("dislikes"));
 				hashObjects.put(newNode);
 			}
 			

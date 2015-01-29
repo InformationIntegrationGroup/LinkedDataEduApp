@@ -67,9 +67,9 @@ public class VideoRatingServlet extends HttpServlet{
 			st = conn.createStatement();
 			
 			if (vote)
-				st.executeUpdate("UPDATE hash_objects SET rating=rating+1 where id='"+id+"'");
+				st.executeUpdate("UPDATE hash_objects SET likes=likes+1 where id='"+id+"'");
 			else
-				st.execute("UPDATE hash_objects SET rating=rating-1 where id='"+id+"'");
+				st.execute("UPDATE hash_objects SET dislikes=dislikes-1 where id='"+id+"'");
 			
 			
 		}
