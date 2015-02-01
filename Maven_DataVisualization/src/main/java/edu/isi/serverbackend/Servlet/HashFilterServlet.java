@@ -56,14 +56,19 @@ public class HashFilterServlet extends HttpServlet{
 		Connection conn=null;
 		Statement st=null;
 		ResultSet rs=null;
-		
+		String password;
 		try{  
 			//Read the SQL password from a file
 			BufferedReader reader = null;
+			try{
 			InputStream inputStream = getClass().getClassLoader().getResourceAsStream("SQLpw.txt");
 			reader = new BufferedReader(new InputStreamReader(inputStream));
-			String password = reader.readLine();
-		
+				password = reader.readLine();
+			}
+			catch (NullPointerException e){
+				e.getStackTrace();
+				password = "";
+			}
 		
 			// create a mysql database connection
 			String myDriver = "com.mysql.jdbc.Driver";
