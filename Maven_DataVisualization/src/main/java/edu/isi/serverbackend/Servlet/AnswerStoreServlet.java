@@ -11,25 +11,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import edu.isi.serverbackend.linkedData.LinkedDataNode;
-
-import org.json.JSONException;
-import org.openrdf.query.MalformedQueryException;
-import org.openrdf.query.QueryEvaluationException;
-import org.openrdf.repository.RepositoryConnection;
-import org.openrdf.repository.RepositoryException;
-import org.openrdf.repository.http.HTTPRepository;
-
-import edu.isi.serverbackend.request.*;
-
 /**
  * Servlet implementation class LinkRankingServlet
  */
 @WebServlet("/AnswerStoreServlet")
-public class AnswerStoreServlet extends HttpServlet {
-	//private static final long serialVersionUID = 1L;
-       
-    /**
+public class AnswerStoreServlet extends HttpServlet {       
+
+	
+	private static final long serialVersionUID = 1L;
+	/**
      * @see HttpServlet#HttpServlet()
      */
     public AnswerStoreServlet() {
