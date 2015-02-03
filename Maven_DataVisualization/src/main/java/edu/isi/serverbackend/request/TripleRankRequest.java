@@ -58,7 +58,7 @@ public class TripleRankRequest {
 	}
 	
 	public void rateInterestingness(){
-		RarityFeature.calculatePredicateRarity(samples);
+		//RarityFeature.calculatePredicateRarity(samples);
 		//ImportanceFeature.calculateImportance(samples);
 		
 		try {
