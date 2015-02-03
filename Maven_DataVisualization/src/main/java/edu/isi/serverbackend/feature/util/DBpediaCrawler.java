@@ -1,7 +1,7 @@
 package edu.isi.serverbackend.feature.util;
 
 import edu.isi.serverbackend.linkedData.*;
-import edu.isi.serverbackend.linkedData.LinkedDataConnection.CurrentNode;
+import edu.isi.serverbackend.linkedData.LinkedDataTriple.CurrentNode;
 
 import java.util.*;
 
@@ -11,7 +11,7 @@ import org.openrdf.repository.RepositoryException;
 
 public class DBpediaCrawler {
 	
-	ArrayList<LinkedDataConnection> connections;
+	ArrayList<LinkedDataTriple> connections;
 	Queue<String> nodes;
 	HashMap<String, String> nodesMap;
 	LinkedDataNode seed;
@@ -20,7 +20,7 @@ public class DBpediaCrawler {
 		this.seed = seed;
 		this.nodes = new PriorityQueue<String>();
 		this.nodesMap = new HashMap<String, String>();
-		this.connections = new ArrayList<LinkedDataConnection>();
+		this.connections = new ArrayList<LinkedDataTriple>();
 	}
 	
 	public void startExplore(int max){
@@ -46,7 +46,7 @@ public class DBpediaCrawler {
 					if(nodesMap.get(newURI) == null){
 						LinkedDataNode subject = new LinkedDataNode(currentURI, seed.getRepoConnection());
 						LinkedDataNode object = new LinkedDataNode(newURI, seed.getRepoConnection());
-						LinkedDataConnection newLink = new LinkedDataConnection(subject, object, predicate, CurrentNode.subject, seed.getRepoConnection());
+						LinkedDataTriple newLink = new LinkedDataTriple(subject, object, predicate, CurrentNode.subject, seed.getRepoConnection());
 						connections.add(newLink);
 						nodesMap.put(newURI, currentURI);
 						nodes.add(newURI);
@@ -67,7 +67,7 @@ public class DBpediaCrawler {
 		}
 	}
 	
-	public ArrayList<LinkedDataConnection> exportLinks(){
+	public ArrayList<LinkedDataTriple> exportLinks(){
 		
 		return this.connections;
 	}

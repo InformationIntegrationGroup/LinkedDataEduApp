@@ -1,9 +1,6 @@
 package edu.isi.serverbackend.Servlet;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.NoSuchElementException;
-import java.util.Random;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -50,13 +47,19 @@ public class HashRetrievalServlet extends HttpServlet{
 		Connection conn=null;
 		Statement st=null;
 		ResultSet rs=null;
-		
+		String password;
 		try{  
 			//Read the SQL password from a file
 			BufferedReader reader = null;
+			try{
 			InputStream inputStream = getClass().getClassLoader().getResourceAsStream("SQLpw.txt");
 			reader = new BufferedReader(new InputStreamReader(inputStream));
-			String password = reader.readLine();
+				password = reader.readLine();
+			}
+			catch (NullPointerException e){
+				e.getStackTrace();
+				password = "";
+			}
 		
 		
 			// create a mysql database connection

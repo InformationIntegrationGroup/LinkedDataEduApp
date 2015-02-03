@@ -1,7 +1,7 @@
 package edu.isi.serverbackend.feature;
 
 import edu.isi.serverbackend.feature.util.Sample;
-import edu.isi.serverbackend.linkedData.LinkedDataConnection;
+import edu.isi.serverbackend.linkedData.LinkedDataTriple;
 
 import java.util.*;
 
@@ -9,7 +9,7 @@ import org.openrdf.query.*;
 import org.openrdf.repository.*;
 
 public class SmallPlaceFeature {
-	public static float calculateSmallPlace(LinkedDataConnection link){
+	public static float calculateSmallPlace(LinkedDataTriple link){
 		float smallParam = 0;
 		String evaluateURI;
 		

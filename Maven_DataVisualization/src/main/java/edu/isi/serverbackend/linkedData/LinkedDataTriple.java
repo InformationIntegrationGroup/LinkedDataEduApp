@@ -7,10 +7,8 @@ import org.openrdf.query.TupleQuery;
 import org.openrdf.query.TupleQueryResult;
 import org.openrdf.repository.RepositoryConnection;
 import org.openrdf.repository.RepositoryException;
-import org.openrdf.query.BindingSet;
-import org.openrdf.model.*;
 
-public class LinkedDataConnection {
+public class LinkedDataTriple {
 	private int connectionParam = -1;
 	private double interestingness;
 	private LinkedDataNode subject;
@@ -20,7 +18,7 @@ public class LinkedDataConnection {
 	private CurrentNode currentNode;
 	private RepositoryConnection connection;
 	
-	public LinkedDataConnection(LinkedDataNode subject, LinkedDataNode object, String predicate, CurrentNode node, RepositoryConnection connection){
+	public LinkedDataTriple(LinkedDataNode subject, LinkedDataNode object, String predicate, CurrentNode node, RepositoryConnection connection){
 		this.subject = subject;
 		this.object = object;
 		this.currentNode = node;
@@ -53,11 +51,11 @@ public class LinkedDataConnection {
 		//this.connectionParam = subjectParam + Integer.parseInt(result.next().getValue("count").stringValue());
 	}
 	
-	public int getConnectionParam(){
+	public int getTripleParam(){
 		return this.connectionParam;
 	}
 	
-	public void setConnectionParam(int param){
+	public void setTripleParam(int param){
 		this.connectionParam = param;
 	}
 	

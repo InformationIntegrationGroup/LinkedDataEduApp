@@ -74,8 +74,8 @@ public class LinkedDataCachingRequest{
 		try {
 			insertNodeIntoTemp(seed, ADDED);
 			seed.retrieveNameAndType();
-			seed.retrieveSubjectConnections(samples);
-			seed.retrieveObjectConnections(samples);
+			seed.retrieveObjectExtensions(samples, false);
+			seed.retrieveSubjectExtensions(samples, false);
 			RarityDegree.calcuateNodeDegree(samples);
 			RarityDegree.calculateExtensionRarity(samples);
 			ImportanceFeature.calculateImportance(samples);
@@ -83,8 +83,8 @@ public class LinkedDataCachingRequest{
 			while (!nodeQueue.isEmpty() && total < maxNum) {
 				samples = new ArrayList<Sample>();
 				LinkedDataNode currentNode = nodeQueue.remove();
-				currentNode.retrieveSubjectConnections(samples);
-				currentNode.retrieveObjectConnections(samples);
+				currentNode.retrieveObjectExtensions(samples, false);
+				currentNode.retrieveSubjectExtensions(samples, false);
 				RarityDegree.calcuateNodeDegree(samples);
 				RarityDegree.calculateExtensionRarity(samples);
 				ImportanceFeature.calculateImportance(samples);

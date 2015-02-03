@@ -59,11 +59,11 @@ public class LinkRankServlet extends HttpServlet {
 				//if(!extractRankRequest.checkAlreadyCached()){
 					currentNode = new LinkedDataNode(currentURI, repoConnection);
 					long startTime = System.currentTimeMillis();
-					ConnectionRankRequest rankRequest = new ConnectionRankRequest(currentNode);
+					TripleRankRequest rankRequest = new TripleRankRequest(currentNode);
 					long endTime = System.currentTimeMillis();
-					long featureRatingStartTime = System.currentTimeMillis();
+					//long featureRatingStartTime = System.currentTimeMillis();
 					rankRequest.rateInterestingness();
-					long featureRatingEndTime = System.currentTimeMillis();
+					//long featureRatingEndTime = System.currentTimeMillis();
 					long sortingStartTime = System.currentTimeMillis();
 					rankRequest.sortConnections();
 					long sortingEndTime = System.currentTimeMillis();

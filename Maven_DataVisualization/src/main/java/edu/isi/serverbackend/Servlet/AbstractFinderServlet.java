@@ -2,7 +2,6 @@ package edu.isi.serverbackend.Servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 import javax.servlet.ServletException;
@@ -11,10 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.openrdf.model.Literal;
 import org.openrdf.query.BindingSet;
 import org.openrdf.query.MalformedQueryException;
 import org.openrdf.query.QueryEvaluationException;
@@ -46,7 +43,9 @@ public class AbstractFinderServlet extends HttpServlet{
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		//Always call the encoding before anything else
+		response.setCharacterEncoding("UTF-8");
+		
 		PrintWriter out = response.getWriter();
 		HTTPRepository endpoint = new HTTPRepository("http://dbpedia.org/sparql", "");
 		String allUris;
@@ -84,13 +83,12 @@ public class AbstractFinderServlet extends HttpServlet{
 				
 				try{
 					BindingSet bindingSet = queryResult.next();
-					
+
 					JSONObject newNode = new JSONObject();
 					String abstractString = bindingSet.getValue("abstract").stringValue();
-					newNode.put("abstract", cutParenthesis(abstractString));
-					
+					newNode.put("abstract", formatString(abstractString));
 					abstractString = bindingSet.getValue("comment").stringValue();
-					newNode.put("comment", cutParenthesis(abstractString));
+					newNode.put("comment", formatString(abstractString));
 					
 					//Do NOT return the labels since character encoding screws over unicode labels
 					//newNode.put("label", bindingSet.getValue("label").stringValue());
@@ -99,13 +97,13 @@ public class AbstractFinderServlet extends HttpServlet{
 					result.put(uris[i], newNode);
 				}
 				catch (NoSuchElementException nse){
+					System.out.println("No abstracts found for "+uris[i]);
 					continue;
 				}
 				
 			
 			}
 			response.setContentType("application/json");
-			response.setCharacterEncoding("UTF-8");
 			
 			out.println(jsonCallback + "(" + result.toString() + ")");
 			
@@ -134,7 +132,18 @@ public class AbstractFinderServlet extends HttpServlet{
 		}
 	}
 	
-	private String cutParenthesis(String desc){
+	private static String formatString(String desc){
+		desc = cutParenthesis(desc);
+		
+		//Fix any spacing issues that may have arisen from killing the parenthesis, such as double spaces and spaces before punctuation
+		desc = desc.replaceAll(" {2,}", " ");
+		desc = desc.replaceAll(" ,", ",");
+		desc = desc.replaceAll(" \\.", ".");
+		
+		return desc;
+	}
+	
+	private static String cutParenthesis(String desc){
 		if (desc.contains("(") && desc.contains(")")){
 			if (desc.indexOf('(')<desc.indexOf(')'))
 				return desc.substring(0,desc.indexOf('(')) + cutParenthesis(desc.substring(desc.indexOf('(')+1));
@@ -143,11 +152,10 @@ public class AbstractFinderServlet extends HttpServlet{
 		}
 			
 		if (desc.contains(")"))
-			return desc.substring(desc.indexOf(')')+1);
+			return desc.substring(desc.lastIndexOf(')')+1);
 			
 		return desc;
-		
-		
+			
 	}
 
 	/**

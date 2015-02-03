@@ -5,7 +5,7 @@ import edu.isi.serverbackend.feature.EitherNotPlaceFeature;
 import edu.isi.serverbackend.linkedData.*;
 
 public class Sample {
-	protected LinkedDataConnection link;
+	protected LinkedDataTriple link;
 	protected double rarity;
 	protected double extensionImporatance;
 	protected float eitherNotPlace;
@@ -19,7 +19,7 @@ public class Sample {
 	protected double subjectRarity;
 	double interestingness;
 	
-	public Sample(LinkedDataConnection link){
+	public Sample(LinkedDataTriple link){
 		this.link = link;
 		this.rarity = 0;
 		this.extensionImporatance = 0;
@@ -32,7 +32,7 @@ public class Sample {
 		
 	}
 	
-	public Sample(LinkedDataConnection link, double interestingness){
+	public Sample(LinkedDataTriple link, double interestingness){
 		this.link = link;
 		this.rarity = 0;
 		this.eitherNotPlace = 0;
@@ -52,11 +52,11 @@ public class Sample {
 		//smallPlace = SmallPlaceFeature.calculateSmallPlace(link);
 	}
 
-	public LinkedDataConnection getLink() {
+	public LinkedDataTriple getLink() {
 		return link;
 	}
 
-	public void setLink(LinkedDataConnection link) {
+	public void setLink(LinkedDataTriple link) {
 		this.link = link;
 	}
 

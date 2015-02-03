@@ -2,7 +2,7 @@ package edu.isi.serverbackend.feature;
 
 import java.util.*;
 
-import edu.isi.serverbackend.linkedData.LinkedDataConnection;
+import edu.isi.serverbackend.linkedData.LinkedDataTriple;
 import edu.isi.serverbackend.feature.util.*;
 
 import org.openrdf.query.*;
@@ -10,7 +10,7 @@ import org.openrdf.repository.RepositoryConnection;
 import org.openrdf.repository.RepositoryException;
 
 public class DifferentOccupationFeature {
-	public static float isDifferentOccupation(LinkedDataConnection link){
+	public static float isDifferentOccupation(LinkedDataTriple link){
 		float differentOccupation = 0;
 		String currentURI;
 		String extensionURI;
