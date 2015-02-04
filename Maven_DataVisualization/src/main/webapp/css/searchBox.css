@@ -31,7 +31,6 @@ html, body {
 	height: 45px;
 	width: 12%;
 	margin: 20px 10px 0px;
-
 	font-size: 20px;
 }
 #searchUpdate {
@@ -59,7 +58,7 @@ html, body {
 	height: 130px;
 	margin: 0px 20px;
 	overflow: scroll;
-	
+	display: none;
 }
 #liveSearchResult{
 	display: none;
