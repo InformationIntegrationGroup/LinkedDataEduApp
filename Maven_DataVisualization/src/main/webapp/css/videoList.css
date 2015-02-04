@@ -2,17 +2,23 @@
 	width: 100%;
 	table-layout: fixed;
 }
-.videoTitle, .videoAuthor, .videoThumbnail{
+.videoTitle, .videoAuthor, .videoThumbnail, .videoRating{
 	width: 15%;
 }
 .videoThumbnailImage{
 	width: 100%;
 }
-.videoID, .videoRating{
+.videoID {
 	width: 10%;
 }
 .videoPath{
-	width: 35%;
+	width: 30%;
+}
+.likes{
+	background-color: #00FF66;
+}
+.dislikes{
+	background-color: #FF6666;
 }
 table,td,th{
 	border: 1px solid DarkGray;
