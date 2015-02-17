@@ -1,35 +1,29 @@
 #videoList{
-	width: 100%;
+	width: 80%;
 	table-layout: fixed;
 }
-.videoTitle, .videoAuthor, .videoThumbnail, .videoRating{
-	width: 15%;
+.videoInfo{
+	padding: 20px;
+}
+.videoThumbnail{
+	width: 30%;
 }
 .videoThumbnailImage{
 	width: 100%;
+	max-height: 200px;
 }
-.videoID {
-	width: 10%;
+.ratingInfo{
+	list-style: outside none none;
 }
-.videoPath{
-	width: 30%;
+.ratingInfo>li:first-child:before{
+	display: none;
 }
-.likes{
-	background-color: #00FF66;
+.ratingInfo>li:before{
+	content: "•";
+    margin: 0 5px;
 }
-.dislikes{
-	background-color: #FF6666;
-}
-table,td,th{
-	border: 1px solid DarkGray;
-    border-collapse: collapse;
-}
-th,td{
-	padding: 10px;
-	overflow: hidden;
-}
-th{
-	text-align: center;
+.ratingInfo>li{
+	display: inline-block;
 }
 td{
 	text-align: left;
