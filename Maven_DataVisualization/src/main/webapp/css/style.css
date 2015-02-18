@@ -1,18 +1,20 @@
 html, body {
-	margin: 0px;
+	margin: 10px;
 	padding: 0px;
 	border: 0px;
 	font-family: Arial, Helvetica, sans-serif;
-	
+    height:100%;
+    width: 100%;
 }
-body{
-	
-	/*background-image: url('../img/background2.jpg');*/
+
+body {
+    min-height: 100%;
 }
 
 #body {
 	display: none;
 }
+
 img {
 	display: block;
 	float: left;
@@ -96,17 +98,6 @@ path.linkHighlight{
 
 	font-size: 20px;
 }
-#redraw {
-
-	
-	
-}
-#finish {
-
-	
-	
-}
-
 #chart {
 	overflow: scroll;
 }
