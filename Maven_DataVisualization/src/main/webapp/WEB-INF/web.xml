@@ -52,15 +52,6 @@
         <servlet-name>Store-Data</servlet-name>
         <url-pattern>/storeServlet</url-pattern>
     </servlet-mapping>
-
-    <servlet>
-        <servlet-name>Store-Live-Data</servlet-name>
-        <servlet-class>edu.isi.serverbackend.Servlet.LiveAnswerStoreServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Store-Live-Data</servlet-name>
-        <url-pattern>/storeLiveServlet</url-pattern>
-    </servlet-mapping>
     
    <servlet>
     <servlet-name>Jersey REST Service</servlet-name>
