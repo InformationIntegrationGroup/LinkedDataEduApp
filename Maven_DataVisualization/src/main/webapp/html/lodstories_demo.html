@@ -41,20 +41,18 @@
     </div>
 </div>
 <div id="canvasWindow" class="mainWrap" style="display: none">
-    <div id="canvasStepNavigator" class="stepNavigator">
-
-        <button id="redraw" type="button" class="floatLeft btn btn-primary btn-sm btn-nav redraw">Start Over</button>
-        <button id="finish" type="button" class="floatRight btn btn-success btn-nav btn-sm">Proceed to Story Editor</button>
-
-
-    </div>
     <div id="chart" class="mainContent">
         <div id="relation" style="display: none;"> </div>
+    </div>
+    <div id="canvasStepNavigator" class="fullWidth">
+        <button id="redraw" type="button" class="floatLeft btn btn-primary btn-sm btn-nav redraw">Start Over</button>
+        <button id="finish" type="button" class="floatRight btn btn-success btn-nav btn-sm">Proceed to Story Editor</button>
     </div>
 </div>
 
 <div id="editor" style="display: none">
-    <div id="videoEditor" class="fullWidth fullHeight">
+    <div id="videoEditor" class="container">
+        <div class="row">
         <!-- <button id="generateVideoEditor" class="btn btn-primary">Video Editor</button> -->
         <div class="col-4">
             <div id="nodeElementBar" class="height2">
@@ -86,24 +84,23 @@
                 </div>
             </div>
             <div class="row">
-                <div id="audioDescriptionWrap" class="audioDescriptionWrap">
-                    <textarea class="textDescription" id="textDescription"></textarea>
-                </div>
+                <textarea id="textDescription" class="fullWidth"></textarea>
             </div>
             <div class="row">
-                <div id="movieNavBarWrap" class="movieNavBarWrap">
+                <div id="movieNavBarWrap" class="movieNavBarWrap fullWidth">
                     <ul id="movie-nav-bar" class="movie-nav-bar"> </ul>
                 </div>
             </div>
-            <div class="row">
-                <div id="stepNavigator" class="stepNavigator">
-                    <button id="lastStep" type="button" class="btn btn-default btn-sm redraw">Start Over</button>
-                    <button id="play-slide" type="button" class="btn btn-warning btn-sm" style="display: none;">Play Slide</button>
-                    <button id="play-button" type="button" class="btn btn-success btn-sm">Play Movie</button>
-                    <button id="save-button" type="button" class="btn btn-warning btn-sm">Save Movie</button>
-                </div>
-            </div>
         </div>
+    </div>
+    </div>
+    <div class="row">
+        <center><div id="stepNavigator" class="fullWidth">
+            <button id="lastStep" type="button" class="btn btn-default btn-sm redraw">Start Over</button>
+            <button id="play-slide" type="button" class="btn btn-warning btn-sm" style="display: none;">Play Slide</button>
+            <button id="play-button" type="button" class="btn btn-success btn-sm">Play Movie</button>
+            <button id="save-button" type="button" class="btn btn-warning btn-sm">Save Movie</button>
+        </div></center>
     </div>
 
     <div id="slider-range-min" class="slideProgressBar"> </div>
