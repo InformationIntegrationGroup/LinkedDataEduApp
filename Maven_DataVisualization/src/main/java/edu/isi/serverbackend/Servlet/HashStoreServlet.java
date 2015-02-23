@@ -1,8 +1,6 @@
 package edu.isi.serverbackend.Servlet;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.NoSuchElementException;
 import java.util.Random;
 
 import javax.servlet.ServletException;
@@ -33,7 +31,8 @@ public class HashStoreServlet extends HttpServlet{
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		//response.setCharacterEncoding("UTF-8");
+		
 		PrintWriter out = response.getWriter();
 		String hashObject = request.getParameter("hash");
 		String id = request.getParameter("hashID");
@@ -46,12 +45,19 @@ public class HashStoreServlet extends HttpServlet{
 		
 		Connection conn=null;
 		Statement st=null;
+		String password;
 		try{  
 			//Read the SQL password from a file
 			BufferedReader reader = null;
+			try{
 			InputStream inputStream = getClass().getClassLoader().getResourceAsStream("SQLpw.txt");
 			reader = new BufferedReader(new InputStreamReader(inputStream));
-			String password = reader.readLine();
+				password = reader.readLine();
+			}
+			catch (NullPointerException e){
+				e.getStackTrace();
+				password = "";
+			}
 		
 		
 			// create a mysql database connection

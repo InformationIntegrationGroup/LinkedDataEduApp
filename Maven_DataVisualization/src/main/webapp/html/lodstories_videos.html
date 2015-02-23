@@ -31,26 +31,19 @@
 		<div id="searchBox">
 			<h1>Watch Linked Open Data Stories</h1>
 			<input id="search" class="form-control" placeholder="Explore videos that begin with..." />
-			<button id="searchButton" class="btn btn-primary" accesskey="enter">Search!</button>
+			<button id="searchButton" class="btn btn-primary videoSearch" accesskey="enter">Search!</button>
 			<div id="liveSearch" > </div>
 			<div id="liveSearchResult" > </div>
 		</div>
 	</div>
 	
-	<table id="videoList" class="table-striped" style="display: none"> 
-		<thead>
-			<tr>
-				<th class='videoID'>ID</th>
-				<th class='videoThumbnail'>Thumbnail</th>
-				<th class='videoTitle'>Title</th>
-				<th class='videoAuthor'>Author</th>
-				<th class='videoPath'>Path</th>
-				<th class='videoRating'>Rating</th>
-			</tr>
-		</thead>
-		<tbody>
-		</tbody>
-	</table>
+	<div class="listWrap" style="display: none">
+		<table id="videoList" align="center" class="table-hover table"> 
+			<tbody>
+			</tbody>
+		</table>
+		<div id="secondarySearch"><button class="videoSearch">Show More</button></div>
+	</div>
 	
 	<div id="screenWrap" style="display: none">
 		<div id="screen"></div>

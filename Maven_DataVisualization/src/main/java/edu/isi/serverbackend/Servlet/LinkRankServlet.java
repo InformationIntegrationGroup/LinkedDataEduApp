@@ -61,9 +61,9 @@ public class LinkRankServlet extends HttpServlet {
 					long startTime = System.currentTimeMillis();
 					TripleRankRequest rankRequest = new TripleRankRequest(currentNode);
 					long endTime = System.currentTimeMillis();
-					long featureRatingStartTime = System.currentTimeMillis();
+					//long featureRatingStartTime = System.currentTimeMillis();
 					rankRequest.rateInterestingness();
-					long featureRatingEndTime = System.currentTimeMillis();
+					//long featureRatingEndTime = System.currentTimeMillis();
 					long sortingStartTime = System.currentTimeMillis();
 					rankRequest.sortConnections();
 					long sortingEndTime = System.currentTimeMillis();

@@ -91,30 +91,6 @@ path.linkHighlight{
 	top: -15px;
 	left: 5px;
 }*/
-
-#searchBox {
-	width: 80%;
-	height: 30%;
-	position: relative;
-	top: 30%;
-	margin: 0px auto;
-	
-}
-#searchBox > h1 {
-	font-size: 60px;
-	margin: 0px;
-	text-align: center;
-	color: rgb(63,132,192);
-	width: 100%;
-}
-#search {
-	width: 80%;
-	height: 45px;
-	margin: 20px 20px 0px;
-	padding: 20px;
-	font-size: 20px;
-	float: left;
-}
 #draw {
 	position: relative;
 	height: 45px;
@@ -123,27 +99,6 @@ path.linkHighlight{
 
 	font-size: 20px;
 }
-#liveSearch {
-	width: 80%;
-	height: 130px;
-	margin: 0px 20px;
-	overflow: scroll;
-	
-}
-#searchUpdate {
-	top: 130px;
-	width: inherit;
-	height: 150px;
-	padding: 0px;
-	margin: 0px 20px;
-	z-index: 999;
-	overflow: scroll;
-	display: block;
-}
-#liveSearchResult{
-	display: none;
-}
-
 #chart {
 	overflow: scroll;
 }

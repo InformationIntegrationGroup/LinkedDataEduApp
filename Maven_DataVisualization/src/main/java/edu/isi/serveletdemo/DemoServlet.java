@@ -67,6 +67,7 @@ public class DemoServlet extends HttpServlet {
 			PrintWriter out = response.getWriter();
 			out.print(ranking);		//Response with the ranking array
 		} catch (Exception e) {
+			System.out.println(request.getParameter("features"));
 			e.printStackTrace();
 		}
 	}

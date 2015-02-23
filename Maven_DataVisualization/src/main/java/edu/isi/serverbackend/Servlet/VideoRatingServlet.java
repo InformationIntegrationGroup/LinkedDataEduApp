@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -17,10 +16,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 @WebServlet("/rateHash")
 public class VideoRatingServlet extends HttpServlet{
 
@@ -28,7 +23,6 @@ public class VideoRatingServlet extends HttpServlet{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static int maxResults = 5;
 
 	/**
      * @see HttpServlet#HttpServlet()
@@ -43,20 +37,25 @@ public class VideoRatingServlet extends HttpServlet{
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		PrintWriter out = response.getWriter();
 		String id = request.getParameter("hashID");
 		boolean vote = Boolean.parseBoolean(request.getParameter("vote"));
 		
 		Connection conn=null;
 		Statement st=null;
 		ResultSet rs=null;
-		
+		String password;
 		try{  
 			//Read the SQL password from a file
 			BufferedReader reader = null;
+			try{
 			InputStream inputStream = getClass().getClassLoader().getResourceAsStream("SQLpw.txt");
 			reader = new BufferedReader(new InputStreamReader(inputStream));
-			String password = reader.readLine();
+				password = reader.readLine();
+			}
+			catch (NullPointerException e){
+				e.getStackTrace();
+				password = "";
+			}
 		
 		
 			// create a mysql database connection
@@ -67,9 +66,9 @@ public class VideoRatingServlet extends HttpServlet{
 			st = conn.createStatement();
 			
 			if (vote)
-				st.executeUpdate("UPDATE hash_objects SET rating=rating+1 where id='"+id+"'");
+				st.executeUpdate("UPDATE hash_objects SET likes=likes+1 where id='"+id+"'");
 			else
-				st.execute("UPDATE hash_objects SET rating=rating-1 where id='"+id+"'");
+				st.execute("UPDATE hash_objects SET dislikes=dislikes-1 where id='"+id+"'");
 			
 			
 		}

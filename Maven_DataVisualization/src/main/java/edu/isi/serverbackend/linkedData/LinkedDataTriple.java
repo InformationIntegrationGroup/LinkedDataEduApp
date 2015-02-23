@@ -7,8 +7,6 @@ import org.openrdf.query.TupleQuery;
 import org.openrdf.query.TupleQueryResult;
 import org.openrdf.repository.RepositoryConnection;
 import org.openrdf.repository.RepositoryException;
-import org.openrdf.query.BindingSet;
-import org.openrdf.model.*;
 
 public class LinkedDataTriple {
 	private int connectionParam = -1;
