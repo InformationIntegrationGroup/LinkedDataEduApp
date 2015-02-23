@@ -23,6 +23,7 @@ img {
 	width: auto;
 	height: auto;
 }
+
 .node circle {
 	cursor: pointer;
 	stroke: steelblue;
