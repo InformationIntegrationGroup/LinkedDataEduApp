@@ -15,14 +15,7 @@ body {
 	display: none;
 }
 
-img {
-	display: block;
-	float: left;
-	max-width: 450px;
-	max-height: 500px;
-	width: auto;
-	height: auto;
-}
+
 .node circle {
 	cursor: pointer;
 	stroke: steelblue;
@@ -191,4 +184,19 @@ svg {
 .close{
 	padding: 5px;
 	z-index: 1001;
+}
+
+/*Section devoted to the video recommendations*/
+#recommendedVideos{
+	display: inline;
+	position: relative;
+	text-align: center;
+	overflow: hidden; 
+	margin: 0px auto;
+	top: 30%;
+}
+.vidThumbnail{
+	width: 100px;
+	height: 100px;
+	margin: 20px 10px
 }
