@@ -21,7 +21,7 @@ public class SingleDemoServlet {
 		Response response = null;
 		
 		BufferedReader reader = null;
-		InputStream inputStream = getClass().getClassLoader().getResourceAsStream("hash.txt");
+		InputStream inputStream = getClass().getClassLoader().getResourceAsStream("abridgedHash.txt");
 		if (inputStream == null){	
 			
 			response = Response
@@ -40,7 +40,7 @@ public class SingleDemoServlet {
 		int counter = 0;
 		int num;
 		Random random = new Random();
-		num = random.nextInt(704);
+		num = random.nextInt(50);
 		String s = null;
 		try{
 		while (counter<num){
