@@ -59,7 +59,7 @@ public class LinkRankServlet extends HttpServlet {
 				//if(!extractRankRequest.checkAlreadyCached()){
 					currentNode = new LinkedDataNode(currentURI, repoConnection);
 					long startTime = System.currentTimeMillis();
-					TripleRankRequest rankRequest = new TripleRankRequest(currentNode);
+					TripleRankRequest rankRequest = new TripleRankRequest(currentNode, getServletContext());
 					long endTime = System.currentTimeMillis();
 					//long featureRatingStartTime = System.currentTimeMillis();
 					rankRequest.rateInterestingness();
@@ -79,16 +79,6 @@ public class LinkRankServlet extends HttpServlet {
 					System.out.println("Retrieving Data Elapsed milliseconds: "+(endTime - startTime));
 					System.out.println("Sorting Data Elapsed milliseconds: "+(sortingEndTime - sortingStartTime));
 					System.out.println("Start Caching");
-					
-					//LinkedDataCachingRequest cachingRequest = new LinkedDataCachingRequest(extractRankRequest.getSQLConnection(), rankRequest.getSubjectConnections(), rankRequest.getObjectConnections());
-					//cachingRequest.startCaching();
-			//	}
-				/*else{
-					long startTime = System.currentTimeMillis();
-					out.println(extractRankRequest.extractD3JSON(num).toString());
-					long endTime = System.currentTimeMillis();
-					System.out.println("Retrieving Data From MySQL Elapsed milliseconds: "+(endTime - startTime));
-				}*/
 			}
 		} catch (RepositoryException e) {
 			// TODO Auto-generated catch block
