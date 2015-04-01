@@ -55,46 +55,49 @@ public final class SentenceHashUtil {
             SentenceType sentenceType = sentenceHash.get(relation);
 
             String relationPOS = tags[0];
-            switch (sentenceType) {
-                case presAdjPrep: {
+             if(sentenceType == SentenceType.presAdjPrep) {
                     // Todo: what would the  inverse be?
-                    String nounToVerb = sent[0];
-                    if (sent.length == 2) {
+                    String verb = sent[0];
+                    if (sent.length > 1) {
                         if(tags[1].equals("IN") || tags[1].equals("TO"))//we have a preposition
-                            sentence = " is " + nounToVerb + " " + sent[1].toLowerCase() + " ";
+                            sentence = " is " + verb + " " + sent[1].toLowerCase() + " ";
                     } else {
-                        nounToVerb = nounToVerb.replaceAll("ion", "ed");
-                        nounToVerb = nounToVerb.replaceAll("ive", "ed");
-                        nounToVerb = nounToVerb.replaceAll("ing", "ed");
+                        if(verb.endsWith("ive"))
+                            verb = verb.replaceAll("ive", "ed");
+                        else if(verb.endsWith("ing"))
+                            verb = verb.replaceAll("ing", "ed");
+                        else if(verb.endsWith("ion"))
+                            verb = verb.replaceAll("ion", "ed");
+                        if(!verb.endsWith("ed"))
+                            verb += "ed";
                         String prep = "to";
-                        sentence = " is " + nounToVerb + " " + prep + " ";
+                        sentence = " is " + verb + " " + prep + " ";
                     }
-                }
-                case presPossesive: {
+                } else if(sentenceType == SentenceType.presPossesive) {
                     if (inverse == 0) { // S's noun is O
-                        if (sent.length == 2) {
+                        if (sent.length > 1) {
                             sentence = "'s " + sent[0] + " " + sent[1].toLowerCase() + " is ";
-                            System.out.println("here");
                         } else {
                             sentence = "'s " + sent[0] + " is ";
                         }
-                        System.out.println(sentence);
                     } else { // O is the noun of S
-                        if(sent.length == 2) {
+                        if(sent.length > 1) {
                             sentence = " is the " + sent[0] + " " + sent[1].toLowerCase() + " of ";
-                            System.out.println("here");
                         }
                         else
                             sentence = " is the " + sent[0] + " of ";
-                        System.out.println(sentence);
                     }
-                }
-                case pastReg: {
+                } else {
                     String verb = sent[0];
                     if (!tags[0].equals("VBN") && !tags[0].equals("VBD")) {
-                        verb = verb.replaceAll("ive", "ed");
-                        verb = verb.replaceAll("ing", "ed");
-                        verb = verb.replaceAll("ion", "ed");
+                        if(verb.endsWith("ive"))
+                            verb = verb.replaceAll("ive", "ed");
+                        else if(verb.endsWith("ing"))
+                            verb = verb.replaceAll("ing", "ed");
+                        else if(verb.endsWith("ion"))
+                            verb = verb.replaceAll("ion", "ed");
+                        if(!verb.endsWith("ed"))
+                            verb += "ed";
                     }
                     if (inverse == 0) { // S past tense verb O
                         sentence = " " + verb + " ";
@@ -102,8 +105,8 @@ public final class SentenceHashUtil {
                         sentence = " was " + verb + " by ";
                     }
                 }
-            }
 
+            System.out.println(sentence);
             return sentence;
 
         } catch (final Exception ioe) {
