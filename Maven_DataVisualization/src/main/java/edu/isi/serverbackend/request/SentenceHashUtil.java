@@ -70,7 +70,11 @@ public final class SentenceHashUtil {
                             verb = verb.replaceAll("ion", "ed");
                         if(!verb.endsWith("ed"))
                             verb += "ed";
+
                         String prep = "to";
+                        //TODO should loook at subject/object not the tags
+                        if(tags[0].equals("NNP") || tags[0].equals("NNPS") || tags[0].equals("JJ"))
+                            prep = "in";
                         sentence = " is " + verb + " " + prep + " ";
                     }
                 } else if(sentenceType == SentenceType.presPossesive) {
@@ -102,11 +106,14 @@ public final class SentenceHashUtil {
                     if (inverse == 0) { // S past tense verb O
                         sentence = " " + verb + " ";
                     } else { // O was past tense verb by S
-                        sentence = " was " + verb + " by ";
+                        String prep = "by";
+                        //TODO should look at subject/object, not the tags
+                        if(tags[0].equals("NNP") || tags[0].equals("NNPS") || tags[0].equals("JJ"))
+                            prep = "in";
+                        sentence = " was " + verb + prep;
                     }
                 }
 
-            System.out.println(sentence);
             return sentence;
 
         } catch (final Exception ioe) {

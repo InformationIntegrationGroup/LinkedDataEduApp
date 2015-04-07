@@ -118,8 +118,9 @@ h5{
 /*Movie Nav Bar*/
 .movieNavBarWrap {
 	overflow-x: scroll;
-	overflow:hidden;
-    height: 100px;
+	overflow: hidden;
+    height: 200px;
+    border: 2px dashed black;
 }
 
 .movie-nav-bar {
