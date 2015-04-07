@@ -85,6 +85,11 @@
 				<div class="row">
 					<textarea id="textDescription" class="fullWidth"></textarea>
 				</div>
+                <div class="row" id="preview-box">
+                    <div id="playButtonGroup" class="playButtonGroup">
+                        Play, Play All, Stop
+                    </div>
+            </div>
 				<div class="row">
 					<div id="movieNavBarWrap" class="movieNavBarWrap fullWidth">
 						<ul id="movie-nav-bar" class="movie-nav-bar fullWidth fullHeight"> </ul>
@@ -94,7 +99,7 @@
 		</div>
 		</div>
 		<div class="row">
-			<center><div id="stepNavigator" class="fullWidth">
+			<center><div id="stepNavigator" class="fullWidth" style="display: none;">
 				<button id="lastStep" type="button" class="btn btn-default btn-sm redraw">Start Over</button>
 				<button id="play-slide" type="button" class="btn btn-warning btn-sm" style="display: none;">Play Slide</button>
 				<button id="play-button" type="button" class="btn btn-success btn-sm">Play Movie</button>
