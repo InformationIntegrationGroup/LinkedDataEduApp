@@ -36,17 +36,22 @@ public final class SentenceHashUtil {
         sentenceHash.put("leaderName", SentenceType.presPossesive);
     }
 
-    public String parseSentence(String relation, int inverse, ServletContext context){
+    public String parseSentence(String relation, int inverse, ServletContext context, String type){
         Tokenizer _tokenizer = null;
         POSTaggerME tagger = null;
         String sentence = "";
         InputStream modelIn = null;
+        type = type.substring(type.lastIndexOf('/')+1, type.length());
         try {
             // Loading tokenizer model
             modelIn = context.getResourceAsStream("/WEB-INF/en-pos-maxent.bin");
             final POSModel posModel = new POSModel(modelIn);
 
            tagger = new POSTaggerME(posModel);
+
+            //special cases
+            if(relation.equals("museum"))
+                relation = "location";
 
             String[] sent = relation.split("(?<!^)(?=[A-Z])");
             String tags[] = tagger.tag(sent);
@@ -72,9 +77,10 @@ public final class SentenceHashUtil {
                             verb += "ed";
 
                         String prep = "to";
-                        //TODO should loook at subject/object not the tags
-                        if(tags[0].equals("NNP") || tags[0].equals("NNPS") || tags[0].equals("JJ"))
+                        if(type.equals("Place"))
                             prep = "in";
+                        if(type.equals("Person"))
+                            prep = "by";
                         sentence = " is " + verb + " " + prep + " ";
                     }
                 } else if(sentenceType == SentenceType.presPossesive) {
@@ -106,11 +112,12 @@ public final class SentenceHashUtil {
                     if (inverse == 0) { // S past tense verb O
                         sentence = " " + verb + " ";
                     } else { // O was past tense verb by S
-                        String prep = "by";
-                        //TODO should look at subject/object, not the tags
-                        if(tags[0].equals("NNP") || tags[0].equals("NNPS") || tags[0].equals("JJ"))
+                        String prep = "to";
+                        if(type.equals("Place"))
                             prep = "in";
-                        sentence = " was " + verb + prep;
+                        if(type.equals("Person") && verb.equals("authored"))
+                            prep = "by";
+                        sentence = " was " + verb + " " + prep + " ";
                     }
                 }
 
