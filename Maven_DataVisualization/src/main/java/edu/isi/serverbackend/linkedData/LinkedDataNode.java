@@ -103,6 +103,7 @@ public class LinkedDataNode {
 		}
 		else{
 			String queryStr = "SELECT ?predicate ?object ?label ?type WHERE {"
+					+ "GRAPH <http://dbpedia.org> { "
 	    			+"{  SELECT ?predicate ?object WHERE { <"+ uri +"> ?predicate ?object } }"
 	    			+ "?object <http://www.w3.org/2000/01/rdf-schema#label> ?label. "
 	    			+ "?object <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?type. "
@@ -110,10 +111,10 @@ public class LinkedDataNode {
 	    			+ "|| ?type=  <http://dbpedia.org/ontology/Place> "
 	    			+ "|| ?type=  <http://dbpedia.org/ontology/Organisation> "
 	    			+ "|| ?type = <http://dbpedia.org/ontology/Work>)"
-	    			+ "}";
+	    			+ "}}";
 			System.out.println("RUN SPARQL: " + queryStr);
 	    	Query query = QueryFactory.create(queryStr);
-	    	QueryExecution qExe = QueryExecutionFactory.sparqlService( "http://lodstories.isi.edu:3030/dbpedia/query", query );
+	    	QueryExecution qExe = QueryExecutionFactory.sparqlService( "http://lodstories.isi.edu:3030/integrated_dbpedia/query", query );
 	    	ResultSet results = qExe.execSelect();
 	    	//ResultSetFormatter.out(System.out, results, query) ;
 	    	while(results.hasNext()){
@@ -185,17 +186,18 @@ public class LinkedDataNode {
 		}
 		else{
 			String queryStr = "SELECT ?subject ?predicate ?label ?type WHERE {"
-	    			+"{  SELECT ?subject ?predicate WHERE { ?subject ?predicate <"+ uri +"> } }"
+	    			+ "GRAPH <http://dbpedia.org> { "
+					+ "{  SELECT ?subject ?predicate WHERE { ?subject ?predicate <"+ uri +"> } }"
 	    			+ "?subject <http://www.w3.org/2000/01/rdf-schema#label> ?label. "
 	    			+ "?subject <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?type. "
 	    			+ "FILTER(?type=  <http://dbpedia.org/ontology/Person> "
 	    			+ "|| ?type=  <http://dbpedia.org/ontology/Place> "
 	    			+ "|| ?type=  <http://dbpedia.org/ontology/Organisation> "
 	    			+ "|| ?type = <http://dbpedia.org/ontology/Work>)"
-	    			+ "}";
+	    			+ "}}";
 			System.out.println("RUN SPARQL: " + queryStr);
 	    	Query query = QueryFactory.create(queryStr);
-	    	QueryExecution qExe = QueryExecutionFactory.sparqlService( "http://lodstories.isi.edu:3030/dbpedia/query", query );
+	    	QueryExecution qExe = QueryExecutionFactory.sparqlService( "http://lodstories.isi.edu:3030/integrated_dbpedia/query", query );
 	    	ResultSet results = qExe.execSelect();
 	    	//ResultSetFormatter.out(System.out, results, query) ;
 	    	while(results.hasNext()){
