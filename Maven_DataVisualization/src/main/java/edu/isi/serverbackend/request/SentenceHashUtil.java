@@ -79,7 +79,7 @@ public final class SentenceHashUtil {
                         String prep = "to";
                         if(type.equals("Place"))
                             prep = "in";
-                        if(type.equals("Person"))
+                        if(type.equals("Person") && !relation.equals("relative"))
                             prep = "by";
                         sentence = " is " + verb + " " + prep + " ";
                     }
