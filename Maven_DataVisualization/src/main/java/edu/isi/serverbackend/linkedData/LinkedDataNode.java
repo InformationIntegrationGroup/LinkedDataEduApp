@@ -186,8 +186,8 @@ public class LinkedDataNode {
 		}
 		else{
 			String queryStr = "SELECT ?subject ?predicate ?label ?type WHERE {"
-	    			+ "GRAPH <http://dbpedia.org> { "
-					+ "{  SELECT ?subject ?predicate WHERE { ?subject ?predicate <"+ uri +"> } }"
+					+ "GRAPH <http://dbpedia.org> { "
+	    			+"{  SELECT ?subject ?predicate WHERE { ?subject ?predicate <"+ uri +"> } }"
 	    			+ "?subject <http://www.w3.org/2000/01/rdf-schema#label> ?label. "
 	    			+ "?subject <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?type. "
 	    			+ "FILTER(?type=  <http://dbpedia.org/ontology/Person> "
