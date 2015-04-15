@@ -358,7 +358,7 @@ public class InputFilePanel extends JPanel implements ActionListener{
 			endpoint.initialize();
 			RepositoryConnection repoConn = endpoint.getConnection();
 			LinkedDataNode node = new LinkedDataNode(uri ,repoConn);
-			TripleRankRequest rankRequest = new TripleRankRequest(node);
+			TripleRankRequest rankRequest = new TripleRankRequest(node, null);
 			rankRequest.rateInterestingness();
 			rankRequest.sortConnections();
 			rankRequest.exportD3JSON(10);
