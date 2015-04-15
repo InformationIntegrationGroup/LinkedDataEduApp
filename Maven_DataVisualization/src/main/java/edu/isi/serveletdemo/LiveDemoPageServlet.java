@@ -49,25 +49,66 @@ public class LiveDemoPageServlet extends HttpServlet {
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String subject = request.getParameter("subject");
-        String predicate = request.getParameter("predicate");
-        String object = request.getParameter("object");
-        String interesting = request.getParameter("interesting");
-        String not_interesting = request.getParameter("not interesting");
-
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/lodstories?user=root");
-            Statement statement = connection.createStatement();
-            statement.setQueryTimeout(30);  // set timeout to 30 sec.
-            String stmt = String.format("insert into live_user_feedbacks(subject, predicate, object, WI, NI) values('%s','%s','%s','%d',"
-                    + "'%d')", subject, predicate, object, interesting, not_interesting);
-            statement.execute(stmt);
-        } catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-
+    	//Always call the encoding before anything else
+		response.setCharacterEncoding("UTF-8");
+		
+		PrintWriter out = response.getWriter();
+		
+		try {
+			String subject = request.getParameter("subject");
+	        String predicate = request.getParameter("predicate");
+	        String object = request.getParameter("object");    				
+			String chosenString = request.getParameter("chose");
+			boolean chosen = Boolean.parseBoolean(chosenString);
+			
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/lodstories?user=root");  
+			Statement statement = connection.createStatement();  
+		    statement.setQueryTimeout(30);  // set timeout to 30 sec.
+		    
+		    if (chosen){
+		    	String stmt = "UPDATE path_explorer_data SET chosen=chosen+1 WHERE subject='"+subject+"' AND predicate='"+predicate+"' AND object='"+object+"'";
+			    int updated = 0;
+			    
+			    System.out.println(stmt);
+			    
+			    updated = statement.executeUpdate(stmt);
+			    
+			    //Triple does not exist in database, so insert it...though this seriously shouldn't get called
+			    if (updated==0){
+			    	System.out.println("Trying to rate a nonexistent triple as interesting...");
+			    	stmt= String.format("insert into path_explorer_data(subject, predicate, object,appearances,chosen) values('%s','%s','%s','%d','%d')", 
+				    		subject, predicate, object, 1,1);
+			    	
+			    	System.out.println(stmt);
+			    	
+				    statement.execute(stmt);
+				    
+				    
+			    }
+		    }
+		    else{
+			    String stmt = "UPDATE path_explorer_data SET appearances=appearances+1 WHERE subject='"+subject+"' AND predicate='"+predicate+"' AND object='"+object+"'";
+			    int updated = 0;
+			    System.out.println(stmt);
+			    updated = statement.executeUpdate(stmt);
+			    
+			    //Triple does not exist in database, so insert it
+			    if (updated==0){
+			    	stmt= String.format("insert into path_explorer_data(subject, predicate, object,appearances,chosen) values('%s','%s','%s','%d','%d')", 
+				    		subject, predicate, object, 1,0);
+			    	System.out.println(stmt);
+				    statement.execute(stmt);
+			    }
+		    }
+		    
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally{
+			out.flush();
+			out.close();
+		}		
+    	
         response.setStatus(HttpServletResponse.SC_OK);
     }
 

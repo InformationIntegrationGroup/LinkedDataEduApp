@@ -55,6 +55,33 @@ public class TripleRankRequest {
 		
 	}
 	
+	public TripleRankRequest(LinkedDataNode currentNode){
+        this.sentenceHashUtil = new SentenceHashUtil();
+		this.currentNode = currentNode;
+		//this.repoConnection = currentNode.getRepoConnection();
+		this.samples = new ArrayList<Sample>();
+		
+		
+		try {
+			retrieveObjectExtensions();
+			retrieveSubjectExtensions();
+			
+		} catch (RepositoryException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MalformedQueryException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (QueryEvaluationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} /*catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		
+	}
+	
 	public void retrieveObjectExtensions() throws RepositoryException, MalformedQueryException, QueryEvaluationException{
 		currentNode.retrieveObjectExtensions(samples, false);
 	}

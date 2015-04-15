@@ -28,7 +28,7 @@ public class InputFilePanel extends JPanel implements ActionListener{
 	final static String ORG = "Organisation";
 	final static String EVENT = "Event";
 	final static String TYPEPREFIX = "http://dbpedia.org/ontology/";
-	
+	//TODO currently made a overloaded contructor in TripleRankRequest that does not use a context for compiling purposes. However, that probably means the actual functions fail later.
 	JFrame parent;
 	JLabel fileNameLabel, seedLabel;
 	JTextField fileNameField, seedField;
