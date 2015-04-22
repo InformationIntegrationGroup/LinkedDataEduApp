@@ -58,7 +58,7 @@ public class LiveDemoPageServlet extends HttpServlet {
 			String subject = request.getParameter("subject");
 	        String predicate = request.getParameter("predicate");
 	        String object = request.getParameter("object");    				
-			String chosenString = request.getParameter("chose");
+			String chosenString = request.getParameter("chosen");
 			boolean chosen = Boolean.parseBoolean(chosenString);
 			
 			Class.forName("com.mysql.jdbc.Driver");
@@ -90,14 +90,14 @@ public class LiveDemoPageServlet extends HttpServlet {
 		    else{
 			    String stmt = "UPDATE path_explorer_data SET appearances=appearances+1 WHERE subject='"+subject+"' AND predicate='"+predicate+"' AND object='"+object+"'";
 			    int updated = 0;
-			    System.out.println(stmt);
+			    //System.out.println(stmt);
 			    updated = statement.executeUpdate(stmt);
 			    
 			    //Triple does not exist in database, so insert it
 			    if (updated==0){
 			    	stmt= String.format("insert into path_explorer_data(subject, predicate, object,appearances,chosen) values('%s','%s','%s','%d','%d')", 
 				    		subject, predicate, object, 1,0);
-			    	System.out.println(stmt);
+			    	//System.out.println(stmt);
 				    statement.execute(stmt);
 			    }
 		    }
