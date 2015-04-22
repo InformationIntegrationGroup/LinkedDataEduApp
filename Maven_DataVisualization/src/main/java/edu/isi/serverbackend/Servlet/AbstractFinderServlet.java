@@ -175,6 +175,7 @@ PREFIX category: <http://dbpedia.org/resource/Category:>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>  
 PREFIX dbo: <http://dbpedia.org/ontology/> 
 SELECT ?label ?abstract ?comment WHERE { 
+GRAPH <http://dbpedia.org> {
 <http://dbpedia.org/resource/Rainer_Maria_Rilke> rdfs:label ?label .
 ?x rdfs:label ?label . 
 ?x dbo:abstract ?abstract . 
@@ -182,4 +183,4 @@ SELECT ?label ?abstract ?comment WHERE {
 FILTER (lang(?abstract) = "en") . 
 FILTER (lang(?comment) = "en") . 
 FILTER (lang(?label) = "en") .
-} LIMIT 2 */
+}} LIMIT 2 */
