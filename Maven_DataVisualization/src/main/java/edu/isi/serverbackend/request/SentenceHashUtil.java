@@ -12,11 +12,11 @@ import java.util.HashMap;
  * Created by Dipa on 3/22/2015.
  */
 public final class SentenceHashUtil {
-    private HashMap<String, SentenceType> sentenceHash;
+    private static HashMap<String, SentenceType> sentenceHash;
     public static enum SentenceType {presPossesive, presAdjPrep, pastReg};
-
-    public SentenceHashUtil() {
-        sentenceHash = new HashMap<String, SentenceType>();
+    
+    static {
+    	sentenceHash = new HashMap<String, SentenceType>();
 
         sentenceHash.put("nationality", SentenceType.presPossesive);
         sentenceHash.put("spouse", SentenceType.presPossesive);
@@ -34,6 +34,10 @@ public final class SentenceHashUtil {
         sentenceHash.put("deathPlace", SentenceType.presPossesive);
         sentenceHash.put("birthPlace", SentenceType.presPossesive);
         sentenceHash.put("leaderName", SentenceType.presPossesive);
+    }
+
+    public SentenceHashUtil() {
+        
     }
 
     public String parseSentence(String relation, int inverse, ServletContext context, String type){
@@ -120,13 +124,13 @@ public final class SentenceHashUtil {
                         sentence = " was " + verb + " " + prep + " ";
                     }
                 }
-
+             
             return sentence;
 
         } catch (final Exception ioe) {
             ioe.printStackTrace();
         }
-
+       
         return sentence;
     }
 }
