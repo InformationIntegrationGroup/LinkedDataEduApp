@@ -1,10 +1,9 @@
 package edu.isi.serverbackend.request;
 import opennlp.tools.postag.POSModel;
 import opennlp.tools.postag.POSTaggerME;
-import opennlp.tools.tokenize.Tokenizer;
+import opennlp.tools.util.InvalidFormatException;
 
-import javax.servlet.ServletContext;
-import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 
@@ -12,11 +11,14 @@ import java.util.HashMap;
  * Created by Dipa on 3/22/2015.
  */
 public final class SentenceHashUtil {
-    private HashMap<String, SentenceType> sentenceHash;
+    private static HashMap<String, SentenceType> sentenceHash;
     public static enum SentenceType {presPossesive, presAdjPrep, pastReg};
-
-    public SentenceHashUtil() {
-        sentenceHash = new HashMap<String, SentenceType>();
+    
+    private static InputStream modelIn;
+    private static POSModel posModel;
+    
+    static {
+    	sentenceHash = new HashMap<String, SentenceType>();
 
         sentenceHash.put("nationality", SentenceType.presPossesive);
         sentenceHash.put("spouse", SentenceType.presPossesive);
@@ -34,18 +36,29 @@ public final class SentenceHashUtil {
         sentenceHash.put("deathPlace", SentenceType.presPossesive);
         sentenceHash.put("birthPlace", SentenceType.presPossesive);
         sentenceHash.put("leaderName", SentenceType.presPossesive);
+        
+        modelIn = SentenceHashUtil.class.getClassLoader().getResourceAsStream("/en-pos-maxent.bin");
+        try {
+			posModel = new POSModel(modelIn);
+		} catch (InvalidFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+    
+
+    public SentenceHashUtil() {
+        
     }
 
-    public String parseSentence(String relation, int inverse, ServletContext context, String type){
-        Tokenizer _tokenizer = null;
+    public static String parseSentence(String relation, int inverse, String type){
         POSTaggerME tagger = null;
         String sentence = "";
-        InputStream modelIn = null;
         type = type.substring(type.lastIndexOf('/')+1, type.length());
         try {
-            // Loading tokenizer model
-            modelIn = context.getResourceAsStream("/WEB-INF/en-pos-maxent.bin");
-            final POSModel posModel = new POSModel(modelIn);
 
            tagger = new POSTaggerME(posModel);
 
@@ -56,10 +69,8 @@ public final class SentenceHashUtil {
             String[] sent = relation.split("(?<!^)(?=[A-Z])");
             String tags[] = tagger.tag(sent);
 
-            modelIn.close();
             SentenceType sentenceType = sentenceHash.get(relation);
 
-            String relationPOS = tags[0];
              if(sentenceType == SentenceType.presAdjPrep) {
                     // Todo: what would the  inverse be?
                     String verb = sent[0];
@@ -120,13 +131,13 @@ public final class SentenceHashUtil {
                         sentence = " was " + verb + " " + prep + " ";
                     }
                 }
-
+             
             return sentence;
 
         } catch (final Exception ioe) {
             ioe.printStackTrace();
         }
-
+       
         return sentence;
     }
 }

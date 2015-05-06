@@ -61,23 +61,29 @@ public class LinkRankServlet extends HttpServlet {
 					long startTime = System.currentTimeMillis();
 					TripleRankRequest rankRequest = new TripleRankRequest(currentNode, getServletContext());
 					long endTime = System.currentTimeMillis();
-					//long featureRatingStartTime = System.currentTimeMillis();
+					long featureRatingStartTime = System.currentTimeMillis();
 					rankRequest.rateInterestingness();
-					//long featureRatingEndTime = System.currentTimeMillis();
+					long featureRatingEndTime = System.currentTimeMillis();
 					long sortingStartTime = System.currentTimeMillis();
 					rankRequest.sortConnections();
 					long sortingEndTime = System.currentTimeMillis();
 					response.setContentType("application/json");
 					response.setCharacterEncoding("UTF-8");
-					
+					long exportJSONstartTime = System.currentTimeMillis();
 					try {
+						
 						out.println(jsonCallback + "(" + rankRequest.exportD3JSON(num).toString() + ")");
+						System.out.println("JSON RESULT: " + rankRequest.exportD3JSON(num).toString());
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
+					long exportJSONendTime = System.currentTimeMillis();
 					System.out.println("Total number of Connections: " + rankRequest.getNumbetConnections());
 					System.out.println("Retrieving Data Elapsed milliseconds: "+(endTime - startTime));
+					System.out.println("Feature Rating Elapsed milliseconds: "+(featureRatingEndTime-featureRatingStartTime));
 					System.out.println("Sorting Data Elapsed milliseconds: "+(sortingEndTime - sortingStartTime));
+					System.out.println("Exporting JSON Elapsed milliseconds: "+(exportJSONendTime - exportJSONstartTime));
+					System.out.println("Total time Elapsed milliseconds: "+(System.currentTimeMillis()-startTime));
 					System.out.println("Start Caching");
 			}
 		} catch (RepositoryException e) {

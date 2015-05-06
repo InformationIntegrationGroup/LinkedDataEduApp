@@ -112,8 +112,7 @@ public class AbstractFinderServlet extends HttpServlet{
 					newNode.put("abstract", formatString(abstractString));
 					newNode.put("comment", formatString(commentString));
 					
-					//Do NOT return the labels since character encoding screws over unicode labels
-					//newNode.put("label", labelString);
+					newNode.put("label", labelString);
 					
 					result.put(uris[i], newNode);
 				}
