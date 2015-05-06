@@ -2,11 +2,6 @@ package edu.isi.serverbackend.request;
 
 import edu.isi.serverbackend.linkedData.*;
 import edu.isi.serverbackend.localDatabase.bean.PredicateBean;
-import edu.isi.serverbackend.feature.DifferentOccupationFeature;
-import edu.isi.serverbackend.feature.EitherNotPlaceFeature;
-import edu.isi.serverbackend.feature.ImportanceFeature;
-import edu.isi.serverbackend.feature.RarityFeature;
-import edu.isi.serverbackend.feature.SmallPlaceFeature;
 import edu.isi.serverbackend.feature.util.*;
 
 import java.io.*;
@@ -198,7 +193,7 @@ public class TripleRankRequest {
 				newNode.put("relationship", relation);
 				newNode.put("inverse", 0);
 				newNode.put("rank", orderedSamples.get(i).getInterestingness());
-                newNode.put("relation", sentenceHashUtil.parseSentence(relation, 0, context, orderedSamples.get(i).getLink().getObject().getTypeURI()));
+                newNode.put("relation", SentenceHashUtil.parseSentence(relation, 0, orderedSamples.get(i).getLink().getObject().getTypeURI()));
 			}
 			else{
 				newNode.put("name", subject);
@@ -206,7 +201,7 @@ public class TripleRankRequest {
 				newNode.put("relationship", relation);
 				newNode.put("inverse", 1);
 				newNode.put("rank", orderedSamples.get(i).getInterestingness());
-                newNode.put("relation", sentenceHashUtil.parseSentence(relation, 1, context, orderedSamples.get(i).getLink().getSubject().getTypeURI()));
+                newNode.put("relation", SentenceHashUtil.parseSentence(relation, 1, orderedSamples.get(i).getLink().getSubject().getTypeURI()));
 			}
 			childrenArray.put(newNode);
 		}
