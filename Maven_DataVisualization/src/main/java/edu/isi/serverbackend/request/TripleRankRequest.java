@@ -199,6 +199,7 @@ public class TripleRankRequest {
 				newNode.put("inverse", 0);
 				newNode.put("rank", orderedSamples.get(i).getInterestingness());
                 newNode.put("relation", sentenceHashUtil.parseSentence(relation, 0, context, orderedSamples.get(i).getLink().getObject().getTypeURI()));
+                newNode.put("image", orderedSamples.get(i).getLink().getObject().getImage());
 			}
 			else{
 				newNode.put("name", subject);
@@ -207,6 +208,7 @@ public class TripleRankRequest {
 				newNode.put("inverse", 1);
 				newNode.put("rank", orderedSamples.get(i).getInterestingness());
                 newNode.put("relation", sentenceHashUtil.parseSentence(relation, 1, context, orderedSamples.get(i).getLink().getSubject().getTypeURI()));
+                newNode.put("image", orderedSamples.get(i).getLink().getSubject().getImage());
 			}
 			childrenArray.put(newNode);
 		}

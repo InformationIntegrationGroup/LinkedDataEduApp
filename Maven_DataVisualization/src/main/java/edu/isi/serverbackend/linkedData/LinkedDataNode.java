@@ -26,6 +26,7 @@ public class LinkedDataNode {
 	private String uri;
 	private RepositoryConnection repoConnection;
 	private String typeURI;
+    private String image;
 	
 	public LinkedDataNode(String uri, RepositoryConnection connection) throws RepositoryException, MalformedQueryException, QueryEvaluationException{
 		this.uri = uri;
@@ -46,6 +47,14 @@ public class LinkedDataNode {
 		this.repoConnection = connection;
 	}
 	
+    public LinkedDataNode(String uri, String name, String typeURI, RepositoryConnection connection, String image){
+        this.uri = uri;
+        this.name = name;
+        this.typeURI = typeURI;
+        this.repoConnection = connection;
+        this.image = image;
+    }
+    
 	public void retrieveNameAndType() throws RepositoryException, MalformedQueryException, QueryEvaluationException{
 		String queryString = "SELECT ?label ?type WHERE { "
 				+ "<" + uri + "> rdfs:label ?label ." 
@@ -102,16 +111,18 @@ public class LinkedDataNode {
 			}
 		}
 		else{
-			String queryStr = "SELECT ?predicate ?object ?label ?type WHERE {"
+			String queryStr = "SELECT ?image ?predicate ?object ?label ?type WHERE {"
 					+ "GRAPH <http://dbpedia.org> { "
 	    			+"{  SELECT ?predicate ?object WHERE { <"+ uri +"> ?predicate ?object } }"
 	    			+ "?object <http://www.w3.org/2000/01/rdf-schema#label> ?label. "
 	    			+ "?object <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?type. "
+                    + "?object <http://dbpedia.org/ontology/thumbnail> ?image. "
 	    			+ "FILTER(?type=  <http://dbpedia.org/ontology/Person> "
 	    			+ "|| ?type=  <http://dbpedia.org/ontology/Place> "
 	    			+ "|| ?type=  <http://dbpedia.org/ontology/Organisation> "
 	    			+ "|| ?type = <http://dbpedia.org/ontology/Work>)"
 	    			+ "}}";
+
 			System.out.println("RUN SPARQL: " + queryStr);
 	    	Query query = QueryFactory.create(queryStr);
 	    	QueryExecution qExe = QueryExecutionFactory.sparqlService( "http://lodstories.isi.edu:3030/integrated_dbpedia/query", query );
@@ -124,6 +135,7 @@ public class LinkedDataNode {
 	    		String object = "";
 	    		String label = "";
 	    		String type = "";
+                String image = "";
 	    		while(vars.hasNext()){
 	    			Var var = vars.next();
 	    			Node node = binding.get(var);
@@ -141,9 +153,11 @@ public class LinkedDataNode {
 	    				label = value;
 	    			else if(name.equals("type"))
 	    				type = value;
+                    else if(name.equals("image"))
+                        image = value;
 	    		}
 	    		if(!predicate.equals("")){
-	    			LinkedDataNode objectNode = new LinkedDataNode(object, label, type, repoConnection);
+	    			LinkedDataNode objectNode = new LinkedDataNode(object, label, type, repoConnection, image);
 					LinkedDataTriple newTriple = new LinkedDataTriple(this, objectNode, predicate, CurrentNode.subject, repoConnection);
 					samples.add(new Sample(newTriple));
 	    		}
@@ -185,11 +199,12 @@ public class LinkedDataNode {
 			}
 		}
 		else{
-			String queryStr = "SELECT ?subject ?predicate ?label ?type WHERE {"
+			String queryStr = "SELECT ?image ?subject ?predicate ?label ?type WHERE {"
 					+ "GRAPH <http://dbpedia.org> { "
 	    			+"{  SELECT ?subject ?predicate WHERE { ?subject ?predicate <"+ uri +"> } }"
 	    			+ "?subject <http://www.w3.org/2000/01/rdf-schema#label> ?label. "
 	    			+ "?subject <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?type. "
+                    + "?subject <http://dbpedia.org/ontology/thumbnail> ?image. "
 	    			+ "FILTER(?type=  <http://dbpedia.org/ontology/Person> "
 	    			+ "|| ?type=  <http://dbpedia.org/ontology/Place> "
 	    			+ "|| ?type=  <http://dbpedia.org/ontology/Organisation> "
@@ -207,6 +222,7 @@ public class LinkedDataNode {
 	    		String subject = "";
 	    		String label = "";
 	    		String type = "";
+                String image = "";
 	    		while(vars.hasNext()){
 	    			Var var = vars.next();
 	    			Node node = binding.get(var);
@@ -224,9 +240,11 @@ public class LinkedDataNode {
 	    				label = value;
 	    			else if(name.equals("type"))
 	    				type = value;
+                    else if(name.equals("image"))
+                        image = value;
 	    		}
 	    		if(!predicate.equals("")){
-	    			LinkedDataNode subjectNode = new LinkedDataNode(subject, label, type, repoConnection);
+	    			LinkedDataNode subjectNode = new LinkedDataNode(subject, label, type, repoConnection, image);
 					LinkedDataTriple newTriple = new LinkedDataTriple(subjectNode, this, predicate, CurrentNode.object, repoConnection);
 					samples.add(new Sample(newTriple));
 	    		}
@@ -262,7 +280,9 @@ public class LinkedDataNode {
 	public String getURI(){
 		return uri;
 	}
-	
+    public String getImage(){
+        return image;
+    }
 	public String getTypeURI(){
 		return this.typeURI;
 	}
