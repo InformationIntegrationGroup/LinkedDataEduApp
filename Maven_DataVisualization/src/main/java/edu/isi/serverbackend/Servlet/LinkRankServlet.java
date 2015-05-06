@@ -72,6 +72,7 @@ public class LinkRankServlet extends HttpServlet {
 					
 					try {
 						out.println(jsonCallback + "(" + rankRequest.exportD3JSON(num).toString() + ")");
+						System.out.println("JSON RESULT: " + rankRequest.exportD3JSON(num).toString());
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
