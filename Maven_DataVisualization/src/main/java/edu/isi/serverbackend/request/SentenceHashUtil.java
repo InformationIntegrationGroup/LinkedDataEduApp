@@ -126,7 +126,7 @@ public final class SentenceHashUtil {
                         String prep = "to";
                         if(type.equals("Place"))
                             prep = "in";
-                        if(type.equals("Person") && verb.equals("authored"))
+                        if(type.equals("Person") || verb.equals("authored"))
                             prep = "by";
                         sentence = " was " + verb + " " + prep + " ";
                     }
