@@ -1,5 +1,10 @@
 Maven_DataVisualization/target
-Maven_DataVisualization/src/main/resources/
+Maven_DataVisualization/src/main/resources/SQLpw.txt
 Maven_DataVisualization/.settings/
 Maven_DataVisualization/.classpath
 Maven_DataVisualization/.project
+*.DS_Store
+dbpedia/target
+dbpedia/.settings/
+dbpedia/.classpath
+dbpedia/.project

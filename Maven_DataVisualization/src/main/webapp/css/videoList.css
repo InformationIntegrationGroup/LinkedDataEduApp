@@ -1,29 +1,35 @@
 #videoList{
-	width: 100%;
+	width: 50%;
 	table-layout: fixed;
 }
-.videoTitle, .videoAuthor, .videoThumbnail{
-	width: 15%;
+.videoInfo{
+	padding: 20px;
+}
+.videoThumbnail{
+	width: 120px;
 }
 .videoThumbnailImage{
-	width: 100%;
+	width: 100px;
+	height: 100px;
 }
-.videoID, .videoRating{
-	width: 10%;
+h3{
+	margin-top: 0;
+	margin-bottom: 0;
 }
-.videoPath{
-	width: 35%;
+.ratingInfo{
+	list-style: outside none none;
+	margin: 0; 
+	padding: 0;
 }
-table,td,th{
-	border: 1px solid DarkGray;
-    border-collapse: collapse;
+.ratingInfo>li:first-child:before{
+	display: none;
 }
-th,td{
-	padding: 10px;
-	overflow: hidden;
+.ratingInfo>li:before{
+	content: "•";
+    margin: 0 5px;
 }
-th{
-	text-align: center;
+.ratingInfo>li{
+	display: inline-block;
 }
 td{
 	text-align: left;

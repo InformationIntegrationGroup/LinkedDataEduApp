@@ -2,11 +2,6 @@ package edu.isi.serverbackend.request;
 
 import edu.isi.serverbackend.linkedData.*;
 import edu.isi.serverbackend.localDatabase.bean.PredicateBean;
-import edu.isi.serverbackend.feature.DifferentOccupationFeature;
-import edu.isi.serverbackend.feature.EitherNotPlaceFeature;
-import edu.isi.serverbackend.feature.ImportanceFeature;
-import edu.isi.serverbackend.feature.RarityFeature;
-import edu.isi.serverbackend.feature.SmallPlaceFeature;
 import edu.isi.serverbackend.feature.util.*;
 
 import java.io.*;
@@ -17,13 +12,46 @@ import org.openrdf.query.*;
 import org.openrdf.repository.*;
 import org.json.*;
 
+import javax.servlet.ServletContext;
+
 public class TripleRankRequest {
 	private LinkedDataNode currentNode;
 	private List<Sample> samples;
 	String ratingResponse = "";
+    SentenceHashUtil sentenceHashUtil;
+    ServletContext context;
 	//private RepositoryConnection repoConnection;
 	
+	public TripleRankRequest(LinkedDataNode currentNode, ServletContext context){
+        this.context = context;
+        this.sentenceHashUtil = new SentenceHashUtil();
+		this.currentNode = currentNode;
+		//this.repoConnection = currentNode.getRepoConnection();
+		this.samples = new ArrayList<Sample>();
+		
+		
+		try {
+			retrieveObjectExtensions();
+			retrieveSubjectExtensions();
+			
+		} catch (RepositoryException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MalformedQueryException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (QueryEvaluationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} /*catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		
+	}
+	
 	public TripleRankRequest(LinkedDataNode currentNode){
+        this.sentenceHashUtil = new SentenceHashUtil();
 		this.currentNode = currentNode;
 		//this.repoConnection = currentNode.getRepoConnection();
 		this.samples = new ArrayList<Sample>();
@@ -60,7 +88,7 @@ public class TripleRankRequest {
 	public void rateInterestingness(){
 		//RarityFeature.calculatePredicateRarity(samples);
 		//ImportanceFeature.calculateImportance(samples);
-		
+
 		try {
 			URL url = new URL("http://127.0.0.1:8080/LODStories/DemoServlet");//
 			URLConnection modelConn = url.openConnection();
@@ -97,15 +125,15 @@ public class TripleRankRequest {
 				
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 	
 	public void sortConnections(){
-		//algorithm: bubble sort
+		//algorithm: bubble sort // note from Dipa: WHY????
 		boolean swap = true;
 		Sample temp = null;
 		
@@ -155,22 +183,27 @@ public class TripleRankRequest {
 			if(i >= orderedSamples.size())
 				break;
 			JSONObject newNode = new JSONObject();
-			
+
+            String subject = orderedSamples.get(i).getLink().getSubject().getName();
+            String object = orderedSamples.get(i).getLink().getObject().getName();
+            String relation = PredicateBean.obtainPredicateName(orderedSamples.get(i).getLink().getPredicate());
 			if(orderedSamples.get(i).getLink().isSubjectConnection()){
-				newNode.put("name", orderedSamples.get(i).getLink().getObject().getName());
+				newNode.put("name", object);
 				newNode.put("uri", orderedSamples.get(i).getLink().getObject().getURI());
-				newNode.put("relation", PredicateBean.obtainPredicateName( orderedSamples.get(i).getLink().getPredicate()));
-				//newNode.put("importance", samples.get(i).getExtensionImportance());
+				newNode.put("relationship", relation);
 				newNode.put("inverse", 0);
 				newNode.put("rank", orderedSamples.get(i).getInterestingness());
+                newNode.put("image", orderedSamples.get(i).getLink().getObject().getImage());
+                newNode.put("relation", SentenceHashUtil.parseSentence(relation, 0, orderedSamples.get(i).getLink().getObject().getTypeURI()));
 			}
 			else{
-				newNode.put("name", orderedSamples.get(i).getLink().getSubject().getName());
+				newNode.put("name", subject);
 				newNode.put("uri", orderedSamples.get(i).getLink().getSubject().getURI());
-				newNode.put("relation", PredicateBean.obtainPredicateName(orderedSamples.get(i).getLink().getPredicate()));
-				//newNode.put("importance", samples.get(i).getExtensionImportance());
+				newNode.put("relationship", relation);
 				newNode.put("inverse", 1);
 				newNode.put("rank", orderedSamples.get(i).getInterestingness());
+                newNode.put("image", orderedSamples.get(i).getLink().getSubject().getImage());
+                newNode.put("relation", SentenceHashUtil.parseSentence(relation, 1, orderedSamples.get(i).getLink().getSubject().getTypeURI()));
 			}
 			childrenArray.put(newNode);
 		}

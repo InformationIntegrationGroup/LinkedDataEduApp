@@ -2,6 +2,7 @@ package edu.isi.serverbackend.Servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import javax.servlet.ServletException;
@@ -12,15 +13,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.openrdf.query.BindingSet;
-import org.openrdf.query.MalformedQueryException;
-import org.openrdf.query.QueryEvaluationException;
-import org.openrdf.query.QueryLanguage;
-import org.openrdf.query.TupleQuery;
-import org.openrdf.query.TupleQueryResult;
-import org.openrdf.repository.RepositoryConnection;
-import org.openrdf.repository.RepositoryException;
-import org.openrdf.repository.http.HTTPRepository;
+
+import com.hp.hpl.jena.graph.Node;
+import com.hp.hpl.jena.query.*;
+import com.hp.hpl.jena.sparql.core.Var;
+import com.hp.hpl.jena.sparql.engine.binding.Binding;
+
+import com.hp.hpl.jena.query.QueryFactory;
 
 
 @WebServlet("/descriptions")
@@ -47,16 +46,16 @@ public class AbstractFinderServlet extends HttpServlet{
 		response.setCharacterEncoding("UTF-8");
 		
 		PrintWriter out = response.getWriter();
-		HTTPRepository endpoint = new HTTPRepository("http://dbpedia.org/sparql", "");
+		//HTTPRepository endpoint = new HTTPRepository("http://dbpedia.org/sparql", "");
 		String allUris;
 		String[] uris;
 		JSONObject result = new JSONObject();
-		RepositoryConnection repoConnection = null;
+		//RepositoryConnection repoConnection = null;
 		String jsonCallback = request.getParameter("jsoncallback");
 		
 		try {
-			endpoint.initialize();
-			repoConnection = endpoint.getConnection();
+			//endpoint.initialize();
+			//repoConnection = endpoint.getConnection();
 			allUris = request.getParameter("uri");
 			uris=allUris.split(",");
 			
@@ -67,68 +66,68 @@ public class AbstractFinderServlet extends HttpServlet{
 				"PREFIX category: <http://dbpedia.org/resource/Category:> "+ 
 				"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> "+ 
 				"PREFIX dbo: <http://dbpedia.org/ontology/> "+ 
-				"SELECT ?label ?abstract ?comment ?type WHERE { " +
+				"SELECT ?label ?abstract ?comment WHERE { " +
+				"GRAPH <http://dbpedia.org> {" +
 				"<" + uris[i] + "> rdfs:label ?label ."+
 				"?x rdfs:label ?label ."+ 
 				"?x dbo:abstract ?abstract ."+ 
 				"?x rdfs:comment ?comment ."+ 
-				"?x rdf:type ?type ."+ 
 				"FILTER (lang(?abstract) = \"en\") ."+ 
 				"FILTER (lang(?comment) = \"en\") ."+ 
 				"FILTER (lang(?label) = \"en\") ."+ 
-				"} LIMIT 2 ";
+				"}} LIMIT 2 ";
 				
-				TupleQuery query = repoConnection.prepareTupleQuery(QueryLanguage.SPARQL, queryString);
-				TupleQueryResult queryResult = query.evaluate();
-				
-				try{
-					BindingSet bindingSet = queryResult.next();
+				Query query = QueryFactory.create(queryString);
+				QueryExecution qExe = QueryExecutionFactory.sparqlService( "http://lodstories.isi.edu:3030/integrated_dbpedia/query", query );
+				ResultSet results = qExe.execSelect();
+
+				if (results.hasNext()){					
+					Binding binding = results.nextBinding();
+					Iterator<Var> vars = binding.vars();
+					String abstractString="";
+					String commentString="";
+					String typeString="";
+					String labelString="";
+					while(vars.hasNext()){
+						
+						Var var = vars.next();
+						Node node = binding.get(var);
+		    			String name = var.getVarName();
+		    			String value;
+		    			
+		    			value = node.getLiteralValue().toString();
+		    			
+		    			if(name.equals("abstract")){
+		    				abstractString = value;
+		    			}
+		    			else if (name.equals("comment")){
+		    				commentString = value;
+		    			}
+		    			else if (name.equals("label")){
+		    				labelString = value;
+		    			}
+					}
 
 					JSONObject newNode = new JSONObject();
-					String abstractString = bindingSet.getValue("abstract").stringValue();
 					newNode.put("abstract", formatString(abstractString));
-					abstractString = bindingSet.getValue("comment").stringValue();
-					newNode.put("comment", formatString(abstractString));
+					newNode.put("comment", formatString(commentString));
 					
-					//Do NOT return the labels since character encoding screws over unicode labels
-					//newNode.put("label", bindingSet.getValue("label").stringValue());
-					newNode.put("type", bindingSet.getValue("type").stringValue());
+					newNode.put("label", labelString);
 					
 					result.put(uris[i], newNode);
 				}
-				catch (NoSuchElementException nse){
+				else{
 					System.out.println("No abstracts found for "+uris[i]);
 					continue;
-				}
-				
-			
+				}	
 			}
 			response.setContentType("application/json");
 			
 			out.println(jsonCallback + "(" + result.toString() + ")");
 			
-		} catch (RepositoryException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (MalformedQueryException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (QueryEvaluationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		finally{
-			if (repoConnection!=null){
-				try {
-					repoConnection.close();
-				} catch (RepositoryException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
 		}
 	}
 	
@@ -174,13 +173,13 @@ PREFIX dbpedia: <http://dbpedia.org/resource/>
 PREFIX category: <http://dbpedia.org/resource/Category:> 
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>  
 PREFIX dbo: <http://dbpedia.org/ontology/> 
-SELECT ?label ?abstract ?comment ?type WHERE { 
+SELECT ?label ?abstract ?comment WHERE { 
+GRAPH <http://dbpedia.org> {
 <http://dbpedia.org/resource/Rainer_Maria_Rilke> rdfs:label ?label .
 ?x rdfs:label ?label . 
 ?x dbo:abstract ?abstract . 
 ?x rdfs:comment ?comment .
-?x rdf:type ?type .
 FILTER (lang(?abstract) = "en") . 
 FILTER (lang(?comment) = "en") . 
 FILTER (lang(?label) = "en") .
-} LIMIT 2 */
+}} LIMIT 2 */

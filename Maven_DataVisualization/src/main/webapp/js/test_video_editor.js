@@ -10,7 +10,7 @@ $("#generateVideoEditor").click(function(){
 	$("#nodeNavBar").css("display","block");
 	$("#nodeElementBar").css("display", "block");
 	$("#moviePreview").css("display", "block");
-	$("#audioDescriptionWrap").css("display", "block");
+	$("#textDescription").css("display", "block");
 	$("#movieNavBarWrap").css("display", "block");
 	$("#stepNavigator").css("display", "block");
 	$("#nodeElementOperation").css("display", "block");

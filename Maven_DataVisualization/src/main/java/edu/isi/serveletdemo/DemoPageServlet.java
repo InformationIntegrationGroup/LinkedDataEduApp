@@ -23,7 +23,7 @@ public class DemoPageServlet extends HttpServlet {
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		PrintWriter out = response.getWriter();
+		/*PrintWriter out = response.getWriter();
 		response.setContentType("application/json");
 		 out.println("hello1");
 		try {
@@ -61,12 +61,12 @@ public class DemoPageServlet extends HttpServlet {
 		} finally{
 			out.flush();
 			out.close();
-		}		
+		}		*/
 					
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String[] feedback = request.getParameterValues("feed");
+		/*String[] feedback = request.getParameterValues("feed");
 		PrintWriter out = response.getWriter();
 		response.setContentType("text/html");
 		out.print("<html><body>");
@@ -76,7 +76,7 @@ public class DemoPageServlet extends HttpServlet {
 			out.print("<li"+s+"</li");
 		}
 	out.print("</u1>");
-	out.print("</body></html>");
+	out.print("</body></html>");*/
 	
 	}
 
