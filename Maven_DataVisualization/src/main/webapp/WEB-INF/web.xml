@@ -56,6 +56,15 @@
 		<servlet-name>Demo</servlet-name>
 		<url-pattern>/demoServlet</url-pattern>
 	</servlet-mapping>
+    
+    <servlet>
+        <servlet-name>LiveDemo</servlet-name>
+        <servlet-class>edu.isi.serveletdemo.LiveDemoPageServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LiveDemo</servlet-name>
+        <url-pattern>/liveDemo</url-pattern>
+    </servlet-mapping>
 
     <servlet>
         <servlet-name>Store-Data</servlet-name>

@@ -1,7 +1,9 @@
 package edu.isi.serveletdemo;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -22,6 +24,9 @@ import org.openrdf.query.QueryEvaluationException;
 import org.openrdf.repository.RepositoryConnection;
 import org.openrdf.repository.RepositoryException;
 import org.openrdf.repository.http.HTTPRepository;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import edu.isi.serverbackend.request.*;
 
@@ -60,47 +65,27 @@ public class LiveDemoPageServlet extends HttpServlet {
 	        String object = request.getParameter("object");    				
 			String chosenString = request.getParameter("chosen");
 			boolean chosen = Boolean.parseBoolean(chosenString);
-			
-			Class.forName("com.mysql.jdbc.Driver");
-			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/lodstories?user=root");  
-			Statement statement = connection.createStatement();  
-		    statement.setQueryTimeout(30);  // set timeout to 30 sec.
+                
+                DateFormat dateFormat = new SimpleDateFormat("MM/dd/yy HH:mm:ss");
+                Date date = new Date();
+                
+                String msg = dateFormat.format(date) + "," + subject + " " + predicate + " " + object + "," + chosen;
+                
+                System.out.println(msg);
+                
+            File file = new File("data.csv");
+            
+            // if file doesnt exists, then create it
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            
+            FileWriter fw = new FileWriter(file.getAbsoluteFile());
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(msg);
+            bw.close();
+
 		    
-		    if (chosen){
-		    	String stmt = "UPDATE path_explorer_data SET chosen=chosen+1 WHERE subject='"+subject+"' AND predicate='"+predicate+"' AND object='"+object+"'";
-			    int updated = 0;
-			    
-			    System.out.println(stmt);
-			    
-			    updated = statement.executeUpdate(stmt);
-			    
-			    //Triple does not exist in database, so insert it...though this seriously shouldn't get called
-			    if (updated==0){
-			    	System.out.println("Trying to rate a nonexistent triple as interesting...");
-			    	stmt= String.format("insert into path_explorer_data(subject, predicate, object,appearances,chosen) values('%s','%s','%s','%d','%d')", 
-				    		subject, predicate, object, 1,1);
-			    	
-			    	System.out.println(stmt);
-			    	
-				    statement.execute(stmt);
-				    
-				    
-			    }
-		    }
-		    else{
-			    String stmt = "UPDATE path_explorer_data SET appearances=appearances+1 WHERE subject='"+subject+"' AND predicate='"+predicate+"' AND object='"+object+"'";
-			    int updated = 0;
-			    //System.out.println(stmt);
-			    updated = statement.executeUpdate(stmt);
-			    
-			    //Triple does not exist in database, so insert it
-			    if (updated==0){
-			    	stmt= String.format("insert into path_explorer_data(subject, predicate, object,appearances,chosen) values('%s','%s','%s','%d','%d')", 
-				    		subject, predicate, object, 1,0);
-			    	//System.out.println(stmt);
-				    statement.execute(stmt);
-			    }
-		    }
 		    
 		} catch (Exception e) {
 			e.printStackTrace();
