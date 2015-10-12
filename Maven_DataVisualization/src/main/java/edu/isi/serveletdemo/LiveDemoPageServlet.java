@@ -35,6 +35,7 @@ import edu.isi.serverbackend.request.*;
  */
 @WebServlet("/LiveDemoPageServlet")
 public class LiveDemoPageServlet extends HttpServlet {
+    
     //private static final long serialVersionUID = 1L;
 
     /**
@@ -42,6 +43,17 @@ public class LiveDemoPageServlet extends HttpServlet {
      */
     public LiveDemoPageServlet() {
         super();
+        
+        try{
+            File file = new File("data.csv");
+        
+            // if file doesnt exists, then create it
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+        
+        } catch(Exception e){}
+
     }
 
     /**
@@ -57,7 +69,6 @@ public class LiveDemoPageServlet extends HttpServlet {
     	//Always call the encoding before anything else
 		response.setCharacterEncoding("UTF-8");
 		
-		PrintWriter out = response.getWriter();
 		
 		try {
 			String subject = request.getParameter("subject");
@@ -69,30 +80,17 @@ public class LiveDemoPageServlet extends HttpServlet {
                 DateFormat dateFormat = new SimpleDateFormat("MM/dd/yy HH:mm:ss");
                 Date date = new Date();
                 
-                String msg = dateFormat.format(date) + "," + subject + " " + predicate + " " + object + "," + chosen;
+                String msg = dateFormat.format(date) + "," + subject + "," + predicate + "," + object + "," + chosen;
                 
                 System.out.println(msg);
-                
-            File file = new File("data.csv");
             
-            // if file doesnt exists, then create it
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            
-            FileWriter fw = new FileWriter(file.getAbsoluteFile());
-            BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(msg);
-            bw.close();
-
-		    
+                PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("data.csv", true)));
+                out.println(msg);
+                out.close();
 		    
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally{
-			out.flush();
-			out.close();
-		}		
+		}
     	
         response.setStatus(HttpServletResponse.SC_OK);
     }
