@@ -6,12 +6,16 @@ import opennlp.tools.util.InvalidFormatException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.InputStreamReader;
 
 /**
  * Created by Dipa on 3/22/2015.
  */
 public final class SentenceHashUtil {
     private static HashMap<String, SentenceType> sentenceHash;
+    private static HashMap<String, String> irreg;
     public static enum SentenceType {presPossesive, presAdjPrep, pastReg};
     
     private static InputStream modelIn;
@@ -36,6 +40,8 @@ public final class SentenceHashUtil {
         sentenceHash.put("deathPlace", SentenceType.presPossesive);
         sentenceHash.put("birthPlace", SentenceType.presPossesive);
         sentenceHash.put("leaderName", SentenceType.presPossesive);
+        sentenceHash.put("field", SentenceType.presPossesive);
+        sentenceHash.put("occupation", SentenceType.presPossesive);
         
         modelIn = SentenceHashUtil.class.getClassLoader().getResourceAsStream("/en-pos-maxent.bin");
         try {
@@ -51,6 +57,27 @@ public final class SentenceHashUtil {
     
 
     public SentenceHashUtil() {
+        irreg = new HashMap<String, String>();
+        InputStream csvFile = SentenceHashUtil.class.getClassLoader().getResourceAsStream("/english-irr-forms.txt");
+        BufferedReader br = null;
+        String line = "";
+        String cvsSplitBy = ",";
+        
+        
+        try {
+            br = new BufferedReader(new InputStreamReader(csvFile));
+            while ((line = br.readLine()) != null) {
+                
+                // use comma as separator
+                String[] verb = line.split(cvsSplitBy);
+                
+                irreg.put(verb[0], verb[1]);
+                
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         
     }
 
@@ -78,7 +105,9 @@ public final class SentenceHashUtil {
                         if(tags[1].equals("IN") || tags[1].equals("TO"))//we have a preposition
                             sentence = " is " + verb + " " + sent[1].toLowerCase() + " ";
                     } else {
-                        if(verb.endsWith("ive"))
+                        if(irreg.get(verb) != null)
+                            verb = irreg.get(verb);
+                        else if(verb.endsWith("ive"))
                             verb = verb.replaceAll("ive", "ed");
                         else if(verb.endsWith("ing"))
                             verb = verb.replaceAll("ing", "ed");
@@ -110,7 +139,9 @@ public final class SentenceHashUtil {
                     }
                 } else {
                     String verb = sent[0];
-                    if (!tags[0].equals("VBN") && !tags[0].equals("VBD")) {
+                    if(irreg.get(verb) != null)
+                        verb = irreg.get(verb);
+                    else if (!tags[0].equals("VBN") && !tags[0].equals("VBD")) {
                         if(verb.endsWith("ive"))
                             verb = verb.replaceAll("ive", "ed");
                         else if(verb.endsWith("ing"))
@@ -120,6 +151,7 @@ public final class SentenceHashUtil {
                         if(!verb.endsWith("ed"))
                             verb += "ed";
                     }
+                    
                     if (inverse == 0) { // S past tense verb O
                         sentence = " " + verb + " ";
                     } else { // O was past tense verb by S
