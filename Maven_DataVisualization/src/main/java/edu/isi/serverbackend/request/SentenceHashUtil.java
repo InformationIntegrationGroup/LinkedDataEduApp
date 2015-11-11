@@ -39,9 +39,11 @@ public final class SentenceHashUtil {
         sentenceHash.put("author", SentenceType.pastReg);
         sentenceHash.put("deathPlace", SentenceType.presPossesive);
         sentenceHash.put("birthPlace", SentenceType.presPossesive);
+        sentenceHash.put("city", SentenceType.presPossesive);
         sentenceHash.put("leaderName", SentenceType.presPossesive);
         sentenceHash.put("field", SentenceType.presPossesive);
         sentenceHash.put("occupation", SentenceType.presPossesive);
+        sentenceHash.put("founder", SentenceType.presPossesive);
         
         modelIn = SentenceHashUtil.class.getClassLoader().getResourceAsStream("/en-pos-maxent.bin");
         try {
@@ -148,6 +150,8 @@ public final class SentenceHashUtil {
                             verb = verb.replaceAll("ing", "ed");
                         else if(verb.endsWith("ion"))
                             verb = verb.replaceAll("ion", "ed");
+                        else if(verb.endsWith("or"))
+                            verb = verb.replaceAll("or", "ed");
                         if(!verb.endsWith("ed"))
                             verb += "ed";
                     }
@@ -160,7 +164,7 @@ public final class SentenceHashUtil {
                             prep = "in";
                         if(type.equals("Person") || verb.equals("authored"))
                             prep = "by";
-                        sentence = " was " + verb + " " + prep + " ";
+                        sentence = " " + verb + " ";
                     }
                 }
              
