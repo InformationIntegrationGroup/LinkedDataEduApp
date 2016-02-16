@@ -85,52 +85,79 @@ public class TripleRankRequest {
 		currentNode.retrieveSubjectExtensions(samples, false);
 	}
 	
-	public void rateInterestingness(){
-		//RarityFeature.calculatePredicateRarity(samples);
-		//ImportanceFeature.calculateImportance(samples);
+	public void rateInterestingness()throws IOException{
+        //store relationship, weight and subject/weight
+        Map<String,Double> relationshipMap = new HashMap<String,Double>();
+        Map<String,Double> subjectMap = new HashMap<String,Double>();
 
-		try {
-			URL url = new URL("http://127.0.0.1:8080/LODStories/DemoServlet");//
-			URLConnection modelConn = url.openConnection();
-			modelConn.setDoInput(true);
-			modelConn.setDoOutput(true);
-			modelConn.setUseCaches(false);
-			modelConn.setRequestProperty("Content-Type", 
-						   "application/x-www-form-urlencoded");
-			DataOutputStream modelInput = new DataOutputStream(modelConn.getOutputStream());
-			//String header = "1,"+"2,"+"3\n";
-			String content = "features=";
-			for(int i = 0 ; i < samples.size(); i++){
-				content += URLEncoder.encode(samples.get(i).getRarity()+",", "UTF-8")
-						+ URLEncoder.encode(samples.get(i).getEitherNotPlace()+",", "UTF-8" )
-						+ URLEncoder.encode(samples.get(i).getDifferentOccupation()+",", "UTF-8")
-						+ URLEncoder.encode(samples.get(i).getExtensionImportance()+",", "UTF-8")
-				        + URLEncoder.encode(samples.get(i).getSmallPlace()+"\n", "UTF-8");
-			}
-			modelInput.writeBytes(content);
-			modelInput.flush();
-			modelInput.close();
-			
-			BufferedReader modelOutput = new BufferedReader(new InputStreamReader(modelConn.getInputStream()));
-			String line = modelOutput.readLine();
-			int index = 0;
-				while (line != null){
-					this.ratingResponse += line+"::";
-					if(index < samples.size()){
-						samples.get(index).setInterestingness(Double.parseDouble(line));
-						index++;
-					}
-					line = modelOutput.readLine();
-				}
-				
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			//e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			//e.printStackTrace();
-		}
-	}
+        //read from csv file
+        try {
+            BufferedReader fileReader = null;
+            fileReader = new BufferedReader(new FileReader("relationship.csv"));
+            String line = "";
+            while ((line = fileReader.readLine()) != null) {
+                String[] content = line.split(",");
+                relationshipMap.put(content[0],Double.parseDouble(content[1]));
+                System.out.println(content[0]+ " "+Double.parseDouble(content[1]));
+            }
+            fileReader.close();
+            fileReader = new BufferedReader(new FileReader("subject.csv"));
+            while ((line = fileReader.readLine()) != null) {
+                String[] content = line.split(",");
+                subjectMap.put(content[0],Double.parseDouble(content[1]));
+            }
+            fileReader.close();
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+        //for testing
+        /*
+        relationshipMap.put("http://dbpedia.org/ontology/deathPlace",1.0);
+        relationshipMap.put("http://dbpedia.org/ontology/birthPlace",1.0);
+        subjectMap.put("http://dbpedia.org/resource/French_Third_Republic",1.0);
+        subjectMap.put("http://dbpedia.org/resource/Netherlands",0.5);
+        subjectMap.put("http://dbpedia.org/resource/Zundert",0.1);
+		*/
+
+        for(int i = 0 ; i < samples.size(); i++){
+            // System.out.println("p: " + samples.get(i).getLink().getPredicate());
+            // System.out.println("o: " + samples.get(i).getLink().getObject().getURI());
+            // System.out.println("s: " + samples.get(i).getLink().getSubject().getURI());
+            double factor1, factor2;
+            factor1 = 0;
+            factor2 = 0;
+
+            //process predicate from url to single word
+            String urlPredicate = samples.get(i).getLink().getPredicate();
+            String[] predicateArr = urlPredicate.split("/");
+            String predicate = predicateArr[predicateArr.length -1];
+
+            if( relationshipMap.containsKey(predicate) ){
+                factor1 = relationshipMap.get(predicate);
+                 // System.out.println("f1: " + factor1);
+            }
+            //check sample
+            if(samples.get(i).getLink().isSubjectConnection()){
+                 // System.out.println("subject connection ");
+                if( subjectMap.containsKey(samples.get(i).getLink().getObject().getURI())){
+                    factor2 = subjectMap.get(samples.get(i).getLink().getObject().getURI());
+                    // System.out.println("f2: " + factor2);
+                }
+            }
+            else if(!samples.get(i).getLink().isSubjectConnection()){
+                 // System.out.println("object connection ");
+                if( subjectMap.containsKey(samples.get(i).getLink().getSubject().getURI())){
+                    factor2 = subjectMap.get(samples.get(i).getLink().getSubject().getURI());
+                    // System.out.println("f2: " + factor2);
+                }
+            }
+            //set interestness
+            samples.get(i).setInterestingness(factor1 * factor2);
+            //System.out.println("int: " + samples.get(i).getInterestingness());
+        }
+    }
 	
 	public void sortConnections(){
 		//algorithm: bubble sort // note from Dipa: WHY????
@@ -148,8 +175,109 @@ public class TripleRankRequest {
 				}
 			}
 		}
-		eliminateSameNodeExtension();
+        
+        
+        //System.out.println("after ranking");
+        /*
+        for(int i=0;i<7;i++){
+            if( samples.get(i).getLink().isSubjectConnection()){
+                System.out.println(samples.get(i).getLink().getObject().getURI() + "  interestness: " + samples.get(i).getInterestingness());
+            }
+            else{
+                System.out.println(samples.get(i).getLink().getSubject().getURI() + "  interestness: " + samples.get(i).getInterestingness());
+            }
 
+        }*/
+
+        //remove some nodes
+         for(int i = 0; i < samples.size(); i++){
+	        if(samples.get(i).getLink().getPredicate().equals("http://dbpedia.org/ontology/wikiPageRedirects")
+							|| samples.get(i).getLink().getPredicate().equals("http://dbpedia.org/ontology/wikiPageDisambiguates")
+							|| samples.get(i).getLink().getPredicate().equals("http://dbpedia.org/ontology/wikiPageExternalLink")){
+						samples.remove(i);
+						i--;
+					}	
+		}
+
+        //delete some nodes so that the same relationsship will not be displayed
+        HashSet<String> relationSet = new HashSet<String>();
+		relationSet.clear();
+		int counter = 0;//make sure not removing to many nodes
+        for(int i = 0; i < samples.size(); i++){
+			if(!relationSet.contains(samples.get(i).getLink().getPredicate())){
+				relationSet.add(samples.get(i).getLink().getPredicate());
+				counter++;
+			}
+			else{
+				samples.remove(i);
+				i--;
+			}
+			if(counter >= 5){
+				break;
+			}
+		}
+
+		/*
+		System.out.println("after removing nodes");
+        for(int i=0;i<7;i++){
+            if( samples.get(i).getLink().isSubjectConnection()){
+                System.out.println(samples.get(i).getLink().getObject().getURI() + "  interestness: " + samples.get(i).getInterestingness());
+            }
+            else{
+                System.out.println(samples.get(i).getLink().getSubject().getURI() + "  interestness: " + samples.get(i).getInterestingness());
+            }
+
+        }
+        */
+
+
+        //rank top 5 and randomly pick two
+        int index = 0; // the first one with interestness of 0
+        for(int i=0;i<samples.size();i++){
+        	if(samples.get(i).getInterestingness() == 0){
+        		index = i;
+        		break;
+        	}
+        }
+        
+
+        if(samples.size() > 7){
+	   		 int randomNum1 = index + (int)(Math.random() * (samples.size() - index));
+	   		 int randomNum2 = index + (int)(Math.random() * (samples.size() - index));
+	   		 /*
+	   		 System.out.println("size: " + samples.size());
+	   		 System.out.println("rand 1:" + randomNum1 + " is ");
+	   		 System.out.println(samples.get(randomNum1).getLink().getObject().getURI());
+	   		 System.out.println(samples.get(randomNum1).getLink().getSubject().getURI());
+	   		 System.out.println("rand 2:" + randomNum2 + " is ");
+	   		 System.out.println(samples.get(randomNum2).getLink().getObject().getURI());
+	   		 System.out.println(samples.get(randomNum2).getLink().getSubject().getURI());
+	   		 */
+	   		 //swap sorted sample
+	   		 
+
+	   		 temp = samples.get(5);
+	   		 samples.set(5, samples.get(randomNum1));
+	   		 samples.set(randomNum1, temp);
+
+	   		 temp = samples.get(6);
+	   		 samples.set(6, samples.get(randomNum2));
+	   		 samples.set(randomNum2, temp);
+		}
+   		/*
+   		System.out.println("after Random");
+        for(int i=0;i<7;i++){
+            if( samples.get(i).getLink().isSubjectConnection()){
+                System.out.println(samples.get(i).getLink().getObject().getURI() + "interestness: " + samples.get(i).getInterestingness());
+            }
+            else{
+                System.out.println(samples.get(i).getLink().getSubject().getURI() + "interestness: " + samples.get(i).getInterestingness());
+            }
+
+        }
+        */
+
+		eliminateSameNodeExtension();
 	}
 	
 	/*Precondition: Sample is sorted*/
@@ -178,7 +306,9 @@ public class TripleRankRequest {
 	public JSONObject exportD3JSON(int num) throws JSONException{
 		JSONObject result = new JSONObject();
 		JSONArray childrenArray = new JSONArray();
-		List<Sample> orderedSamples = reorderByRelation(num);
+		//List<Sample> orderedSamples = reorderByRelation(num);
+		//delete the logic of reorderbyrelation
+		List<Sample> orderedSamples = samples;
 		for(int i = 0; i < num; i++){
 			if(i >= orderedSamples.size())
 				break;

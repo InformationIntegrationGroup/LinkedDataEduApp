@@ -64,7 +64,7 @@ public class LinkedDataNode {
                 + "?type = <http://dbpedia.org/ontology/Organisation> OR "
                 + "?type = <http://dbpedia.org/ontology/Work> OR "
                 + "?type =<http://dbpedia.org/ontology/Event>)."
-				+" FILTER(langMatches(lang(?label), \"EN\")) }";
+				+" FILTER(langMatches(lang(?label), \"EN\")) } LIMIT 500";
 		System.out.println(queryString);
 		TupleQuery query = repoConnection.prepareTupleQuery(QueryLanguage.SPARQL, queryString);
 		TupleQueryResult result = query.evaluate();
@@ -92,7 +92,7 @@ public class LinkedDataNode {
 	                   + "?type = <http://dbpedia.org/ontology/Work> OR "
 	                   + "?type =<http://dbpedia.org/ontology/Event>)."
 	                   + "FILTER(langMatches(lang(?label), \"EN\")) "
-	                   + "} GROUP BY ?object";
+	                   + "}GROUP BY ?object LIMIT 500";
 			System.out.println(queryString);
 			TupleQuery query = repoConnection.prepareTupleQuery(QueryLanguage.SPARQL, queryString);
 			TupleQueryResult result = query.evaluate();
@@ -121,7 +121,7 @@ public class LinkedDataNode {
 	    			+ "|| ?type=  <http://dbpedia.org/ontology/Place> "
 	    			+ "|| ?type=  <http://dbpedia.org/ontology/Organisation> "
 	    			+ "|| ?type = <http://dbpedia.org/ontology/Work>)"
-	    			+ "}}}";
+	    			+ "}}} LIMIT 500";
 			System.out.println("RUN SPARQL: " + queryStr);
 	    	Query query = QueryFactory.create(queryStr);
 	    	QueryExecution qExe = QueryExecutionFactory.sparqlService( "http://lodstories.isi.edu:3030/integrated_dbpedia/query", query );
@@ -179,7 +179,7 @@ public class LinkedDataNode {
                     + "?type = <http://dbpedia.org/ontology/Work> OR "
                     + "?type =<http://dbpedia.org/ontology/Event>)."
                     + "FILTER(langMatches(lang(?label), \"EN\")). "
-                    + "} GROUP BY ?subject";
+                    + "} GROUP BY ?subject LIMIT 500";
 			System.out.println(queryString);
 			TupleQuery query = repoConnection.prepareTupleQuery(QueryLanguage.SPARQL, queryString);
 			TupleQueryResult result = query.evaluate();
@@ -208,7 +208,7 @@ public class LinkedDataNode {
 	    			+ "|| ?type=  <http://dbpedia.org/ontology/Place> "
 	    			+ "|| ?type=  <http://dbpedia.org/ontology/Organisation> "
 	    			+ "|| ?type = <http://dbpedia.org/ontology/Work>)"
-	    			+ "}}}";
+	    			+ "}}} LIMIT 500";
 			System.out.println("RUN SPARQL: " + queryStr);
 	    	Query query = QueryFactory.create(queryStr);
 	    	QueryExecution qExe = QueryExecutionFactory.sparqlService( "http://lodstories.isi.edu:3030/integrated_dbpedia/query", query );

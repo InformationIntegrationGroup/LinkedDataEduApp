@@ -84,9 +84,18 @@ public class LiveDemoPageServlet extends HttpServlet {
                 
                 System.out.println(msg);
             
-                FileWriter out = new FileWriter("data.csv", true);
+            /*
+                FileWriter fw = new FileWriter("data.csv", true);
                 out.write(msg + "\n");
+            */
 		    
+                FileWriter fw = new FileWriter("data.csv",true); 
+                fw.write(msg + "\n");
+                fw.flush();
+                System.out.println("write to csv");
+                
+               
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

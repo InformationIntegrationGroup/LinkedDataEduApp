@@ -352,7 +352,7 @@ public class InputFilePanel extends JPanel implements ActionListener{
 		
 	}
 	
-	public void testRankRequest(String uri){
+	public void testRankRequest(String uri) throws IOException{
 		try {
 			HTTPRepository endpoint = new HTTPRepository("http://dbpedia.org/sparql", "");
 			endpoint.initialize();
