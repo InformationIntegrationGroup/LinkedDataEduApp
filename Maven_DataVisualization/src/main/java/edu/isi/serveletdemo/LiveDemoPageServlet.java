@@ -46,7 +46,7 @@ public class LiveDemoPageServlet extends HttpServlet {
         
         try{
             File file = new File("data.csv");
-        
+            System.out.println("File write complete! Saved to: "+file.getAbsolutePath());
             // if file doesnt exists, then create it
             if (!file.exists()) {
                 file.createNewFile();
@@ -92,7 +92,8 @@ public class LiveDemoPageServlet extends HttpServlet {
                 FileWriter fw = new FileWriter("data.csv",true); 
                 fw.write(msg + "\n");
                 fw.flush();
-                System.out.println("write to csv");
+                fw.close();
+                //System.out.println("write to csv");
                 
                
 

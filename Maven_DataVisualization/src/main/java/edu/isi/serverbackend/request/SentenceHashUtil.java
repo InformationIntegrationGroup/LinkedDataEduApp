@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
-
+import java.io.*;
 /**
  * Created by Dipa on 3/22/2015.
  */
@@ -58,7 +58,7 @@ public final class SentenceHashUtil {
     }
     
 
-    public SentenceHashUtil() {
+     public SentenceHashUtil() {
         irreg = new HashMap<String, String>();
         InputStream csvFile = SentenceHashUtil.class.getClassLoader().getResourceAsStream("/english-irr-forms.txt");
         BufferedReader br = null;

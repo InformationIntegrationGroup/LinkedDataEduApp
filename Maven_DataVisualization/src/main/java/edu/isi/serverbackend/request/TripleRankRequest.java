@@ -22,7 +22,7 @@ public class TripleRankRequest {
     ServletContext context;
 	//private RepositoryConnection repoConnection;
 	
-	public TripleRankRequest(LinkedDataNode currentNode, ServletContext context){
+	public TripleRankRequest(LinkedDataNode currentNode, ServletContext context) throws IOException{
         this.context = context;
         this.sentenceHashUtil = new SentenceHashUtil();
 		this.currentNode = currentNode;
@@ -50,7 +50,7 @@ public class TripleRankRequest {
 		
 	}
 	
-	public TripleRankRequest(LinkedDataNode currentNode){
+	public TripleRankRequest(LinkedDataNode currentNode) throws IOException{
         this.sentenceHashUtil = new SentenceHashUtil();
 		this.currentNode = currentNode;
 		//this.repoConnection = currentNode.getRepoConnection();
@@ -230,31 +230,27 @@ public class TripleRankRequest {
         }
         */
 
-
-        //rank top 5 and randomly pick two
-        int index = 0; // the first one with interestness of 0
-        for(int i=0;i<samples.size();i++){
-        	if(samples.get(i).getInterestingness() == 0){
-        		index = i;
-        		break;
-        	}
-        }
-        
-
         if(samples.size() > 7){
+
+        	//rank top 5 and randomly pick two
+	        int index = 0; // the first one with interestness of 0
+	        for(int i=0;i<samples.size();i++){
+	        	if(samples.get(i).getInterestingness() == 0){
+	        		index = i;
+	        		break;
+	        	}
+	        }
+	        
+	        //make sure index >= 5, or the first node may be swapped 
+	        index = Math.max(5,index);
+
+
 	   		 int randomNum1 = index + (int)(Math.random() * (samples.size() - index));
 	   		 int randomNum2 = index + (int)(Math.random() * (samples.size() - index));
-	   		 /*
-	   		 System.out.println("size: " + samples.size());
-	   		 System.out.println("rand 1:" + randomNum1 + " is ");
-	   		 System.out.println(samples.get(randomNum1).getLink().getObject().getURI());
-	   		 System.out.println(samples.get(randomNum1).getLink().getSubject().getURI());
-	   		 System.out.println("rand 2:" + randomNum2 + " is ");
-	   		 System.out.println(samples.get(randomNum2).getLink().getObject().getURI());
-	   		 System.out.println(samples.get(randomNum2).getLink().getSubject().getURI());
-	   		 */
-	   		 //swap sorted sample
-	   		 
+	   		//make sure two random numbers are not equal
+	   		 while(randomNum2 == randomNum1){
+	   		 	randomNum2 = index + (int)(Math.random() * (samples.size() - index));
+	   		 }
 
 	   		 temp = samples.get(5);
 	   		 samples.set(5, samples.get(randomNum1));
@@ -264,18 +260,7 @@ public class TripleRankRequest {
 	   		 samples.set(6, samples.get(randomNum2));
 	   		 samples.set(randomNum2, temp);
 		}
-   		/*
-   		System.out.println("after Random");
-        for(int i=0;i<7;i++){
-            if( samples.get(i).getLink().isSubjectConnection()){
-                System.out.println(samples.get(i).getLink().getObject().getURI() + "interestness: " + samples.get(i).getInterestingness());
-            }
-            else{
-                System.out.println(samples.get(i).getLink().getSubject().getURI() + "interestness: " + samples.get(i).getInterestingness());
-            }
-
-        }
-        */
+   		
 
 		eliminateSameNodeExtension();
 	}
