@@ -43,16 +43,24 @@ public class LiveDemoPageServlet extends HttpServlet {
      */
     public LiveDemoPageServlet() {
         super();
+         System.out.println("livedemo servelet constructor ");
         
         try{
+            System.out.println("before writing to file");
             File file = new File("data.csv");
-            System.out.println("File write complete! Saved to: "+file.getAbsolutePath());
+            
             // if file doesnt exists, then create it
             if (!file.exists()) {
                 file.createNewFile();
+                System.out.println("create new file! Saved to: "+file.getAbsolutePath());
+            }
+            else{
+                System.out.println("File exists! Saved to: "+file.getAbsolutePath());
             }
         
-        } catch(Exception e){}
+        } catch(Exception e){
+         System.out.println("exception create data.csv");   
+        }
 
     }
 
@@ -61,12 +69,16 @@ public class LiveDemoPageServlet extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
+        System.out.println("livedemo servelet doGet " + request);
     }
     /**
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	//Always call the encoding before anything else
+    	String referrer = request.getHeader("referer");
+        System.out.println("livedemo servelet called " + referrer);
+        System.out.println(request);
+        //Always call the encoding before anything else
 		response.setCharacterEncoding("UTF-8");
 		
 		
@@ -82,18 +94,21 @@ public class LiveDemoPageServlet extends HttpServlet {
                 
                 String msg = dateFormat.format(date) + "," + subject + "," + predicate + "," + object + "," + chosen;
                 
-                System.out.println(msg);
+                //System.out.println(msg);
             
             /*
                 FileWriter fw = new FileWriter("data.csv", true);
                 out.write(msg + "\n");
             */
-		    
+
+
+
                 FileWriter fw = new FileWriter("data.csv",true); 
                 fw.write(msg + "\n");
                 fw.flush();
                 fw.close();
-                //System.out.println("write to csv");
+                System.out.println(msg + "\n");
+                System.out.println("write to data.csv");
                 
                
 
