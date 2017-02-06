@@ -60,11 +60,10 @@ public final class SentenceHashUtil {
 
      public SentenceHashUtil() {
         irreg = new HashMap<String, String>();
-        InputStream csvFile = SentenceHashUtil.class.getClassLoader().getResourceAsStream("/english-irr-forms.txt");
+        InputStream csvFile = SentenceHashUtil.class.getClassLoader().getResourceAsStream("english-irr-forms.csv");
         BufferedReader br = null;
         String line = "";
         String cvsSplitBy = ",";
-        
         
         try {
             br = new BufferedReader(new InputStreamReader(csvFile));

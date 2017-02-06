@@ -55,8 +55,10 @@ public class LinkRankServlet extends HttpServlet {
 			endpoint.initialize();
 			RepositoryConnection repoConnection = endpoint.getConnection();
 			String currentURI = request.getParameter("uri");
+			System.out.println(currentURI);
 			int num = 0;
 			String numString = request.getParameter("num");
+			System.out.println(numString);
 			String jsonCallback = request.getParameter("jsoncallback");
 			
 			if(currentURI != null && numString != null){
